@@ -1,0 +1,1761 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bibliothèque">
+<meta name="theme-color" content="#f4ede2">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.png">
+<title>Ma Bibliothèque</title>
+<style>
+  :root {
+    --bg: #f4ede2;
+    --ink: #2b1d14;
+    --muted: #7a6656;
+    --wood: #9a6640;
+    --wood-light: #b47d52;
+    --wood-dark: #5e3b22;
+    --wall: #ebdfcc;
+    --card: #fffaf2;
+    --accent: #a8432f;
+    --gold: #c9a227;
+    --line: #e1d4c1;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  header {
+    position: sticky; top: 0; z-index: 5;
+    padding: 14px 16px 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .head-row { display: flex; align-items: center; gap: 12px; }
+  .head-title { flex: 1; min-width: 0; }
+  header h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px; font-weight: 700; letter-spacing: -.3px;
+  }
+  .stats { color: var(--muted); font-size: 13px; margin-top: 2px; font-variant-numeric: tabular-nums; min-height: 17px; }
+  .icon-btn {
+    border: 0; background: var(--ink); color: var(--card);
+    width: 40px; height: 40px; border-radius: 20px; flex: none;
+    font-size: 22px; line-height: 40px; cursor: pointer;
+  }
+  .menu-btn { background: transparent; color: var(--ink); font-size: 20px; }
+
+  .tabs { display: flex; gap: 4px; overflow-x: auto; margin: 12px -16px 0; padding: 0 16px; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: none; border: 0; background: none; padding: 9px 12px 11px; cursor: pointer;
+    font-size: 15px; color: var(--muted); border-bottom: 2px solid transparent;
+  }
+  .tab.active { color: var(--ink); border-bottom-color: var(--ink); font-weight: 600; }
+  .tab span { font-size: 12px; opacity: .7; margin-left: 3px; }
+
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 16px 4px; }
+  .toolbar input, .toolbar select {
+    border: 1px solid var(--line); background: var(--card); border-radius: 10px;
+    padding: 8px 10px; font-size: 15px; outline: none;
+  }
+  .toolbar input { flex: 1 1 55%; min-width: 0; }
+  .toolbar select { min-width: 0; }
+  #sort { flex: 0 1 auto; }
+  #genreFilter, #authorFilter { flex: 1 1 40%; }
+
+  .filters-toggle { border: 0; background: none; color: var(--accent); font-size: 15px; padding: 10px 16px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--line); }
+  .filters { padding: 12px 16px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+  .filters-row { display: flex; gap: 8px; }
+  .filters input, .filters select {
+    flex: 1; min-width: 0; border: 1px solid var(--line); background: var(--card);
+    border-radius: 10px; padding: 9px 10px; font-size: 15px; outline: none;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { flex: none; border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px 12px; font-size: 14px; cursor: pointer; }
+  .chip.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
+  .manual-link { display: block; margin: 18px auto 30px; border: 0; background: none; color: var(--accent); font-size: 15px; cursor: pointer; text-decoration: underline; }
+  .manual { padding: 16px; display: flex; flex-direction: column; gap: 14px; max-width: 520px; margin: 0 auto; width: 100%; }
+  .manual label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); flex: 1; min-width: 0; }
+  .manual input, .manual select, .manual textarea {
+    border: 1px solid var(--line); background: var(--card); border-radius: 10px; padding: 10px; font-size: 16px; color: var(--ink); outline: none; width: 100%;
+  }
+  .manual textarea { min-height: 110px; resize: vertical; font-family: Georgia, serif; line-height: 1.5; }
+  .manual img { width: 120px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,.2); }
+  .primary { border: 0; background: var(--ink); color: var(--card); border-radius: 22px; padding: 13px 20px; font-size: 16px; cursor: pointer; }
+  .mine select { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 6px 8px; max-width: 60%; }
+
+  /* Étagère : une pièce en perspective, un meuble différent par onglet */
+  #shelves { padding: 0; }
+  .room {
+    --wall1: #e6c9a3; --wall2: #cfa77c; --pattern: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 2px, transparent 2px 26px, rgba(120,60,30,.06) 26px 28px, transparent 28px 52px);
+    --caseA: #b47d52; --caseB: #8a5a36; --caseC: #5e3820; --back1: #4b2d19; --back2: #3c2313; --trim: transparent;
+    --glow: rgba(255,190,110,.55);
+    position: relative; overflow: hidden;
+    padding: 28px max(16px, env(safe-area-inset-left)) 0;
+    display: flex; flex-direction: column; align-items: center;
+    background: radial-gradient(ellipse 80% 40% at 50% 0%, var(--glow), transparent 70%), var(--pattern), linear-gradient(var(--wall1), var(--wall2));
+  }
+  .room.t-encours {
+    --wall1: #c3cdb0; --wall2: #a3b28f; --pattern: linear-gradient(transparent 62%, rgba(255,255,255,.18) 62% 63%, rgba(0,0,0,.05) 63%);
+    --caseA: #e3c597; --caseB: #c9a26f; --caseC: #9c7748; --back1: #7f5d38; --back2: #6a4c2d;
+  }
+  .room.t-alire {
+    --wall1: #ecc9bc; --wall2: #d6a898; --pattern: radial-gradient(circle at 12px 12px, rgba(255,255,255,.35) 0 2px, transparent 3px) 0 0 / 26px 26px;
+    --caseA: #fbf7f0; --caseB: #ece4d6; --caseC: #cfc3b0; --back1: #e2d6c3; --back2: #d2c4ae; --trim: #c9a227;
+  }
+  .room.t-fav {
+    --wall1: #7d3d3f; --wall2: #552426; --pattern: radial-gradient(circle at 15px 15px, rgba(255,215,160,.10) 0 4px, transparent 5px) 0 0 / 30px 30px;
+    --caseA: #3b4a40; --caseB: #26332b; --caseC: #18211b; --back1: #1d2a22; --back2: #142019; --trim: #c9a227;
+    --glow: rgba(255,170,90,.35);
+  }
+  .room::before { /* lumière chaude et vignettage */
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+    background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(30,10,0,.35));
+  }
+  .case-wrap { position: relative; z-index: 1; width: 100%; max-width: 560px; }
+  .case-top { position: relative; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 22px; height: 76px; }
+  .crown {
+    position: relative; height: 16px; margin: 0 -8px; border-radius: 3px 3px 0 0;
+    background: linear-gradient(var(--caseA), var(--caseB) 60%, var(--caseC));
+    box-shadow: 0 4px 6px rgba(20,10,0,.35), inset 0 -2px 0 var(--trim);
+  }
+  .crown::before { /* dessus du meuble vu en perspective */
+    content: ""; position: absolute; left: 6px; right: -10px; top: -9px; height: 9px;
+    background: linear-gradient(var(--caseC), var(--caseA));
+    clip-path: polygon(3% 0, 100% 0, 98.4% 100%, 0 100%); opacity: .9;
+  }
+  .t-encours .crown { height: 46px; border-radius: 220px 220px 0 0 / 46px 46px 0 0; margin: 0 -4px; }
+  .t-encours .crown::before { display: none; }
+  .case { position: relative; padding: 0 14px; background: repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 2px, transparent 2px 9px), linear-gradient(90deg, var(--caseC), var(--caseB) 35%, var(--caseB) 65%, var(--caseC)); box-shadow: 0 18px 28px rgba(20,10,0,.4); }
+  .case::after { /* profondeur : flanc droit du meuble */
+    content: ""; position: absolute; top: -6px; right: -16px; bottom: 0; width: 16px;
+    background: linear-gradient(90deg, var(--caseC), rgba(0,0,0,.55)), var(--caseC);
+    clip-path: polygon(0 6px, 100% 0, 100% calc(100% - 10px), 0 100%);
+  }
+  .case-inner {
+    position: relative;
+    background: linear-gradient(90deg, rgba(0,0,0,.35), transparent 12%, transparent 88%, rgba(0,0,0,.30)), linear-gradient(var(--back1), var(--back2));
+    padding-top: 14px; box-shadow: inset 0 0 0 1px var(--trim);
+  }
+  .t-fav .case-inner::after { /* vitre */
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,.10) 24%, transparent 30%, transparent 60%, rgba(255,255,255,.07) 64%, transparent 70%);
+  }
+  .plinth {
+    height: 22px; margin: 0 -4px; position: relative; z-index: 1;
+    background: linear-gradient(var(--caseB), var(--caseC));
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 94% 100%, 92% 60%, 8% 60%, 6% 100%, 0 100%);
+  }
+  .t-alire .plinth { height: 64px; clip-path: none; display: flex; gap: 6px; padding: 8px 10px 10px; background: linear-gradient(var(--caseA), var(--caseB)); box-shadow: inset 0 3px 0 var(--caseC); }
+  .t-alire .plinth i { flex: 1; border-radius: 3px; background: linear-gradient(var(--caseA), var(--caseB)); box-shadow: inset 0 0 0 1px var(--caseC), 0 2px 3px rgba(0,0,0,.15); position: relative; }
+  .t-alire .plinth i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 6px; margin: -3px 0 0 -11px; border-radius: 3px; background: var(--trim); }
+  .floor-zone { position: relative; z-index: 2; width: calc(100% + 64px); height: 230px; margin-top: -2px; }
+  .floor-plane { position: absolute; inset: 0; overflow: hidden; perspective: 520px; perspective-origin: 50% 0; z-index: 0; }
+  .floor-zone::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; background: linear-gradient(#f3e7d6, #d9c7ae); z-index: -1; }
+  .floor3d {
+    position: absolute; left: -40%; right: -40%; top: 0; height: 160%;
+    transform: rotateX(58deg); transform-origin: 50% 0;
+    background:
+      linear-gradient(rgba(0,0,0,.45), transparent 35%),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.28) 0 2px, transparent 2px 70px),
+      repeating-linear-gradient(0deg, #9a663d 0 46px, #865530 46px 48px, #a06a40 48px 94px, #865530 94px 96px);
+  }
+  .t-fav .floor3d, .t-encours .floor3d { background: linear-gradient(rgba(0,0,0,.5), transparent 35%), repeating-linear-gradient(90deg, rgba(0,0,0,.3) 0 2px, transparent 2px 70px), repeating-linear-gradient(0deg, #6e452a 0 46px, #5b371f 46px 48px, #74492c 48px 94px, #5b371f 94px 96px); }
+  .rug3d {
+    position: absolute; left: 50%; top: 9%; width: 30%; height: 26%; transform: translateX(-50%);
+    border-radius: 10px; box-shadow: 0 0 0 6px #efe2c8, 0 0 0 9px #1f3a5f;
+    background: repeating-linear-gradient(45deg, #e6d5b5 0 14px, #d9c39c 14px 28px);
+  }
+  .t-encours .rug3d { background: repeating-linear-gradient(90deg, #e9dcc3 0 12px, #d8c6a3 12px 24px); box-shadow: 0 0 0 6px #b9a27a; border-radius: 50%; }
+  .t-alire .rug3d { background: radial-gradient(circle, #f3dcd2 0 20%, #e2b8a8 21% 40%, #f3dcd2 41% 60%, #d39c8a 61%); border-radius: 50%; box-shadow: none; }
+  .t-fav .rug3d { background: repeating-linear-gradient(45deg, #7a2a34 0 12px, #8c3540 12px 24px); box-shadow: 0 0 0 6px #c9a227, 0 0 0 9px #4a1820; }
+  .prop { position: absolute; pointer-events: none; z-index: 2; }
+  .prop svg { display: block; width: 100%; height: auto; }
+  .p-chair { left: 4px; bottom: 26px; width: min(46%, 230px); }
+  .p-table { right: 6px; bottom: 40px; width: min(24%, 120px); }
+  .p-cat { left: 47%; bottom: 70px; width: min(18%, 90px); }
+  .p-pouf { left: 46%; bottom: 44px; width: min(20%, 100px); }
+  .lights { position: absolute; left: -6px; right: -6px; top: 34px; height: 50px; pointer-events: none; z-index: 2; }
+  .lights circle { animation: twinkle 2.4s ease-in-out infinite; }
+  .lights circle:nth-child(3n) { animation-delay: .8s; }
+  .lights circle:nth-child(3n+1) { animation-delay: 1.6s; }
+  @keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+  @media (min-width: 760px) {
+    .p-chair { left: max(2%, calc(50% - 560px)); bottom: 30px; }
+    .p-table { right: max(2%, calc(50% - 470px)); }
+    .floor-zone { height: 250px; }
+  }
+
+  /* Bibliothèque en 3D */
+  .r3d { position: relative; overflow: hidden; background: #2a1a10; min-height: 420px; }
+  .r3d canvas { display: block; }
+  .r3d-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 42px; height: 42px; border-radius: 21px;
+    border: 0; background: rgba(255,250,242,.82); color: var(--ink); font-size: 28px; line-height: 40px; cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,.3);
+  }
+  .r3d-nav.prev { left: max(10px, env(safe-area-inset-left)); }
+  .r3d-nav.next { right: max(10px, env(safe-area-inset-right)); }
+  .r3d-label {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 2; pointer-events: none; white-space: nowrap;
+    background: rgba(43,29,20,.72); color: #fbf6ee; padding: 6px 14px; border-radius: 16px; font-size: 14px; font-family: Georgia, serif;
+  }
+  .r3d-hint {
+    position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 2; pointer-events: none; white-space: nowrap;
+    background: rgba(43,29,20,.78); color: #fbf6ee; padding: 8px 14px; border-radius: 16px; font-size: 13px; transition: opacity .5s;
+  }
+  .r3d-hint.gone { opacity: 0; }
+  .r3d-note { position: absolute; top: 58px; left: 50%; transform: translateX(-50%); z-index: 2; width: min(340px, calc(100% - 110px)); }
+  .r3d-note .empty-note { margin: 0; }
+
+  /* Explorer : le catalogue */
+  .explore { padding: 16px 0 40px; }
+  .ex-search {
+    display: flex; align-items: center; gap: 10px; margin: 0 16px 18px; width: calc(100% - 32px);
+    border: 1px solid var(--line); background: var(--card); border-radius: 14px; padding: 13px 14px;
+    color: var(--muted); font-size: 16px; cursor: pointer; text-align: left;
+  }
+  .ex-row { margin-bottom: 22px; }
+  .ex-head { display: flex; align-items: baseline; justify-content: space-between; padding: 0 16px 8px; }
+  .ex-head h3 { margin: 0; font-family: Georgia, serif; font-size: 19px; }
+  .ex-head button { border: 0; background: none; color: var(--accent); font-size: 14px; cursor: pointer; padding: 4px; }
+  .ex-list { display: flex; gap: 12px; overflow-x: auto; padding: 4px 16px 10px; scroll-snap-type: x proximity; scrollbar-width: none; min-height: 210px; }
+  .ex-list::-webkit-scrollbar { display: none; }
+  .ex-card { flex: none; width: 108px; border: 0; background: none; padding: 0; text-align: left; cursor: pointer; scroll-snap-align: start; }
+  .ex-card img, .ex-card .ex-noimg { width: 108px; height: 162px; object-fit: cover; border-radius: 3px 6px 6px 3px; display: block; background: var(--line); box-shadow: 0 6px 12px rgba(40,20,5,.25); }
+  .ex-card .ex-noimg { display: flex; align-items: center; justify-content: center; padding: 8px; font-family: Georgia, serif; font-size: 13px; text-align: center; }
+  .ex-card span { display: block; font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .ex-card small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ex-loading { color: var(--muted); font-size: 14px; padding: 60px 0; }
+  .add-row { display: flex; gap: 8px; width: 100%; max-width: 480px; margin-bottom: 18px; }
+  .add-row button { flex: 1; border: 1px solid var(--ink); background: var(--card); border-radius: 22px; padding: 11px 6px; font-size: 15px; cursor: pointer; }
+  .add-row button:first-child { background: var(--ink); color: var(--card); }
+  .owned-note { color: var(--muted); margin-bottom: 18px; text-align: center; }
+  .owned-note button { border: 0; background: none; color: var(--accent); text-decoration: underline; cursor: pointer; font-size: inherit; }
+  .shelf { position: relative; }
+  .shelf::before { /* ombre portée de la planche du dessus */
+    content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 22px;
+    background: linear-gradient(rgba(0,0,0,.45), transparent); pointer-events: none;
+  }
+  .shelf-books {
+    display: flex; align-items: flex-end; gap: 2px;
+    min-height: 206px; padding: 0 8px;
+  }
+  .shelf-board {
+    height: 16px; position: relative; margin: 0 -14px;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 3px, rgba(0,0,0,.04) 3px 7px, transparent 7px 19px),
+      linear-gradient(var(--caseA), var(--caseB) 40%, var(--caseC));
+    box-shadow: 0 6px 8px -2px rgba(0,0,0,.5);
+  }
+  .decor { flex: none; display: flex; align-items: flex-end; margin-left: auto; padding: 0 4px; pointer-events: none; }
+  .decor + .decor { margin-left: 6px; }
+  .flame { animation: flicker 2.6s ease-in-out infinite; transform-origin: 50% 100%; }
+  @keyframes flicker { 0%, 100% { transform: scale(1) rotate(-2deg); } 50% { transform: scale(1.08, .94) rotate(2deg); } }
+  .empty-note {
+    position: relative; z-index: 2; margin: 0 0 18px; background: rgba(255,250,242,.92); border-radius: 14px;
+    padding: 18px 20px; text-align: center; color: var(--ink); font-family: Georgia, serif; font-size: 16px; line-height: 1.5;
+    box-shadow: 0 6px 18px rgba(60,35,15,.2); max-width: 340px;
+  }
+  .empty-note button {
+    margin-top: 12px; border: 0; border-radius: 22px; padding: 11px 20px;
+    background: var(--ink); color: var(--card); cursor: pointer; font-family: inherit;
+  }
+  .spine {
+    position: relative; flex: none; border: 0; padding: 0; cursor: pointer;
+    border-radius: 3px 3px 1px 1px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 3px 0 4px rgba(255,255,255,.22), inset -4px 0 5px rgba(0,0,0,.28), 1px 0 1px rgba(0,0,0,.2);
+    transition: transform .15s;
+  }
+  .spine:active { transform: translateY(-8px); }
+  .spine .band { position: absolute; left: 0; right: 0; height: 2px; background: currentColor; opacity: .35; }
+  .spine .band.top { top: 12px; }
+  .spine .band.bottom { bottom: 12px; }
+  .spine-text {
+    writing-mode: vertical-rl;
+    font-family: Georgia, serif; font-size: 12px; font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-height: calc(100% - 40px);
+  }
+  .spine-text small { font-weight: 400; opacity: .8; margin-top: 6px; }
+  .spine .heart { position: absolute; bottom: 18px; font-size: 10px; color: var(--gold); line-height: 1; }
+  .spine .ribbon {
+    position: absolute; top: -10px; right: 6px; width: 7px; height: 26px;
+    background: var(--accent); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+  }
+
+  .empty {
+    text-align: center; color: var(--muted); padding: 50px 24px;
+    font-family: Georgia, serif; font-size: 17px; line-height: 1.5;
+  }
+  .empty button {
+    margin-top: 16px; border: 0; border-radius: 22px; padding: 12px 22px;
+    background: var(--ink); color: var(--card); cursor: pointer;
+  }
+
+  /* Feuilles */
+  .sheet {
+    position: fixed; inset: 0; z-index: 20;
+    background: var(--bg);
+    display: none; flex-direction: column;
+    padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  }
+  .sheet.open { display: flex; }
+  .sheet-head {
+    display: flex; align-items: center; gap: 8px; padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sheet-head input {
+    flex: 1; min-width: 0; font-size: 17px; padding: 10px 14px;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--card); outline: none;
+  }
+  .scan-btn { border: 1px solid var(--line); background: var(--card); border-radius: 12px; width: 44px; height: 44px; flex: none; cursor: pointer; font-size: 18px; }
+  .link-btn { border: 0; background: none; color: var(--accent); font-size: 16px; cursor: pointer; padding: 6px; flex: none; }
+  .sheet-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+  .result {
+    display: flex; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line);
+    align-items: center;
+  }
+  .result img, .result .noimg {
+    width: 52px; height: 78px; object-fit: cover; border-radius: 3px; flex: none;
+    background: var(--line); box-shadow: 0 2px 4px rgba(0,0,0,.15);
+  }
+  .result-info { flex: 1; min-width: 0; }
+  .result-title { font-weight: 600; font-size: 15px; }
+  .result-meta { color: var(--muted); font-size: 13px; margin-top: 3px; }
+  .add-btn {
+    flex: none; border: 1px solid var(--ink); background: none; border-radius: 16px;
+    padding: 6px 12px; font-size: 14px; cursor: pointer;
+  }
+  .add-btn.done { background: var(--ink); color: var(--card); }
+  .status { text-align: center; color: var(--muted); padding: 30px 20px; line-height: 1.5; }
+
+  /* Scan */
+  #scanSheet { background: #000; color: #fff; }
+  #scanSheet .sheet-head { border-color: #333; }
+  #scanSheet .link-btn { color: #fff; }
+  .scan-view { position: relative; flex: 1; overflow: hidden; }
+  .scan-view video { width: 100%; height: 100%; object-fit: cover; }
+  .scan-frame {
+    position: absolute; left: 10%; right: 10%; top: 38%; height: 22%;
+    border: 3px solid #fff; border-radius: 12px; box-shadow: 0 0 0 9999px rgba(0,0,0,.45);
+  }
+  .scan-msg { position: absolute; left: 16px; right: 16px; bottom: 24px; text-align: center; font-size: 15px; }
+
+  /* Fiche livre */
+  .detail { padding: 20px 16px 40px; display: flex; flex-direction: column; align-items: center; }
+  .book3d { width: min(72vw, 280px); max-width: 100%; aspect-ratio: 2 / 3; perspective: 1400px; cursor: pointer; }
+  .book3d-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d; transition: transform .7s;
+  }
+  .book3d.flipped .book3d-inner { transform: rotateY(180deg); }
+  .face {
+    position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    border-radius: 3px 6px 6px 3px; overflow: hidden;
+    box-shadow: 0 14px 30px rgba(40,20,5,.35);
+  }
+  .face.front img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .face.back { transform: rotateY(180deg); padding: 18px 16px; display: flex; flex-direction: column; }
+  .back-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+  .back-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 2px 0 8px; }
+  .chip-btn { border: 1px solid var(--line, #e2d6c4); background: transparent; color: inherit; border-radius: 999px; padding: 7px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+  .back-blurb { flex: 1; overflow-y: auto; font-family: Georgia, serif; font-size: 13px; line-height: 1.5; white-space: pre-line; }
+  .back-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px; padding-top: 10px; font-size: 10px; opacity: .85; }
+  .barcode { background: #fff; color: #000; padding: 4px 6px 2px; text-align: center; font-size: 9px; }
+  .barcode div {
+    height: 26px; width: 84px;
+    background: repeating-linear-gradient(90deg, #000 0 1px, #fff 1px 3px, #000 3px 5px, #fff 5px 6px, #000 6px 7px, #fff 7px 9px);
+  }
+  .fallback-cover { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 20px; text-align: center; font-family: Georgia, serif; }
+  .fallback-cover b { font-size: 22px; }
+  .hint { color: var(--muted); font-size: 13px; margin: 14px 0 6px; }
+  .detail h2 { font-family: Georgia, serif; text-align: center; margin: 10px 0 4px; font-size: 22px; text-wrap: balance; }
+  .detail .author { color: var(--muted); margin-bottom: 18px; text-align: center; }
+  .panel {
+    width: 100%; max-width: 480px; background: var(--card); border-radius: 14px;
+    border: 1px solid var(--line); overflow: hidden; margin-bottom: 16px;
+  }
+  .panel-title { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding: 12px 14px 0; }
+  .facts div { display: flex; justify-content: space-between; gap: 16px; padding: 11px 14px; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .facts div:last-child { border-bottom: 0; }
+  .facts span:first-child { color: var(--muted); }
+  .facts span:last-child { text-align: right; }
+  .mine { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 14px; }
+  .seg { display: flex; background: var(--bg); border-radius: 10px; padding: 3px; }
+  .seg button { flex: 1; border: 0; background: none; border-radius: 8px; padding: 8px 4px; cursor: pointer; font-size: 14px; }
+  .seg button.on { background: var(--card); box-shadow: 0 1px 3px rgba(0,0,0,.15); font-weight: 600; }
+  .mine-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .mine-row label { color: var(--muted); font-size: 15px; }
+  .stars { display: flex; gap: 2px; }
+  .stars button { border: 0; background: none; font-size: 26px; line-height: 1; padding: 2px; cursor: pointer; color: var(--line); }
+  .stars button.on { color: var(--gold); }
+  .fav-btn { border: 1px solid var(--line); background: none; border-radius: 18px; padding: 6px 12px; cursor: pointer; font-size: 14px; }
+  .fav-btn.on { background: var(--accent); border-color: var(--accent); color: var(--card); }
+  .mine input[type=date] { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 6px 8px; }
+  .mine textarea {
+    width: 100%; min-height: 90px; resize: vertical; border: 1px solid var(--line); background: var(--bg);
+    border-radius: 10px; padding: 10px; font-family: Georgia, serif; font-size: 15px; line-height: 1.5;
+  }
+  .desc { width: 100%; max-width: 480px; font-family: Georgia, serif; line-height: 1.6; font-size: 16px; white-space: pre-line; }
+  .danger { margin-top: 28px; border: 0; background: none; color: var(--accent); cursor: pointer; font-size: 15px; padding: 8px 12px; border-radius: 18px; }
+  .danger.confirm { background: var(--accent); color: var(--card); }
+
+  .mine input[type=text], .mine input[type=number], .quote-add input {
+    border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 6px 8px; font: inherit; font-size: 15px; min-width: 0;
+  }
+  .mine-row input[type=text] { flex: 1; }
+  .mine-row input[type=number] { width: 72px; }
+  .mine-row .grow { flex: 1; display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+  .progress { height: 8px; border-radius: 4px; background: var(--bg); overflow: hidden; }
+  .progress > div { height: 100%; background: var(--accent); border-radius: 4px; }
+  .sub { color: var(--muted); font-size: 13px; }
+  .series-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .series-chips button { border: 1px solid var(--line); background: var(--bg); border-radius: 14px; padding: 5px 10px; font-size: 13px; cursor: pointer; }
+  .series-chips button.me { background: var(--ink); color: var(--card); border-color: var(--ink); }
+  .quotes { padding: 4px 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .quote { position: relative; font-family: Georgia, serif; font-style: italic; line-height: 1.5; padding: 10px 34px 10px 12px; border-left: 3px solid var(--gold); background: var(--bg); border-radius: 0 8px 8px 0; white-space: pre-line; }
+  .quote small { display: block; font-style: normal; color: var(--muted); font-family: inherit; margin-top: 4px; }
+  .quote button { position: absolute; top: 6px; right: 6px; border: 0; background: none; color: var(--muted); cursor: pointer; font-size: 16px; }
+  .quote-add { display: flex; flex-direction: column; gap: 8px; }
+  .quote-add textarea { width: 100%; min-height: 60px; border: 1px solid var(--line); background: var(--bg); border-radius: 10px; padding: 10px; font-family: Georgia, serif; font-size: 15px; }
+  .quote-add div { display: flex; gap: 8px; }
+  .quote-add input { width: 90px; }
+  .quote-add button, .goal-form button, .backup-bar button { border: 0; background: var(--ink); color: var(--card); border-radius: 18px; padding: 8px 16px; font-size: 14px; cursor: pointer; }
+  .stats { cursor: pointer; }
+  .st { padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .st .panel { padding-bottom: 14px; }
+  .st .panel > *:not(.panel-title) { margin-left: 14px; margin-right: 14px; }
+  .st select { margin-bottom: 14px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; padding: 8px 12px; font-size: 15px; }
+  .goal-big { font-family: Georgia, serif; font-size: 34px; margin-top: 8px; font-variant-numeric: tabular-nums; }
+  .goal-big small { font-size: 16px; color: var(--muted); }
+  .goal-form { display: flex; gap: 8px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+  .goal-form input { width: 80px; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 7px 8px; font-size: 15px; }
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 480px; margin-bottom: 16px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .tile b { display: block; font-family: Georgia, serif; font-size: 26px; font-variant-numeric: tabular-nums; }
+  .tile span { color: var(--muted); font-size: 13px; }
+  .months { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; align-items: end; height: 120px; margin-top: 14px; }
+  .months button { border: 0; padding: 0; background: none; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; cursor: pointer; }
+  .months button i { display: block; background: var(--accent); border-radius: 4px 4px 0 0; min-height: 0; }
+  .months button.on i { background: var(--ink); }
+  .months-axis { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; border-top: 1px solid var(--line); padding-top: 4px; font-size: 11px; color: var(--muted); text-align: center; }
+  .month-cap { font-size: 14px; margin-top: 8px; min-height: 20px; }
+  .rank { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+  .rank div { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: 14px; }
+  .rank i { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--accent); opacity: .85; }
+  .list-row { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; cursor: pointer; }
+  .list-row:last-child { border-bottom: 0; }
+  .list-row .progress { margin-top: 6px; }
+  .backup-bar {
+    position: fixed; left: 12px; right: 12px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 40; max-width: 520px; margin: 0 auto;
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 10px 30px rgba(40,20,5,.25); padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 10px; font-size: 15px;
+  }
+  .backup-bar div { display: flex; gap: 8px; justify-content: flex-end; }
+  .backup-bar .later { background: none; color: var(--muted); }
+
+  .menu { padding: 8px 0; }
+  .menu button, .menu label {
+    display: block; width: 100%; text-align: left; border: 0; background: none;
+    padding: 16px; font-size: 16px; border-bottom: 1px solid var(--line); cursor: pointer;
+  }
+  .snap-list button { padding-left: 32px; font-size: 15px; color: var(--muted); }
+  .snap-list button.confirm { color: var(--accent); }
+  .menu p { color: var(--muted); font-size: 13px; padding: 12px 16px; margin: 0; line-height: 1.5; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); transform: translateX(-50%);
+    background: var(--ink); color: var(--card); padding: 10px 18px; border-radius: 20px; max-width: calc(100% - 32px);
+    font-size: 14px; z-index: 50; opacity: 0; transition: opacity .2s; pointer-events: none; text-align: center;
+  }
+  .toast.show { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-row">
+    <div class="head-title">
+      <h1>Ma Bibliothèque</h1>
+      <div class="stats" id="stats" role="button" tabindex="0"></div>
+    </div>
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Réglages">⋯</button>
+    <button class="icon-btn" id="searchBtn" aria-label="Ajouter un livre">+</button>
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+<div class="toolbar" id="toolbar">
+  <input id="filter" type="search" placeholder="Chercher dans mes livres" autocomplete="off">
+  <select id="sort" aria-label="Trier">
+    <option value="added">Ordre d'ajout</option>
+    <option value="title">Titre</option>
+    <option value="author">Auteur</option>
+    <option value="read">Date de lecture</option>
+    <option value="rating">Note</option>
+  </select>
+  <select id="genreFilter" aria-label="Genre"></select>
+  <select id="authorFilter" aria-label="Auteur"></select>
+</div>
+<main id="shelves"></main>
+
+<section class="sheet" id="searchSheet">
+  <div class="sheet-head">
+    <input id="q" type="search" placeholder="Titre, auteur ou ISBN" autocomplete="off" enterkeyhint="search">
+    <button class="scan-btn" id="scanBtn" aria-label="Scanner un code-barres">📷</button>
+    <button class="link-btn" data-close>Fermer</button>
+  </div>
+  <button class="filters-toggle" id="filtersToggle">Filtres ▾</button>
+  <div class="filters" id="filters" hidden>
+    <div class="filters-row">
+      <input id="fTitle" type="search" placeholder="Titre" autocomplete="off">
+      <input id="fAuthor" type="search" placeholder="Auteur" autocomplete="off">
+    </div>
+    <div class="chips" id="genreChips"></div>
+    <div class="filters-row">
+      <select id="fOrder" aria-label="Ordre des résultats">
+        <option value="relevance">Les plus pertinents</option>
+        <option value="newest">Les plus récents</option>
+      </select>
+    </div>
+  </div>
+  <div class="sheet-body" id="results"></div>
+</section>
+
+<section class="sheet" id="manualSheet">
+  <div class="sheet-head">
+    <b style="flex:1">Ajouter à la main</b>
+    <button class="link-btn" data-close>Annuler</button>
+  </div>
+  <div class="sheet-body">
+    <form class="manual" id="manualForm">
+      <label>Titre<input id="mTitle" required autocomplete="off"></label>
+      <label>Auteur<input id="mAuthor" autocomplete="off"></label>
+      <div class="filters-row">
+        <label>Pages<input id="mPages" type="number" min="1" inputmode="numeric"></label>
+        <label>Genre<select id="mGenre"></select></label>
+      </div>
+      <label>Résumé (4e de couverture)<textarea id="mDesc"></textarea></label>
+      <label>Photo de la couverture<input id="mCover" type="file" accept="image/*"></label>
+      <img id="mPreview" alt="Aperçu de la couverture" hidden>
+      <button type="submit" class="primary">Ajouter le livre</button>
+    </form>
+  </div>
+</section>
+
+<section class="sheet" id="scanSheet">
+  <div class="sheet-head">
+    <b style="flex:1">Scanner un livre</b>
+    <button class="link-btn" id="scanClose">Annuler</button>
+  </div>
+  <div class="scan-view">
+    <video id="video" playsinline muted></video>
+    <div class="scan-frame"></div>
+    <div class="scan-msg" id="scanMsg">Vise le code-barres au dos du livre</div>
+  </div>
+</section>
+
+<section class="sheet" id="detailSheet">
+  <div class="sheet-head">
+    <span style="flex:1"></span>
+    <button class="link-btn" data-close>Fermer</button>
+  </div>
+  <div class="sheet-body" id="detail"></div>
+</section>
+
+<section class="sheet" id="menuSheet">
+  <div class="sheet-head">
+    <b style="flex:1">Réglages</b>
+    <button class="link-btn" data-close>Fermer</button>
+  </div>
+  <div class="sheet-body menu">
+    <button id="statsBtn">Mes statistiques et mon objectif</button>
+    <button id="exportBtn">Sauvegarder ma bibliothèque (fichier)</button>
+    <button id="snapBtn">Copies automatiques (14 derniers jours)</button>
+    <div id="snapList" class="snap-list" hidden></div>
+    <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
+    <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
+  </div>
+</section>
+
+<section class="sheet" id="statsSheet">
+  <div class="sheet-head">
+    <b style="flex:1">Mes statistiques</b>
+    <button class="link-btn" data-close>Fermer</button>
+  </div>
+  <div class="sheet-body" id="statsBody"></div>
+</section>
+<div class="backup-bar" id="backupBar" hidden>
+  <span>Pense à sauvegarder ta bibliothèque : les livres ne sont gardés que sur ce téléphone.</span>
+  <div><button class="later" id="backupLater">Plus tard</button><button id="backupNow">Sauvegarder</button></div>
+</div>
+<datalist id="seriesList"></datalist>
+
+<div class="toast" id="toast"></div>
+
+<script src="three.min.js"></script>
+<script src="room3d.js"></script>
+<script>
+const STORE_KEY = "bibliotheque.livres.v1";
+const $ = (s) => document.querySelector(s);
+
+const SHELVES = [
+  { key: "lu", label: "Lus", empty: "Aucun livre lu pour l'instant.<br>Ajoute ton premier livre." },
+  { key: "encours", label: "En cours", empty: "Aucune lecture en cours." },
+  { key: "alire", label: "À lire", empty: "Ta pile à lire est vide." },
+  { key: "fav", label: "Coups de cœur", empty: "Pas encore de coup de cœur.<br>Touche ♥ sur la fiche d'un livre." },
+  { key: "explore", label: "Explorer", empty: "" },
+];
+const STATUS_LABEL = { lu: "Lu", encours: "En cours", alire: "À lire" };
+const GENRES = [
+  { key: "roman", label: "Roman", subject: "fiction", words: "roman" },
+  { key: "policier", label: "Policier & thriller", subject: "thriller", words: "thriller policier" },
+  { key: "horreur", label: "Horreur", subject: "horror", words: "horreur" },
+  { key: "fantasy", label: "Fantasy", subject: "fantasy", words: "fantasy" },
+  { key: "sf", label: "Science-fiction", subject: "science fiction", words: "science-fiction" },
+  { key: "romance", label: "Romance", subject: "romance", words: "romance" },
+  { key: "feelgood", label: "Feel-good", subject: "", words: "feel good" },
+  { key: "ya", label: "Young adult", subject: "young adult", words: "young adult" },
+  { key: "jeunesse", label: "Jeunesse", subject: "juvenile fiction", words: "jeunesse" },
+  { key: "bd", label: "BD & manga", subject: "comics", words: "bande dessinée manga" },
+  { key: "historique", label: "Historique", subject: "historical", words: "roman historique" },
+  { key: "biographie", label: "Biographie", subject: "biography", words: "biographie" },
+  { key: "devperso", label: "Développement personnel", subject: "self-help", words: "développement personnel" },
+  { key: "poesie", label: "Poésie", subject: "poetry", words: "poésie" },
+  { key: "lgbt", label: "LGBTQ+", subject: "lgbt", words: "lgbt queer" },
+];
+const genreLabel = (k) => (GENRES.find((g) => g.key === k) || {}).label || "";
+/* Devine le genre à partir des catégories de l'éditeur (souvent en anglais) */
+function guessGenre(categories) {
+  const c = (categories || []).join(" ").toLowerCase();
+  const rules = [
+    [/horror|horreur|épouvante/, "horreur"], [/thriller|mystery|crime|polic|detective|suspense/, "policier"],
+    [/fantasy|fantastique/, "fantasy"], [/science.fiction|dystop/, "sf"], [/lgbt|gay|lesbian|queer/, "lgbt"],
+    [/romance|love stor|sentimental/, "romance"], [/young adult/, "ya"], [/juvenile|jeunesse|children|enfant/, "jeunesse"],
+    [/comic|graphic|manga|bande/, "bd"], [/historical|histor/, "historique"], [/biograph|autobiog|mémoire/, "biographie"],
+    [/self-help|personal development|développement|psycholog/, "devperso"], [/poetry|poésie|poème/, "poesie"],
+    [/fiction|roman|littérature|literary/, "roman"],
+  ];
+  const hit = rules.find(([re]) => re.test(c));
+  return hit ? hit[1] : "";
+}
+
+/* ---------- Stockage ---------- */
+let books = [];
+let currentShelf = "lu";
+function load() {
+  try { books = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { books = []; }
+  books = books.map(normalize);
+  try { currentShelf = localStorage.getItem(STORE_KEY + ".onglet") || "lu"; } catch {}
+  if (!SHELVES.some((s) => s.key === currentShelf)) currentShelf = "lu";
+}
+function normalize(b) {
+  const n = { authors: [], categories: [], status: "lu", fav: false, rating: 0, readDate: "", review: "", ...b };
+  if (n.genre === undefined) n.genre = guessGenre(n.categories);
+  if (n.series === undefined) { const g = guessSeries(n.title); n.series = g.series; n.tome = g.tome || Number(n.tomeHint) || 0; }
+  if (!Array.isArray(n.quotes)) n.quotes = [];
+  if (n.page === undefined) n.page = 0;
+  if (n.lentTo === undefined) { n.lentTo = ""; n.lentDate = ""; }
+  return n;
+}
+/* Séries : « Harry Potter, tome 2 », « Le Seigneur des Anneaux T1 », « Dune 3 - … » */
+function guessSeries(title) {
+  const t = String(title || "");
+  const m = t.match(/^(.+?)[\s,.:;(\-–—]*\b(?:tome|t\.|vol\.?|volume|livre|partie)\s*(\d{1,3})\b/i)
+    || t.match(/^(.+?)[\s,(\-–—]*\bT(\d{1,3})\b/)
+    || t.match(/^(.+?)\s+(\d{1,2})\s*[:\-–—]\s+\S/);
+  if (!m) return { series: "", tome: 0 };
+  const series = m[1].replace(/[\s,.:;(\-–—]+$/, "").trim();
+  return series.length >= 2 ? { series, tome: Number(m[2]) } : { series: "", tome: 0 };
+}
+/* Les tomes d'une même série restent côte à côte, dans l'ordre, à la place du premier */
+function groupSeries(list) {
+  const seen = new Set(), out = [];
+  for (const b of list) {
+    if (!b.series) { out.push(b); continue; }
+    if (seen.has(b.series)) continue;
+    seen.add(b.series);
+    out.push(...list.filter((x) => x.series === b.series).sort((a, c) => (a.tome || 0) - (c.tome || 0)));
+  }
+  return out;
+}
+
+/* Réglages : objectif de l'année, dernière sauvegarde */
+const SETTINGS_KEY = STORE_KEY + ".reglages";
+let settings = {};
+try { settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch {}
+settings.goals = settings.goals || {};
+if (!settings.since) settings.since = new Date().toISOString();
+function saveSettings() { try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch {} }
+saveSettings();
+
+function save() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(books)); }
+  catch { toast("Impossible d'enregistrer sur cet appareil"); }
+}
+
+/* ---------- Outils ---------- */
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function stripHtml(s) {
+  if (!s) return "";
+  const html = String(s).replace(/<br\s*\/?>/gi, "\n").replace(/<\/p>/gi, "\n\n");
+  return (new DOMParser().parseFromString(html, "text/html").body.textContent || "").trim();
+}
+function hash(s) {
+  let h = 2166136261;
+  for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+const PALETTE = ["#7b2d26", "#1f3a5f", "#2f5d50", "#c9a227", "#5b3a6e", "#d9cbb0", "#3b3b3b", "#a4553a", "#41658a", "#6b7f3a", "#e6dccb", "#8c2f4b"];
+const colorOf = (b) => b.color || PALETTE[hash(b.title) % PALETTE.length];
+function luminance(hex) {
+  const n = parseInt(hex.slice(1), 16);
+  const [r, g, b] = [n >> 16, (n >> 8) & 255, n & 255].map((v) => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; });
+  return .2126 * r + .7152 * g + .0722 * b;
+}
+const textOn = (hex) => (luminance(hex) > .4 ? "#1d1410" : "#fbf6ee");
+function toast(msg) {
+  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => t.classList.remove("show"), 2400);
+}
+function fmtDate(d) {
+  if (!d) return "";
+  const parts = String(d).split("-");
+  if (parts.length === 1) return parts[0];
+  try { return new Date(d).toLocaleDateString("fr-FR", parts.length === 2 ? { month: "long", year: "numeric" } : { day: "numeric", month: "long", year: "numeric" }); }
+  catch { return d; }
+}
+const today = () => new Date().toISOString().slice(0, 10);
+const nf = new Intl.NumberFormat("fr-FR");
+
+/* Couleur dominante de la couverture (si l'image le permet), sinon couleur stable tirée du titre */
+function dominantColor(url) {
+  return new Promise((resolve) => {
+    if (!url) return resolve(null);
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      try {
+        const c = document.createElement("canvas"); c.width = 24; c.height = 36;
+        const ctx = c.getContext("2d"); ctx.drawImage(img, 0, 0, 24, 36);
+        const d = ctx.getImageData(0, 0, 24, 36).data;
+        let r = 0, g = 0, b = 0, n = 0;
+        for (let i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; n++; }
+        resolve("#" + [r, g, b].map((v) => Math.round(v / n).toString(16).padStart(2, "0")).join(""));
+      } catch { resolve(null); }
+    };
+    img.onerror = () => resolve(null);
+    img.src = url;
+    setTimeout(() => resolve(null), 6000);
+  });
+}
+
+/* ---------- Sources de livres ---------- */
+function googleCover(v) {
+  const l = v.imageLinks || {};
+  const u = l.extraLarge || l.large || l.medium || l.thumbnail || l.smallThumbnail;
+  return u ? u.replace(/^http:/, "https:").replace("&edge=curl", "") : "";
+}
+/* Version plus grande d'une couverture Google, pour la fiche (repli sur l'originale si refusée) */
+const bigCover = (url) => (/books\.google/.test(url) ? url.replace(/&zoom=\d/, "") + "&fife=w600" : url);
+
+const ISBN_RE = /^\d{9}[\dXx](\d{3})?$/;
+function googleQuery(p, useWords) {
+  const isbn = p.q.replace(/[-\s]/g, "");
+  if (ISBN_RE.test(isbn)) return "isbn:" + isbn;
+  const g = GENRES.find((x) => x.key === p.genre);
+  const parts = [];
+  if (p.q) parts.push(p.q);
+  if (p.title) parts.push("intitle:" + p.title);
+  if (p.author) parts.push("inauthor:" + p.author);
+  if (g) parts.push(g.subject && !useWords ? 'subject:"' + g.subject + '"' : g.words);
+  return parts.join(" ");
+}
+async function searchGoogle(p) {
+  let r = await googleFetch(googleQuery(p, false), p.order);
+  if (!r.length && GENRES.some((g) => g.key === p.genre && g.subject)) r = await googleFetch(googleQuery(p, true), p.order);
+  return r;
+}
+async function googleFetch(query, order) {
+  if (!query) return [];
+  const url = "https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(query) +
+    (query.startsWith("isbn:") ? "" : "&langRestrict=fr") + "&printType=books&maxResults=40" +
+    (order === "newest" ? "&orderBy=newest" : "");
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("google " + res.status);
+  const data = await res.json();
+  return (data.items || []).map((it) => {
+    const v = it.volumeInfo || {};
+    const ids = v.industryIdentifiers || [];
+    const isbn13 = (ids.find((x) => x.type === "ISBN_13") || ids.find((x) => x.type === "ISBN_10") || {}).identifier || "";
+    return {
+      id: "g:" + it.id,
+      title: (v.title || "Sans titre") + (v.subtitle ? " : " + v.subtitle : ""),
+      authors: v.authors || [],
+      publisher: v.publisher || "",
+      date: v.publishedDate || "",
+      pages: v.pageCount || 0,
+      isbn: isbn13,
+      categories: v.categories || [],
+      description: stripHtml(v.description),
+      cover: googleCover(v),
+      tomeHint: (v.seriesInfo || {}).bookDisplayNumber || "",
+      source: "Google Livres",
+    };
+  });
+}
+async function searchOpenLibrary(p) {
+  const fields = "key,title,author_name,publisher,first_publish_year,number_of_pages_median,isbn,cover_i,subject";
+  const params = new URLSearchParams({ limit: "30", fields });
+  const isbn = p.q.replace(/[-\s]/g, "");
+  if (ISBN_RE.test(isbn)) params.set("isbn", isbn);
+  else {
+    params.set("language", "fre");
+    if (p.q) params.set("q", p.q);
+    if (p.title) params.set("title", p.title);
+    if (p.author) params.set("author", p.author);
+    const g = GENRES.find((x) => x.key === p.genre);
+    if (g) params.set("subject", g.subject || g.words);
+    if (p.order === "newest") params.set("sort", "new");
+  }
+  const res = await fetch("https://openlibrary.org/search.json?" + params);
+  if (!res.ok) throw new Error("openlibrary " + res.status);
+  const data = await res.json();
+  return (data.docs || []).map((d) => ({
+    id: "ol:" + d.key,
+    olKey: d.key,
+    title: d.title,
+    authors: d.author_name || [],
+    publisher: (d.publisher || [])[0] || "",
+    date: d.first_publish_year ? String(d.first_publish_year) : "",
+    pages: d.number_of_pages_median || 0,
+    isbn: (d.isbn || []).find((x) => x.length === 13) || (d.isbn || [])[0] || "",
+    categories: (d.subject || []).slice(0, 3),
+    description: "",
+    cover: d.cover_i ? "https://covers.openlibrary.org/b/id/" + d.cover_i + "-L.jpg" : "",
+    source: "Open Library",
+  }));
+}
+async function openLibraryDescription(key) {
+  try {
+    const res = await fetch("https://openlibrary.org" + key + ".json");
+    const w = await res.json();
+    return stripHtml(typeof w.description === "string" ? w.description : (w.description || {}).value || "");
+  } catch { return ""; }
+}
+async function searchBooks(p) {
+  try {
+    const r = await searchGoogle(p);
+    if (r.length) return r;
+  } catch (e) { console.warn(e); }
+  return searchOpenLibrary(p);
+}
+
+/* ---------- Onglets, statistiques, filtre ---------- */
+function inShelf(b, key) { return key === "fav" ? b.fav : b.status === key; }
+/* Statut donné à un livre ajouté depuis l'onglet ouvert */
+const defaultStatus = () => (["lu", "encours", "alire"].includes(currentShelf) ? currentShelf : "lu");
+function renderTabs() {
+  $("#tabs").innerHTML = SHELVES.map((s) => {
+    const n = books.filter((b) => inShelf(b, s.key)).length;
+    return `<button class="tab ${s.key === currentShelf ? "active" : ""}" data-key="${s.key}">${s.key === "explore" ? "🔎 " : ""}${s.label}<span>${n || ""}</span></button>`;
+  }).join("");
+  $("#tabs").querySelectorAll(".tab").forEach((t) => (t.onclick = () => {
+    currentShelf = t.dataset.key;
+    try { localStorage.setItem(STORE_KEY + ".onglet", currentShelf); } catch {}
+    render();
+  }));
+}
+function renderStats() {
+  const read = books.filter((b) => b.status === "lu");
+  const year = String(new Date().getFullYear());
+  const thisYear = read.filter((b) => (b.readDate || b.addedAt || "").startsWith(year)).length;
+  const pages = read.reduce((s, b) => s + (b.pages || 0), 0);
+  const goal = settings.goals[year];
+  $("#stats").textContent = read.length || goal
+    ? `${read.length} lu${read.length > 1 ? "s" : ""} · ${goal ? thisYear + "/" + goal : thisYear} en ${year} · ${nf.format(pages)} pages`
+    : "";
+}
+function fillSelect(sel, first, options) {
+  const keep = sel.value;
+  sel.innerHTML = `<option value="">${first}</option>` + options.map(([v, l]) => `<option value="${esc(v)}">${esc(l)}</option>`).join("");
+  sel.value = options.some(([v]) => v === keep) ? keep : "";
+}
+function renderLibraryFilters() {
+  const list = books.filter((b) => inShelf(b, currentShelf));
+  const genres = GENRES.filter((g) => list.some((b) => b.genre === g.key)).map((g) => [g.key, g.label]);
+  const authors = [...new Set(list.flatMap((b) => b.authors))].sort((a, b) => a.localeCompare(b, "fr")).map((a) => [a, a]);
+  fillSelect($("#genreFilter"), "Tous les genres", genres);
+  fillSelect($("#authorFilter"), "Tous les auteurs", authors);
+}
+function visibleBooks() {
+  const f = $("#filter").value.trim().toLowerCase();
+  const gf = $("#genreFilter").value, af = $("#authorFilter").value;
+  let list = books.filter((b) => inShelf(b, currentShelf));
+  if (f) list = list.filter((b) => (b.title + " " + b.authors.join(" ")).toLowerCase().includes(f));
+  if (gf) list = list.filter((b) => b.genre === gf);
+  if (af) list = list.filter((b) => b.authors.includes(af));
+  const by = $("#sort").value;
+  const cmp = {
+    title: (a, b) => a.title.localeCompare(b.title, "fr"),
+    author: (a, b) => (a.authors[0] || "").localeCompare(b.authors[0] || "", "fr"),
+    read: (a, b) => (b.readDate || "").localeCompare(a.readDate || ""),
+    rating: (a, b) => (b.rating || 0) - (a.rating || 0),
+  }[by];
+  return groupSeries(cmp ? list.slice().sort(cmp) : list);
+}
+
+/* ---------- Étagère ---------- */
+function spineSize(b) {
+  const width = Math.max(24, Math.min(58, Math.round((b.pages || 250) / 9)));
+  const height = 160 + (hash(b.id) % 36);
+  return { width, height };
+}
+/* Petits objets de déco en SVG (dessinés ici, aucune image externe) */
+const DECOR = {
+  plant: `<svg width="58" height="112" viewBox="0 0 58 112" aria-hidden="true"><g fill="#4f7a43"><ellipse cx="18" cy="42" rx="8" ry="21" transform="rotate(-28 18 42)"/><ellipse cx="40" cy="40" rx="8" ry="21" transform="rotate(26 40 40)"/><ellipse cx="29" cy="30" rx="7" ry="25"/></g><g fill="#6a9a5a"><ellipse cx="12" cy="60" rx="6" ry="15" transform="rotate(-58 12 60)"/><ellipse cx="46" cy="60" rx="6" ry="15" transform="rotate(58 46 60)"/></g><path d="M11 68h36l-5 44H16z" fill="#b5653f"/><rect x="9" y="64" width="40" height="8" rx="2" fill="#c97b52"/></svg>`,
+  candle: `<svg width="40" height="96" viewBox="0 0 40 96" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#ffc46b" opacity=".25"/><g class="flame"><path d="M20 8c5 7 6 11 6 14a6 6 0 0 1-12 0c0-3 1-7 6-14z" fill="#ffb43b"/><path d="M20 16c2 3 3 5 3 7a3 3 0 0 1-6 0c0-2 1-4 3-7z" fill="#fff3c4"/></g><rect x="19" y="28" width="2" height="5" fill="#3b2a1e"/><rect x="11" y="32" width="18" height="56" rx="2" fill="#f3e6cf"/><rect x="11" y="32" width="5" height="56" fill="#fff" opacity=".35"/><ellipse cx="20" cy="90" rx="17" ry="5" fill="#b08d57"/></svg>`,
+  pampas: `<svg width="56" height="150" viewBox="0 0 56 150" aria-hidden="true"><g stroke="#a88a62" stroke-width="1.5" fill="none"><path d="M28 100C26 70 18 40 10 14"/><path d="M28 100C29 66 30 36 34 8"/><path d="M28 100C32 72 40 48 50 26"/></g><g fill="#efe0c4"><ellipse cx="11" cy="22" rx="7" ry="20" transform="rotate(-20 11 22)"/><ellipse cx="34" cy="16" rx="7" ry="22" transform="rotate(5 34 16)"/><ellipse cx="48" cy="34" rx="6" ry="18" transform="rotate(28 48 34)"/></g><path d="M16 98c0-8 24-8 24 0l-3 52H19z" fill="#e7dccb"/><path d="M16 98c0-8 24-8 24 0" fill="#d5c6b0"/></svg>`,
+  frame: `<svg width="60" height="74" viewBox="0 0 60 74" aria-hidden="true"><rect x="2" y="2" width="56" height="70" rx="2" fill="#c9a227"/><rect x="8" y="8" width="44" height="58" fill="#f6efe2"/><rect x="11" y="11" width="38" height="52" fill="#9fc3d6"/><circle cx="38" cy="22" r="5" fill="#ffe6a0"/><path d="M11 63l12-20 9 12 6-7 11 15z" fill="#5f8a5a"/></svg>`,
+  stack: `<svg width="70" height="44" viewBox="0 0 70 44" aria-hidden="true"><rect x="4" y="30" width="62" height="12" rx="2" fill="#7b2d26"/><rect x="8" y="17" width="56" height="13" rx="2" fill="#1f3a5f"/><rect x="2" y="5" width="60" height="12" rx="2" fill="#c9a227"/><rect x="2" y="9" width="60" height="2" fill="#fff" opacity=".4"/><rect x="8" y="21" width="56" height="2" fill="#fff" opacity=".3"/></svg>`,
+  ivy: `<svg width="120" height="70" viewBox="0 0 120 70" aria-hidden="true"><path d="M30 58h44l-4-24H34z" fill="#e7dccb"/><rect x="28" y="30" width="48" height="7" rx="2" fill="#d5c6b0"/><g fill="#5d8c4f"><ellipse cx="40" cy="24" rx="9" ry="6" transform="rotate(-30 40 24)"/><ellipse cx="56" cy="18" rx="9" ry="6" transform="rotate(10 56 18)"/><ellipse cx="68" cy="25" rx="9" ry="6" transform="rotate(35 68 25)"/></g><path d="M74 34c18 6 28 18 34 36" stroke="#4f7a43" stroke-width="2" fill="none"/><g fill="#6a9a5a"><ellipse cx="86" cy="40" rx="6" ry="4"/><ellipse cx="97" cy="50" rx="6" ry="4"/><ellipse cx="105" cy="62" rx="6" ry="4"/></g></svg>`,
+};
+/* Fauteuil, table, chat, pouf, guirlande : dessinés en SVG, couleurs selon l'onglet */
+function chairSvg(c, c2, plaid) {
+  return `<svg viewBox="0 0 220 190" aria-hidden="true">
+    <ellipse cx="110" cy="182" rx="100" ry="8" fill="rgba(0,0,0,.35)"/>
+    <rect x="44" y="160" width="10" height="22" rx="2" fill="#4a2c18"/><rect x="166" y="160" width="10" height="22" rx="2" fill="#4a2c18"/>
+    <path d="M44 24 Q110 -2 176 24 L182 122 L38 122 Z" fill="${c}"/>
+    <path d="M44 24 Q110 -2 176 24 L178 46 Q110 24 42 46 Z" fill="#fff" opacity=".10"/>
+    <g fill="${c2}" opacity=".7"><circle cx="80" cy="50" r="3"/><circle cx="110" cy="44" r="3"/><circle cx="140" cy="50" r="3"/><circle cx="95" cy="80" r="3"/><circle cx="125" cy="80" r="3"/></g>
+    <path d="M60 30 L58 120 M110 18 L110 120 M160 30 L162 120" stroke="${c2}" stroke-width="2" opacity=".35" fill="none"/>
+    <rect x="44" y="108" width="132" height="42" rx="14" fill="${c}"/><rect x="44" y="108" width="132" height="12" rx="6" fill="#fff" opacity=".12"/>
+    <rect x="10" y="74" width="48" height="94" rx="22" fill="${c}"/><rect x="162" y="74" width="48" height="94" rx="22" fill="${c}"/>
+    <rect x="10" y="74" width="48" height="26" rx="13" fill="#fff" opacity=".12"/><rect x="162" y="74" width="48" height="26" rx="13" fill="#fff" opacity=".12"/>
+    <rect x="34" y="144" width="152" height="22" rx="8" fill="${c2}"/>
+    <rect x="70" y="92" width="62" height="34" rx="12" fill="${c2}" opacity=".85" transform="rotate(-8 100 110)"/>
+    ${plaid ? `<g transform="rotate(8 190 110)"><rect x="160" y="66" width="52" height="96" rx="6" fill="#d9c9a8"/><g stroke="#a34a35" stroke-width="4" opacity=".75"><path d="M160 86h52M160 112h52M160 138h52M174 66v96M198 66v96"/></g></g>` : ""}
+  </svg>`;
+}
+const TABLE_SVG = (top) => `<svg viewBox="0 0 120 190" aria-hidden="true">
+  <ellipse cx="60" cy="184" rx="44" ry="6" fill="rgba(0,0,0,.3)"/>
+  <g class="lampglow"><ellipse cx="60" cy="40" rx="56" ry="44" fill="#ffd38a" opacity=".22"/></g>
+  <path d="M38 14h44l12 40H26z" fill="#f4dfb2"/><path d="M38 14h44l12 40H26z" fill="#ffcf7a" opacity=".35"/>
+  <rect x="57" y="54" width="6" height="36" fill="#c9a227"/><ellipse cx="60" cy="92" rx="18" ry="5" fill="#c9a227"/>
+  ${top}
+  <ellipse cx="60" cy="98" rx="54" ry="10" fill="${"#8a5a36"}"/><rect x="6" y="98" width="108" height="8" fill="#6b4126"/>
+  <path d="M22 106 L14 182 M98 106 L106 182 M60 106 L60 180" stroke="#5e3820" stroke-width="6" stroke-linecap="round"/>
+</svg>`;
+const MUG = `<g><rect x="80" y="76" width="18" height="18" rx="3" fill="#f6efe2"/><path d="M98 80c6 0 6 10 0 10" stroke="#f6efe2" stroke-width="3" fill="none"/><path d="M86 70c-2-4 2-6 0-10M92 70c-2-4 2-6 0-10" stroke="#fff" stroke-width="1.5" opacity=".6" fill="none"/></g>`;
+const CAT_SVG = `<svg viewBox="0 0 100 60" aria-hidden="true"><ellipse cx="50" cy="54" rx="44" ry="5" fill="rgba(0,0,0,.25)"/><ellipse cx="50" cy="38" rx="40" ry="18" fill="#3b3b3b"/><circle cx="80" cy="30" r="14" fill="#3b3b3b"/><path d="M70 20l4-12 6 10zM84 18l8-10 2 12z" fill="#3b3b3b"/><path d="M14 46c-10 0-12-12-2-14" stroke="#3b3b3b" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M76 31q3 2 6 0M84 31q3 2 6 0" stroke="#ddd" stroke-width="1.5" fill="none"/></svg>`;
+const POUF_SVG = `<svg viewBox="0 0 110 90" aria-hidden="true"><ellipse cx="55" cy="84" rx="50" ry="6" fill="rgba(0,0,0,.25)"/><path d="M8 40c0-14 94-14 94 0v28c0 16-94 16-94 0z" fill="#b97a6e"/><ellipse cx="55" cy="40" rx="47" ry="12" fill="#cf9488"/><g stroke="#a3655a" stroke-width="2" opacity=".6"><path d="M20 46v28M38 50v30M55 52v30M72 50v30M90 46v28"/></g><rect x="30" y="16" width="52" height="10" rx="2" fill="#1f3a5f"/><rect x="26" y="26" width="58" height="10" rx="2" fill="#c9a227"/><rect x="34" y="8" width="44" height="8" rx="2" fill="#7b2d26"/></svg>`;
+const LIGHTS_SVG = `<svg viewBox="0 0 400 50" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6 Q50 40 100 10 T200 10 T300 10 T400 6" stroke="#3b2a1e" stroke-width="1.5" fill="none"/>${[20, 55, 90, 125, 160, 200, 240, 275, 310, 345, 380].map((x, i) => `<circle cx="${x}" cy="${[16, 28, 16, 22, 28, 12, 26, 18, 24, 22, 12][i]}" r="4" fill="#ffd27a"/>`).join("")}</svg>`;
+const THEMES = {
+  lu: { rows: 3, decor: ["plant", "candle", "frame", "pampas", "stack"], top: ["ivy", "candle"], chair: ["#b5553a", "#8e3f2a"], table: MUG, extra: `<div class="prop p-cat">${CAT_SVG}</div>` },
+  encours: { rows: 2, decor: ["candle", "plant", "stack"], top: ["", "plant"], chair: ["#c9962e", "#9c7220", true], table: MUG, extra: "" },
+  alire: { rows: 3, decor: ["stack", "pampas", "frame", "plant"], top: ["pampas", "stack"], chair: ["#8fa58a", "#6f8669"], table: "", extra: `<div class="prop p-pouf">${POUF_SVG}</div>` },
+  fav: { rows: 2, decor: ["candle", "frame", "pampas"], top: ["frame", "candle"], chair: ["#2f6b55", "#214d3d"], table: MUG, extra: "", lights: true },
+};
+function spineHtml(b) {
+  const { width, height } = spineSize(b);
+  const color = colorOf(b);
+  return `<button class="spine" data-id="${esc(b.id)}" style="width:${width}px;height:${height}px;background:${color};color:${textOn(color)}" aria-label="${esc(b.title)}">
+    <span class="band top"></span><span class="band bottom"></span>
+    ${b.status === "encours" ? `<span class="ribbon"></span>` : ""}
+    <span class="spine-text">${esc(b.title)}${b.authors[0] ? `<small> · ${esc(b.authors[0])}</small>` : ""}</span>
+    ${b.fav ? `<span class="heart">♥</span>` : ""}
+  </button>`;
+}
+function renderShelves() {
+  const el = $("#shelves");
+  if (currentShelf === "explore") { $("#toolbar").hidden = true; renderExplore(); return; }
+  if (window.createRoom3D && !room3dFailed && render3D()) return;
+  const shelf = SHELVES.find((s) => s.key === currentShelf);
+  const theme = THEMES[currentShelf];
+  const list = visibleBooks();
+  const total = books.filter((b) => inShelf(b, currentShelf)).length;
+  $("#toolbar").hidden = total < 2;
+  const caseWidth = Math.min(el.clientWidth - 32, 560);
+  const avail = caseWidth - 28 - 16;
+  const rows = [[]];
+  let used = 0;
+  for (const b of list) {
+    const w = spineSize(b).width + 2;
+    if (used + w > avail && rows[rows.length - 1].length) { rows.push([]); used = 0; }
+    rows[rows.length - 1].push(b); used += w;
+  }
+  while (rows.length < theme.rows) rows.push([]);
+  const DECOR_W = { plant: 60, candle: 42, frame: 62, pampas: 58, stack: 72 };
+  const rowHtml = (row, i) => {
+    const free = avail - row.reduce((s, b) => s + spineSize(b).width + 2, 0);
+    const first = theme.decor[i % theme.decor.length], second = theme.decor[(i + 2) % theme.decor.length];
+    let decor = "";
+    if (free >= DECOR_W[first] + 8) decor += `<span class="decor">${DECOR[first]}</span>`;
+    if (!row.length && free >= DECOR_W[first] + DECOR_W[second] + 20) decor += `<span class="decor">${DECOR[second]}</span>`;
+    return `<div class="shelf"><div class="shelf-books">${row.map(spineHtml).join("")}${decor}</div><div class="shelf-board"></div></div>`;
+  };
+  const note = list.length ? "" : total
+    ? `<div class="empty-note">Aucun livre ne correspond à ces filtres.</div>`
+    : `<div class="empty-note">${shelf.empty}<br><button id="emptyAdd">Chercher un livre</button></div>`;
+  const [c1, c2, plaid] = theme.chair;
+  el.innerHTML = `<div class="room t-${currentShelf}">
+    ${note}
+    <div class="case-wrap">
+      <div class="case-top"><span>${DECOR[theme.top[0]] || ""}</span><span>${DECOR[theme.top[1]] || ""}</span></div>
+      ${theme.lights ? `<div class="lights">${LIGHTS_SVG}</div>` : ""}
+      <div class="crown"></div>
+      <div class="case"><div class="case-inner">${rows.map(rowHtml).join("")}</div></div>
+      <div class="plinth">${currentShelf === "alire" ? "<i></i><i></i><i></i>" : ""}</div>
+    </div>
+    <div class="floor-zone">
+      <div class="floor-plane"><div class="floor3d"><div class="rug3d"></div></div></div>
+      <div class="prop p-chair">${chairSvg(c1, c2, plaid)}</div>
+      ${theme.extra}
+      <div class="prop p-table">${TABLE_SVG(theme.table)}</div>
+    </div>
+  </div>`;
+  const add = $("#emptyAdd"); if (add) add.onclick = openSearch;
+  el.querySelectorAll(".spine").forEach((s) => (s.onclick = () => openDetail(s.dataset.id)));
+}
+
+/* ---------- Bibliothèque en 3D (repli sur la version 2D si la 3D ne marche pas) ---------- */
+let room3d = null, room3dFailed = false, r3dEl = null;
+function shelfBooks(key) { return key === currentShelf ? visibleBooks() : groupSeries(books.filter((b) => inShelf(b, key))); }
+function size3d() {
+  const top = $("#shelves").getBoundingClientRect().top + window.scrollY;
+  r3dEl.style.height = Math.max(420, window.innerHeight - top) + "px";
+}
+function hideHint() {
+  const h = $("#r3dHint"); if (h) h.classList.add("gone");
+  try { localStorage.setItem(STORE_KEY + ".astuce3d", "1"); } catch {}
+}
+function render3D() {
+  const el = $("#shelves");
+  if (!r3dEl) {
+    r3dEl = document.createElement("div");
+    r3dEl.className = "r3d";
+    let seen = false; try { seen = !!localStorage.getItem(STORE_KEY + ".astuce3d"); } catch {}
+    r3dEl.innerHTML = `<button class="r3d-nav prev" aria-label="Étagère de gauche">‹</button>
+      <button class="r3d-nav next" aria-label="Étagère de droite">›</button>
+      <div class="r3d-label" id="r3dLabel"></div>
+      <div class="r3d-note" id="r3dNote"></div>
+      <div class="r3d-hint ${seen ? "gone" : ""}" id="r3dHint">Glisse pour changer d'étagère · pince pour zoomer</div>`;
+    el.innerHTML = ""; el.appendChild(r3dEl);
+    size3d();
+    room3d = window.createRoom3D(r3dEl, {
+      colorOf, textOn,
+      onTap: (id) => openDetail(id),
+      onFace: (k) => {
+        currentShelf = k;
+        try { localStorage.setItem(STORE_KEY + ".onglet", k); } catch {}
+        render();
+      },
+      onInteract: hideHint,
+    });
+    if (!room3d) { room3dFailed = true; r3dEl = null; return false; }
+    r3dEl.querySelector(".prev").onclick = () => { hideHint(); room3d.step(-1); };
+    r3dEl.querySelector(".next").onclick = () => { hideHint(); room3d.step(1); };
+    room3d.face(currentShelf, true);
+  } else if (!el.contains(r3dEl)) {
+    el.innerHTML = ""; el.appendChild(r3dEl);
+  }
+  $("#toolbar").hidden = books.filter((b) => inShelf(b, currentShelf)).length < 2;
+  size3d();
+  room3d.resize();
+  room3d.setBooks({ lu: shelfBooks("lu"), encours: shelfBooks("encours"), alire: shelfBooks("alire"), fav: shelfBooks("fav") });
+  room3d.face(currentShelf);
+  const shelf = SHELVES.find((s) => s.key === currentShelf);
+  const list = visibleBooks();
+  const total = books.filter((b) => inShelf(b, currentShelf)).length;
+  $("#toolbar").hidden = total < 2;
+  $("#r3dLabel").textContent = shelf.label + (total ? ` · ${total} livre${total > 1 ? "s" : ""}` : "");
+  $("#r3dNote").innerHTML = list.length ? "" : total
+    ? `<div class="empty-note">Aucun livre ne correspond à ces filtres.</div>`
+    : `<div class="empty-note">${shelf.empty}<br><button id="emptyAdd">Chercher un livre</button></div>`;
+  const add = $("#emptyAdd"); if (add) add.onclick = openSearch;
+  return true;
+}
+
+/* ---------- Explorer : parcourir le catalogue par rayons ---------- */
+const EXPLORE_ROWS = [
+  { title: "Nouveautés", p: { q: "roman", order: "newest" } },
+  { title: "Romance", p: { genre: "romance" } },
+  { title: "Policier & thriller", p: { genre: "policier" } },
+  { title: "Fantasy", p: { genre: "fantasy" } },
+  { title: "Feel-good", p: { genre: "feelgood" } },
+  { title: "Horreur", p: { genre: "horreur" } },
+  { title: "Young adult", p: { genre: "ya" } },
+  { title: "Science-fiction", p: { genre: "sf" } },
+  { title: "BD & manga", p: { genre: "bd" } },
+  { title: "Grands classiques", p: { q: "classique littérature française" } },
+];
+const exploreCache = {};
+let exploreObserver;
+function renderExplore() {
+  const el = $("#shelves");
+  el.innerHTML = `<div class="explore">
+    <button class="ex-search" id="exSearch">🔎 Chercher un titre, un auteur, un ISBN…</button>
+    ${EXPLORE_ROWS.map((r, i) => `<section class="ex-row" data-row="${i}">
+      <div class="ex-head"><h3>${esc(r.title)}</h3><button data-more="${i}">Tout voir</button></div>
+      <div class="ex-list" id="exList${i}"><div class="ex-loading">Chargement…</div></div>
+    </section>`).join("")}
+  </div>`;
+  $("#exSearch").onclick = openSearch;
+  el.querySelectorAll("[data-more]").forEach((b) => (b.onclick = () => {
+    const r = EXPLORE_ROWS[b.dataset.more];
+    openSearch();
+    $("#q").value = r.p.q || "";
+    $("#fOrder").value = r.p.order || "relevance";
+    searchGenre = r.p.genre || "";
+    $("#genreChips").querySelectorAll(".chip").forEach((x) => x.classList.toggle("on", x.dataset.g === searchGenre));
+    if (searchGenre) $("#filters").hidden = false;
+    updateFiltersLabel();
+    runSearch();
+  }));
+  if (exploreObserver) exploreObserver.disconnect();
+  /* Charge un rayon seulement quand il arrive à l'écran, pour ménager la recherche */
+  exploreObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { exploreObserver.unobserve(e.target); loadExploreRow(Number(e.target.dataset.row)); } });
+  }, { rootMargin: "200px" }) : null;
+  el.querySelectorAll(".ex-row").forEach((r) => (exploreObserver ? exploreObserver.observe(r) : loadExploreRow(Number(r.dataset.row))));
+}
+async function loadExploreRow(i) {
+  const box = document.getElementById("exList" + i);
+  if (!box) return;
+  const p = { q: "", title: "", author: "", genre: "", order: "relevance", ...EXPLORE_ROWS[i].p };
+  try {
+    if (!exploreCache[i]) {
+      const r = await searchBooks(p);
+      const withCover = r.filter((b) => b.cover);
+      exploreCache[i] = (withCover.length >= 6 ? withCover : r).slice(0, 24);
+    }
+    const list = exploreCache[i];
+    const target = document.getElementById("exList" + i);
+    if (!target) return;
+    target.innerHTML = list.length ? list.map((b, j) => `<button class="ex-card" data-i="${j}">
+        ${b.cover ? `<img src="${esc(b.cover)}" alt="" loading="lazy">` : `<div class="ex-noimg">${esc(b.title)}</div>`}
+        <span>${esc(b.title)}</span><small>${esc(b.authors[0] || "")}</small>
+      </button>`).join("") : `<div class="ex-loading">Rien trouvé pour ce rayon.</div>`;
+    target.querySelectorAll(".ex-card").forEach((c) => (c.onclick = () => openPreview(list[c.dataset.i])));
+  } catch {
+    box.innerHTML = `<div class="ex-loading">Le catalogue ne répond pas. Vérifie la connexion internet.</div>`;
+  }
+}
+function render() { renderTabs(); renderStats(); renderLibraryFilters(); renderShelves(); }
+
+/* ---------- Recherche ---------- */
+let lastResults = [];
+function openSearch() {
+  $("#searchSheet").classList.add("open");
+  setTimeout(() => $("#q").focus(), 50);
+}
+let searchTimer, searchSeq = 0;
+let searchGenre = "";
+["#q", "#fTitle", "#fAuthor"].forEach((sel) => {
+  $(sel).addEventListener("input", () => { clearTimeout(searchTimer); searchTimer = setTimeout(runSearch, 450); });
+  $(sel).addEventListener("keydown", (e) => { if (e.key === "Enter") { clearTimeout(searchTimer); runSearch(); e.target.blur(); } });
+});
+$("#fOrder").addEventListener("change", runSearch);
+$("#genreChips").innerHTML = GENRES.map((g) => `<button class="chip" data-g="${g.key}">${g.label}</button>`).join("");
+$("#genreChips").querySelectorAll(".chip").forEach((c) => (c.onclick = () => {
+  searchGenre = searchGenre === c.dataset.g ? "" : c.dataset.g;
+  $("#genreChips").querySelectorAll(".chip").forEach((x) => x.classList.toggle("on", x.dataset.g === searchGenre));
+  updateFiltersLabel();
+  runSearch();
+}));
+function updateFiltersLabel() {
+  const n = [$("#fTitle").value.trim(), $("#fAuthor").value.trim(), searchGenre].filter(Boolean).length;
+  $("#filtersToggle").textContent = ($("#filters").hidden ? "Filtres ▾" : "Filtres ▴") + (n ? ` (${n})` : "");
+}
+$("#filtersToggle").onclick = () => { $("#filters").hidden = !$("#filters").hidden; updateFiltersLabel(); };
+["#fTitle", "#fAuthor"].forEach((sel) => $(sel).addEventListener("input", updateFiltersLabel));
+function searchParams() {
+  return { q: $("#q").value.trim(), title: $("#fTitle").value.trim(), author: $("#fAuthor").value.trim(), genre: searchGenre, order: $("#fOrder").value };
+}
+const manualLink = `<button class="manual-link" id="manualLink">Tu ne trouves pas ton livre ? Ajoute-le à la main</button>`;
+function bindManualLink() { const l = $("#manualLink"); if (l) l.onclick = openManual; }
+async function runSearch() {
+  const p = searchParams();
+  const box = $("#results");
+  if (p.q.length < 2 && !p.title && !p.author && !p.genre) { box.innerHTML = ""; return; }
+  const seq = ++searchSeq;
+  box.innerHTML = `<div class="status">Recherche…</div>`;
+  try {
+    const r = await searchBooks(p);
+    if (seq !== searchSeq) return;
+    lastResults = r;
+    renderResults();
+  } catch {
+    if (seq !== searchSeq) return;
+    box.innerHTML = `<div class="status">La recherche ne répond pas. Vérifie la connexion internet.</div>` + manualLink;
+    bindManualLink();
+  }
+}
+function addLabel() {
+  return currentShelf === "alire" ? "À lire" : currentShelf === "encours" ? "En cours" : "Ajouter";
+}
+function renderResults() {
+  const box = $("#results");
+  if (!lastResults.length) {
+    box.innerHTML = `<div class="status">Aucun livre trouvé.<br>Essaie avec le titre exact, le nom de l'auteur ou l'ISBN.</div>` + manualLink;
+    bindManualLink();
+    return;
+  }
+  box.innerHTML = lastResults.map((b, i) => {
+    const owned = books.some((x) => x.id === b.id);
+    return `<div class="result">
+      ${b.cover ? `<img src="${esc(b.cover)}" alt="" loading="lazy">` : `<div class="noimg"></div>`}
+      <div class="result-info">
+        <div class="result-title">${esc(b.title)}</div>
+        <div class="result-meta">${esc(b.authors.join(", "))}${b.date ? " · " + esc(String(b.date).slice(0, 4)) : ""}${b.publisher ? " · " + esc(b.publisher) : ""}</div>
+      </div>
+      <button class="add-btn ${owned ? "done" : ""}" data-i="${i}">${owned ? "Ajouté" : addLabel()}</button>
+    </div>`;
+  }).join("") + manualLink;
+  bindManualLink();
+  box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => addBook(lastResults[btn.dataset.i], btn)));
+}
+async function addBook(b, btn, chosenStatus) {
+  if (books.some((x) => x.id === b.id)) { toast("Déjà dans ta bibliothèque"); return; }
+  if (btn) btn.textContent = "…";
+  const status = chosenStatus || defaultStatus();
+  const book = normalize({ ...b, genre: guessGenre(b.categories) || searchGenre, addedAt: new Date().toISOString(), status, fav: currentShelf === "fav", readDate: status === "lu" ? today() : "" });
+  if (!book.description && book.olKey) book.description = await openLibraryDescription(book.olKey);
+  book.color = (await dominantColor(book.cover)) || colorOf(book);
+  books.push(book);
+  save();
+  render();
+  if (btn) { btn.textContent = "Ajouté"; btn.classList.add("done"); }
+  toast("« " + book.title + " » ajouté");
+}
+
+/* ---------- Ajout à la main ---------- */
+const genreOptions = (sel) => `<option value="">Aucun</option>` + GENRES.map((g) => `<option value="${g.key}" ${g.key === sel ? "selected" : ""}>${g.label}</option>`).join("");
+let manualCover = "";
+function openManual() {
+  $("#manualForm").reset();
+  manualCover = "";
+  $("#mPreview").hidden = true;
+  $("#mGenre").innerHTML = genreOptions(searchGenre);
+  const q = $("#q").value.trim();
+  $("#mTitle").value = $("#fTitle").value.trim() || (ISBN_RE.test(q.replace(/[-\s]/g, "")) ? "" : q);
+  $("#mAuthor").value = $("#fAuthor").value.trim();
+  $("#manualSheet").classList.add("open");
+}
+/* Réduit la photo pour qu'elle tienne dans la mémoire du navigateur */
+function shrinkImage(file, max = 400, q = 0.8) {
+  return new Promise((ok, ko) => {
+    const img = new Image();
+    img.onload = () => {
+      const w = Math.min(max, img.width), h = Math.round(img.height * (w / img.width));
+      const c = document.createElement("canvas"); c.width = w; c.height = h;
+      c.getContext("2d").drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(img.src);
+      ok(c.toDataURL("image/jpeg", q));
+    };
+    img.onerror = ko;
+    img.src = URL.createObjectURL(file);
+  });
+}
+$("#mCover").onchange = async (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try { manualCover = await shrinkImage(f); $("#mPreview").src = manualCover; $("#mPreview").hidden = false; }
+  catch { toast("Cette photo n'a pas pu être lue"); }
+};
+$("#manualForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const title = $("#mTitle").value.trim();
+  if (!title) return;
+  const status = defaultStatus();
+  const book = normalize({
+    id: "m:" + Date.now(), title,
+    authors: $("#mAuthor").value.split(",").map((a) => a.trim()).filter(Boolean),
+    pages: Number($("#mPages").value) || 0, genre: $("#mGenre").value,
+    description: $("#mDesc").value.trim(), cover: manualCover, publisher: "", date: "", isbn: "",
+    source: "Ajout manuel", addedAt: new Date().toISOString(), status,
+    fav: currentShelf === "fav", readDate: status === "lu" ? today() : "",
+  });
+  book.color = (await dominantColor(book.cover)) || colorOf(book);
+  books.push(book);
+  save(); render();
+  $("#manualSheet").classList.remove("open");
+  $("#searchSheet").classList.remove("open");
+  toast("« " + title + " » ajouté");
+};
+
+/* ---------- Scan du code-barres ---------- */
+let scanStream = null, scanTimer = null, zxingReader = null;
+function loadScript(src) {
+  return new Promise((ok, ko) => { const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
+}
+function isIsbn(code) { return /^(97[89])\d{10}$/.test(code) || /^\d{9}[\dX]$/.test(code); }
+function onScanned(code) {
+  stopScan();
+  $("#q").value = code;
+  runSearch();
+  toast("Code-barres lu : " + code);
+}
+async function startScan() {
+  const msg = $("#scanMsg");
+  msg.textContent = "Vise le code-barres au dos du livre";
+  $("#scanSheet").classList.add("open");
+  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+    msg.textContent = "Le scan marche quand l'app est en ligne (adresse en https). Tape l'ISBN à la main en attendant.";
+    return;
+  }
+  const video = $("#video");
+  try {
+    if ("BarcodeDetector" in window) {
+      const detector = new BarcodeDetector({ formats: ["ean_13"] });
+      scanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+      video.srcObject = scanStream;
+      await video.play();
+      scanTimer = setInterval(async () => {
+        try {
+          const codes = await detector.detect(video);
+          const hit = codes.map((c) => c.rawValue).find(isIsbn);
+          if (hit) onScanned(hit);
+        } catch {}
+      }, 300);
+    } else {
+      if (!window.ZXing) await loadScript("https://unpkg.com/@zxing/library@0.20.0/umd/index.min.js");
+      zxingReader = new ZXing.BrowserMultiFormatReader();
+      await zxingReader.decodeFromConstraints({ video: { facingMode: "environment" } }, video, (result) => {
+        const code = result && result.getText();
+        if (code && isIsbn(code)) onScanned(code);
+      });
+    }
+  } catch (e) {
+    console.warn(e);
+    msg.textContent = e && e.name === "NotAllowedError"
+      ? "L'accès à l'appareil photo a été refusé. Autorise-le dans les réglages du navigateur, puis réessaie."
+      : "Impossible d'ouvrir l'appareil photo. Tape l'ISBN à la main.";
+  }
+}
+function stopScan() {
+  clearInterval(scanTimer); scanTimer = null;
+  if (zxingReader) { try { zxingReader.reset(); } catch {} zxingReader = null; }
+  if (scanStream) { scanStream.getTracks().forEach((t) => t.stop()); scanStream = null; }
+  $("#video").srcObject = null;
+  $("#scanSheet").classList.remove("open");
+}
+$("#scanBtn").onclick = startScan;
+$("#scanClose").onclick = stopScan;
+
+/* ---------- Photos de 4e de couverture (IndexedDB, trop lourdes pour localStorage) ---------- */
+const photoDB = new Promise((ok) => {
+  try {
+    const r = indexedDB.open("bibliotheque-photos", 2);
+    r.onupgradeneeded = () => {
+      if (!r.result.objectStoreNames.contains("back")) r.result.createObjectStore("back");
+      if (!r.result.objectStoreNames.contains("snap")) r.result.createObjectStore("snap");
+    };
+    r.onsuccess = () => ok(r.result); r.onerror = () => ok(null);
+  } catch { ok(null); }
+});
+async function photoOp(mode, fn, store = "back") {
+  const db = await photoDB; if (!db) return null;
+  return new Promise((ok) => {
+    const tx = db.transaction(store, mode), req = fn(tx.objectStore(store));
+    req.onsuccess = () => ok(req.result); req.onerror = () => ok(null);
+  });
+}
+const getBackPhoto = (id) => photoOp("readonly", (st) => st.get(id));
+const setBackPhoto = (id, data) => photoOp("readwrite", (st) => data ? st.put(data, id) : st.delete(id));
+
+/* ---------- Fiche livre ---------- */
+function bookFaces(b) {
+  const color = colorOf(b);
+  const ink = textOn(color);
+  return `<div class="book3d" id="book3d">
+      <div class="book3d-inner">
+        <div class="face front" style="background:${color};color:${ink}">
+          ${b.cover ? `<img id="coverImg" src="${esc(bigCover(b.cover))}" alt="Couverture">` : `<div class="fallback-cover"><b>${esc(b.title)}</b><p>${esc(b.authors.join(", "))}</p></div>`}
+        </div>
+        <div class="face back" style="background:${color};color:${ink}">
+          <img class="back-photo" id="backPhoto" alt="4e de couverture" hidden>
+          <div class="back-blurb">${b.description ? esc(b.description) : "<i>Pas de résumé disponible pour ce livre.</i>"}</div>
+          <div class="back-foot">
+            <span>${esc(b.publisher)}${b.pages ? "<br>" + b.pages + " pages" : ""}</span>
+            ${b.isbn ? `<span class="barcode"><div></div>${esc(b.isbn)}</span>` : ""}
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+function bindFaces(b) {
+  const img = $("#coverImg");
+  if (img) img.onerror = () => { img.onerror = null; img.src = b.cover; };
+  $("#book3d").onclick = () => $("#book3d").classList.toggle("flipped");
+  if (b.hasBackPhoto) getBackPhoto(b.id).then((d) => { const el = $("#backPhoto"); if (d && el) { el.src = d; el.hidden = false; } });
+}
+/* Fiche d'un livre du catalogue, avant de l'ajouter */
+async function openPreview(b) {
+  const owned = books.find((x) => x.id === b.id);
+  if (owned) { openDetail(owned.id); return; }
+  if (!b.description && b.olKey) b.description = await openLibraryDescription(b.olKey);
+  const facts = [["Auteur", b.authors.join(", ")], ["Éditeur", b.publisher], ["Parution", fmtDate(b.date)], ["Pages", b.pages || ""], ["ISBN", b.isbn], ["Catégorie", (b.categories || []).join(", ")]].filter(([, v]) => v);
+  $("#detail").innerHTML = `<div class="detail">
+    ${bookFaces(b)}
+    <div class="hint">Touche le livre pour le retourner</div>
+    <h2>${esc(b.title)}</h2>
+    <div class="author">${esc(b.authors.join(", "))}</div>
+    <div class="add-row"><button data-s="lu">Je l'ai lu</button><button data-s="encours">En cours</button><button data-s="alire">À lire</button></div>
+    <div class="panel facts">${facts.map(([k, v]) => `<div><span>${k}</span><span>${esc(v)}</span></div>`).join("")}</div>
+    ${b.description ? `<div class="desc">${esc(b.description)}</div>` : ""}
+  </div>`;
+  bindFaces(b);
+  $("#detail").querySelectorAll(".add-row button").forEach((btn) => (btn.onclick = async () => {
+    btn.textContent = "…";
+    await addBook(b, null, btn.dataset.s);
+    $("#detailSheet").classList.remove("open");
+  }));
+  $("#detailSheet").classList.add("open");
+  $("#detailSheet .sheet-body").scrollTop = 0;
+}
+function update(id, patch) {
+  const b = books.find((x) => x.id === id);
+  if (!b) return;
+  Object.assign(b, patch);
+  save();
+  render();
+}
+function seriesChips(b) {
+  if (!b.series) return "";
+  const vols = books.filter((x) => x.series === b.series).sort((a, c) => (a.tome || 0) - (c.tome || 0));
+  const label = { lu: "lu", encours: "en cours", alire: "à lire" };
+  const next = vols.find((x) => x.status !== "lu" && x.id !== b.id);
+  return `<div class="series-chips">${vols.map((x) => `<button ${x.id === b.id ? `class="me"` : `data-id="${esc(x.id)}"`}>${x.tome ? "Tome " + x.tome : esc(x.title.slice(0, 18))} · ${label[x.status] || ""}</button>`).join("")}</div>
+    ${next && b.status === "lu" ? `<div class="sub">Prochain à lire dans la série : ${next.tome ? "tome " + next.tome : esc(next.title)}</div>` : ""}`;
+}
+function openDetail(id) {
+  const b = books.find((x) => x.id === id);
+  if (!b) return;
+  $("#seriesList").innerHTML = [...new Set(books.map((x) => x.series).filter(Boolean))].map((x) => `<option value="${esc(x)}">`).join("");
+  const keepScroll = $("#detailSheet").classList.contains("open") && $("#detail").dataset.id === id ? $("#detailSheet .sheet-body").scrollTop : 0;
+  $("#detail").dataset.id = id;
+  const color = colorOf(b);
+  const ink = textOn(color);
+  const facts = [
+    ["Auteur", b.authors.join(", ")],
+    ["Éditeur", b.publisher],
+    ["Parution", fmtDate(b.date)],
+    ["Pages", b.pages || ""],
+    ["ISBN", b.isbn],
+    ["Catégorie", b.categories.join(", ")],
+    ["Ajouté le", fmtDate((b.addedAt || "").slice(0, 10))],
+  ].filter(([, v]) => v);
+  $("#detail").innerHTML = `<div class="detail">
+    ${bookFaces(b)}
+    <div class="hint">Touche le livre pour le retourner</div>
+    <div class="back-actions">
+      <label class="chip-btn">📷 ${b.hasBackPhoto ? "Changer la photo du dos" : "Photographier la 4e de couverture"}<input type="file" id="backFile" accept="image/*" capture="environment" hidden></label>
+      ${b.hasBackPhoto ? `<button class="chip-btn" id="backRemove">Remettre le résumé</button>` : ""}
+    </div>
+    <h2>${esc(b.title)}</h2>
+    <div class="author">${esc(b.authors.join(", "))}</div>
+
+    <div class="panel">
+      <div class="panel-title">Ma lecture</div>
+      <div class="mine">
+        <div class="seg" id="seg">${Object.entries(STATUS_LABEL).map(([k, l]) => `<button data-s="${k}" class="${b.status === k ? "on" : ""}">${l}</button>`).join("")}</div>
+        <div class="mine-row">
+          <div class="stars" id="stars">${[1, 2, 3, 4, 5].map((n) => `<button data-n="${n}" class="${n <= b.rating ? "on" : ""}" aria-label="${n} étoile${n > 1 ? "s" : ""}">★</button>`).join("")}</div>
+          <button class="fav-btn ${b.fav ? "on" : ""}" id="favBtn">♥ Coup de cœur</button>
+        </div>
+        <div class="mine-row">
+          <label for="genreSel">Genre</label>
+          <select id="genreSel">${genreOptions(b.genre)}</select>
+        </div>
+        <div class="mine-row" id="dateRow" ${b.status === "lu" ? "" : "hidden"}>
+          <label for="readDate">Lu le</label>
+          <input type="date" id="readDate" value="${esc(b.readDate)}">
+        </div>
+        <div class="mine-row" id="pageRow" ${b.status === "encours" ? "" : "hidden"}>
+          <label for="curPage">Page</label>
+          <span class="grow"><input type="number" id="curPage" min="0" inputmode="numeric" value="${b.page || ""}"> <span class="sub">sur</span> <input type="number" id="totPages" min="0" inputmode="numeric" value="${b.pages || ""}"></span>
+        </div>
+        <div class="progress" id="pageBar" ${b.status === "encours" && b.pages ? "" : "hidden"}><div style="width:${b.pages ? Math.min(100, Math.round((b.page || 0) / b.pages * 100)) : 0}%"></div></div>
+        <div class="mine-row">
+          <label for="seriesIn">Série</label>
+          <input type="text" id="seriesIn" list="seriesList" placeholder="Aucune" value="${esc(b.series)}">
+          <input type="number" id="tomeIn" min="0" inputmode="numeric" placeholder="Tome" aria-label="Tome" value="${b.tome || ""}">
+        </div>
+        ${seriesChips(b)}
+        <div class="mine-row">
+          <label for="lentIn">Prêté à</label>
+          <input type="text" id="lentIn" placeholder="Personne" value="${esc(b.lentTo)}">
+        </div>
+        ${b.lentTo ? `<div class="sub" id="lentInfo">Prêté ${b.lentDate ? "depuis le " + esc(fmtDate(b.lentDate)) : ""} · <button class="link-btn" id="lentBack">Il est rendu</button></div>` : ""}
+        <textarea id="review" placeholder="Mon avis, ce que j'ai ressenti…">${esc(b.review)}</textarea>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Mes citations</div>
+      <div class="quotes">
+        ${b.quotes.map((q, i) => `<div class="quote">« ${esc(q.text)} »${q.page ? `<small>page ${esc(q.page)}</small>` : ""}<button data-q="${i}" aria-label="Supprimer la citation">✕</button></div>`).join("")}
+        <div class="quote-add">
+          <textarea id="quoteText" placeholder="Un passage que j'ai aimé…"></textarea>
+          <div><input type="number" id="quotePage" min="0" inputmode="numeric" placeholder="Page"><button id="quoteAdd">Ajouter la citation</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel facts">${facts.map(([k, v]) => `<div><span>${k}</span><span>${esc(v)}</span></div>`).join("")}</div>
+    ${b.description ? `<div class="desc">${esc(b.description)}</div>` : ""}
+    <button class="danger" id="removeBtn">Retirer de ma bibliothèque</button>
+  </div>`;
+
+  bindFaces(b);
+  $("#backFile").onchange = async (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    try {
+      const data = await shrinkImage(f, 900, 0.78);
+      await setBackPhoto(id, data);
+      update(id, { hasBackPhoto: true });
+      openDetail(id); $("#book3d").classList.add("flipped");
+      toast("Photo du dos enregistrée");
+    } catch { toast("Impossible de lire cette photo"); }
+  };
+  if ($("#backRemove")) $("#backRemove").onclick = async () => { await setBackPhoto(id, null); update(id, { hasBackPhoto: false }); openDetail(id); };
+  $("#seg").querySelectorAll("button").forEach((btn) => (btn.onclick = () => {
+    const s = btn.dataset.s;
+    const patch = { status: s };
+    if (s === "lu" && !b.readDate) patch.readDate = today();
+    update(id, patch);
+    $("#seg").querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === btn));
+    $("#dateRow").hidden = s !== "lu";
+    $("#pageRow").hidden = s !== "encours";
+    $("#pageBar").hidden = s !== "encours" || !b.pages;
+    $("#readDate").value = b.readDate;
+  }));
+  $("#stars").querySelectorAll("button").forEach((btn) => (btn.onclick = () => {
+    const n = Number(btn.dataset.n);
+    update(id, { rating: b.rating === n ? 0 : n });
+    $("#stars").querySelectorAll("button").forEach((x) => x.classList.toggle("on", Number(x.dataset.n) <= b.rating));
+  }));
+  $("#favBtn").onclick = () => { update(id, { fav: !b.fav }); $("#favBtn").classList.toggle("on", b.fav); };
+  $("#readDate").onchange = (e) => update(id, { readDate: e.target.value });
+  const refreshBar = () => { $("#pageBar").hidden = !b.pages; $("#pageBar").firstElementChild.style.width = (b.pages ? Math.min(100, Math.round((b.page || 0) / b.pages * 100)) : 0) + "%"; };
+  $("#curPage").onchange = (e) => {
+    const n = Math.max(0, Number(e.target.value) || 0);
+    if (b.pages && n >= b.pages) { update(id, { page: b.pages, status: "lu", readDate: b.readDate || today() }); toast("Bravo, livre terminé ! Rangé dans « Lus »"); openDetail(id); return; }
+    update(id, { page: n }); refreshBar();
+  };
+  $("#totPages").onchange = (e) => { update(id, { pages: Math.max(0, Number(e.target.value) || 0) }); refreshBar(); };
+  $("#seriesIn").onchange = (e) => { update(id, { series: e.target.value.trim() }); openDetail(id); };
+  $("#tomeIn").onchange = (e) => { update(id, { tome: Math.max(0, Number(e.target.value) || 0) }); openDetail(id); };
+  $("#detail").querySelectorAll(".series-chips button[data-id]").forEach((c) => (c.onclick = () => openDetail(c.dataset.id)));
+  $("#lentIn").onchange = (e) => { const v = e.target.value.trim(); update(id, { lentTo: v, lentDate: v ? (b.lentDate || today()) : "" }); openDetail(id); };
+  if ($("#lentBack")) $("#lentBack").onclick = () => { update(id, { lentTo: "", lentDate: "" }); toast("Content qu'il soit revenu !"); openDetail(id); };
+  $("#quoteAdd").onclick = () => {
+    const text = $("#quoteText").value.trim(); if (!text) return;
+    b.quotes.push({ text, page: $("#quotePage").value.trim() }); save(); openDetail(id); toast("Citation ajoutée");
+  };
+  $("#detail").querySelectorAll(".quote button").forEach((q) => (q.onclick = () => { b.quotes.splice(Number(q.dataset.q), 1); save(); openDetail(id); }));
+  $("#genreSel").onchange = (e) => update(id, { genre: e.target.value });
+  let reviewTimer;
+  $("#review").oninput = (e) => { clearTimeout(reviewTimer); reviewTimer = setTimeout(() => { b.review = e.target.value; save(); }, 400); };
+  $("#removeBtn").onclick = (e) => {
+    const btn = e.currentTarget;
+    if (!btn.classList.contains("confirm")) {
+      btn.classList.add("confirm"); btn.textContent = "Touche encore pour confirmer";
+      setTimeout(() => { btn.classList.remove("confirm"); btn.textContent = "Retirer de ma bibliothèque"; }, 3000);
+      return;
+    }
+    books = books.filter((x) => x.id !== id);
+    if (b.hasBackPhoto) setBackPhoto(id, null);
+    save(); render();
+    $("#detailSheet").classList.remove("open");
+    toast("« " + b.title + " » retiré");
+  };
+  $("#detailSheet").classList.add("open");
+  $("#detailSheet .sheet-body").scrollTop = keepScroll;
+}
+
+/* ---------- Statistiques et objectif ---------- */
+const MONTHS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
+const MONTHS_LONG = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+let statsYear = String(new Date().getFullYear());
+const readWhen = (b) => b.readDate || (b.addedAt || "").slice(0, 10);
+function rankHtml(pairs) {
+  if (!pairs.length) return `<div class="sub" style="margin-top:8px">Rien encore.</div>`;
+  const max = pairs[0][1];
+  return `<div class="rank">${pairs.map(([k, n]) => `<div><span>${esc(k)}</span><span>${n}</span><i style="width:${Math.max(4, n / max * 100)}%"></i></div>`).join("")}</div>`;
+}
+function topCounts(list, keyFn) {
+  const m = new Map();
+  for (const b of list) for (const k of keyFn(b)) if (k) m.set(k, (m.get(k) || 0) + 1);
+  return [...m].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "fr")).slice(0, 5);
+}
+function openStats() {
+  const cur = String(new Date().getFullYear());
+  const read = books.filter((b) => b.status === "lu");
+  const years = [...new Set([cur, ...read.map((b) => readWhen(b).slice(0, 4)).filter(Boolean)])].sort().reverse();
+  const all = statsYear === "all";
+  const list = all ? read : read.filter((b) => readWhen(b).startsWith(statsYear));
+  const pages = list.reduce((s, b) => s + (b.pages || 0), 0);
+  const rated = list.filter((b) => b.rating);
+  const avg = rated.length ? (rated.reduce((s, b) => s + b.rating, 0) / rated.length).toFixed(1).replace(".", ",") : "–";
+  const goal = all ? 0 : settings.goals[statsYear] || 0;
+  const perMonth = Array(12).fill(0);
+  if (!all) for (const b of list) { const m = Number(readWhen(b).slice(5, 7)); if (m) perMonth[m - 1]++; }
+  const maxM = Math.max(1, ...perMonth);
+  const best = perMonth.indexOf(Math.max(...perMonth));
+  const genreLabel = (k) => (GENRES.find((g) => g.key === k) || {}).label || "";
+  const reading = books.filter((b) => b.status === "encours");
+  const lent = books.filter((b) => b.lentTo);
+  $("#statsBody").innerHTML = `<div class="st">
+    <select id="yearSel" aria-label="Année">${years.map((y) => `<option value="${y}" ${y === statsYear ? "selected" : ""}>${y}</option>`).join("")}<option value="all" ${all ? "selected" : ""}>Depuis le début</option></select>
+    ${all ? "" : `<div class="panel">
+      <div class="panel-title">Objectif ${statsYear}</div>
+      ${goal ? `<div class="goal-big">${list.length} <small>/ ${goal} livres</small></div>
+        <div class="progress" style="height:12px;border-radius:6px"><div style="width:${Math.min(100, list.length / goal * 100)}%;border-radius:6px"></div></div>
+        <div class="sub" style="margin-top:6px">${list.length >= goal ? "Objectif atteint, bravo !" : `Encore ${goal - list.length} livre${goal - list.length > 1 ? "s" : ""}`}</div>`
+      : `<div class="sub" style="margin-top:8px">Combien de livres veux-tu lire en ${statsYear} ?</div>`}
+      <div class="goal-form"><input type="number" id="goalIn" min="1" inputmode="numeric" value="${goal || ""}" placeholder="20"><button id="goalSave">${goal ? "Changer l'objectif" : "Fixer l'objectif"}</button></div>
+    </div>`}
+    <div class="tiles">
+      <div class="tile"><b>${list.length}</b><span>livre${list.length > 1 ? "s" : ""} lu${list.length > 1 ? "s" : ""}</span></div>
+      <div class="tile"><b>${nf.format(pages)}</b><span>pages</span></div>
+      <div class="tile"><b>${avg}</b><span>note moyenne</span></div>
+      <div class="tile"><b>${list.filter((b) => b.fav).length}</b><span>coups de cœur</span></div>
+    </div>
+    ${all ? "" : `<div class="panel">
+      <div class="panel-title">Livres lus par mois</div>
+      <div class="months" id="months">${perMonth.map((n, i) => `<button data-m="${i}" class="${list.length && i === best ? "on" : ""}" aria-label="${MONTHS_LONG[i]} : ${n} livre${n > 1 ? "s" : ""}"><i style="height:${n / maxM * 100}%"></i></button>`).join("")}</div>
+      <div class="months-axis">${MONTHS.map((m) => `<span>${m.slice(0, 1).toUpperCase()}</span>`).join("")}</div>
+      <div class="month-cap" id="monthCap">${list.length ? `Meilleur mois : ${MONTHS_LONG[best]}, ${perMonth[best]} livre${perMonth[best] > 1 ? "s" : ""}` : "Aucun livre lu cette année pour l'instant."}</div>
+    </div>`}
+    <div class="panel"><div class="panel-title">Auteurs préférés</div>${rankHtml(topCounts(list, (b) => b.authors.slice(0, 1)))}</div>
+    <div class="panel"><div class="panel-title">Genres préférés</div>${rankHtml(topCounts(list, (b) => [genreLabel(b.genre)]))}</div>
+    ${reading.length ? `<div class="panel"><div class="panel-title">En cours</div>${reading.map((b) => `<div class="list-row" data-id="${esc(b.id)}"><div style="flex:1">${esc(b.title)}${b.pages ? `<div class="progress"><div style="width:${Math.min(100, Math.round((b.page || 0) / b.pages * 100))}%"></div></div>` : ""}</div><span class="sub">${b.pages ? Math.min(100, Math.round((b.page || 0) / b.pages * 100)) + " %" : ""}</span></div>`).join("")}</div>` : ""}
+    ${lent.length ? `<div class="panel"><div class="panel-title">Livres prêtés</div>${lent.map((b) => `<div class="list-row" data-id="${esc(b.id)}"><span>${esc(b.title)}</span><span class="sub">${esc(b.lentTo)}${b.lentDate ? " · " + esc(fmtDate(b.lentDate)) : ""}</span></div>`).join("")}</div>` : ""}
+  </div>`;
+  $("#yearSel").onchange = (e) => { statsYear = e.target.value; openStats(); };
+  if ($("#goalSave")) $("#goalSave").onclick = () => {
+    const n = Math.round(Number($("#goalIn").value));
+    if (n > 0) settings.goals[statsYear] = n; else delete settings.goals[statsYear];
+    saveSettings(); renderStats(); openStats();
+  };
+  $("#statsBody").querySelectorAll("#months button").forEach((btn) => (btn.onclick = () => {
+    const i = Number(btn.dataset.m);
+    $("#statsBody").querySelectorAll("#months button").forEach((x) => x.classList.toggle("on", x === btn));
+    $("#monthCap").textContent = `${MONTHS_LONG[i][0].toUpperCase() + MONTHS_LONG[i].slice(1)} : ${perMonth[i]} livre${perMonth[i] > 1 ? "s" : ""}`;
+  }));
+  $("#statsBody").querySelectorAll(".list-row").forEach((r) => (r.onclick = () => { $("#statsSheet").classList.remove("open"); openDetail(r.dataset.id); }));
+  $("#statsSheet").classList.add("open");
+}
+$("#stats").onclick = openStats;
+$("#statsBtn").onclick = () => { $("#menuSheet").classList.remove("open"); openStats(); };
+
+/* ---------- Rappel de sauvegarde ---------- */
+const daysSince = (iso) => (iso ? (Date.now() - new Date(iso).getTime()) / 864e5 : Infinity);
+function checkBackup() {
+  const due = books.length >= 3 && daysSince(settings.lastBackup || settings.since) >= 30 && daysSince(settings.snooze) >= 7;
+  $("#backupBar").hidden = !due;
+}
+$("#backupNow").onclick = () => { $("#backupBar").hidden = true; $("#exportBtn").click(); };
+$("#backupLater").onclick = () => { settings.snooze = new Date().toISOString(); saveSettings(); $("#backupBar").hidden = true; };
+try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch {}
+
+/* ---------- Copie automatique à chaque sortie de l'app (une par jour, 14 jours gardés) ---------- */
+let lastSnap = "";
+function autoSnapshot() {
+  if (!books.length) return;
+  const data = JSON.stringify(books);
+  if (data === lastSnap) return;
+  lastSnap = data;
+  const day = today();
+  photoOp("readwrite", (st) => st.put({ at: new Date().toISOString(), books: data }, day), "snap").then(() =>
+    photoOp("readonly", (st) => st.getAllKeys(), "snap").then((keys) => {
+      (keys || []).sort().slice(0, -14).forEach((k) => photoOp("readwrite", (st) => st.delete(k), "snap"));
+    }));
+}
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") autoSnapshot(); });
+window.addEventListener("pagehide", autoSnapshot);
+async function openSnapshots() {
+  const keys = ((await photoOp("readonly", (st) => st.getAllKeys(), "snap")) || []).sort().reverse();
+  $("#snapList").innerHTML = keys.length
+    ? keys.map((k) => `<button data-k="${esc(k)}">Revenir au ${esc(fmtDate(k))}</button>`).join("")
+    : `<p>Pas encore de copie. Elle se fait toute seule quand on quitte l'app.</p>`;
+  $("#snapList").hidden = false;
+  $("#snapList").querySelectorAll("button").forEach((btn) => (btn.onclick = async () => {
+    if (!btn.classList.contains("confirm")) { btn.classList.add("confirm"); btn.textContent = "Touche encore : la bibliothèque reviendra à ce jour"; return; }
+    const snap = await photoOp("readonly", (st) => st.get(btn.dataset.k), "snap");
+    if (!snap) return;
+    autoSnapshot();
+    books = JSON.parse(snap.books).map(normalize); save(); render();
+    $("#menuSheet").classList.remove("open");
+    toast("Bibliothèque remise au " + fmtDate(btn.dataset.k));
+  }));
+}
+$("#snapBtn").onclick = openSnapshots;
+
+/* ---------- Sauvegarde ---------- */
+$("#exportBtn").onclick = async () => {
+  const out = [];
+  for (const b of books) out.push(b.hasBackPhoto ? { ...b, backPhoto: await getBackPhoto(b.id) } : b);
+  const blob = new Blob([JSON.stringify(out, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "bibliotheque-" + today() + ".json";
+  a.click();
+  settings.lastBackup = new Date().toISOString(); saveSettings();
+  toast("Sauvegarde enregistrée dans tes téléchargements");
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+$("#importFile").onchange = async (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try {
+    const data = JSON.parse(await f.text());
+    if (!Array.isArray(data)) throw new Error();
+    const known = new Set(books.map((b) => b.id));
+    const added = data.filter((b) => b && b.id && b.title && !known.has(b.id));
+    for (const b of added) if (b.backPhoto) { await setBackPhoto(b.id, b.backPhoto); b.hasBackPhoto = true; }
+    books = books.concat(added.map(({ backPhoto, ...b }) => normalize(b)));
+    save(); render();
+    toast(added.length + " livre(s) restauré(s)");
+  } catch { toast("Fichier de sauvegarde invalide"); }
+  e.target.value = "";
+};
+
+/* ---------- Navigation ---------- */
+$("#searchBtn").onclick = openSearch;
+$("#menuBtn").onclick = () => $("#menuSheet").classList.add("open");
+document.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => b.closest(".sheet").classList.remove("open")));
+$("#filter").addEventListener("input", renderShelves);
+$("#sort").addEventListener("change", renderShelves);
+$("#genreFilter").addEventListener("change", renderShelves);
+$("#authorFilter").addEventListener("change", renderShelves);
+let resizeTimer;
+window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(renderShelves, 150); });
+
+load();
+render();
+checkBackup();
+</script>
+</body>
+</html>
