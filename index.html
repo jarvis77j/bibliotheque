@@ -908,13 +908,17 @@ async function searchBooks(p) {
 }
 /* Un même livre en plusieurs éditions = une seule ligne (la plus complète), les autres restent consultables */
 const plain = (x) => String(x || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+const lastName = (b) => plain((b.authors || [])[0]).split(" ").pop() || "";
+/* Même livre = même auteur et même titre, ou même série et même numéro de tome (« T2 Les deux tours » = « (Tome 2) - Les Deux Tours ») */
 function editionKey(b) {
-  const author = plain((b.authors || [])[0]).split(" ").pop() || "";
-  return plain(b.title) + "|" + author;
+  const s = guessSeries(b.title);
+  return (s.series && s.tome ? plain(s.series) + "#" + s.tome : plain(b.title)) + "|" + lastName(b);
 }
 function editionScore(b) {
   return (b.cover ? 6 : 0) + (b.description ? 4 : 0) + (b.pages ? 1 : 0) + (b.isbn ? 1 : 0) + Math.min(5, Math.log2(1 + (b.ratings || 0)));
 }
+/* Livres « autour » d'une œuvre (analyses, fiches de lecture, guides…) : on les met après l'œuvre elle-même */
+const DERIVED_RE = /\b(analyse|fiche|fiches|resume|etude|guide|commentaire|selon|autour|dictionnaire|encyclopedie|atlas|quiz|carnet|calendrier|coloriage|cahier|lecture analytique|bac)\b/;
 function groupEditions(list) {
   const groups = new Map();
   list.forEach((b, i) => {
@@ -922,15 +926,36 @@ function groupEditions(list) {
     if (!groups.has(k)) groups.set(k, { first: i, items: [] });
     groups.get(k).items.push(b);
   });
-  return [...groups.values()]
+  // l'auteur le plus présent dans les résultats est sans doute celui que l'on cherche
+  const authorCount = new Map();
+  for (const b of list) { const a = lastName(b); if (a) authorCount.set(a, (authorCount.get(a) || 0) + 1); }
+  const mainAuthor = [...authorCount].sort((a, b) => b[1] - a[1])[0];
+  const main = mainAuthor && mainAuthor[1] >= 2 ? mainAuthor[0] : "";
+  const ranked = [...groups.values()]
     .map((g) => {
       const items = g.items.slice().sort((a, b) => editionScore(b) - editionScore(a));
       const best = { ...items[0], others: items.slice(1) };
-      // pertinence de Google + popularité (nombre d'éditions) + fiche complète (couverture, résumé)
-      best.rank = -g.first + 3 * Math.min(4, items.length - 1) + (best.cover ? 6 : 0) + (best.description ? 3 : 0);
+      // un livre sans couverture emprunte celle d'une autre édition
+      if (!best.cover) { const withCover = items.find((x) => x.cover); if (withCover) best.cover = withCover.cover; }
+      if (!best.description) { const withDesc = items.find((x) => x.description); if (withDesc) best.description = withDesc.description; }
+      const s = guessSeries(best.title);
+      best.seriesKey = s.series && s.tome ? plain(s.series) + "|" + lastName(best) : "";
+      best.tomeNo = s.tome;
+      // pertinence de Google + bon auteur + série + popularité (nombre d'éditions) + fiche complète
+      best.rank = -g.first * 0.6 + 3 * Math.min(4, items.length - 1) + (best.cover ? 4 : 0) + (best.description ? 2 : 0) +
+        (main && lastName(best) === main ? 10 : 0) + (best.seriesKey ? 4 : 0) - (DERIVED_RE.test(plain(best.title)) ? 14 : 0);
       return best;
     })
     .sort((a, b) => b.rank - a.rank);
+  // les tomes d'une même série restent ensemble, dans l'ordre, à la place du mieux classé
+  const out = [], done = new Set();
+  for (const b of ranked) {
+    if (!b.seriesKey) { out.push(b); continue; }
+    if (done.has(b.seriesKey)) continue;
+    done.add(b.seriesKey);
+    out.push(...ranked.filter((x) => x.seriesKey === b.seriesKey).sort((a, c) => a.tomeNo - c.tomeNo));
+  }
+  return out;
 }
 
 /* ---------- Onglets, statistiques, filtre ---------- */
@@ -1278,6 +1303,24 @@ async function runSearch() {
 function addLabel() {
   return currentShelf === "alire" ? "À lire" : currentShelf === "encours" ? "En cours" : "Ajouter";
 }
+/* Couverture d'un résultat : celle de Google, sinon celle d'Open Library trouvée par l'ISBN */
+const olIsbnCover = (b) => (b.isbn ? `https://covers.openlibrary.org/b/isbn/${encodeURIComponent(b.isbn)}-M.jpg?default=false` : "");
+function coverImg(b) {
+  const urls = [b.cover, olIsbnCover(b), ...(b.others || []).map(olIsbnCover)].filter(Boolean);
+  if (!urls.length) return `<div class="noimg"></div>`;
+  return `<img src="${esc(urls[0])}" data-alt="${esc(urls.slice(1).join(" "))}" alt="" loading="lazy" onload="coverLoaded(this)" onerror="coverFailed(this)">`;
+}
+const imageExists = (url) => new Promise((ok) => {
+  const im = new Image(); const t = setTimeout(() => ok(false), 6000);
+  im.onload = () => { clearTimeout(t); ok(im.naturalWidth > 20); }; im.onerror = () => { clearTimeout(t); ok(false); }; im.src = url;
+});
+function coverFailed(img) {
+  const rest = (img.dataset.alt || "").split(" ").filter(Boolean);
+  if (rest.length) { img.dataset.alt = rest.slice(1).join(" "); img.src = rest[0]; }
+  else img.replaceWith(Object.assign(document.createElement("div"), { className: "noimg" }));
+}
+/* Google renvoie parfois une petite image « pas de couverture » au lieu d'une erreur */
+function coverLoaded(img) { if (img.naturalWidth && img.naturalWidth < 20) coverFailed(img); }
 function renderResults() {
   const box = $("#results");
   if (!lastResults.length) {
@@ -1294,7 +1337,7 @@ function renderResults() {
     const owned = books.some((x) => x.id === b.id);
     const more = !ed && b.others && b.others.length;
     return `<div class="result ${ed ? "edition" : ""}">
-      ${b.cover ? `<img src="${esc(b.cover)}" alt="" loading="lazy">` : `<div class="noimg"></div>`}
+      ${coverImg(b)}
       <div class="result-info">
         <div class="result-title">${esc(b.title)}</div>
         <div class="result-meta">${esc(b.authors.join(", "))}${b.date ? " · " + esc(String(b.date).slice(0, 4)) : ""}${b.publisher ? " · " + esc(b.publisher) : ""}</div>
@@ -1304,7 +1347,7 @@ function renderResults() {
     </div>`;
   }).join("") + `<div class="source-note">Résultats : ${esc(searchSource)}</div>` + manualLink;
   bindManualLink();
-  box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => { const { others, rank, ...b } = flat[btn.dataset.n].b; addBook(b, btn); }));
+  box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => { const { others, rank, seriesKey, tomeNo, ...b } = flat[btn.dataset.n].b; addBook(b, btn); }));
   box.querySelectorAll(".ed-btn").forEach((btn) => (btn.onclick = () => {
     const i = Number(btn.dataset.i);
     openEditions.has(i) ? openEditions.delete(i) : openEditions.add(i);
@@ -1317,6 +1360,7 @@ async function addBook(b, btn, chosenStatus) {
   const status = chosenStatus || defaultStatus();
   const book = normalize({ ...b, genre: guessGenre(b.categories) || searchGenre, addedAt: new Date().toISOString(), status, fav: currentShelf === "fav", readDate: status === "lu" ? today() : "" });
   if (!book.description && book.olKey) book.description = await openLibraryDescription(book.olKey);
+  if (!book.cover && book.isbn && (await imageExists(olIsbnCover(book)))) book.cover = olIsbnCover(book).replace("-M.jpg", "-L.jpg");
   book.color = (await dominantColor(book.cover)) || colorOf(book);
   books.push(book);
   save();
