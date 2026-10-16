@@ -329,6 +329,7 @@
   .sheet-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
   .result.edition { padding-left: 28px; background: rgba(0,0,0,.025); }
+  .lang-head { padding: 16px 16px 6px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 8px; }
   .source-note { text-align: center; color: var(--muted); font-size: 12px; padding: 14px 16px 0; }
   .ed-btn { border: 0; background: none; padding: 4px 0 0; color: var(--accent); font-size: 13px; cursor: pointer; }
   .result {
@@ -601,7 +602,7 @@
     <button id="snapBtn">Copies automatiques (14 derniers jours)</button>
     <div id="snapList" class="snap-list" hidden></div>
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
-    <p class="version">Version du 16 octobre, 16 h</p>
+    <p class="version">Version du 16 octobre, 16 h 05</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -808,23 +809,34 @@ function googleQuery(p, useWords) {
   if (g) parts.push(g.subject && !useWords ? 'subject:"' + g.subject + '"' : g.words);
   return parts.join(" ");
 }
+let otherLangResults = [];
 async function searchGoogle(p) {
+  otherLangResults = [];
   let r = await googleFetch(googleQuery(p, false), p.order);
   if (!r.length && GENRES.some((g) => g.key === p.genre && g.subject)) r = await googleFetch(googleQuery(p, true), p.order);
+  // Peu de résultats en français : on garde aussi, à part, les éditions d'autres langues (ou mal étiquetées par Google)
+  const q = googleQuery(p, false);
+  if (r.length < 6 && q && !q.startsWith("isbn:")) {
+    try {
+      const all = await googleFetch(q, p.order, true);
+      const known = new Set(r.map((x) => x.id));
+      otherLangResults = all.filter((x) => !known.has(x.id));
+    } catch (e) { console.warn(e); }
+  }
   return r;
 }
-async function googleFetch(query, order) {
+async function googleFetch(query, order, anyLang) {
   if (!query) return [];
   const key = (settings.googleKey || GOOGLE_KEY).trim();
   const url = "https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(query) + (key ? "&key=" + encodeURIComponent(key) : "") +
-    (query.startsWith("isbn:") ? "" : "&langRestrict=fr") + "&printType=books&maxResults=40" +
+    (query.startsWith("isbn:") || anyLang ? "" : "&langRestrict=fr") + "&printType=books&maxResults=40" +
     (order === "newest" ? "&orderBy=newest" : "");
   const res = await fetch(url);
   if (!res.ok) throw new Error("google " + res.status);
   const data = await res.json();
   const isbnQuery = query.startsWith("isbn:");
   // Google laisse passer des éditions étrangères malgré langRestrict : on ne garde que le français
-  return (data.items || []).filter((it) => isbnQuery || (it.volumeInfo || {}).language === "fr").map((it) => {
+  return (data.items || []).filter((it) => isbnQuery || anyLang || (it.volumeInfo || {}).language === "fr").map((it) => {
     const v = it.volumeInfo || {};
     const ids = v.industryIdentifiers || [];
     const isbn13 = (ids.find((x) => x.type === "ISBN_13") || ids.find((x) => x.type === "ISBN_10") || {}).identifier || "";
@@ -841,6 +853,7 @@ async function googleFetch(query, order) {
       cover: googleCover(v),
       tomeHint: (v.seriesInfo || {}).bookDisplayNumber || "",
       ratings: v.ratingsCount || 0,
+      lang: v.language || "",
       source: "Google Livres",
     };
   });
@@ -911,7 +924,7 @@ let searchSource = "";
 async function searchBooks(p) {
   try {
     const r = await searchGoogle(p);
-    if (r.length) { searchSource = "Google Livres"; return groupEditions(r); }
+    if (r.length || otherLangResults.length) { searchSource = "Google Livres"; return groupEditions(r).concat(groupEditions(otherLangResults).map((b) => ({ ...b, otherLang: true }))); }
     searchSource = "Open Library (Google n'a rien trouvé en français)";
   } catch (e) { console.warn(e); searchSource = "Open Library (Google indisponible : " + e.message.replace("google ", "erreur ") + ")"; }
   return groupEditions(await searchOpenLibrary(p));
@@ -1363,21 +1376,23 @@ function renderResults() {
     flat.push({ b, i, ed: false });
     if (openEditions.has(i)) (b.others || []).forEach((o) => flat.push({ b: o, i, ed: true }));
   });
+  let langHeader = false;
   box.innerHTML = flat.map(({ b, i, ed }, n) => {
     const owned = books.some((x) => x.id === b.id);
+    const head = !ed && b.otherLang && !langHeader ? ((langHeader = true), `<div class="lang-head">Autres éditions trouvées (langue indiquée par Google : pas le français)</div>`) : "";
     const more = !ed && b.others && b.others.length;
-    return `<div class="result ${ed ? "edition" : ""}">
+    return head + `<div class="result ${ed ? "edition" : ""}">
       ${coverImg(b)}
       <div class="result-info">
         <div class="result-title">${esc(b.title)}</div>
-        <div class="result-meta">${esc(b.authors.join(", "))}${b.date ? " · " + esc(String(b.date).slice(0, 4)) : ""}${b.publisher ? " · " + esc(b.publisher) : ""}</div>
+        <div class="result-meta">${esc(b.authors.join(", "))}${b.date ? " · " + esc(String(b.date).slice(0, 4)) : ""}${b.publisher ? " · " + esc(b.publisher) : ""}${b.otherLang && b.lang ? " · " + esc(b.lang.toUpperCase()) : ""}</div>
         ${more ? `<button class="ed-btn" data-i="${i}">${openEditions.has(i) ? "Masquer les autres éditions" : `${b.others.length} autre${b.others.length > 1 ? "s" : ""} édition${b.others.length > 1 ? "s" : ""}`}</button>` : ""}
       </div>
       <button class="add-btn ${owned ? "done" : ""}" data-n="${n}">${owned ? "Ajouté" : addLabel()}</button>
     </div>`;
   }).join("") + `<div class="source-note">Résultats : ${esc(searchSource)}</div>` + manualLink;
   bindManualLink();
-  box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => { const { others, rank, seriesKey, tomeNo, ...b } = flat[btn.dataset.n].b; addBook(b, btn); }));
+  box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => { const { others, rank, seriesKey, tomeNo, otherLang, lang, ...b } = flat[btn.dataset.n].b; addBook(b, btn); }));
   box.querySelectorAll(".ed-btn").forEach((btn) => (btn.onclick = () => {
     const i = Number(btn.dataset.i);
     openEditions.has(i) ? openEditions.delete(i) : openEditions.add(i);
