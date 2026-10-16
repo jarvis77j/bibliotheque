@@ -597,7 +597,7 @@
     <button id="snapBtn">Copies automatiques (14 derniers jours)</button>
     <div id="snapList" class="snap-list" hidden></div>
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
-    <p class="version">Version du 16 octobre, 15 h 45</p>
+    <p class="version">Version du 16 octobre, 15 h 50</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -948,6 +948,26 @@ function groupEditions(list) {
       return best;
     })
     .sort((a, b) => b.rank - a.rank);
+  // pour une série, on préfère que tous les tomes viennent de la même édition (même éditeur, même année)
+  const bySeries = new Map();
+  for (const b of ranked) if (b.seriesKey) { if (!bySeries.has(b.seriesKey)) bySeries.set(b.seriesKey, []); bySeries.get(b.seriesKey).push(b); }
+  for (const [, vols] of bySeries) {
+    if (vols.length < 2) continue;
+    const setOf = (x) => plain(x.publisher) + "|" + String(x.date || "").slice(0, 4);
+    const count = new Map();
+    for (const v of vols) for (const e of [v, ...v.others]) if (e.cover) count.set(setOf(e), (count.get(setOf(e)) || 0) + 1);
+    const common = [...count].sort((a, b) => b[1] - a[1])[0];
+    if (!common || common[1] < 2) continue;
+    vols.forEach((v, i) => {
+      if (setOf(v) === common[0]) return;
+      const match = v.others.find((e) => setOf(e) === common[0]);
+      if (!match) return;
+      const { seriesKey, tomeNo, rank } = v;
+      const others = [v, ...v.others.filter((e) => e !== match)].map(({ others, seriesKey, tomeNo, rank, ...e }) => e);
+      const idx = ranked.indexOf(v);
+      ranked[idx] = { ...match, others, seriesKey, tomeNo, rank };
+    });
+  }
   // les tomes d'une même série restent ensemble, dans l'ordre, à la place du mieux classé
   const out = [], done = new Set();
   for (const b of ranked) {
