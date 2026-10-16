@@ -378,6 +378,10 @@
   .face.back { transform: rotateY(180deg); padding: 18px 16px; display: flex; flex-direction: column; }
   .back-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
   .back-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 2px 0 8px; }
+  .cover-pick { width: 100%; max-width: 480px; margin-bottom: 12px; text-align: center; }
+  .cover-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 10px; margin-top: 8px; }
+  .cover-grid button { border: 0; background: none; padding: 0; cursor: pointer; font-size: 11px; color: var(--muted); }
+  .cover-grid img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 3px; box-shadow: 0 2px 6px rgba(0,0,0,.2); display: block; margin-bottom: 3px; }
   .chip-btn { border: 1px solid var(--line, #e2d6c4); background: transparent; color: inherit; border-radius: 999px; padding: 7px 12px; font: inherit; font-size: 13px; cursor: pointer; }
   .back-blurb { flex: 1; overflow-y: auto; font-family: Georgia, serif; font-size: 13px; line-height: 1.5; white-space: pre-line; }
   .back-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px; padding-top: 10px; font-size: 10px; opacity: .85; }
@@ -597,7 +601,7 @@
     <button id="snapBtn">Copies automatiques (14 derniers jours)</button>
     <div id="snapList" class="snap-list" hidden></div>
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
-    <p class="version">Version du 16 octobre, 15 h 50</p>
+    <p class="version">Version du 16 octobre, 16 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -685,14 +689,19 @@ function normalize(b) {
   return n;
 }
 /* Séries : « Harry Potter, tome 2 », « Le Seigneur des Anneaux T1 », « Dune 3 - … » */
+const ROMAN = { i: 1, ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9, x: 10, xi: 11, xii: 12 };
+const NUM = String.raw`(\d{1,3}|[ivx]{1,4})`;
 function guessSeries(title) {
   const t = String(title || "");
-  const m = t.match(/^(.+?)[\s,.:;(\-–—]*\b(?:tome|t\.|vol\.?|volume|livre|partie)\s*(\d{1,3})\b/i)
+  const m = t.match(new RegExp(String.raw`^(.+?)[\s,.:;(\-–—]*\b(?:tome|t\.|vol\.?|volume|livre|partie)\s*` + NUM + String.raw`\b`, "i"))
     || t.match(/^(.+?)[\s,(\-–—]*\bT(\d{1,3})\b/)
-    || t.match(/^(.+?)\s+(\d{1,2})\s*[:\-–—]\s+\S/);
+    || t.match(/^(.+?)\s+(\d{1,2})\s*[.:\-–—]\s+\S/);
   if (!m) return { series: "", tome: 0 };
-  const series = m[1].replace(/[\s,.:;(\-–—]+$/, "").trim();
-  return series.length >= 2 ? { series, tome: Number(m[2]) } : { series: "", tome: 0 };
+  const n = /^\d+$/.test(m[2]) ? Number(m[2]) : ROMAN[m[2].toLowerCase()] || 0;
+  // « Le Seigneur des anneaux : Le retour du roi. Tome 3 » : la série est avant les deux-points
+  let series = m[1].replace(/[\s,.:;(\-–—]+$/, "").trim();
+  if (series.includes(" : ")) series = series.split(" : ")[0].trim();
+  return series.length >= 2 && n ? { series, tome: n } : { series: "", tome: 0 };
 }
 /* Les tomes d'une même série restent côte à côte, dans l'ordre, à la place du premier */
 function groupSeries(list) {
@@ -1582,6 +1591,31 @@ function update(id, patch) {
   save();
   render();
 }
+/* Autres couvertures du même livre (autres éditions) pour remplacer celle de la fiche */
+async function pickCover(b) {
+  const box = $("#coverPickBox");
+  box.hidden = false; box.innerHTML = `<div class="sub">Recherche des autres éditions…</div>`;
+  let found = [];
+  try {
+    const s = guessSeries(b.title);
+    const q = (s.series && s.tome ? s.series + " " + s.tome : b.title).replace(/[:()]/g, " ");
+    const r = await searchGoogle({ q, title: "", author: (b.authors[0] || "").split(" ").pop(), genre: "", order: "" });
+    const key = editionKey(b);
+    found = r.filter((x) => x.cover && editionKey(x) === key);
+    if (found.length < 2) found = r.filter((x) => x.cover && lastName(x) === lastName(b)).slice(0, 12);
+  } catch (e) { console.warn(e); }
+  const seen = new Set([b.cover]);
+  found = found.filter((x) => !seen.has(x.cover) && seen.add(x.cover));
+  if (!found.length) { box.innerHTML = `<div class="sub">Pas d'autre couverture trouvée. Tu peux prendre la tienne en photo avec « Ajouter à la main ».</div>`; return; }
+  box.innerHTML = `<div class="sub">Touche la couverture que tu préfères :</div><div class="cover-grid">${found.map((x, i) => `<button data-i="${i}" title="${esc(x.publisher + " " + String(x.date).slice(0, 4))}"><img src="${esc(x.cover)}" alt="" onerror="this.parentNode.remove()"><span>${esc(String(x.date || "").slice(0, 4))}</span></button>`).join("")}</div>`;
+  box.querySelectorAll("button").forEach((btn) => (btn.onclick = async () => {
+    const x = found[Number(btn.dataset.i)];
+    const color = (await dominantColor(x.cover)) || b.color;
+    update(b.id, { cover: x.cover, color });
+    toast("Couverture changée");
+    openDetail(b.id);
+  }));
+}
 function seriesChips(b) {
   if (!b.series) return "";
   const vols = books.filter((x) => x.series === b.series).sort((a, c) => (a.tome || 0) - (c.tome || 0));
@@ -1613,7 +1647,9 @@ function openDetail(id) {
     <div class="back-actions">
       <label class="chip-btn">📷 ${b.hasBackPhoto ? "Changer la photo du dos" : "Photographier la 4e de couverture"}<input type="file" id="backFile" accept="image/*" capture="environment" hidden></label>
       ${b.hasBackPhoto ? `<button class="chip-btn" id="backRemove">Remettre le résumé</button>` : ""}
+      <button class="chip-btn" id="coverPick">🖼 Changer de couverture</button>
     </div>
+    <div class="cover-pick" id="coverPickBox" hidden></div>
     <h2>${esc(b.title)}</h2>
     <div class="author">${esc(b.authors.join(", "))}</div>
 
@@ -1680,6 +1716,7 @@ function openDetail(id) {
       toast("Photo du dos enregistrée");
     } catch { toast("Impossible de lire cette photo"); }
   };
+  $("#coverPick").onclick = () => pickCover(b);
   if ($("#backRemove")) $("#backRemove").onclick = async () => { await setBackPhoto(id, null); update(id, { hasBackPhoto: false }); openDetail(id); };
   $("#seg").querySelectorAll("button").forEach((btn) => (btn.onclick = () => {
     const s = btn.dataset.s;
