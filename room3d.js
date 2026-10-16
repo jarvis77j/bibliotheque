@@ -327,6 +327,9 @@
 
   /* ---------- La pièce ---------- */
   window.createRoom3D = function (container, opts) {
+    // ambiance choisie dans les réglages : couleurs des murs et des meubles
+    if (opts.themes) for (const k in opts.themes) Object.assign(THEMES[k], opts.themes[k]);
+    const night = !!opts.night;
     let renderer;
     try {
       renderer = new T.WebGLRenderer({ antialias: true, powerPreference: "low-power" });
@@ -341,13 +344,14 @@
     canvas.style.touchAction = "none";
 
     const scene = new T.Scene();
-    scene.background = new T.Color("#2a1a10");
-    scene.fog = new T.Fog("#2a1a10", 9, 16);
+    const sceneColor = opts.sceneColor || "#2a1a10";
+    scene.background = new T.Color(sceneColor);
+    scene.fog = new T.Fog(sceneColor, 9, 16);
     const camera = new T.PerspectiveCamera(50, 1, 0.05, 40);
 
-    scene.add(new T.AmbientLight("#ffe2c4", 1.1));
-    scene.add(new T.HemisphereLight("#fff1dc", "#5a3a24", 0.9));
-    const ceilingLight = new T.PointLight("#ffd9a8", 6, 12, 1.4); ceilingLight.position.set(0, 3.2, 0); scene.add(ceilingLight);
+    scene.add(new T.AmbientLight(night ? "#c9c4e8" : "#ffe2c4", night ? 0.75 : 1.1));
+    scene.add(new T.HemisphereLight(night ? "#d8d4f0" : "#fff1dc", "#5a3a24", night ? 0.6 : 0.9));
+    const ceilingLight = new T.PointLight("#ffd9a8", night ? 7.5 : 6, 12, 1.4); ceilingLight.position.set(0, 3.2, 0); scene.add(ceilingLight);
 
     // sol, plafond, tapis
     const floor = new T.Mesh(new T.PlaneGeometry(ROOM * 2, ROOM * 2), new T.MeshStandardMaterial({ map: floorTex(), roughness: 0.8 }));
