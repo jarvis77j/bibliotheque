@@ -602,7 +602,7 @@
     <button id="snapBtn">Copies automatiques (14 derniers jours)</button>
     <div id="snapList" class="snap-list" hidden></div>
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
-    <p class="version">Version du 16 octobre, 16 h 05</p>
+    <p class="version">Version du 16 octobre, 16 h 10</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -831,7 +831,12 @@ async function googleFetch(query, order, anyLang) {
   const url = "https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(query) + (key ? "&key=" + encodeURIComponent(key) : "") +
     (query.startsWith("isbn:") || anyLang ? "" : "&langRestrict=fr") + "&printType=books&maxResults=40" +
     (order === "newest" ? "&orderBy=newest" : "");
-  const res = await fetch(url);
+  let res = await fetch(url);
+  // Google renvoie parfois une erreur passagère (503, 500, 429) : on réessaie deux fois
+  for (let i = 0; i < 2 && !res.ok && (res.status >= 500 || res.status === 429); i++) {
+    await new Promise((ok) => setTimeout(ok, 700 * (i + 1)));
+    res = await fetch(url);
+  }
   if (!res.ok) throw new Error("google " + res.status);
   const data = await res.json();
   const isbnQuery = query.startsWith("isbn:");
