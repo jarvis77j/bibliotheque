@@ -251,11 +251,20 @@
   .ex-head h3 { margin: 0; font-family: Georgia, serif; font-size: 19px; }
   .ex-row.mine .ex-head h3::before { content: "✨ "; }
   .ex-head button { border: 0; background: none; color: var(--accent); font-size: 14px; cursor: pointer; padding: 4px; }
-  .ex-list { display: flex; gap: 12px; overflow-x: auto; padding: 4px 16px 10px; scroll-snap-type: x proximity; scrollbar-width: none; min-height: 210px; }
+  .ex-list { display: flex; gap: 12px; overflow-x: auto; padding: 4px 16px 10px; scroll-snap-type: x proximity; scrollbar-width: none; min-height: 210px; align-items: flex-start; }
   .ex-list::-webkit-scrollbar { display: none; }
   .ex-card { flex: none; width: 108px; border: 0; background: none; padding: 0; text-align: left; cursor: pointer; scroll-snap-align: start; }
   .ex-card img, .ex-card .ex-noimg { width: 108px; height: 162px; object-fit: cover; border-radius: 3px 6px 6px 3px; display: block; background: var(--line); box-shadow: 0 6px 12px rgba(40,20,5,.25); }
   .ex-card .ex-noimg { display: flex; align-items: center; justify-content: center; padding: 8px; font-family: Georgia, serif; font-size: 13px; text-align: center; }
+  .ex-cover { position: relative; width: 108px; height: 162px; }
+  .ex-cover img { position: absolute; inset: 0; z-index: 1; }
+  .ex-card .noimg { display: none; }
+  .ex-gen { position: absolute; inset: 0; border-radius: 3px 6px 6px 3px; box-shadow: 0 6px 12px rgba(40,20,5,.25), inset 4px 0 0 rgba(0,0,0,.12);
+    padding: 10px 9px; display: flex; flex-direction: column; text-align: center; overflow: hidden; }
+  .ex-gen::before { content: ""; position: absolute; inset: 6px; border: 1px solid currentColor; opacity: .45; border-radius: 2px; }
+  .ex-gen small { font-size: 8px !important; letter-spacing: .08em; text-transform: uppercase; color: inherit !important; opacity: .8; white-space: normal !important; margin: 4px 0 0 !important; }
+  .ex-gen b { flex: 1; display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-size: 14px; line-height: 1.2; font-weight: 600; overflow-wrap: anywhere; }
+  .ex-gen i { font-style: normal; font-size: 16px; opacity: .6; margin-bottom: 4px; }
   .ex-card span { display: block; font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .ex-card small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .ex-loading { color: var(--muted); font-size: 14px; padding: 60px 0; }
@@ -640,7 +649,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 16 octobre, 19 h</p>
+    <p class="version">Version du 16 octobre, 19 h 15</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1494,15 +1503,17 @@ async function loadExploreRow(i) {
     if (!exploreCache[ck]) {
       let r = row.fn ? await row.fn() : await searchBooks(p);
       if (row.exclude) { const keys = ownedKeys(); r = r.filter((b) => !b.otherLang && !isOwned(b, keys)); }
+      // les livres avec une vraie couverture d'abord ; sans couverture ni ISBN seulement s'il n'y a pas mieux
       const withCover = r.filter((b) => b.cover);
-      exploreCache[ck] = (withCover.length >= 6 ? withCover : r).slice(0, 24);
+      const rest = r.filter((b) => !b.cover);
+      exploreCache[ck] = (withCover.length >= 8 ? withCover : [...withCover, ...rest.filter((b) => b.isbn), ...rest.filter((b) => !b.isbn)]).slice(0, 24);
       if (row.sig) { const c = recoCache(); c.rows[ck] = { sig: row.sig, list: exploreCache[ck] }; try { localStorage.setItem(RECO_KEY, JSON.stringify(c)); } catch {} }
     }
     const list = exploreCache[ck];
     const target = document.getElementById("exList" + i);
     if (!target) return;
     target.innerHTML = list.length ? list.map((b, j) => `<button class="ex-card" data-i="${j}">
-        ${b.cover ? `<img src="${esc(b.cover)}" alt="" loading="lazy">` : `<div class="ex-noimg">${esc(b.title)}</div>`}
+        <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
         <span>${esc(b.title)}</span><small>${esc(b.note || (row.year && b.date ? b.date.slice(0, 4) + " · " : "") + (b.authors[0] || ""))}</small>
       </button>`).join("") : `<div class="ex-loading">${row.key === "suite" ? "Tu as déjà tous les tomes trouvés pour tes séries." : row.key === "auteurs" ? "Pas de nouveau livre de tes auteurs ces deux dernières années." : "Rien trouvé pour ce rayon."}</div>`;
     target.querySelectorAll(".ex-card").forEach((c) => (c.onclick = () => openPreview(list[c.dataset.i])));
@@ -1593,6 +1604,12 @@ function coverFailed(img) {
   else img.replaceWith(Object.assign(document.createElement("div"), { className: "noimg" }));
 }
 /* Google renvoie parfois une petite image « pas de couverture » au lieu d'une erreur */
+/* Couverture dessinée quand le catalogue n'en a pas : couleur du livre, titre et auteur */
+function drawnCover(b) {
+  const bg = colorOf(b), ink = textOn(bg);
+  const title = b.title.split(" : ")[0].replace(/\s*[-–—]\s*(tome|t\.?)\s*\d+.*$/i, "");
+  return `<div class="ex-gen" style="background:${bg};color:${ink}"><small>${esc(b.authors[0] || "")}</small><b>${esc(title.length > 60 ? title.slice(0, 58) + "…" : title)}</b><i>❦</i></div>`;
+}
 function coverLoaded(img) { if (img.naturalWidth && img.naturalWidth < 20) coverFailed(img); }
 function renderResults() {
   const box = $("#results");
