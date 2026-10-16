@@ -530,6 +530,7 @@
       ray.setFromCamera(p, camera);
       const hit = ray.intersectObjects(pick, false)[0];
       if (hit && opts.onTap) opts.onTap(hit.object.userData.id);
+      else if (!hit && opts.onTapEmpty) opts.onTapEmpty();
     }
 
     resize();

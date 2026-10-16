@@ -33,6 +33,9 @@ Web app pour garder la liste des livres lus, sur une étagère virtuelle.
 - **Copie automatique** : chaque fois qu'on quitte l'app, une copie est gardée dans le téléphone (une par jour, 14 jours). ⋯ > Copies automatiques permet de revenir à un jour précédent.
 - **Rappel de sauvegarde** : tous les 30 jours sans sauvegarde, l'app propose d'en faire une.
 - **⋯** : sauvegarder la bibliothèque dans un fichier, ou la restaurer.
+- **Ajouter** demande où ranger le livre : Lus, En cours, À lire ou Coups de cœur.
+- **Toucher la bibliothèque** (à côté des livres) ou le bouton **▦ Couvertures** : tous les livres de l'étagère en grille de couvertures.
+- **Toucher le nom de l'auteur** sur une fiche : tous ses livres.
 - **Couleurs** (⋯) : couleur préférée, ambiance de la pièce (chaleureuse, pastel, nature, soirée) et mode clair ou sombre (ou comme le téléphone).
 - **Badges** (dans les statistiques) : 16 petits défis (premier livre, 10, 25, 50, 100 livres, pavé de 600 pages, saga, mois record…). Un message s'affiche quand un badge est gagné.
 - **Pour toi** (en haut d'Explorer) : la suite de ses séries (les tomes qui manquent), les nouveautés de ses auteurs préférés (deux dernières années) et son genre préféré, sans les livres déjà dans la bibliothèque. Mis à jour une fois par jour.

@@ -268,7 +268,8 @@
   .ex-card span { display: block; font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .ex-card small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .ex-loading { color: var(--muted); font-size: 14px; padding: 60px 0; }
-  .add-row { display: flex; gap: 8px; width: 100%; max-width: 480px; margin-bottom: 18px; }
+  .add-row { display: flex; gap: 8px; width: 100%; max-width: 480px; margin-bottom: 18px; flex-wrap: wrap; }
+  .add-row button:last-child { flex-basis: 100%; }
   .add-row button { flex: 1; border: 1px solid var(--ink); background: var(--card); border-radius: 22px; padding: 11px 6px; font-size: 15px; cursor: pointer; }
   .add-row button:first-child { background: var(--ink); color: var(--card); }
   .owned-note { color: var(--muted); margin-bottom: 18px; text-align: center; }
@@ -343,6 +344,23 @@
     padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
   }
   .sheet.open { display: flex; }
+  .grid-covers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 12px; padding: 16px; }
+  @media (min-width: 560px) { .grid-covers { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); } }
+  .grid-covers button { border: 0; background: none; padding: 0; text-align: left; cursor: pointer; min-width: 0; }
+  .grid-covers .ex-cover { width: 100%; height: auto; aspect-ratio: 2 / 3; }
+  .grid-covers .ex-cover img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px 6px 6px 3px; box-shadow: 0 6px 12px rgba(40,20,5,.25); }
+  .grid-covers .noimg { display: none; }
+  .grid-covers span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; font-weight: 600; margin-top: 6px; line-height: 1.25; }
+  .grid-covers small { display: block; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .grid-covers .fav-dot { position: absolute; top: 4px; right: 4px; z-index: 2; font-size: 14px; }
+  .r3d-grid { position: absolute; top: 10px; right: 10px; z-index: 2; border: 0; border-radius: 16px; padding: 7px 11px; font-size: 13px; cursor: pointer;
+    background: rgba(255,250,242,.85); color: #2b1d14; box-shadow: 0 3px 10px rgba(0,0,0,.3); }
+  .pick { position: fixed; inset: 0; z-index: 60; background: rgba(20,10,0,.45); display: flex; align-items: flex-end; justify-content: center; }
+  .pick-box { width: 100%; max-width: 520px; background: var(--card); border-radius: 18px 18px 0 0; padding: 14px 16px calc(16px + env(safe-area-inset-bottom)); }
+  .pick-box p { margin: 2px 4px 12px; color: var(--muted); font-size: 14px; text-align: center; }
+  .pick-box button { display: block; width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 14px; padding: 14px; font-size: 16px; margin-bottom: 8px; cursor: pointer; }
+  .pick-box button.cancel { background: none; border: 0; color: var(--muted); margin: 0; }
+  .author-link { border: 0; background: none; padding: 0; color: var(--accent); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
   .sheet-head {
     display: flex; align-items: center; gap: 8px; padding: 12px 16px;
     border-bottom: 1px solid var(--line);
@@ -621,6 +639,25 @@
   </div>
 </section>
 
+<section class="sheet" id="gridSheet">
+  <div class="sheet-head">
+    <b style="flex:1" id="gridTitle"></b>
+    <button class="link-btn" data-close>Fermer</button>
+  </div>
+  <div class="sheet-body" id="gridBody"></div>
+</section>
+
+<div class="pick" id="pick" hidden>
+  <div class="pick-box">
+    <p id="pickText">Où ranger ce livre ?</p>
+    <button data-s="lu">📚 Lus</button>
+    <button data-s="encours">📖 En cours</button>
+    <button data-s="alire">🔖 À lire</button>
+    <button data-s="fav">💖 Coups de cœur</button>
+    <button class="cancel" data-s="">Annuler</button>
+  </div>
+</div>
+
 <section class="sheet" id="detailSheet">
   <div class="sheet-head">
     <span style="flex:1"></span>
@@ -649,7 +686,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 16 octobre, 19 h 25</p>
+    <p class="version">Version du 16 octobre, 22 h 50</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1360,6 +1397,7 @@ function render3D() {
     r3dEl.innerHTML = `<button class="r3d-nav prev" aria-label="Étagère de gauche">‹</button>
       <button class="r3d-nav next" aria-label="Étagère de droite">›</button>
       <div class="r3d-label" id="r3dLabel"></div>
+      <button class="r3d-grid" id="r3dGrid">▦ Couvertures</button>
       <div class="r3d-note" id="r3dNote"></div>
       <div class="r3d-hint ${seen ? "gone" : ""}" id="r3dHint">Glisse pour changer d'étagère · pince pour zoomer</div>`;
     el.innerHTML = ""; el.appendChild(r3dEl);
@@ -1368,6 +1406,7 @@ function render3D() {
     room3d = window.createRoom3D(r3dEl, {
       colorOf, textOn, themes: amb.themes, sceneColor: amb.scene, night: amb.night,
       onTap: (id) => openDetail(id),
+      onTapEmpty: () => openGrid(),
       onFace: (k) => {
         currentShelf = k;
         try { localStorage.setItem(STORE_KEY + ".onglet", k); } catch {}
@@ -1378,6 +1417,7 @@ function render3D() {
     if (!room3d) { room3dFailed = true; r3dEl = null; return false; }
     r3dEl.querySelector(".prev").onclick = () => { hideHint(); room3d.step(-1); };
     r3dEl.querySelector(".next").onclick = () => { hideHint(); room3d.step(1); };
+    r3dEl.querySelector("#r3dGrid").onclick = () => { hideHint(); openGrid(); };
     room3d.face(currentShelf, true);
   } else if (!el.contains(r3dEl)) {
     el.innerHTML = ""; el.appendChild(r3dEl);
@@ -1613,6 +1653,35 @@ function drawnCover(b) {
   const title = b.title.split(" : ")[0].replace(/\s*[-–—]\s*(tome|t\.?)\s*\d+.*$/i, "");
   return `<div class="ex-gen" style="background:${bg};color:${ink}"><small>${esc(b.authors[0] || "")}</small><b>${esc(title.length > 60 ? title.slice(0, 58) + "…" : title)}</b><i>❦</i></div>`;
 }
+/* Toucher le nom de l'auteur : tous ses livres */
+const authorLinks = (b) => shareView ? esc(b.authors.join(", ")) : b.authors.map((a) => `<button class="author-link" data-author="${esc(a)}">${esc(a)}</button>`).join(", ");
+document.addEventListener("click", (e) => {
+  const a = e.target.closest(".author-link");
+  if (a) openAuthor(a.dataset.author);
+});
+function openAuthor(name) {
+  ["#detailSheet", "#gridSheet", "#statsSheet"].forEach((s) => $(s).classList.remove("open"));
+  openSearch();
+  $("#q").value = ""; $("#fTitle").value = ""; $("#fAuthor").value = name; $("#fOrder").value = "relevance";
+  searchGenre = "";
+  $("#genreChips").querySelectorAll(".chip").forEach((x) => x.classList.remove("on"));
+  $("#filters").hidden = true; // filtres repliés pour voir tout de suite ses livres
+  updateFiltersLabel();
+  runSearch();
+}
+/* Toucher la bibliothèque (pas un livre) : tous les livres de l'étagère, en couvertures */
+function openGrid() {
+  const shelf = SHELVES.find((x) => x.key === currentShelf);
+  const list = visibleBooks();
+  $("#gridTitle").textContent = shelf.label + " · " + list.length + " livre" + (list.length > 1 ? "s" : "");
+  $("#gridBody").innerHTML = list.length ? `<div class="grid-covers">${list.map((b) => `<button data-id="${esc(b.id)}">
+      <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}${b.fav && currentShelf !== "fav" ? `<i class="fav-dot">💖</i>` : ""}</div>
+      <span>${esc(b.title)}</span><small>${esc(b.authors[0] || "")}</small></button>`).join("")}</div>`
+    : `<div class="status">${shelf.empty}</div>`;
+  $("#gridBody").querySelectorAll("[data-id]").forEach((x) => (x.onclick = () => openDetail(x.dataset.id)));
+  $("#gridSheet").classList.add("open");
+  $("#gridSheet .sheet-body").scrollTop = 0;
+}
 function coverLoaded(img) { if (img.naturalWidth && img.naturalWidth < 20) coverFailed(img); }
 function renderResults() {
   const box = $("#results");
@@ -1638,7 +1707,7 @@ function renderResults() {
         <div class="result-meta">${esc(b.authors.join(", "))}${b.date ? " · " + esc(String(b.date).slice(0, 4)) : ""}${b.publisher ? " · " + esc(b.publisher) : ""}${b.otherLang && b.lang ? " · " + esc(b.lang.toUpperCase()) : ""}</div>
         ${more ? `<button class="ed-btn" data-i="${i}">${openEditions.has(i) ? "Masquer les autres éditions" : `${b.others.length} autre${b.others.length > 1 ? "s" : ""} édition${b.others.length > 1 ? "s" : ""}`}</button>` : ""}
       </div>
-      <button class="add-btn ${owned ? "done" : ""}" data-n="${n}">${owned ? "Ajouté" : addLabel()}</button>
+      <button class="add-btn ${owned ? "done" : ""}" data-n="${n}">${owned ? "Ajouté" : "Ajouter"}</button>
     </div>`;
   }).join("") + `<div class="source-note">Résultats : ${esc(searchSource)}</div>` + manualLink;
   bindManualLink();
@@ -1664,11 +1733,28 @@ async function enrichFromGoogle(book) {
   } catch (e) { console.warn(e); return false; }
 }
 const enrichTried = new Set();
+/* Petite fenêtre « Où ranger ce livre ? » : Lus, En cours, À lire ou Coups de cœur */
+function chooseShelf(title) {
+  return new Promise((ok) => {
+    const el = $("#pick");
+    $("#pickText").textContent = title ? `Où ranger « ${title.length > 50 ? title.slice(0, 48) + "…" : title} » ?` : "Où ranger ce livre ?";
+    el.hidden = false;
+    el.onclick = (e) => {
+      const btn = e.target.closest("button");
+      if (!btn && e.target !== el) return;
+      el.hidden = true;
+      ok(btn ? btn.dataset.s : "");
+    };
+  });
+}
 async function addBook(b, btn, chosenStatus) {
   if (books.some((x) => x.id === b.id)) { toast("Déjà dans ta bibliothèque"); return; }
+  if (!chosenStatus) chosenStatus = await chooseShelf(b.title);
+  if (!chosenStatus) return;
   if (btn) btn.textContent = "…";
-  const status = chosenStatus || defaultStatus();
-  const book = normalize({ ...b, genre: guessGenre(b.categories) || searchGenre, addedAt: new Date().toISOString(), status, fav: currentShelf === "fav", readDate: status === "lu" ? today() : "" });
+  const fav = chosenStatus === "fav";
+  const status = fav ? "lu" : chosenStatus;
+  const book = normalize({ ...b, genre: guessGenre(b.categories) || searchGenre, addedAt: new Date().toISOString(), status, fav, readDate: status === "lu" ? today() : "" });
   if (!book.description && book.olKey) book.description = await openLibraryDescription(book.olKey);
   await enrichFromGoogle(book);
   if (!book.cover && book.isbn && (await imageExists(olIsbnCover(book)))) book.cover = olIsbnCover(book).replace("-M.jpg", "-L.jpg");
@@ -1678,7 +1764,7 @@ async function addBook(b, btn, chosenStatus) {
   save();
   render();
   if (btn) { btn.textContent = "Ajouté"; btn.classList.add("done"); }
-  toast("« " + book.title + " » ajouté");
+  toast("« " + book.title + " » rangé dans " + (fav ? "Coups de cœur" : SHELVES.find((x) => x.key === status).label));
 }
 
 /* ---------- Ajout à la main ---------- */
@@ -1720,14 +1806,16 @@ $("#manualForm").onsubmit = async (e) => {
   e.preventDefault();
   const title = $("#mTitle").value.trim();
   if (!title) return;
-  const status = defaultStatus();
+  const chosen = await chooseShelf(title);
+  if (!chosen) return;
+  const status = chosen === "fav" ? "lu" : chosen;
   const book = normalize({
     id: "m:" + Date.now(), title,
     authors: $("#mAuthor").value.split(",").map((a) => a.trim()).filter(Boolean),
     pages: Number($("#mPages").value) || 0, genre: $("#mGenre").value,
     description: $("#mDesc").value.trim(), cover: manualCover, publisher: $("#mPublisher").value.trim(), date: "", isbn: $("#mIsbn").value.replace(/[^\dXx]/g, ""),
     source: "Ajout manuel", addedAt: new Date().toISOString(), status,
-    fav: currentShelf === "fav", readDate: status === "lu" ? today() : "",
+    fav: chosen === "fav", readDate: status === "lu" ? today() : "",
   });
   book.color = (await dominantColor(book.cover)) || colorOf(book);
   books.push(book);
@@ -1853,9 +1941,9 @@ async function openPreview(b) {
     ${bookFaces(b)}
     <div class="hint">Touche le livre pour le retourner</div>
     <h2>${esc(b.title)}</h2>
-    <div class="author">${esc(b.authors.join(", "))}</div>
+    <div class="author">${authorLinks(b)}</div>
     ${shareView ? `<div class="sub">${b.rating ? "★".repeat(b.rating) + "☆".repeat(5 - b.rating) + " · " : ""}${b.fav ? "💖 Coup de cœur · " : ""}${esc((SHELVES.find((x) => x.key === b.status) || {}).label || "")}</div>`
-      : `<div class="add-row"><button data-s="lu">Je l'ai lu</button><button data-s="encours">En cours</button><button data-s="alire">À lire</button></div>`}
+      : `<div class="add-row"><button data-s="lu">Je l'ai lu</button><button data-s="encours">En cours</button><button data-s="alire">À lire</button><button data-s="fav">💖 Coup de cœur</button></div>`}
     <div class="panel facts">${facts.map(([k, v]) => `<div><span>${k}</span><span>${esc(v)}</span></div>`).join("")}</div>
     ${b.description ? `<div class="desc">${esc(b.description)}</div>` : ""}
   </div>`;
@@ -1940,7 +2028,7 @@ function openDetail(id) {
     </div>
     <div class="cover-pick" id="coverPickBox" hidden></div>
     <h2>${esc(b.title)}</h2>
-    <div class="author">${esc(b.authors.join(", "))}</div>
+    <div class="author">${authorLinks(b)}</div>
 
     <div class="panel">
       <div class="panel-title">Ma lecture</div>
