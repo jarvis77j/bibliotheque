@@ -649,7 +649,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 16 octobre, 19 h 15</p>
+    <p class="version">Version du 16 octobre, 19 h 20</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1452,7 +1452,9 @@ async function authorsNews(authors) {
     out.push(...found.slice(0, 6));
   }
   const seen = new Set(), recent = String(new Date().getFullYear() - 2);
-  return out.filter((r) => (r.date || "") >= recent).filter((r) => !seen.has(editionKey(r)) && seen.add(editionKey(r))).sort((x, y) => (y.date || "").localeCompare(x.date || "")).slice(0, 24);
+  // « Les Légendes - tome 1 - Black Venus » et « Black Venus » : le même livre, on n'en garde qu'un
+  const short = (r) => plain(r.title.split(/\s[-–—:]\s/).pop()) + "|" + lastName(r);
+  return out.filter((r) => (r.date || "") >= recent).filter((r) => !seen.has(short(r)) && seen.add(short(r))).sort((x, y) => (y.date || "").localeCompare(x.date || "")).slice(0, 24);
 }
 let exploreRows = EXPLORE_ROWS;
 const exploreCache = {};
@@ -1512,6 +1514,7 @@ async function loadExploreRow(i) {
     const list = exploreCache[ck];
     const target = document.getElementById("exList" + i);
     if (!target) return;
+    if (!list.length && row.key === "suite") { target.closest(".ex-row").remove(); return; } // rien qui manque : on cache le rayon
     target.innerHTML = list.length ? list.map((b, j) => `<button class="ex-card" data-i="${j}">
         <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
         <span>${esc(b.title)}</span><small>${esc(b.note || (row.year && b.date ? b.date.slice(0, 4) + " · " : "") + (b.authors[0] || ""))}</small>
