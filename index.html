@@ -328,6 +328,8 @@
   .link-btn { border: 0; background: none; color: var(--accent); font-size: 16px; cursor: pointer; padding: 6px; flex: none; }
   .sheet-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
+  .result.edition { padding-left: 28px; background: rgba(0,0,0,.025); }
+  .ed-btn { border: 0; background: none; padding: 4px 0 0; color: var(--accent); font-size: 13px; cursor: pointer; }
   .result {
     display: flex; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line);
     align-items: center;
@@ -803,7 +805,9 @@ async function googleFetch(query, order) {
   const res = await fetch(url);
   if (!res.ok) throw new Error("google " + res.status);
   const data = await res.json();
-  return (data.items || []).map((it) => {
+  const isbnQuery = query.startsWith("isbn:");
+  // Google laisse passer des éditions étrangères malgré langRestrict : on ne garde que le français
+  return (data.items || []).filter((it) => isbnQuery || (it.volumeInfo || {}).language === "fr").map((it) => {
     const v = it.volumeInfo || {};
     const ids = v.industryIdentifiers || [];
     const isbn13 = (ids.find((x) => x.type === "ISBN_13") || ids.find((x) => x.type === "ISBN_10") || {}).identifier || "";
@@ -819,6 +823,7 @@ async function googleFetch(query, order) {
       description: stripHtml(v.description),
       cover: googleCover(v),
       tomeHint: (v.seriesInfo || {}).bookDisplayNumber || "",
+      ratings: v.ratingsCount || 0,
       source: "Google Livres",
     };
   });
@@ -865,9 +870,35 @@ async function openLibraryDescription(key) {
 async function searchBooks(p) {
   try {
     const r = await searchGoogle(p);
-    if (r.length) return r;
+    if (r.length) return groupEditions(r);
   } catch (e) { console.warn(e); }
-  return searchOpenLibrary(p);
+  return groupEditions(await searchOpenLibrary(p));
+}
+/* Un même livre en plusieurs éditions = une seule ligne (la plus complète), les autres restent consultables */
+const plain = (x) => String(x || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+function editionKey(b) {
+  const author = plain((b.authors || [])[0]).split(" ").pop() || "";
+  return plain(b.title) + "|" + author;
+}
+function editionScore(b) {
+  return (b.cover ? 6 : 0) + (b.description ? 4 : 0) + (b.pages ? 1 : 0) + (b.isbn ? 1 : 0) + Math.min(5, Math.log2(1 + (b.ratings || 0)));
+}
+function groupEditions(list) {
+  const groups = new Map();
+  list.forEach((b, i) => {
+    const k = editionKey(b);
+    if (!groups.has(k)) groups.set(k, { first: i, items: [] });
+    groups.get(k).items.push(b);
+  });
+  return [...groups.values()]
+    .map((g) => {
+      const items = g.items.slice().sort((a, b) => editionScore(b) - editionScore(a));
+      const best = { ...items[0], others: items.slice(1) };
+      // pertinence de Google + popularité (nombre d'éditions) + fiche complète (couverture, résumé)
+      best.rank = -g.first + 3 * Math.min(4, items.length - 1) + (best.cover ? 6 : 0) + (best.description ? 3 : 0);
+      return best;
+    })
+    .sort((a, b) => b.rank - a.rank);
 }
 
 /* ---------- Onglets, statistiques, filtre ---------- */
@@ -1164,6 +1195,7 @@ function render() { renderTabs(); renderStats(); renderLibraryFilters(); renderS
 
 /* ---------- Recherche ---------- */
 let lastResults = [];
+const openEditions = new Set();
 function openSearch() {
   $("#searchSheet").classList.add("open");
   setTimeout(() => $("#q").focus(), 50);
@@ -1203,6 +1235,7 @@ async function runSearch() {
     const r = await searchBooks(p);
     if (seq !== searchSeq) return;
     lastResults = r;
+    openEditions.clear();
     renderResults();
   } catch {
     if (seq !== searchSeq) return;
@@ -1220,19 +1253,31 @@ function renderResults() {
     bindManualLink();
     return;
   }
-  box.innerHTML = lastResults.map((b, i) => {
+  const flat = [];
+  lastResults.forEach((b, i) => {
+    flat.push({ b, i, ed: false });
+    if (openEditions.has(i)) (b.others || []).forEach((o) => flat.push({ b: o, i, ed: true }));
+  });
+  box.innerHTML = flat.map(({ b, i, ed }, n) => {
     const owned = books.some((x) => x.id === b.id);
-    return `<div class="result">
+    const more = !ed && b.others && b.others.length;
+    return `<div class="result ${ed ? "edition" : ""}">
       ${b.cover ? `<img src="${esc(b.cover)}" alt="" loading="lazy">` : `<div class="noimg"></div>`}
       <div class="result-info">
         <div class="result-title">${esc(b.title)}</div>
         <div class="result-meta">${esc(b.authors.join(", "))}${b.date ? " · " + esc(String(b.date).slice(0, 4)) : ""}${b.publisher ? " · " + esc(b.publisher) : ""}</div>
+        ${more ? `<button class="ed-btn" data-i="${i}">${openEditions.has(i) ? "Masquer les autres éditions" : `${b.others.length} autre${b.others.length > 1 ? "s" : ""} édition${b.others.length > 1 ? "s" : ""}`}</button>` : ""}
       </div>
-      <button class="add-btn ${owned ? "done" : ""}" data-i="${i}">${owned ? "Ajouté" : addLabel()}</button>
+      <button class="add-btn ${owned ? "done" : ""}" data-n="${n}">${owned ? "Ajouté" : addLabel()}</button>
     </div>`;
   }).join("") + manualLink;
   bindManualLink();
-  box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => addBook(lastResults[btn.dataset.i], btn)));
+  box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => { const { others, rank, ...b } = flat[btn.dataset.n].b; addBook(b, btn); }));
+  box.querySelectorAll(".ed-btn").forEach((btn) => (btn.onclick = () => {
+    const i = Number(btn.dataset.i);
+    openEditions.has(i) ? openEditions.delete(i) : openEditions.add(i);
+    renderResults();
+  }));
 }
 async function addBook(b, btn, chosenStatus) {
   if (books.some((x) => x.id === b.id)) { toast("Déjà dans ta bibliothèque"); return; }
