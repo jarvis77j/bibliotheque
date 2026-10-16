@@ -649,7 +649,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 16 octobre, 19 h 20</p>
+    <p class="version">Version du 16 octobre, 19 h 25</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1458,7 +1458,7 @@ async function authorsNews(authors) {
 }
 let exploreRows = EXPLORE_ROWS;
 const exploreCache = {};
-const RECO_KEY = STORE_KEY + ".reco";
+const RECO_KEY = STORE_KEY + ".reco2"; // changer le numéro vide le cache des rayons perso
 function recoCache() { try { const c = JSON.parse(localStorage.getItem(RECO_KEY)); if (c && c.day === today()) return c; } catch {} return { day: today(), rows: {} }; }
 let exploreObserver;
 function renderExplore() {
