@@ -606,7 +606,7 @@
     <button id="snapBtn">Copies automatiques (14 derniers jours)</button>
     <div id="snapList" class="snap-list" hidden></div>
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
-    <p class="version">Version du 16 octobre, 16 h 20</p>
+    <p class="version">Version du 16 octobre, 16 h 35</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -930,13 +930,74 @@ async function openLibraryDescription(key) {
   } catch { return ""; }
 }
 let searchSource = "";
+/* Google d'abord. S'il ne répond pas ou trouve peu de livres en français, on complète avec la BnF
+   (dépôt légal : tous les livres publiés en France y sont) puis Open Library. */
 async function searchBooks(p) {
-  try {
-    const r = await searchGoogle(p);
-    if (r.length || otherLangResults.length) { searchSource = "Google Livres"; return groupEditions(r).concat(groupEditions(otherLangResults).map((b) => ({ ...b, otherLang: true }))); }
-    searchSource = "Open Library (Google n'a rien trouvé en français)";
-  } catch (e) { console.warn(e); searchSource = "Open Library (Google indisponible : " + e.message.replace("google ", "erreur ") + ")"; }
-  return groupEditions(await searchOpenLibrary(p));
+  let google = [], gErr = "";
+  try { google = await searchGoogle(p); } catch (e) { console.warn(e); gErr = e.message.replace("google ", "erreur "); }
+  const sources = [];
+  if (google.length) sources.push("Google Livres");
+  let extra = [];
+  if (google.length < 5) {
+    const [bnf, ol] = await Promise.all([
+      searchBnf(p).catch((e) => { console.warn(e); return null; }),
+      google.length ? Promise.resolve([]) : searchOpenLibrary(p).catch((e) => { console.warn(e); return null; }),
+    ]);
+    if (bnf && bnf.length) sources.push("BnF");
+    if (ol && ol.length) sources.push("Open Library");
+    const seenIsbn = new Set(google.map((b) => b.isbn).filter(Boolean));
+    extra = [...(bnf || []), ...(ol || [])].filter((b) => !b.isbn || !seenIsbn.has(b.isbn) && seenIsbn.add(b.isbn));
+    if (!google.length && !otherLangResults.length && bnf === null && ol === null) throw new Error(gErr ? "Google " + gErr : "aucune source ne répond");
+  }
+  searchSource = (sources.join(", ") || "Google Livres, BnF et Open Library") + (gErr ? " (Google indisponible : " + gErr + ")" : "");
+  return groupEditions([...google, ...extra]).concat(groupEditions(otherLangResults).map((b) => ({ ...b, otherLang: true })));
+}
+
+/* Catalogue de la BnF (SRU, Dublin Core) */
+async function searchBnf(p) {
+  const isbn = p.q.replace(/[-\s]/g, "");
+  const clean = (x) => String(x || "").replace(/"/g, " ").trim();
+  let query;
+  if (ISBN_RE.test(isbn)) query = `bib.isbn all "${isbn}"`;
+  else {
+    const parts = [];
+    if (p.q) parts.push(`bib.anywhere all "${clean(p.q)}"`);
+    if (p.title) parts.push(`bib.title all "${clean(p.title)}"`);
+    if (p.author) parts.push(`bib.author all "${clean(p.author)}"`);
+    if (!parts.length) return [];
+    parts.push(`bib.doctype any "a"`);
+    query = parts.join(" and ");
+  }
+  const url = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&recordSchema=dublincore&maximumRecords=25&query=" + encodeURIComponent(query);
+  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 10000);
+  const res = await fetch(url, { signal: ctl.signal }).finally(() => clearTimeout(timer));
+  if (!res.ok) throw new Error("bnf " + res.status);
+  const xml = new DOMParser().parseFromString(await res.text(), "application/xml");
+  const recs = [...xml.getElementsByTagNameNS("*", "dc")];
+  return recs.map((r) => {
+    const all = (tag) => [...r.getElementsByTagNameNS("*", tag)].map((n) => n.textContent.trim());
+    const one = (tag) => all(tag)[0] || "";
+    const ids = all("identifier");
+    const isbnRaw = (ids.find((x) => /ISBN/i.test(x)) || "").replace(/ISBN/i, "").replace(/[^\dXx]/g, "");
+    const ark = (ids.find((x) => /ark:/.test(x)) || "").replace(/^.*(ark:\/.*)$/, "$1");
+    const title = one("title").split(" / ")[0].replace(/\[Texte imprimé\]/i, "").replace(/\s+:\s+/g, " : ").trim();
+    const authors = all("creator").map((a) => {
+      const name = a.split(".")[0].replace(/\(.*?\)/g, "").trim();
+      const [last, first] = name.split(",").map((x) => x.trim());
+      return first ? first + " " + last : last;
+    }).filter(Boolean);
+    const pages = Number((one("format").match(/(\d+)\s*p\./) || [])[1]) || 0;
+    const publisher = one("publisher").replace(/^.*?:\s*/, "").replace(/\(.*?\)/g, "").trim();
+    return {
+      id: "bnf:" + (ark || isbnRaw || title),
+      title, authors, publisher, pages,
+      date: (one("date").match(/\d{4}/) || [""])[0],
+      isbn: isbnRaw.length === 10 || isbnRaw.length === 13 ? isbnRaw : "",
+      categories: [], description: "", cover: "",
+      lang: one("language"),
+      source: "BnF",
+    };
+  }).filter((b) => b.title && (!b.lang || b.lang.startsWith("fr")));
 }
 /* Un même livre en plusieurs éditions = une seule ligne (la plus complète), les autres restent consultables */
 const plain = (x) => String(x || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
@@ -1357,8 +1418,19 @@ function addLabel() {
 }
 /* Couverture d'un résultat : celle de Google, sinon celle d'Open Library trouvée par l'ISBN */
 const olIsbnCover = (b) => (b.isbn ? `https://covers.openlibrary.org/b/isbn/${encodeURIComponent(b.isbn)}-M.jpg?default=false` : "");
+function isbn10(isbn) {
+  const d = String(isbn || "").replace(/[^\dXx]/g, "");
+  if (d.length === 10) return d;
+  if (d.length !== 13 || !d.startsWith("978")) return "";
+  const core = d.slice(3, 12);
+  const sum = [...core].reduce((s, c, i) => s + Number(c) * (10 - i), 0);
+  const check = (11 - (sum % 11)) % 11;
+  return core + (check === 10 ? "X" : String(check));
+}
+/* Couverture de secours par ISBN (servie par Amazon, couvre la plupart des livres vendus en France) */
+const amzCover = (b) => { const i = isbn10(b.isbn); return i ? `https://images-na.ssl-images-amazon.com/images/P/${i}.01.LZZZZZZZ.jpg` : ""; };
 function coverImg(b) {
-  const urls = [b.cover, olIsbnCover(b), ...(b.others || []).map(olIsbnCover)].filter(Boolean);
+  const urls = [b.cover, olIsbnCover(b), amzCover(b), ...(b.others || []).flatMap((o) => [olIsbnCover(o), amzCover(o)])].filter(Boolean);
   if (!urls.length) return `<div class="noimg"></div>`;
   return `<img src="${esc(urls[0])}" data-alt="${esc(urls.slice(1).join(" "))}" alt="" loading="lazy" onload="coverLoaded(this)" onerror="coverFailed(this)">`;
 }
@@ -1415,6 +1487,7 @@ async function addBook(b, btn, chosenStatus) {
   const book = normalize({ ...b, genre: guessGenre(b.categories) || searchGenre, addedAt: new Date().toISOString(), status, fav: currentShelf === "fav", readDate: status === "lu" ? today() : "" });
   if (!book.description && book.olKey) book.description = await openLibraryDescription(book.olKey);
   if (!book.cover && book.isbn && (await imageExists(olIsbnCover(book)))) book.cover = olIsbnCover(book).replace("-M.jpg", "-L.jpg");
+  if (!book.cover && book.isbn && amzCover(book) && (await imageExists(amzCover(book)))) book.cover = amzCover(book);
   book.color = (await dominantColor(book.cover)) || colorOf(book);
   books.push(book);
   save();
