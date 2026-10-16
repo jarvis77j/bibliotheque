@@ -606,7 +606,7 @@
     <button id="snapBtn">Copies automatiques (14 derniers jours)</button>
     <div id="snapList" class="snap-list" hidden></div>
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
-    <p class="version">Version du 16 octobre, 16 h 35</p>
+    <p class="version">Version du 16 octobre, 16 h 45</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -689,6 +689,7 @@ function normalize(b) {
   if (n.genre === undefined) n.genre = guessGenre(n.categories);
   if (n.series === undefined) { const g = guessSeries(n.title); n.series = g.series; n.tome = g.tome || Number(n.tomeHint) || 0; }
   if (!Array.isArray(n.quotes)) n.quotes = [];
+  n.authors = (n.authors || []).map((a) => String(a).replace(/\s*\(\d{4}-[^)\s]*\)?\s*/g, " ").replace(/\s+/g, " ").trim());
   if (n.page === undefined) n.page = 0;
   if (n.lentTo === undefined) { n.lentTo = ""; n.lentDate = ""; }
   return n;
@@ -982,7 +983,8 @@ async function searchBnf(p) {
     const ark = (ids.find((x) => /ark:/.test(x)) || "").replace(/^.*(ark:\/.*)$/, "$1");
     const title = one("title").split(" / ")[0].replace(/\[Texte imprimé\]/i, "").replace(/\s+:\s+/g, " : ").trim();
     const authors = all("creator").map((a) => {
-      const name = a.split(".")[0].replace(/\(.*?\)/g, "").trim();
+      // « Skady, Tyra (1974-....). Auteur du texte » -> « Tyra Skady »
+      const name = a.replace(/\(.*?\)/g, "").split(/\.\s/)[0].replace(/\.+$/, "").trim();
       const [last, first] = name.split(",").map((x) => x.trim());
       return first ? first + " " + last : last;
     }).filter(Boolean);
@@ -1480,12 +1482,28 @@ function renderResults() {
     renderResults();
   }));
 }
+/* Livre trouvé à la BnF ou sur Open Library : on demande à Google son résumé et son genre grâce à l'ISBN */
+async function enrichFromGoogle(book) {
+  if (!book.isbn || (book.description && book.categories.length)) return false;
+  try {
+    const [g] = await googleFetch("isbn:" + book.isbn);
+    if (!g) return false;
+    let changed = false;
+    if (!book.description && g.description) { book.description = g.description; changed = true; }
+    if (!book.categories.length && g.categories.length) { book.categories = g.categories; changed = true; if (!book.genre) book.genre = guessGenre(g.categories); }
+    if (!book.pages && g.pages) { book.pages = g.pages; changed = true; }
+    if (!book.cover && g.cover) { book.cover = g.cover; changed = true; }
+    return changed;
+  } catch (e) { console.warn(e); return false; }
+}
+const enrichTried = new Set();
 async function addBook(b, btn, chosenStatus) {
   if (books.some((x) => x.id === b.id)) { toast("Déjà dans ta bibliothèque"); return; }
   if (btn) btn.textContent = "…";
   const status = chosenStatus || defaultStatus();
   const book = normalize({ ...b, genre: guessGenre(b.categories) || searchGenre, addedAt: new Date().toISOString(), status, fav: currentShelf === "fav", readDate: status === "lu" ? today() : "" });
   if (!book.description && book.olKey) book.description = await openLibraryDescription(book.olKey);
+  await enrichFromGoogle(book);
   if (!book.cover && book.isbn && (await imageExists(olIsbnCover(book)))) book.cover = olIsbnCover(book).replace("-M.jpg", "-L.jpg");
   if (!book.cover && book.isbn && amzCover(book) && (await imageExists(amzCover(book)))) book.cover = amzCover(book);
   book.color = (await dominantColor(book.cover)) || colorOf(book);
@@ -1869,6 +1887,11 @@ function openDetail(id) {
   };
   $("#detailSheet").classList.add("open");
   $("#detailSheet .sheet-body").scrollTop = keepScroll;
+  // résumé manquant (Google était peut-être en panne à l'ajout) : on réessaie une fois
+  if (!b.description && b.isbn && !enrichTried.has(id)) {
+    enrichTried.add(id);
+    enrichFromGoogle(b).then((changed) => { if (changed) { save(); render(); if ($("#detail").dataset.id === id) openDetail(id); } });
+  }
 }
 
 /* ---------- Statistiques et objectif ---------- */
