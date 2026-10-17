@@ -35,7 +35,8 @@ Web app pour garder la liste des livres lus, sur une étagère virtuelle.
 - **⋯** : sauvegarder la bibliothèque dans un fichier, ou la restaurer.
 - **Ajouter** demande où ranger le livre : Lus, En cours, À lire ou Coups de cœur.
 - **Toucher la bibliothèque** (à côté des livres) ou le bouton **▦ Couvertures** : tous les livres de l'étagère en grille de couvertures.
-- **Toucher le nom de l'auteur** sur une fiche : tous ses livres.
+- **Toucher le nom de l'auteur** (fiche ou résultats) ou « 📚 Tous les livres de… » : sa bibliographie.
+- **Couvertures** : à fiche égale, l'édition la plus récente est choisie. Rayons **BD** et **Manga** dans Explorer, à partir de séries connues.
 - **Couleurs** (⋯) : couleur préférée, ambiance de la pièce (chaleureuse, pastel, nature, soirée) et mode clair ou sombre (ou comme le téléphone).
 - **Badges** (dans les statistiques) : 16 petits défis (premier livre, 10, 25, 50, 100 livres, pavé de 600 pages, saga, mois record…). Un message s'affiche quand un badge est gagné.
 - **Pour toi** (en haut d'Explorer) : la suite de ses séries (les tomes qui manquent), les nouveautés de ses auteurs préférés (deux dernières années) et son genre préféré, sans les livres déjà dans la bibliothèque. Mis à jour une fois par jour.

@@ -360,6 +360,10 @@
   .pick-box p { margin: 2px 4px 12px; color: var(--muted); font-size: 14px; text-align: center; }
   .pick-box button { display: block; width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 14px; padding: 14px; font-size: 16px; margin-bottom: 8px; cursor: pointer; }
   .pick-box button.cancel { background: none; border: 0; color: var(--muted); margin: 0; }
+  .biblio-head { padding: 12px 16px; font-size: 15px; border-bottom: 1px solid var(--line); }
+  .res-open { border: 0; background: none; padding: 0; cursor: pointer; flex: none; }
+  .result-title { cursor: pointer; }
+  .author-link.author-more { display: block; text-decoration: none; margin: -10px auto 18px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 18px; padding: 8px 14px; font-size: 14px; cursor: pointer; }
   .author-link { border: 0; background: none; padding: 0; color: var(--accent); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
   .sheet-head {
     display: flex; align-items: center; gap: 8px; padding: 12px 16px;
@@ -686,7 +690,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 16 octobre, 22 h 50</p>
+    <p class="version">Version du 17 octobre, 22 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1147,7 +1151,10 @@ function editionKey(b) {
   return (s.series && s.tome ? plain(s.series) + "#" + s.tome : plain(b.title)) + "|" + lastName(b);
 }
 function editionScore(b) {
-  return (b.cover ? 6 : 0) + (b.description ? 4 : 0) + (b.pages ? 1 : 0) + (b.isbn ? 1 : 0) + Math.min(5, Math.log2(1 + (b.ratings || 0)));
+  // à fiche égale, l'édition la plus récente gagne : sa couverture est celle que l'on voit en librairie
+  const y = Number(String(b.date || "").slice(0, 4)) || 0;
+  const recent = y >= 2018 ? 4 : y >= 2010 ? 2 : y && y < 2000 ? -3 : 0;
+  return (b.cover ? 6 : 0) + (b.description ? 4 : 0) + (b.pages ? 1 : 0) + (b.isbn ? 1 : 0) + Math.min(3, Math.log2(1 + (b.ratings || 0))) + recent;
 }
 /* Livres « autour » d'une œuvre (analyses, fiches de lecture, guides…) : on les met après l'œuvre elle-même */
 const DERIVED_RE = /\b(analyse|fiche|fiches|resume|etude|guide|commentaire|selon|autour|dictionnaire|encyclopedie|atlas|quiz|carnet|calendrier|coloriage|cahier|lecture analytique|bac)\b/;
@@ -1449,7 +1456,9 @@ const EXPLORE_ROWS = [
   { title: "Horreur", p: { genre: "horreur" } },
   { title: "Young adult", p: { genre: "ya" } },
   { title: "Science-fiction", p: { genre: "sf" } },
-  { title: "BD & manga", p: { genre: "bd" } },
+  // Google range mal les BD françaises : on part de séries connues
+  { key: "bd", title: "BD", fn: () => famousSeries(["Astérix", "Les Vieux Fourneaux", "Blacksad", "Blake et Mortimer", "L'Arabe du futur", "Mortelle Adèle", "Les Cahiers d'Esther", "Lucky Luke"]), keep: ["bd1"] },
+  { key: "manga", title: "Manga", fn: () => famousSeries(["One Piece", "Spy x Family", "Demon Slayer", "L'Attaque des Titans", "Naruto", "Blue Lock", "Jujutsu Kaisen", "My Hero Academia"]), keep: ["manga1"] },
   { title: "Grands classiques", p: { q: "classique littérature française" } },
 ];
 /* Rayons faits pour elle, d'après sa bibliothèque : la suite de ses séries, les nouveautés de ses auteurs, son genre préféré */
@@ -1496,6 +1505,17 @@ async function authorsNews(authors) {
   const short = (r) => plain(r.title.split(/\s[-–—:]\s/).pop()) + "|" + lastName(r);
   return out.filter((r) => (r.date || "") >= recent).filter((r) => !seen.has(short(r)) && seen.add(short(r))).sort((x, y) => (y.date || "").localeCompare(x.date || "")).slice(0, 24);
 }
+async function famousSeries(names) {
+  const keys = ownedKeys(), out = [];
+  for (let i = 0; i < names.length; i += 2) {
+    const found = await Promise.all(names.slice(i, i + 2).map((n) => searchBooks({ q: n, title: "", author: "", genre: "", order: "relevance" }).catch(() => [])));
+    found.forEach((r, j) => {
+      const n = plain(names[i + j]);
+      out.push(...r.filter((b) => !b.otherLang && b.cover && plain(b.title).includes(n) && !DERIVED_RE.test(plain(b.title)) && !isOwned(b, keys)).slice(0, 3));
+    });
+  }
+  return out;
+}
 let exploreRows = EXPLORE_ROWS;
 const exploreCache = {};
 const RECO_KEY = STORE_KEY + ".reco2"; // changer le numéro vide le cache des rayons perso
@@ -1537,10 +1557,11 @@ async function loadExploreRow(i) {
   const p = { q: "", title: "", author: "", genre: "", order: "relevance", ...row.p };
   const ck = row.key || row.title;
   try {
-    if (row.sig && !exploreCache[ck]) {
+    const sig = row.sig || row.keep;
+    if (sig && !exploreCache[ck]) {
       // rayons personnels : gardés une journée, tant que ses séries et auteurs ne changent pas
       const c = recoCache(), hit = c.rows[ck];
-      if (hit && JSON.stringify(hit.sig) === JSON.stringify(row.sig)) exploreCache[ck] = hit.list;
+      if (hit && JSON.stringify(hit.sig) === JSON.stringify(sig)) exploreCache[ck] = hit.list;
     }
     if (!exploreCache[ck]) {
       let r = row.fn ? await row.fn() : await searchBooks(p);
@@ -1549,7 +1570,7 @@ async function loadExploreRow(i) {
       const withCover = r.filter((b) => b.cover);
       const rest = r.filter((b) => !b.cover);
       exploreCache[ck] = (withCover.length >= 8 ? withCover : [...withCover, ...rest.filter((b) => b.isbn), ...rest.filter((b) => !b.isbn)]).slice(0, 24);
-      if (row.sig) { const c = recoCache(); c.rows[ck] = { sig: row.sig, list: exploreCache[ck] }; try { localStorage.setItem(RECO_KEY, JSON.stringify(c)); } catch {} }
+      if (sig && exploreCache[ck].length) { const c = recoCache(); c.rows[ck] = { sig, list: exploreCache[ck] }; try { localStorage.setItem(RECO_KEY, JSON.stringify(c)); } catch {} }
     }
     const list = exploreCache[ck];
     const target = document.getElementById("exList" + i);
@@ -1696,15 +1717,18 @@ function renderResults() {
     if (openEditions.has(i)) (b.others || []).forEach((o) => flat.push({ b: o, i, ed: true }));
   });
   let langHeader = false;
-  box.innerHTML = flat.map(({ b, i, ed }, n) => {
+  const p = searchParams();
+  const biblio = p.author && !p.q && !p.title && !p.genre
+    ? `<div class="biblio-head">📚 Les livres de <b>${esc(p.author)}</b> · ${lastResults.filter((b) => !b.otherLang).length} trouvés</div>` : "";
+  box.innerHTML = biblio + flat.map(({ b, i, ed }, n) => {
     const owned = books.some((x) => x.id === b.id);
     const head = !ed && b.otherLang && !langHeader ? ((langHeader = true), `<div class="lang-head">Autres éditions trouvées (langue indiquée par Google : pas le français)</div>`) : "";
     const more = !ed && b.others && b.others.length;
     return head + `<div class="result ${ed ? "edition" : ""}">
-      ${coverImg(b)}
+      <button class="res-open" data-n="${n}" aria-label="Voir la fiche">${coverImg(b)}</button>
       <div class="result-info">
         <div class="result-title">${esc(b.title)}</div>
-        <div class="result-meta">${esc(b.authors.join(", "))}${b.date ? " · " + esc(String(b.date).slice(0, 4)) : ""}${b.publisher ? " · " + esc(b.publisher) : ""}${b.otherLang && b.lang ? " · " + esc(b.lang.toUpperCase()) : ""}</div>
+        <div class="result-meta">${authorLinks(b)}${b.date ? " · " + esc(String(b.date).slice(0, 4)) : ""}${b.publisher ? " · " + esc(b.publisher) : ""}${b.otherLang && b.lang ? " · " + esc(b.lang.toUpperCase()) : ""}</div>
         ${more ? `<button class="ed-btn" data-i="${i}">${openEditions.has(i) ? "Masquer les autres éditions" : `${b.others.length} autre${b.others.length > 1 ? "s" : ""} édition${b.others.length > 1 ? "s" : ""}`}</button>` : ""}
       </div>
       <button class="add-btn ${owned ? "done" : ""}" data-n="${n}">${owned ? "Ajouté" : "Ajouter"}</button>
@@ -1712,6 +1736,11 @@ function renderResults() {
   }).join("") + `<div class="source-note">Résultats : ${esc(searchSource)}</div>` + manualLink;
   bindManualLink();
   box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => { const { others, rank, seriesKey, tomeNo, otherLang, lang, ...b } = flat[btn.dataset.n].b; addBook(b, btn); }));
+  box.querySelectorAll(".res-open, .result-title").forEach((el, k) => (el.onclick = () => {
+    const n = el.dataset.n ?? el.closest(".result").querySelector(".res-open").dataset.n;
+    const { others, rank, seriesKey, tomeNo, otherLang, lang, ...b } = flat[n].b;
+    openPreview(b);
+  }));
   box.querySelectorAll(".ed-btn").forEach((btn) => (btn.onclick = () => {
     const i = Number(btn.dataset.i);
     openEditions.has(i) ? openEditions.delete(i) : openEditions.add(i);
@@ -1942,6 +1971,7 @@ async function openPreview(b) {
     <div class="hint">Touche le livre pour le retourner</div>
     <h2>${esc(b.title)}</h2>
     <div class="author">${authorLinks(b)}</div>
+    ${!shareView && b.authors[0] ? `<button class="author-link author-more" data-author="${esc(b.authors[0])}">📚 Tous les livres de ${esc(b.authors[0])}</button>` : ""}
     ${shareView ? `<div class="sub">${b.rating ? "★".repeat(b.rating) + "☆".repeat(5 - b.rating) + " · " : ""}${b.fav ? "💖 Coup de cœur · " : ""}${esc((SHELVES.find((x) => x.key === b.status) || {}).label || "")}</div>`
       : `<div class="add-row"><button data-s="lu">Je l'ai lu</button><button data-s="encours">En cours</button><button data-s="alire">À lire</button><button data-s="fav">💖 Coup de cœur</button></div>`}
     <div class="panel facts">${facts.map(([k, v]) => `<div><span>${k}</span><span>${esc(v)}</span></div>`).join("")}</div>
@@ -2029,6 +2059,7 @@ function openDetail(id) {
     <div class="cover-pick" id="coverPickBox" hidden></div>
     <h2>${esc(b.title)}</h2>
     <div class="author">${authorLinks(b)}</div>
+    ${!shareView && b.authors[0] ? `<button class="author-link author-more" data-author="${esc(b.authors[0])}">📚 Tous les livres de ${esc(b.authors[0])}</button>` : ""}
 
     <div class="panel">
       <div class="panel-title">Ma lecture</div>
