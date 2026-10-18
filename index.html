@@ -53,7 +53,7 @@
   .share-banner { display: flex; align-items: center; gap: 10px; padding: calc(10px + env(safe-area-inset-top)) 16px 10px; background: var(--accent); color: #fff; font-size: 14px; margin-top: calc(-1 * env(safe-area-inset-top)); }
   .share-banner span { flex: 1; }
   .share-banner button { border: 0; border-radius: 16px; padding: 7px 12px; background: #fff; color: var(--accent); font-weight: 600; cursor: pointer; }
-  body.shared #menuBtn, body.shared #searchBtn, body.shared .tab[data-key="explore"], body.shared .goal-form { display: none !important; }
+  body.shared #menuBtn, body.shared #searchBtn, body.shared .tab[data-key="explore"], body.shared .tab[data-key="sorties"], body.shared .goal-form { display: none !important; }
   header {
     position: sticky; top: 0; z-index: 5;
     padding: 14px 16px 0;
@@ -241,6 +241,26 @@
 
   /* Explorer : le catalogue */
   .explore { padding: 16px 0 40px; }
+  .rel { padding: 12px 16px 40px; max-width: 640px; margin: 0 auto; }
+  .rel-weeks { display: flex; gap: 8px; margin-bottom: 10px; overflow-x: auto; scrollbar-width: none; }
+  .rel-weeks button, .rel-kinds button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 18px; padding: 7px 12px; font-size: 14px; cursor: pointer; white-space: nowrap; }
+  .rel-weeks button.on, .rel-kinds button.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
+  .rel-kinds { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-bottom: 6px; padding-bottom: 4px; }
+  .rel-day { font-family: Georgia, serif; font-size: 19px; margin: 22px 0 10px; text-transform: capitalize; }
+  .rel-day small { font-family: -apple-system, sans-serif; font-size: 13px; color: var(--muted); text-transform: none; margin-left: 6px; }
+  .rel-card { display: flex; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 10px; }
+  .rel-card .ex-cover { width: 84px; height: 126px; flex: none; cursor: pointer; }
+  .rel-card .ex-cover img { width: 84px; height: 126px; object-fit: cover; border-radius: 3px 6px 6px 3px; }
+  .rel-card .ex-gen b { font-size: 11px; }
+  .rel-info { flex: 1; min-width: 0; }
+  .rel-info h4 { margin: 0 0 2px; font-size: 15px; line-height: 1.25; cursor: pointer; }
+  .rel-meta { color: var(--muted); font-size: 13px; line-height: 1.4; }
+  .rel-meta .distrib { border: 0; background: none; padding: 0; color: var(--accent); font: inherit; cursor: pointer; }
+  .rel-desc { font-size: 13px; line-height: 1.45; margin: 6px 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; cursor: pointer; }
+  .rel-desc.open { -webkit-line-clamp: unset; }
+  .rel-acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .rel-acts button, .rel-acts a { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 14px; padding: 5px 10px; font-size: 13px; text-decoration: none; cursor: pointer; }
+  .rel-note { color: var(--muted); font-size: 12px; margin-top: 20px; line-height: 1.5; }
   .ex-search {
     display: flex; align-items: center; gap: 10px; margin: 0 16px 18px; width: calc(100% - 32px);
     border: 1px solid var(--line); background: var(--card); border-radius: 14px; padding: 13px 14px;
@@ -690,7 +710,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 17 octobre, 22 h</p>
+    <p class="version">Version du 18 octobre, 13 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -728,6 +748,7 @@ const SHELVES = [
   { key: "encours", label: "En cours", empty: "Aucune lecture en cours." },
   { key: "alire", label: "À lire", empty: "Ta pile à lire est vide." },
   { key: "fav", label: "Coups de cœur", empty: "Pas encore de coup de cœur.<br>Touche ♥ sur la fiche d'un livre." },
+  { key: "sorties", label: "Sorties", empty: "" },
   { key: "explore", label: "Explorer", empty: "" },
 ];
 const STATUS_LABEL = { lu: "Lu", encours: "En cours", alire: "À lire" };
@@ -1004,6 +1025,7 @@ async function googleFetch(query, order, anyLang) {
       cover: googleCover(v),
       tomeHint: (v.seriesInfo || {}).bookDisplayNumber || "",
       ratings: v.ratingsCount || 0,
+      avg: v.averageRating || 0,
       lang: v.language || "",
       source: "Google Livres",
     };
@@ -1224,7 +1246,7 @@ const defaultStatus = () => (["lu", "encours", "alire"].includes(currentShelf) ?
 function renderTabs() {
   $("#tabs").innerHTML = SHELVES.map((s) => {
     const n = books.filter((b) => inShelf(b, s.key)).length;
-    return `<button class="tab ${s.key === currentShelf ? "active" : ""}" data-key="${s.key}">${s.key === "explore" ? "🔎 " : ""}${s.label}<span>${n || ""}</span></button>`;
+    return `<button class="tab ${s.key === currentShelf ? "active" : ""}" data-key="${s.key}">${s.key === "explore" ? "🔎 " : s.key === "sorties" ? "🗓 " : ""}${s.label}<span>${n || ""}</span></button>`;
   }).join("");
   $("#tabs").querySelectorAll(".tab").forEach((t) => (t.onclick = () => {
     currentShelf = t.dataset.key;
@@ -1335,6 +1357,7 @@ function spineHtml(b) {
 function renderShelves() {
   const el = $("#shelves");
   if (currentShelf === "explore") { $("#toolbar").hidden = true; renderExplore(); return; }
+  if (currentShelf === "sorties") { $("#toolbar").hidden = true; renderReleases(); return; }
   if (window.createRoom3D && !room3dFailed && render3D()) return;
   const shelf = SHELVES.find((s) => s.key === currentShelf);
   const theme = THEMES[currentShelf];
@@ -1515,6 +1538,106 @@ async function famousSeries(names) {
     });
   }
   return out;
+}
+/* ---------- Sorties de la semaine (d'après les dates de parution de Google Livres) ---------- */
+/* Distributeurs des principaux éditeurs. Si l'éditeur n'est pas connu, elle peut l'indiquer elle-même, l'app s'en souvient. */
+const DISTRIB = [
+  [/hachette|grasset|fayard|\bstock\b|calmann|lattes|livre de poche|larousse|dunod|armand colin|marabout|\bpika\b|le masque|albert rene|hatier|\bkero\b|mazarine/, "Hachette"],
+  [/pocket|robert laffont|\bplon\b|perrin|julliard|seghers|10 18|fleuve|belfond|presses de la cite|cherche midi|\bxo\b|nathan|\bpkj\b|kurokawa|lizzie|\bsolar\b|\bfirst\b|bordas|le robert|univers poche|michel lafon/, "Interforum"],
+  [/flammarion|j ai lu|casterman|arthaud|autrement|pere castor|pygmalion|librio/, "Union Distribution"],
+  [/gallimard|folio|denoel|mercure de france|futuropolis|\bp o l\b/, "Sodis"],
+  [/dargaud|dupuis|le lombard|\bkana\b|fleurus|\bmango\b|lucky comics/, "MDS"],
+];
+function distributorOf(publisher) {
+  const p = plain(publisher);
+  if (!p) return "";
+  const mine = (settings.distrib || {})[p];
+  if (mine) return mine;
+  const hit = DISTRIB.find(([re]) => re.test(p));
+  return hit ? hit[1] : "";
+}
+const REL_KINDS = [["", "Tout"], ["roman", "Romans"], ["romance", "Romance"], ["fantasy", "Fantasy & SF"], ["policier", "Polar & thriller"], ["ya", "Young adult"], ["bd", "BD & manga"]];
+const REL_QUERIES = ['subject:"fiction"', 'subject:"romance"', 'subject:"fantasy"', 'subject:"thriller"', 'subject:"young adult"', "roman", "manga", "bande dessinée tome"];
+let relWeek = 0, relKind = "";
+const RELEASE_KEY = STORE_KEY + ".sorties";
+const isoDay = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+function weekStart(offset) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * offset); return d; }
+async function loadReleases() {
+  try { const c = JSON.parse(localStorage.getItem(RELEASE_KEY)); if (c && c.day === today()) return c.list; } catch {}
+  const from = isoDay(weekStart(-1)), to = isoDay(new Date(weekStart(2).getTime() - 864e5));
+  const authors = topCounts(books, (b) => b.authors.slice(0, 1)).slice(0, 4).map(([a]) => "inauthor:" + JSON.stringify(a));
+  const seen = new Set(), out = [];
+  const queries = [...REL_QUERIES, ...authors];
+  for (let i = 0; i < queries.length; i += 2) {
+    const res = await Promise.all(queries.slice(i, i + 2).map((q) => googleFetch(q, "newest").catch(() => [])));
+    for (const r of res.flat()) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(r.date) || r.date < from || r.date > to || DERIVED_RE.test(plain(r.title))) continue;
+      const k = editionKey(r);
+      if (seen.has(k)) continue;
+      seen.add(k); out.push(r);
+    }
+  }
+  out.sort((a, b) => a.date.localeCompare(b.date) || (b.cover ? 1 : 0) - (a.cover ? 1 : 0));
+  try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ day: today(), list: out })); } catch {}
+  return out;
+}
+async function renderReleases() {
+  const el = $("#shelves");
+  const weeks = [["-1", "Semaine dernière"], ["0", "Cette semaine"], ["1", "Semaine prochaine"]];
+  el.innerHTML = `<div class="rel">
+    <div class="rel-weeks">${weeks.map(([k, l]) => `<button data-w="${k}" class="${Number(k) === relWeek ? "on" : ""}">${l}</button>`).join("")}</div>
+    <div class="rel-kinds">${REL_KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === relKind ? "on" : ""}">${l}</button>`).join("")}</div>
+    <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
+    <p class="rel-note">Dates de parution, résumés et notes : Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
+  </div>`;
+  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = Number(b.dataset.w); renderReleases(); }));
+  el.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => { relKind = b.dataset.k; renderReleases(); }));
+  let all;
+  try { all = await loadReleases(); } catch { all = null; }
+  const box = $("#relList");
+  if (!box || currentShelf !== "sorties") return;
+  if (!all) { box.innerHTML = `<div class="ex-loading">Le catalogue ne répond pas. Réessaie dans un moment.</div>`; return; }
+  const start = weekStart(relWeek), end = new Date(start.getTime() + 6 * 864e5);
+  const keys = ownedKeys();
+  const list = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || guessGenre(b.categories) === relKind));
+  if (!list.length) { box.innerHTML = `<div class="ex-loading">Aucune sortie trouvée pour cette semaine${relKind ? " dans ce genre" : ""}.</div>`; return; }
+  const days = [...new Set(list.map((b) => b.date))];
+  box.innerHTML = days.map((d) => {
+    const items = list.filter((b) => b.date === d);
+    const label = new Date(d + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+    return `<h3 class="rel-day">${label}<small>${items.length} sortie${items.length > 1 ? "s" : ""}</small></h3>` + items.map((b) => {
+      const n = all.indexOf(b), dist = distributorOf(b.publisher), owned = isOwned(b, keys);
+      return `<div class="rel-card" data-n="${n}">
+        <div class="ex-cover" data-open>${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
+        <div class="rel-info">
+          <h4 data-open>${esc(b.title)}</h4>
+          <div class="rel-meta">${authorLinks(b)}${b.publisher ? "<br>" + esc(b.publisher) : ""}${b.publisher ? ` · <button class="distrib" data-pub="${esc(b.publisher)}">${dist ? "Distribution : " + esc(dist) : "Distributeur ?"}</button>` : ""}
+            ${b.avg ? `<br>${"★".repeat(Math.round(b.avg))}${"☆".repeat(5 - Math.round(b.avg))} ${String(b.avg).replace(".", ",")} (${b.ratings} avis)` : ""}</div>
+          ${b.description ? `<div class="rel-desc">${esc(b.description)}</div>` : `<div class="rel-meta" style="margin:6px 0">Pas encore de résumé.</div>`}
+          <div class="rel-acts">
+            <button data-add ${owned ? "disabled" : ""}>${owned ? "✓ Dans ma bibliothèque" : "🔖 À lire"}</button>
+            <a href="https://www.babelio.com/resrecherche.php?Recherche=${encodeURIComponent(b.title)}" target="_blank" rel="noopener">Avis Babelio</a>
+            <a href="https://www.google.com/search?q=${encodeURIComponent("booknode " + b.title)}" target="_blank" rel="noopener">Avis Booknode</a>
+          </div>
+        </div>
+      </div>`;
+    }).join("");
+  }).join("");
+  box.querySelectorAll(".rel-card").forEach((c) => {
+    const b = all[c.dataset.n];
+    c.querySelectorAll("[data-open]").forEach((x) => (x.onclick = () => openPreview(b)));
+    const d = c.querySelector(".rel-desc"); if (d) d.onclick = () => d.classList.toggle("open");
+    const add = c.querySelector("[data-add]");
+    if (add) add.onclick = async () => { const { avg, ...x } = b; await addBook(x, null, "alire"); renderReleases(); };
+  });
+  box.querySelectorAll(".distrib").forEach((x) => (x.onclick = () => {
+    const pub = x.dataset.pub, cur = distributorOf(pub);
+    const v = prompt(`Distributeur de « ${pub} » (Hachette, Interforum, Union Distribution, MDS, Dilisco, Sodis…) :`, cur);
+    if (v === null) return;
+    settings.distrib = settings.distrib || {};
+    if (v.trim()) settings.distrib[plain(pub)] = v.trim(); else delete settings.distrib[plain(pub)];
+    saveSettings(); renderReleases();
+  }));
 }
 let exploreRows = EXPLORE_ROWS;
 const exploreCache = {};
