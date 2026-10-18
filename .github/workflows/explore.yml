@@ -15,25 +15,17 @@ jobs:
           while read name url; do
             curl -sL -A "$UA" -H "Accept-Language: fr-FR,fr" --max-time 30 -o "out/$name.html" -w "$name %{http_code} %{size_download} %{url_effective}\n" "$url" >> out/_status.txt || echo "$name FAIL" >> out/_status.txt
           done <<'LIST'
-          booknode_home https://booknode.com/
-          booknode_sorties https://booknode.com/sorties
-          booknode_sorties2 https://booknode.com/sorties_livres
-          booknode_sorties3 https://booknode.com/nouveautes
-          livraddict_parutions https://www.livraddict.com/biblio/parutions.php
-          livraddict_home https://www.livraddict.com/
-          mangas_news_planning https://www.manga-news.com/index.php/planning
-          mangacollec https://www.mangacollec.com/planning
-          bedetheque https://www.bedetheque.com/
-          bdgest_sorties https://www.bdgest.com/sorties-bd.php
-          babelio_home https://www.babelio.com/
-          decitre_aparaitre https://www.decitre.fr/livres/a-paraitre.html
-          leslibraires https://www.leslibraires.fr/
-          lalibrairie https://www.lalibrairie.com/
-          placedeslibraires https://www.placedeslibraires.fr/
-          livreshebdo https://www.livreshebdo.fr/
-          gibert https://www.gibert.com/livres/nouveautes
-          cultura https://www.cultura.com/livres/nouveautes-livres.html
-          fnac https://www.fnac.com/livre.asp
+          ll_nouveautes https://www.leslibraires.fr/dossiers/nouveautes/
+          ll_precommandes https://www.leslibraires.fr/dossiers/precommandes/
+          ll_romance https://www.leslibraires.fr/boutique/25/livres-papier/821432/romance
+          ll_bd https://www.leslibraires.fr/boutique/25/livres-papier/113870/bd-comics-mangas
+          ll_livre https://www.leslibraires.fr/livre/26455468-retour-a-folegandros-agnes-martin-lugand-michel-lafon
+          ll_livre2 https://www.leslibraires.fr/livre/26460582-9-les-aigles-de-rome-tome-9-enrico-marini-dargaud
+          lh_quelire https://www.livreshebdo.fr/que_lire
+          lh_agenda https://www.livreshebdo.fr/agenda
+          mc_api https://api.mangacollec.com/v2/planning
+          ll_robots https://www.leslibraires.fr/robots.txt
+          lh_robots https://www.livreshebdo.fr/robots.txt
           LIST
           cat out/_status.txt
       - uses: actions/checkout@v4
@@ -41,5 +33,5 @@ jobs:
       - run: |
           cd repo
           git checkout -B debug-sources
-          rm -rf debug && mkdir debug && cp ../out/* debug/
+          rm -rf debug && mkdir debug && echo $GITHUB_RUN_ID > debug/run && cp ../out/* debug/
           git add debug && git -c user.name=bot -c user.email=bot@example.com commit -qm "debug sources" && git push -f origin debug-sources
