@@ -66,8 +66,10 @@ def parse_book(path, page):
     desc = re.search(r'<p itemprop="description">(.*?)</p>\s*</div>', page, re.S)
     cover = re.search(r'itemprop="image" src="(//[^"]+)"', page)
     authors = re.findall(r'itemprop="author" class="link">\s*([^<]+?)\s*<', page) or re.findall(r'itemprop="author">\s*([^<]+?)\s*<', page)
-    crumbs = re.findall(r'"@type": "ListItem", "position": \d+, "name": "([^"]+)"', page)
-    crumbs = [json.loads('"' + c + '"') for c in crumbs]
+    crumbs = []
+    for c in re.findall(r'"@type": "ListItem", "position": \d+, "name": "((?:[^"\\]|\\.)*)"', page):
+        try: crumbs.append(json.loads('"' + c + '"'))
+        except ValueError: pass
     return {
         "id": "ll:" + path.split("/")[2].split("-")[0],
         # « 9 - Les Aigles de Rome - Tome 9 », « 1, Swan - Tome 1 » : le numéro devant est en trop
@@ -117,7 +119,9 @@ def main():
             if new >= MAX_NEW: continue
             page = get(path); new += 1
             if not page: continue
-            b = parse_book(path, page)
+            try: b = parse_book(path, page)
+            except Exception as e:
+                print("  fiche illisible", path, e, file=sys.stderr); continue
         b["kind"] = kind_of(b, hint)
         if b["title"] and b["date"]: books[bid] = b
     # on garde aussi les fiches déjà connues qui ne sont plus listées mais restent dans la fenêtre
