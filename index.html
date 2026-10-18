@@ -710,7 +710,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 18 octobre, 13 h</p>
+    <p class="version">Version du 18 octobre, 14 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1556,29 +1556,40 @@ function distributorOf(publisher) {
   const hit = DISTRIB.find(([re]) => re.test(p));
   return hit ? hit[1] : "";
 }
-const REL_KINDS = [["", "Tout"], ["roman", "Romans"], ["romance", "Romance"], ["fantasy", "Fantasy & SF"], ["policier", "Polar & thriller"], ["ya", "Young adult"], ["bd", "BD & manga"]];
+const REL_KINDS = [["", "Tout"], ["roman", "Romans"], ["romance", "Romance"], ["fantasy", "Fantasy & SF"], ["policier", "Polar & thriller"], ["ya", "Young adult"], ["bd", "BD & manga"], ["jeunesse", "Jeunesse"]];
 const REL_QUERIES = ['subject:"fiction"', 'subject:"romance"', 'subject:"fantasy"', 'subject:"thriller"', 'subject:"young adult"', "roman", "manga", "bande dessinée tome"];
 let relWeek = 0, relKind = "";
 const RELEASE_KEY = STORE_KEY + ".sorties";
 const isoDay = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
 function weekStart(offset) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * offset); return d; }
+/* Sorties relevées toutes les 4 heures sur leslibraires.fr par le robot du site (data/sorties.json) */
+async function siteReleases() {
+  const res = await fetch("data/sorties.json?h=" + Math.floor(Date.now() / 36e5), { cache: "no-cache" });
+  if (!res.ok) throw new Error("sorties " + res.status);
+  const d = await res.json();
+  return (d.books || []).map((b) => ({ ...b, categories: b.rayons || [], source: "leslibraires.fr" }));
+}
 async function loadReleases() {
-  try { const c = JSON.parse(localStorage.getItem(RELEASE_KEY)); if (c && c.day === today()) return c.list; } catch {}
+  const slot = today() + "-" + Math.floor(new Date().getHours() / 4);
+  try { const c = JSON.parse(localStorage.getItem(RELEASE_KEY)); if (c && c.slot === slot && c.list.length) return c.list; } catch {}
+  const site = await siteReleases().catch((e) => { console.warn(e); return []; });
   const from = isoDay(weekStart(-1)), to = isoDay(new Date(weekStart(2).getTime() - 864e5));
   const authors = topCounts(books, (b) => b.authors.slice(0, 1)).slice(0, 4).map(([a]) => "inauthor:" + JSON.stringify(a));
   const seen = new Set(), out = [];
-  const queries = [...REL_QUERIES, ...authors];
+  for (const b of site) { const k = editionKey(b); if (!seen.has(k)) { seen.add(k); if (b.isbn) seen.add("isbn:" + b.isbn); out.push(b); } }
+  // Google Livres en complément : surtout pour les sorties de ses auteurs préférés
+  const queries = site.length ? authors : [...REL_QUERIES, ...authors];
   for (let i = 0; i < queries.length; i += 2) {
     const res = await Promise.all(queries.slice(i, i + 2).map((q) => googleFetch(q, "newest").catch(() => [])));
     for (const r of res.flat()) {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(r.date) || r.date < from || r.date > to || DERIVED_RE.test(plain(r.title))) continue;
       const k = editionKey(r);
-      if (seen.has(k)) continue;
+      if (seen.has(k) || (r.isbn && seen.has("isbn:" + r.isbn))) continue;
       seen.add(k); out.push(r);
     }
   }
   out.sort((a, b) => a.date.localeCompare(b.date) || (b.cover ? 1 : 0) - (a.cover ? 1 : 0));
-  try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ day: today(), list: out })); } catch {}
+  try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ slot, list: out })); } catch {}
   return out;
 }
 async function renderReleases() {
@@ -1588,7 +1599,7 @@ async function renderReleases() {
     <div class="rel-weeks">${weeks.map(([k, l]) => `<button data-w="${k}" class="${Number(k) === relWeek ? "on" : ""}">${l}</button>`).join("")}</div>
     <div class="rel-kinds">${REL_KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === relKind ? "on" : ""}">${l}</button>`).join("")}</div>
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
-    <p class="rel-note">Dates de parution, résumés et notes : Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
+    <p class="rel-note">Sorties relevées toutes les 4 heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
   el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = Number(b.dataset.w); renderReleases(); }));
   el.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => { relKind = b.dataset.k; renderReleases(); }));
@@ -1599,7 +1610,7 @@ async function renderReleases() {
   if (!all) { box.innerHTML = `<div class="ex-loading">Le catalogue ne répond pas. Réessaie dans un moment.</div>`; return; }
   const start = weekStart(relWeek), end = new Date(start.getTime() + 6 * 864e5);
   const keys = ownedKeys();
-  const list = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || guessGenre(b.categories) === relKind));
+  const list = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind));
   if (!list.length) { box.innerHTML = `<div class="ex-loading">Aucune sortie trouvée pour cette semaine${relKind ? " dans ce genre" : ""}.</div>`; return; }
   const days = [...new Set(list.map((b) => b.date))];
   box.innerHTML = days.map((d) => {
@@ -1616,6 +1627,7 @@ async function renderReleases() {
           ${b.description ? `<div class="rel-desc">${esc(b.description)}</div>` : `<div class="rel-meta" style="margin:6px 0">Pas encore de résumé.</div>`}
           <div class="rel-acts">
             <button data-add ${owned ? "disabled" : ""}>${owned ? "✓ Dans ma bibliothèque" : "🔖 À lire"}</button>
+            ${b.url ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">Fiche libraire</a>` : ""}
             <a href="https://www.babelio.com/resrecherche.php?Recherche=${encodeURIComponent(b.title)}" target="_blank" rel="noopener">Avis Babelio</a>
             <a href="https://www.google.com/search?q=${encodeURIComponent("booknode " + b.title)}" target="_blank" rel="noopener">Avis Booknode</a>
           </div>
@@ -1628,7 +1640,7 @@ async function renderReleases() {
     c.querySelectorAll("[data-open]").forEach((x) => (x.onclick = () => openPreview(b)));
     const d = c.querySelector(".rel-desc"); if (d) d.onclick = () => d.classList.toggle("open");
     const add = c.querySelector("[data-add]");
-    if (add) add.onclick = async () => { const { avg, ...x } = b; await addBook(x, null, "alire"); renderReleases(); };
+    if (add) add.onclick = async () => { const { avg, kind, rayons, url, format, ...x } = b; await addBook(x, null, "alire"); renderReleases(); };
   });
   box.querySelectorAll(".distrib").forEach((x) => (x.onclick = () => {
     const pub = x.dataset.pub, cur = distributorOf(pub);
