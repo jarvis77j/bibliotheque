@@ -1,0 +1,45 @@
+name: explore-sources
+on:
+  workflow_dispatch:
+  push:
+    paths: [".github/workflows/explore.yml"]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          mkdir -p out
+          UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+          while read name url; do
+            curl -sL -A "$UA" -H "Accept-Language: fr-FR,fr" --max-time 30 -o "out/$name.html" -w "$name %{http_code} %{size_download} %{url_effective}\n" "$url" >> out/_status.txt || echo "$name FAIL" >> out/_status.txt
+          done <<'LIST'
+          booknode_home https://booknode.com/
+          booknode_sorties https://booknode.com/sorties
+          booknode_sorties2 https://booknode.com/sorties_livres
+          booknode_sorties3 https://booknode.com/nouveautes
+          livraddict_parutions https://www.livraddict.com/biblio/parutions.php
+          livraddict_home https://www.livraddict.com/
+          mangas_news_planning https://www.manga-news.com/index.php/planning
+          mangacollec https://www.mangacollec.com/planning
+          bedetheque https://www.bedetheque.com/
+          bdgest_sorties https://www.bdgest.com/sorties-bd.php
+          babelio_home https://www.babelio.com/
+          decitre_aparaitre https://www.decitre.fr/livres/a-paraitre.html
+          leslibraires https://www.leslibraires.fr/
+          lalibrairie https://www.lalibrairie.com/
+          placedeslibraires https://www.placedeslibraires.fr/
+          livreshebdo https://www.livreshebdo.fr/
+          gibert https://www.gibert.com/livres/nouveautes
+          cultura https://www.cultura.com/livres/nouveautes-livres.html
+          fnac https://www.fnac.com/livre.asp
+          LIST
+          cat out/_status.txt
+      - uses: actions/checkout@v4
+        with: { path: repo }
+      - run: |
+          cd repo
+          git checkout -B debug-sources
+          rm -rf debug && mkdir debug && cp ../out/* debug/
+          git add debug && git -c user.name=bot -c user.email=bot@example.com commit -qm "debug sources" && git push -f origin debug-sources
