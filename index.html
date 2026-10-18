@@ -92,7 +92,7 @@
   .toolbar input { flex: 1 1 55%; min-width: 0; }
   .toolbar select { min-width: 0; }
   #sort { flex: 0 1 auto; }
-  #genreFilter, #authorFilter { flex: 1 1 40%; }
+  #genreFilter, #authorFilter, #publicFilter { flex: 1 1 40%; }
 
   .filters-toggle { border: 0; background: none; color: var(--accent); font-size: 15px; padding: 10px 16px; text-align: left; cursor: pointer; border-bottom: 1px solid var(--line); }
   .filters { padding: 12px 16px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
@@ -379,6 +379,14 @@
   .pick-box { width: 100%; max-width: 520px; background: var(--card); border-radius: 18px 18px 0 0; padding: 14px 16px calc(16px + env(safe-area-inset-bottom)); }
   .pick-box p { margin: 2px 4px 12px; color: var(--muted); font-size: 14px; text-align: center; }
   .pick-box button { display: block; width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 14px; padding: 14px; font-size: 16px; margin-bottom: 8px; cursor: pointer; }
+  .pick-tags { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: 0 4px 12px; font-size: 14px; color: var(--muted); }
+  .pick-tags label { display: flex; align-items: center; gap: 6px; }
+  .pick-tags select { font-size: 15px; padding: 6px 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); max-width: 46vw; }
+  .pick-first { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); }
+  .pick-first input { width: 18px; height: 18px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 2px 0 22px; }
+  .tag-row:empty { display: none; }
+  .tag { font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
   .pick-box button.cancel { background: none; border: 0; color: var(--muted); margin: 0; }
   .biblio-head { padding: 12px 16px; font-size: 15px; border-bottom: 1px solid var(--line); }
   .res-open { border: 0; background: none; padding: 0; cursor: pointer; flex: none; }
@@ -600,6 +608,7 @@
   </select>
   <select id="genreFilter" aria-label="Genre"></select>
   <select id="authorFilter" aria-label="Auteur"></select>
+  <select id="publicFilter" aria-label="Pour qui"></select>
 </div>
 <main id="shelves"></main>
 
@@ -673,6 +682,11 @@
 
 <div class="pick" id="pick" hidden>
   <div class="pick-box">
+    <div class="pick-tags" id="pickTags" hidden>
+      <label>Genre <select id="pickGenre"></select></label>
+      <label>Pour <select id="pickPublic"></select></label>
+      <label class="pick-first"><input type="checkbox" id="pickFirst"> Premier roman</label>
+    </div>
     <p id="pickText">Où ranger ce livre ?</p>
     <button data-s="lu">📚 Lus</button>
     <button data-s="encours">📖 En cours</button>
@@ -710,7 +724,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 18 octobre, 14 h</p>
+    <p class="version">Version du 18 octobre, 16 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -753,12 +767,15 @@ const SHELVES = [
 ];
 const STATUS_LABEL = { lu: "Lu", encours: "En cours", alire: "À lire" };
 const GENRES = [
-  { key: "roman", label: "Roman", subject: "fiction", words: "roman" },
+  { key: "roman", label: "Littérature générale", subject: "fiction", words: "roman" },
   { key: "policier", label: "Policier & thriller", subject: "thriller", words: "thriller policier" },
   { key: "horreur", label: "Horreur", subject: "horror", words: "horreur" },
   { key: "fantasy", label: "Fantasy", subject: "fantasy", words: "fantasy" },
   { key: "sf", label: "Science-fiction", subject: "science fiction", words: "science-fiction" },
   { key: "romance", label: "Romance", subject: "romance", words: "romance" },
+  { key: "darkromance", label: "Dark romance", subject: "", words: "dark romance" },
+  { key: "romantasy", label: "Romantasy", subject: "", words: "romantasy" },
+  { key: "urban", label: "Urban fantasy", subject: "", words: "urban fantasy" },
   { key: "feelgood", label: "Feel-good", subject: "", words: "feel good" },
   { key: "ya", label: "Young adult", subject: "young adult", words: "young adult" },
   { key: "jeunesse", label: "Jeunesse", subject: "juvenile fiction", words: "jeunesse" },
@@ -784,6 +801,47 @@ function guessGenre(categories) {
   const hit = rules.find(([re]) => re.test(c));
   return hit ? hit[1] : "";
 }
+/* Genre plus fin : on lit aussi le résumé et le titre (dark romance, romantasy, urban fantasy…) */
+function guessGenreFull(b) {
+  const t = ((b.description || "") + " " + (b.title || "") + " " + (b.categories || []).join(" ")).toLowerCase();
+  if (/dark romance/.test(t)) return "darkromance";
+  if (/romantasy/.test(t)) return "romantasy";
+  if (/urban fantasy|fantasy urbaine/.test(t)) return "urban";
+  const g = guessGenre(b.categories);
+  if (g && g !== "roman") return g;
+  const d = [
+    [/new romance|romance|histoire d'amour/, "romance"], [/thriller|polar|enquête|meurtre|serial killer/, "policier"],
+    [/fantasy|magie|dragons?\b|sorcière|elfe|fae\b/, "fantasy"], [/science-fiction|dystopi|vaisseau spatial/, "sf"],
+    [/manga|bande dessinée|\bbd\b|album illustré/, "bd"], [/horreur|épouvante/, "horreur"], [/feel.good/, "feelgood"],
+  ].find(([re]) => re.test(t));
+  return d ? d[1] : g;
+}
+/* Pour qui ? adulte, young adult ou enfant */
+const PUBLICS = [{ key: "adulte", label: "Adulte" }, { key: "ya", label: "Young adult" }, { key: "enfant", label: "Enfant" }];
+const publicLabel = (k) => (PUBLICS.find((x) => x.key === k) || {}).label || "";
+const PUB_ENFANT = /école des loisirs|kaléidoscope|bayard jeunesse|milan|auzou|nathan jeunesse|gallimard jeunesse|flammarion jeunesse|père castor|casterman jeunesse|albin michel jeunesse|didier jeunesse|hachette enfants|deux coqs d'or|rue du monde|thierry magnier|seuil jeunesse|actes sud junior|bibliothèque rose|bibliothèque verte|lito/;
+const PUB_YA = /\bpkj\b|pocket jeunesse|hachette romans|collection r\b|^r$|rageot|scripto|pôle fiction|castelmore|lumen|slalom|la martinière j|jeunes adultes/;
+function guessPublic(b) {
+  const pub = (b.publisher || "").toLowerCase();
+  const t = ((b.description || "") + " " + (b.categories || []).join(" ")).toLowerCase();
+  const age = t.match(/(?:dès|à partir de|a partir de|pour les)\s+(\d{1,2})\s*ans/);
+  if (age) return Number(age[1]) >= 12 ? "ya" : "enfant";
+  if (b.mature || /dark romance|scènes? explicites?|public averti|réservé à un public|\+18|new adult|érotique/.test(t)) return "adulte";
+  if (/young adult|jeunes? adultes?|adolescen/.test(t)) return "ya";
+  if (/juvenile|children|album jeunesse|premières? lectures?/.test(t)) return "enfant";
+  if (PUB_YA.test(pub)) return "ya";
+  if (PUB_ENFANT.test(pub)) return "enfant";
+  const g = b.genre || guessGenre(b.categories);
+  if (g === "ya") return "ya";
+  if (g === "jeunesse") return "enfant";
+  return b.title ? "adulte" : "";
+}
+const isFirstNovel = (b) => /premier roman/.test((b.description || "").toLowerCase());
+const tagsHtml = (b) => {
+  const g = b.genre ?? guessGenreFull(b), pu = b.public ?? guessPublic({ ...b, genre: g });
+  const first = b.firstNovel ?? isFirstNovel(b);
+  return `<div class="tag-row">${[genreLabel(g), publicLabel(pu), first ? "Premier roman" : ""].filter(Boolean).map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>`;
+};
 
 /* ---------- Stockage ---------- */
 let books = [];
@@ -798,6 +856,8 @@ function load() {
 function normalize(b) {
   const n = { authors: [], categories: [], status: "lu", fav: false, rating: 0, readDate: "", review: "", ...b };
   if (n.genre === undefined) n.genre = guessGenre(n.categories);
+  if (n.public === undefined) n.public = guessPublic(n);
+  if (n.firstNovel === undefined) n.firstNovel = isFirstNovel(n);
   if (n.series === undefined) { const g = guessSeries(n.title); n.series = g.series; n.tome = g.tome || Number(n.tomeHint) || 0; }
   if (!Array.isArray(n.quotes)) n.quotes = [];
   n.authors = (n.authors || []).map((a) => String(a).replace(/\s*\(\d{4}-[^)\s]*\)?\s*/g, " ").replace(/\s+/g, " ").trim());
@@ -1026,6 +1086,7 @@ async function googleFetch(query, order, anyLang) {
       tomeHint: (v.seriesInfo || {}).bookDisplayNumber || "",
       ratings: v.ratingsCount || 0,
       avg: v.averageRating || 0,
+      mature: v.maturityRating === "MATURE",
       lang: v.language || "",
       source: "Google Livres",
     };
@@ -1275,6 +1336,9 @@ function renderLibraryFilters() {
   const authors = [...new Set(list.flatMap((b) => b.authors))].sort((a, b) => a.localeCompare(b, "fr")).map((a) => [a, a]);
   fillSelect($("#genreFilter"), "Tous les genres", genres);
   fillSelect($("#authorFilter"), "Tous les auteurs", authors);
+  const pubs = PUBLICS.filter((x) => list.some((b) => b.public === x.key)).map((x) => [x.key, x.label]);
+  if (list.some((b) => b.firstNovel)) pubs.push(["premier", "Premiers romans"]);
+  fillSelect($("#publicFilter"), "Tous les publics", pubs);
 }
 function visibleBooks() {
   const f = $("#filter").value.trim().toLowerCase();
@@ -1283,6 +1347,8 @@ function visibleBooks() {
   if (f) list = list.filter((b) => (b.title + " " + b.authors.join(" ")).toLowerCase().includes(f));
   if (gf) list = list.filter((b) => b.genre === gf);
   if (af) list = list.filter((b) => b.authors.includes(af));
+  const pf = $("#publicFilter").value;
+  if (pf) list = list.filter((b) => (pf === "premier" ? b.firstNovel : b.public === pf));
   const by = $("#sort").value;
   const cmp = {
     title: (a, b) => a.title.localeCompare(b.title, "fr"),
@@ -1890,7 +1956,8 @@ async function enrichFromGoogle(book) {
     if (!g) return false;
     let changed = false;
     if (!book.description && g.description) { book.description = g.description; changed = true; }
-    if (!book.categories.length && g.categories.length) { book.categories = g.categories; changed = true; if (!book.genre) book.genre = guessGenre(g.categories); }
+    if (!book.categories.length && g.categories.length) { book.categories = g.categories; changed = true; if (!book.genre) book.genre = guessGenreFull({ ...book, categories: g.categories }); }
+    if (g.mature && !book.mature) { book.mature = true; changed = true; }
     if (!book.pages && g.pages) { book.pages = g.pages; changed = true; }
     if (!book.cover && g.cover) { book.cover = g.cover; changed = true; }
     return changed;
@@ -1898,29 +1965,47 @@ async function enrichFromGoogle(book) {
 }
 const enrichTried = new Set();
 /* Petite fenêtre « Où ranger ce livre ? » : Lus, En cours, À lire ou Coups de cœur */
-function chooseShelf(title) {
+const publicOptions = (sel) => `<option value="">?</option>` + PUBLICS.map((x) => `<option value="${x.key}" ${x.key === sel ? "selected" : ""}>${x.label}</option>`).join("");
+function chooseShelf(title, tags) {
   return new Promise((ok) => {
     const el = $("#pick");
+    $("#pickTags").hidden = !tags;
+    if (tags) {
+      $("#pickGenre").innerHTML = genreOptions(tags.genre);
+      $("#pickPublic").innerHTML = publicOptions(tags.public);
+      $("#pickFirst").checked = !!tags.first;
+      tags.touched = false;
+      $("#pickGenre").onchange = $("#pickPublic").onchange = $("#pickFirst").onchange = () => { tags.touched = true; };
+    }
     $("#pickText").textContent = title ? `Où ranger « ${title.length > 50 ? title.slice(0, 48) + "…" : title} » ?` : "Où ranger ce livre ?";
     el.hidden = false;
     el.onclick = (e) => {
       const btn = e.target.closest("button");
       if (!btn && e.target !== el) return;
+      if (btn && btn.closest(".pick-tags")) return;
       el.hidden = true;
+      if (tags) Object.assign(tags, { genre: $("#pickGenre").value, public: $("#pickPublic").value, first: $("#pickFirst").checked });
       ok(btn ? btn.dataset.s : "");
     };
   });
 }
 async function addBook(b, btn, chosenStatus) {
   if (books.some((x) => x.id === b.id)) { toast("Déjà dans ta bibliothèque"); return; }
-  if (!chosenStatus) chosenStatus = await chooseShelf(b.title);
+  const g0 = guessGenreFull(b) || searchGenre;
+  const tags = { genre: g0, public: guessPublic({ ...b, genre: g0 }), first: isFirstNovel(b) };
+  if (!chosenStatus) chosenStatus = await chooseShelf(b.title, tags);
   if (!chosenStatus) return;
   if (btn) btn.textContent = "…";
   const fav = chosenStatus === "fav";
   const status = fav ? "lu" : chosenStatus;
-  const book = normalize({ ...b, genre: guessGenre(b.categories) || searchGenre, addedAt: new Date().toISOString(), status, fav, readDate: status === "lu" ? today() : "" });
+  const book = normalize({ ...b, genre: tags.genre, public: tags.public, firstNovel: tags.first, addedAt: new Date().toISOString(), status, fav, readDate: status === "lu" ? today() : "" });
   if (!book.description && book.olKey) book.description = await openLibraryDescription(book.olKey);
   await enrichFromGoogle(book);
+  if (!tags.touched) { // le résumé complet arrive après : on affine si elle n'a rien changé
+    book.genre = guessGenreFull(book) || book.genre;
+    book.public = guessPublic(book) || book.public;
+    book.firstNovel = book.firstNovel || isFirstNovel(book);
+  }
   if (!book.cover && book.isbn && (await imageExists(olIsbnCover(book)))) book.cover = olIsbnCover(book).replace("-M.jpg", "-L.jpg");
   if (!book.cover && book.isbn && amzCover(book) && (await imageExists(amzCover(book)))) book.cover = amzCover(book);
   book.color = (await dominantColor(book.cover)) || colorOf(book);
@@ -1970,13 +2055,15 @@ $("#manualForm").onsubmit = async (e) => {
   e.preventDefault();
   const title = $("#mTitle").value.trim();
   if (!title) return;
-  const chosen = await chooseShelf(title);
+  const desc0 = $("#mDesc").value.trim();
+  const mtags = { genre: $("#mGenre").value, public: guessPublic({ title, description: desc0, publisher: $("#mPublisher").value.trim(), genre: $("#mGenre").value }), first: /premier roman/i.test(desc0) };
+  const chosen = await chooseShelf(title, mtags);
   if (!chosen) return;
   const status = chosen === "fav" ? "lu" : chosen;
   const book = normalize({
     id: "m:" + Date.now(), title,
     authors: $("#mAuthor").value.split(",").map((a) => a.trim()).filter(Boolean),
-    pages: Number($("#mPages").value) || 0, genre: $("#mGenre").value,
+    pages: Number($("#mPages").value) || 0, genre: mtags.genre, public: mtags.public, firstNovel: mtags.first,
     description: $("#mDesc").value.trim(), cover: manualCover, publisher: $("#mPublisher").value.trim(), date: "", isbn: $("#mIsbn").value.replace(/[^\dXx]/g, ""),
     source: "Ajout manuel", addedAt: new Date().toISOString(), status,
     fav: chosen === "fav", readDate: status === "lu" ? today() : "",
@@ -2106,6 +2193,7 @@ async function openPreview(b) {
     <div class="hint">Touche le livre pour le retourner</div>
     <h2>${esc(b.title)}</h2>
     <div class="author">${authorLinks(b)}</div>
+    ${tagsHtml(b)}
     ${!shareView && b.authors[0] ? `<button class="author-link author-more" data-author="${esc(b.authors[0])}">📚 Tous les livres de ${esc(b.authors[0])}</button>` : ""}
     ${shareView ? `<div class="sub">${b.rating ? "★".repeat(b.rating) + "☆".repeat(5 - b.rating) + " · " : ""}${b.fav ? "💖 Coup de cœur · " : ""}${esc((SHELVES.find((x) => x.key === b.status) || {}).label || "")}</div>`
       : `<div class="add-row"><button data-s="lu">Je l'ai lu</button><button data-s="encours">En cours</button><button data-s="alire">À lire</button><button data-s="fav">💖 Coup de cœur</button></div>`}
@@ -2194,6 +2282,7 @@ function openDetail(id) {
     <div class="cover-pick" id="coverPickBox" hidden></div>
     <h2>${esc(b.title)}</h2>
     <div class="author">${authorLinks(b)}</div>
+    ${tagsHtml(b)}
     ${!shareView && b.authors[0] ? `<button class="author-link author-more" data-author="${esc(b.authors[0])}">📚 Tous les livres de ${esc(b.authors[0])}</button>` : ""}
 
     <div class="panel">
@@ -2207,6 +2296,11 @@ function openDetail(id) {
         <div class="mine-row">
           <label for="genreSel">Genre</label>
           <select id="genreSel">${genreOptions(b.genre)}</select>
+        </div>
+        <div class="mine-row">
+          <label for="publicSel">Pour</label>
+          <select id="publicSel">${publicOptions(b.public)}</select>
+          <label class="pick-first"><input type="checkbox" id="firstIn" ${b.firstNovel ? "checked" : ""}> Premier roman</label>
         </div>
         <div class="mine-row" id="dateRow" ${b.status === "lu" ? "" : "hidden"}>
           <label for="readDate">Lu le</label>
@@ -2296,7 +2390,9 @@ function openDetail(id) {
     b.quotes.push({ text, page: $("#quotePage").value.trim() }); save(); openDetail(id); toast("Citation ajoutée");
   };
   $("#detail").querySelectorAll(".quote button").forEach((q) => (q.onclick = () => { b.quotes.splice(Number(q.dataset.q), 1); save(); openDetail(id); }));
-  $("#genreSel").onchange = (e) => update(id, { genre: e.target.value });
+  $("#genreSel").onchange = (e) => { update(id, { genre: e.target.value }); openDetail(id); };
+  $("#publicSel").onchange = (e) => { update(id, { public: e.target.value }); openDetail(id); };
+  $("#firstIn").onchange = (e) => { update(id, { firstNovel: e.target.checked }); openDetail(id); };
   let reviewTimer;
   $("#review").oninput = (e) => { clearTimeout(reviewTimer); reviewTimer = setTimeout(() => { b.review = e.target.value; save(); }, 400); };
   $("#removeBtn").onclick = (e) => {
@@ -2608,6 +2704,7 @@ document.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => b.cl
 $("#filter").addEventListener("input", renderShelves);
 $("#sort").addEventListener("change", renderShelves);
 $("#genreFilter").addEventListener("change", renderShelves);
+$("#publicFilter").addEventListener("change", renderShelves);
 $("#authorFilter").addEventListener("change", renderShelves);
 let resizeTimer;
 window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(renderShelves, 150); });
