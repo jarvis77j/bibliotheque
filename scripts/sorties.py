@@ -61,6 +61,13 @@ def caract(page, label):
     m = re.search(r'<th scope="row">\s*' + label + r'\s*</th>\s*<td[^>]*>(.*?)</td>', page, re.S)
     return text(m.group(1)) if m else ""
 
+def clean_title(t):
+    # « Abysses\n\n 2 - Abysses - Tome 02 » : la série est répétée au-dessus, on garde la dernière ligne
+    lines = [l.strip() for l in (t or "").splitlines() if l.strip()]
+    t = lines[-1] if lines else ""
+    # « 9 - Les Aigles de Rome - Tome 9 », « 1, Swan - Tome 1 » : le numéro devant est en trop
+    return re.sub(r"^\d+(?:\.\d+)?\s*[-,]\s*", "", t)
+
 def parse_book(path, page):
     title = re.search(r'<h1[^>]*>(.*?)</h1>', page, re.S)
     desc = re.search(r'<p itemprop="description">(.*?)</p>\s*</div>', page, re.S)
@@ -72,8 +79,7 @@ def parse_book(path, page):
         except ValueError: pass
     return {
         "id": "ll:" + path.split("/")[2].split("-")[0],
-        # « 9 - Les Aigles de Rome - Tome 9 », « 1, Swan - Tome 1 » : le numéro devant est en trop
-        "title": re.sub(r"^\d+(?:\.\d+)?\s*[-,]\s*", "", text(title.group(1))) if title else "",
+        "title": clean_title(text(title.group(1))) if title else "",
         "authors": list(dict.fromkeys(html.unescape(a).strip() for a in authors))[:3],
         "publisher": caract(page, "Éditeur"),
         "date": fr_date(caract(page, "Date de publication")),
@@ -122,10 +128,12 @@ def main():
             try: b = parse_book(path, page)
             except Exception as e:
                 print("  fiche illisible", path, e, file=sys.stderr); continue
+        b["title"] = clean_title(b["title"])
         b["kind"] = kind_of(b, hint)
         if b["title"] and b["date"]: books[bid] = b
     # on garde aussi les fiches déjà connues qui ne sont plus listées mais restent dans la fenêtre
-    for bid, b in old.items(): books.setdefault(bid, b)
+    for bid, b in old.items():
+        b["title"] = clean_title(b["title"]); books.setdefault(bid, b)
     lo, hi = (date.today() - timedelta(days=45)).isoformat(), (date.today() + timedelta(days=90)).isoformat()
     keep = sorted((b for b in books.values() if lo <= b["date"] <= hi), key=lambda b: (b["date"], b["title"]))
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
