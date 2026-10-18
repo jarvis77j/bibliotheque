@@ -75,6 +75,13 @@
   }
   .menu-btn { background: transparent; color: var(--ink); font-size: 20px; }
 
+  .rel-bn { display: block; text-align: center; margin: 4px 0 10px; padding: 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; font-size: 14px; }
+  .quick { display: flex; gap: 8px; margin: 10px 0 0; }
+  .quick button { flex: 1; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 8px 6px; font-size: 14px; cursor: pointer; white-space: nowrap; }
+  .quick button.on { background: var(--ink); color: var(--card); border-color: var(--ink); font-weight: 600; }
+  body.shared .quick { display: none !important; }
+  .tb-toggle { flex: 1 1 100%; border: 0; background: none; color: var(--accent); font-size: 15px; padding: 2px 0; text-align: left; cursor: pointer; }
+  .toolbar.closed > :not(.tb-toggle) { display: none; }
   .tabs { display: flex; gap: 4px; overflow-x: auto; margin: 12px -16px 0; padding: 0 16px; scrollbar-width: none; }
   .tabs::-webkit-scrollbar { display: none; }
   .tab {
@@ -595,9 +602,15 @@
     <button class="icon-btn menu-btn" id="menuBtn" aria-label="Réglages">⋯</button>
     <button class="icon-btn" id="searchBtn" aria-label="Ajouter un livre">+</button>
   </div>
+  <nav class="quick" id="quick">
+    <button data-key="sorties">🗓 Sorties</button>
+    <button data-key="explore">🔎 Explorer</button>
+    <button data-key="pourtoi">✨ Pour toi</button>
+  </nav>
   <nav class="tabs" id="tabs"></nav>
 </header>
-<div class="toolbar" id="toolbar">
+<div class="toolbar closed" id="toolbar">
+  <button class="tb-toggle" id="tbToggle">🔍 Chercher, trier, filtrer ▾</button>
   <input id="filter" type="search" placeholder="Chercher dans mes livres" autocomplete="off">
   <select id="sort" aria-label="Trier">
     <option value="added">Ordre d'ajout</option>
@@ -724,7 +737,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 18 octobre, 16 h</p>
+    <p class="version">Version du 18 octobre, 22 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -764,6 +777,7 @@ const SHELVES = [
   { key: "fav", label: "Coups de cœur", empty: "Pas encore de coup de cœur.<br>Touche ♥ sur la fiche d'un livre." },
   { key: "sorties", label: "Sorties", empty: "" },
   { key: "explore", label: "Explorer", empty: "" },
+  { key: "pourtoi", label: "Pour toi", empty: "" },
 ];
 const STATUS_LABEL = { lu: "Lu", encours: "En cours", alire: "À lire" };
 const GENRES = [
@@ -1304,12 +1318,14 @@ function groupEditions(list) {
 function inShelf(b, key) { return key === "fav" ? b.fav : b.status === key; }
 /* Statut donné à un livre ajouté depuis l'onglet ouvert */
 const defaultStatus = () => (["lu", "encours", "alire"].includes(currentShelf) ? currentShelf : "lu");
+const SPECIAL = ["sorties", "explore", "pourtoi"];
 function renderTabs() {
-  $("#tabs").innerHTML = SHELVES.map((s) => {
+  $("#quick").querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.key === currentShelf));
+  $("#tabs").innerHTML = SHELVES.filter((s) => !SPECIAL.includes(s.key)).map((s) => {
     const n = books.filter((b) => inShelf(b, s.key)).length;
-    return `<button class="tab ${s.key === currentShelf ? "active" : ""}" data-key="${s.key}">${s.key === "explore" ? "🔎 " : s.key === "sorties" ? "🗓 " : ""}${s.label}<span>${n || ""}</span></button>`;
+    return `<button class="tab ${s.key === currentShelf ? "active" : ""}" data-key="${s.key}">${s.label}<span>${n || ""}</span></button>`;
   }).join("");
-  $("#tabs").querySelectorAll(".tab").forEach((t) => (t.onclick = () => {
+  [...$("#tabs").querySelectorAll(".tab"), ...$("#quick").querySelectorAll("button")].forEach((t) => (t.onclick = () => {
     currentShelf = t.dataset.key;
     try { localStorage.setItem(STORE_KEY + ".onglet", currentShelf); } catch {}
     render();
@@ -1423,6 +1439,7 @@ function spineHtml(b) {
 function renderShelves() {
   const el = $("#shelves");
   if (currentShelf === "explore") { $("#toolbar").hidden = true; renderExplore(); return; }
+  if (currentShelf === "pourtoi") { $("#toolbar").hidden = true; renderExplore(true); return; }
   if (currentShelf === "sorties") { $("#toolbar").hidden = true; renderReleases(); return; }
   if (window.createRoom3D && !room3dFailed && render3D()) return;
   const shelf = SHELVES.find((s) => s.key === currentShelf);
@@ -1553,7 +1570,18 @@ const EXPLORE_ROWS = [
 /* Rayons faits pour elle, d'après sa bibliothèque : la suite de ses séries, les nouveautés de ses auteurs, son genre préféré */
 const ownedKeys = () => new Set(books.flatMap((b) => [b.id, editionKey(b), b.series && b.tome ? plain(b.series) + "#" + b.tome + "|" + lastName(b) : ""]));
 const isOwned = (r, keys) => keys.has(r.id) || keys.has(editionKey(r));
-function personalRows() {
+/* Genre de la bibliothèque → rayon des sorties */
+const KIND_OF_GENRE = { darkromance: "romance", romantasy: "romance", urban: "fantasy", sf: "fantasy", horreur: "policier", feelgood: "roman", historique: "roman", lgbt: "roman" };
+async function releasesForMe(genres, authors) {
+  const all = await loadReleases().catch(() => []);
+  const kinds = new Set(genres.map((g) => KIND_OF_GENRE[g] || g));
+  const names = new Set(authors.map(plain));
+  const from = isoDay(new Date(Date.now() - 7 * 864e5)), keys = ownedKeys();
+  return (all || []).filter((b) => b.date >= from && !isOwned(b, keys) && (b.authors.some((a) => names.has(plain(a))) || kinds.has(b.kind || guessGenre(b.categories))))
+    .sort((a, b) => (b.authors.some((x) => names.has(plain(x))) ? 1 : 0) - (a.authors.some((x) => names.has(plain(x))) ? 1 : 0) || a.date.localeCompare(b.date))
+    .slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") }));
+}
+function personalRows(full) {
   if (!books.length) return [];
   const liked = books.filter((b) => b.fav || b.rating >= 4 || b.status === "lu" || b.status === "encours");
   const base = liked.length ? liked : books;
@@ -1562,8 +1590,11 @@ function personalRows() {
   if (series.length) rows.push({ key: "suite", title: "La suite de tes séries", fn: () => nextInSeries(series), sig: series });
   const authors = topCounts(base, (b) => b.authors.slice(0, 1)).slice(0, 4).map(([x]) => x);
   if (authors.length) rows.push({ key: "auteurs", title: "Nouveautés de tes auteurs", fn: () => authorsNews(authors), sig: authors, year: true });
-  const g = topCounts(base, (b) => [b.genre]).map(([k]) => GENRES.find((x) => x.key === k)).find(Boolean);
-  if (g) rows.push({ key: "genre", title: "Pour toi : " + g.label.toLowerCase(), p: { genre: g.key }, sig: [g.key], exclude: true });
+  const gs = topCounts(base, (b) => [b.genre]).map(([k]) => GENRES.find((x) => x.key === k)).filter(Boolean).slice(0, full ? 4 : 1);
+  if (full && (gs.length || authors.length)) rows.unshift({ key: "sortiesmoi", title: "Sorties qui devraient te plaire", mine: true, fn: () => releasesForMe(gs.map((g) => g.key), authors) });
+  gs.forEach((g, i) => rows.push({ key: "genre" + (i || ""), title: (i ? "Encore en " : "Pour toi : ") + g.label.toLowerCase(), p: { genre: g.key }, sig: [g.key], exclude: true }));
+  const pub = topCounts(base, (b) => [b.public]).map(([k]) => k).find(Boolean);
+  if (full && pub === "ya" && !gs.some((g) => g.key === "ya")) rows.push({ key: "ya", title: "Young adult", p: { genre: "ya" }, sig: ["ya"], exclude: true });
   return rows;
 }
 async function nextInSeries(seriesList) {
@@ -1664,6 +1695,7 @@ async function renderReleases() {
   el.innerHTML = `<div class="rel">
     <div class="rel-weeks">${weeks.map(([k, l]) => `<button data-w="${k}" class="${Number(k) === relWeek ? "on" : ""}">${l}</button>`).join("")}</div>
     <div class="rel-kinds">${REL_KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === relKind ? "on" : ""}">${l}</button>`).join("")}</div>
+    <a class="rel-bn" href="https://booknode.com/dates_de_sortie" target="_blank" rel="noopener">📘 Voir aussi les sorties du mois sur Booknode</a>
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
     <p class="rel-note">Sorties relevées toutes les 4 heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
@@ -1695,7 +1727,7 @@ async function renderReleases() {
             <button data-add ${owned ? "disabled" : ""}>${owned ? "✓ Dans ma bibliothèque" : "🔖 À lire"}</button>
             ${b.url ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">Fiche libraire</a>` : ""}
             <a href="https://www.babelio.com/resrecherche.php?Recherche=${encodeURIComponent(b.title)}" target="_blank" rel="noopener">Avis Babelio</a>
-            <a href="https://www.google.com/search?q=${encodeURIComponent("booknode " + b.title)}" target="_blank" rel="noopener">Avis Booknode</a>
+            <a href="https://booknode.com/search?q=${encodeURIComponent(b.title)}" target="_blank" rel="noopener">Avis Booknode</a>
           </div>
         </div>
       </div>`;
@@ -1722,17 +1754,21 @@ const exploreCache = {};
 const RECO_KEY = STORE_KEY + ".reco2"; // changer le numéro vide le cache des rayons perso
 function recoCache() { try { const c = JSON.parse(localStorage.getItem(RECO_KEY)); if (c && c.day === today()) return c; } catch {} return { day: today(), rows: {} }; }
 let exploreObserver;
-function renderExplore() {
+function renderExplore(mine) {
   const el = $("#shelves");
-  exploreRows = [...personalRows(), ...EXPLORE_ROWS];
+  exploreRows = mine ? personalRows(true) : EXPLORE_ROWS;
+  if (mine && !exploreRows.length) {
+    el.innerHTML = `<div class="explore"><div class="empty-note">Range quelques livres dans ta bibliothèque : je te proposerai des lectures qui leur ressemblent.<br><button id="emptyAdd">Chercher un livre</button></div></div>`;
+    $("#emptyAdd").onclick = openSearch; return;
+  }
   el.innerHTML = `<div class="explore">
-    <button class="ex-search" id="exSearch">🔎 Chercher un titre, un auteur, un ISBN…</button>
-    ${exploreRows.map((r, i) => `<section class="ex-row ${r.sig ? "mine" : ""}" data-row="${i}">
+    ${mine ? `<p class="rel-note" style="margin:4px 16px 0">Choisis d'après les genres, les auteurs et les séries de ta bibliothèque.</p>` : `<button class="ex-search" id="exSearch">🔎 Chercher un titre, un auteur, un ISBN…</button>`}
+    ${exploreRows.map((r, i) => `<section class="ex-row ${r.sig || r.mine ? "mine" : ""}" data-row="${i}">
       <div class="ex-head"><h3>${esc(r.title)}</h3>${r.p ? `<button data-more="${i}">Tout voir</button>` : ""}</div>
       <div class="ex-list" id="exList${i}"><div class="ex-loading">Chargement…</div></div>
     </section>`).join("")}
   </div>`;
-  $("#exSearch").onclick = openSearch;
+  if ($("#exSearch")) $("#exSearch").onclick = openSearch;
   el.querySelectorAll("[data-more]").forEach((b) => (b.onclick = () => {
     const r = exploreRows[b.dataset.more];
     openSearch();
@@ -1776,7 +1812,7 @@ async function loadExploreRow(i) {
     const list = exploreCache[ck];
     const target = document.getElementById("exList" + i);
     if (!target) return;
-    if (!list.length && row.key === "suite") { target.closest(".ex-row").remove(); return; } // rien qui manque : on cache le rayon
+    if (!list.length && (row.key === "suite" || row.key === "sortiesmoi")) { target.closest(".ex-row").remove(); return; } // rien qui manque : on cache le rayon
     target.innerHTML = list.length ? list.map((b, j) => `<button class="ex-card" data-i="${j}">
         <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
         <span>${esc(b.title)}</span><small>${esc(b.note || (row.year && b.date ? b.date.slice(0, 4) + " · " : "") + (b.authors[0] || ""))}</small>
@@ -2705,6 +2741,13 @@ $("#filter").addEventListener("input", renderShelves);
 $("#sort").addEventListener("change", renderShelves);
 $("#genreFilter").addEventListener("change", renderShelves);
 $("#publicFilter").addEventListener("change", renderShelves);
+function updateTbToggle() {
+  const n = [$("#filter").value.trim(), $("#genreFilter").value, $("#authorFilter").value, $("#publicFilter").value, $("#sort").value !== "added" ? 1 : ""].filter(Boolean).length;
+  const closed = $("#toolbar").classList.contains("closed");
+  $("#tbToggle").textContent = "🔍 Chercher, trier, filtrer " + (closed ? "▾" : "▴") + (n ? ` (${n})` : "");
+}
+$("#tbToggle").onclick = () => { $("#toolbar").classList.toggle("closed"); updateTbToggle(); if (!$("#toolbar").classList.contains("closed")) $("#filter").focus({ preventScroll: true }); };
+["#filter", "#sort", "#genreFilter", "#authorFilter", "#publicFilter"].forEach((x) => $(x).addEventListener("change", updateTbToggle));
 $("#authorFilter").addEventListener("change", renderShelves);
 let resizeTimer;
 window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(renderShelves, 150); });

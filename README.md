@@ -55,3 +55,7 @@ l'app apparaît avec son icône, comme une vraie app.
 ## Genre et public au scan
 
 Quand on scanne ou ajoute un livre, l'app propose son genre (littérature générale, romance, dark romance, romantasy, urban fantasy, fantasy, policier…), pour qui il est (adulte, young adult, enfant) et s'il s'agit d'un premier roman. Elle le devine d'après le résumé, l'éditeur et les catégories ; on peut corriger avant de ranger, ou plus tard sur la fiche. Un filtre « Tous les publics » trie l'étagère.
+
+## Sorties, Explorer, Pour toi
+
+Sous le titre, trois boutons : 🗓 Sorties, 🔎 Explorer et ✨ Pour toi (propositions selon les genres, auteurs et séries de la bibliothèque, dont les sorties qui devraient plaire). Les champs de recherche et de tri de l'étagère sont repliés derrière « 🔍 Chercher, trier, filtrer ». Dans Sorties, un lien ouvre aussi les sorties du mois sur Booknode, et chaque livre a un lien « Avis Booknode ».
