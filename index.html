@@ -737,7 +737,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 19 octobre, 9 h</p>
+    <p class="version">Version du 19 octobre, 18 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -850,11 +850,29 @@ function guessPublic(b) {
   if (g === "jeunesse") return "enfant";
   return b.title ? "adulte" : "";
 }
+/* Âge conseillé : il n'existe pas de PEGI pour les livres ; on lit ce que l'éditeur indique (« dès 13 ans », « 16+ », « public averti »)
+   et sinon on estime d'après le genre et le public */
+const AGES = [0, 3, 6, 9, 12, 13, 14, 15, 16, 18];
+function guessAge(b) {
+  const t = ((b.description || "") + " " + (b.title || "") + " " + (b.categories || []).join(" ")).toLowerCase();
+  let m = t.match(/(?:dès|à partir de|a partir de|pour les|conseillé dès)\s+(\d{1,2})\s*ans/) || t.match(/\b(1[0-8])\s*ans\s*(?:et\s*)?\+|\+\s?(1[0-8])\b|\b(1[0-8])\s?\+/);
+  if (m) { const n = Number(m[1] || m[2] || m[3] || m[4]); if (n > 0 && n <= 18) return { age: n, ageSure: true }; }
+  if (/public averti|réservé (?:à un public )?(?:aux )?adultes?|interdit aux (?:moins de 18 ans|mineurs)|scènes? (?:de sexe )?explicites?|contenu (?:sexuel|explicite)|érotique/.test(t)) return { age: 18, ageSure: true };
+  if (b.mature) return { age: 18, ageSure: true };
+  const g = b.genre || guessGenreFull(b), pu = b.public || guessPublic({ ...b, genre: g });
+  if (g === "darkromance") return { age: 18, ageSure: false };
+  if (pu === "ya" || g === "ya") return { age: 13, ageSure: false };
+  if (g === "romantasy" || (g === "romance" && /new romance|hugo|new way|j'ai lu.*romance/.test(t + " " + (b.publisher || "").toLowerCase()))) return { age: 16, ageSure: false };
+  return { age: null, ageSure: false };
+}
+const ageLabel = (b) => (b.age == null ? "" : b.age === 0 ? "Tout âge" : b.age >= 18 ? "18+ · public averti" : "Dès " + b.age + " ans") + (b.age != null && !b.ageSure ? " (estimé)" : "");
+const ageOptions = (b) => `<option value="">Je ne sais pas</option>` + AGES.map((a) => `<option value="${a}" ${b.age === a ? "selected" : ""}>${a === 0 ? "Tout âge" : a >= 18 ? "18+ (adulte)" : "Dès " + a + " ans"}</option>`).join("");
 const isFirstNovel = (b) => /premier roman/.test((b.description || "").toLowerCase());
 const tagsHtml = (b) => {
   const g = b.genre ?? guessGenreFull(b), pu = b.public ?? guessPublic({ ...b, genre: g });
   const first = b.firstNovel ?? isFirstNovel(b);
-  return `<div class="tag-row">${[genreLabel(g), publicLabel(pu), first ? "Premier roman" : ""].filter(Boolean).map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>`;
+  const ag = b.age !== undefined ? b : guessAge({ ...b, genre: g, public: pu });
+  return `<div class="tag-row">${[genreLabel(g), publicLabel(pu), ageLabel(ag), first ? "Premier roman" : ""].filter(Boolean).map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>`;
 };
 
 /* ---------- Stockage ---------- */
@@ -872,6 +890,7 @@ function normalize(b) {
   if (n.genre === undefined) n.genre = guessGenre(n.categories);
   if (n.public === undefined) n.public = guessPublic(n);
   if (n.firstNovel === undefined) n.firstNovel = isFirstNovel(n);
+  if (n.age === undefined) Object.assign(n, guessAge(n));
   if (n.series === undefined) { const g = guessSeries(n.title); n.series = g.series; n.tome = g.tome || Number(n.tomeHint) || 0; }
   if (!Array.isArray(n.quotes)) n.quotes = [];
   n.authors = (n.authors || []).map((a) => String(a).replace(/\s*\(\d{4}-[^)\s]*\)?\s*/g, " ").replace(/\s+/g, " ").trim());
@@ -1728,6 +1747,7 @@ async function renderReleases() {
           <h4 data-open>${esc(b.title)}</h4>
           <div class="rel-meta">${authorLinks(b)}${b.publisher ? "<br>" + esc(b.publisher) : ""}${b.publisher ? ` · <button class="distrib" data-pub="${esc(b.publisher)}">${dist ? "Distribution : " + esc(dist) : "Distributeur ?"}</button>` : ""}
             ${b.avg ? `<br>${"★".repeat(Math.round(b.avg))}${"☆".repeat(5 - Math.round(b.avg))} ${String(b.avg).replace(".", ",")} (${b.ratings} avis)` : ""}</div>
+          ${(() => { const a = guessAge(b); return a.age != null ? `<div class="rel-meta"><span class="tag">${esc(ageLabel(a))}</span></div>` : ""; })()}
           ${b.description ? `<div class="rel-desc">${esc(b.description)}</div>` : `<div class="rel-meta" style="margin:6px 0">Pas encore de résumé.</div>`}
           <div class="rel-acts">
             <button data-add ${owned ? "disabled" : ""}>${owned ? "✓ Dans ma bibliothèque" : "🔖 À lire"}</button>
@@ -2048,6 +2068,7 @@ async function addBook(b, btn, chosenStatus) {
     book.public = guessPublic(book) || book.public;
     book.firstNovel = book.firstNovel || isFirstNovel(book);
   }
+  Object.assign(book, guessAge(book));
   if (!book.cover && book.isbn && (await imageExists(olIsbnCover(book)))) book.cover = olIsbnCover(book).replace("-M.jpg", "-L.jpg");
   if (!book.cover && book.isbn && amzCover(book) && (await imageExists(amzCover(book)))) book.cover = amzCover(book);
   book.color = (await dominantColor(book.cover)) || colorOf(book);
@@ -2344,6 +2365,11 @@ function openDetail(id) {
           <select id="publicSel">${publicOptions(b.public)}</select>
           <label class="pick-first"><input type="checkbox" id="firstIn" ${b.firstNovel ? "checked" : ""}> Premier roman</label>
         </div>
+        <div class="mine-row">
+          <label for="ageSel">Âge</label>
+          <select id="ageSel">${ageOptions(b)}</select>
+          ${b.age != null && !b.ageSure ? `<span class="sub">estimé</span>` : ""}
+        </div>
         <div class="mine-row" id="dateRow" ${b.status === "lu" ? "" : "hidden"}>
           <label for="readDate">Lu le</label>
           <input type="date" id="readDate" value="${esc(b.readDate)}">
@@ -2434,6 +2460,7 @@ function openDetail(id) {
   $("#detail").querySelectorAll(".quote button").forEach((q) => (q.onclick = () => { b.quotes.splice(Number(q.dataset.q), 1); save(); openDetail(id); }));
   $("#genreSel").onchange = (e) => { update(id, { genre: e.target.value }); openDetail(id); };
   $("#publicSel").onchange = (e) => { update(id, { public: e.target.value }); openDetail(id); };
+  $("#ageSel").onchange = (e) => { update(id, { age: e.target.value === "" ? null : Number(e.target.value), ageSure: e.target.value !== "" }); openDetail(id); };
   $("#firstIn").onchange = (e) => { update(id, { firstNovel: e.target.checked }); openDetail(id); };
   let reviewTimer;
   $("#review").oninput = (e) => { clearTimeout(reviewTimer); reviewTimer = setTimeout(() => { b.review = e.target.value; save(); }, 400); };

@@ -63,3 +63,7 @@ Sous le titre, trois boutons : 🗓 Sorties, 🔎 Explorer et ✨ Pour toi (prop
 ## Ambiance Jungle
 
 Dans ⋯ > Ambiance, « Jungle » donne des meubles en bois sombre (blanc pour « À lire »), des murs vert foncé à motif de feuilles, des lianes de pothos qui tombent des étagères et de grandes plantes au sol.
+
+## Âge conseillé
+
+Les livres n'ont pas de PEGI. L'app affiche l'âge indiqué par l'éditeur quand le résumé le dit (« dès 13 ans », « 16+ », « public averti » → 18+). Sinon elle l'estime (dark romance → 18+, young adult → dès 13 ans, new romance → dès 16 ans) et écrit « estimé ». On peut le corriger sur la fiche (ligne « Âge »). Les sorties montrent aussi l'âge quand il est connu.
