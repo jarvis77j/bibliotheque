@@ -42,6 +42,14 @@
       if (th.pattern === "stripes") { g.fillStyle = "#fff"; for (let x = 0; x < w; x += 32) g.fillRect(x, 0, 3, h); g.fillStyle = "#000"; g.globalAlpha = 0.06; for (let x = 16; x < w; x += 32) g.fillRect(x, 0, 2, h); }
       if (th.pattern === "dots") { g.fillStyle = "#fff"; for (let y = 16; y < h; y += 32) for (let x = (y / 32) % 2 ? 0 : 16; x < w; x += 32) { g.beginPath(); g.arc(x, y, 3, 0, 7); g.fill(); } }
       if (th.pattern === "panel") { g.strokeStyle = "#fff"; g.lineWidth = 3; g.strokeRect(20, 150, 216, 90); g.globalAlpha = 0.1; g.fillStyle = "#000"; g.fillRect(0, 140, w, 2); }
+      if (th.pattern === "leaves") {
+        g.globalAlpha = 0.16;
+        for (let i = 0; i < 26; i++) {
+          const x = (i * 97) % w, y = (i * 61) % h, a = (i * 1.7) % 6.3;
+          g.save(); g.translate(x, y); g.rotate(a); g.fillStyle = i % 2 ? "#9fc48a" : "#6d9a5c";
+          g.beginPath(); g.moveTo(0, -18); g.bezierCurveTo(16, -14, 14, 10, 0, 18); g.bezierCurveTo(-14, 10, -16, -14, 0, -18); g.fill(); g.restore();
+        }
+      }
       if (th.pattern === "damask") { g.fillStyle = "#ffd9a0"; g.globalAlpha = 0.12; for (let y = 32; y < h; y += 64) for (let x = (y / 64) % 2 ? 0 : 32; x < w + 1; x += 64) { g.beginPath(); g.ellipse(x, y, 10, 18, 0, 0, 7); g.fill(); g.beginPath(); g.ellipse(x, y, 18, 6, 0, 0, 7); g.fill(); } }
     }, [6, 3]);
   }
@@ -129,6 +137,46 @@
     for (let i = 0; i < 7; i++) {
       const l = ball(0.06, i % 2 ? leaf : leaf2, Math.cos(i) * 0.05, 0.2 + (i % 3) * 0.045, Math.sin(i * 2) * 0.04, g);
       l.scale.set(0.6, 1.6, 0.6); l.rotation.z = Math.cos(i * 1.7) * 0.6; l.rotation.x = Math.sin(i * 1.3) * 0.4;
+    }
+    return g;
+  }
+  /* Jungle : feuilles en cœur (pothos) partagées par toutes les lianes */
+  const leafGeo = new T.SphereGeometry(0.035, 8, 6); leafGeo.scale(1, 0.25, 1.25);
+  const leafMats = ["#3f7a3a", "#5c9a4a", "#2f6130", "#7fae5c"].map((c) => new T.MeshStandardMaterial({ color: c, roughness: 0.7 }));
+  /* Une liane qui tombe : des feuilles le long d'une courbe, regroupées pour rester léger sur un vieux téléphone */
+  function vines(parent, list) {
+    const per = leafMats.map(() => []);
+    const m4 = new T.Matrix4(), q = new T.Quaternion(), e = new T.Euler(), v = new T.Vector3(), sc = new T.Vector3();
+    list.forEach(([x, y, z, len, seed], vi) => {
+      const n = Math.round(len / 0.045);
+      for (let i = 0; i < n; i++) {
+        const t = i / n, side = i % 2 ? 1 : -1;
+        v.set(x + Math.sin(t * 5 + seed) * 0.07 + side * 0.03, y - t * len, z + 0.01 + Math.cos(t * 4 + seed) * 0.03);
+        e.set(1.1 + Math.sin(i + seed) * 0.4, side * 0.6 + Math.sin(i * 2.3) * 0.5, side * 0.5);
+        const k = 0.75 + ((i * 7 + vi) % 5) / 10;
+        m4.compose(v, q.setFromEuler(e), sc.set(k, k, k));
+        per[(i + vi) % leafMats.length].push(m4.clone());
+      }
+    });
+    per.forEach((ms, i) => {
+      if (!ms.length) return;
+      const im = new T.InstancedMesh(leafGeo, leafMats[i], ms.length);
+      ms.forEach((m, j) => im.setMatrixAt(j, m));
+      parent.add(im);
+    });
+  }
+  /* Grande plante posée au sol, à côté du meuble */
+  function bigPlant(parent, x, z, s) {
+    const g = new T.Group(); g.position.set(x, 0, z); g.scale.setScalar(s || 1); parent.add(g);
+    cyl(0.17, 0.13, 0.32, mat("#b5653f"), 0, 0.16, 0, g);
+    cyl(0.16, 0.16, 0.02, mat("#3a2a1c"), 0, 0.31, 0, g);
+    const stem = mat("#4a6a33");
+    for (let i = 0; i < 9; i++) {
+      const a = i * 0.7, h = 0.45 + (i % 4) * 0.22, r = 0.08 + (i % 3) * 0.05;
+      const st = cyl(0.008, 0.01, h, stem, Math.cos(a) * r * 0.5, 0.32 + h / 2, Math.sin(a) * r * 0.5, g, 5);
+      st.rotation.z = Math.cos(a) * 0.35; st.rotation.x = -Math.sin(a) * 0.35;
+      const lf = ball(0.12, leafMats[i % 3], Math.cos(a) * (r + h * 0.33), 0.32 + h, Math.sin(a) * (r + h * 0.33), g);
+      lf.scale.set(0.9, 0.22, 1.5); lf.rotation.set(0.5 * Math.sin(a), a, 0.6 * Math.cos(a));
     }
     return g;
   }
@@ -271,7 +319,7 @@
     if (key === "alire") for (let i = 0; i < 3; i++) box(0.12, 0.016, 0.02, mat("#c9a227", { metalness: 0.7, roughness: 0.3 }), -W / 3 + (i * W) / 3, base / 2, DEPTH / 2 + 0.01, g);
 
     // livres
-    const decorKinds = ["plant", "candle", "frame", "stack"];
+    const decorKinds = th.jungle ? ["plant", "plant", "candle", "plant", "stack"] : ["plant", "candle", "frame", "stack"];
     rows.forEach((row, r) => {
       const y0 = base + (rows.length - 1 - r) * SHELF_H + 0.014; // on range depuis le rayon du haut
       let x = -W / 2 + 0.04;
@@ -318,6 +366,18 @@
     // dessus du meuble
     plant(g, -W / 2 + 0.22, H + 0.08, 0, 1.1);
     candle(g, W / 2 - 0.2, H + 0.08, 0.02, 1.2);
+    if (th.jungle) {
+      // lianes qui tombent du haut et de quelques rayons, plantes au sol
+      plant(g, 0.1, H + 0.08, 0, 1.25);
+      const zf = DEPTH / 2 + 0.03, list = [
+        [-W / 2 + 0.05, H + 0.1, zf, H * 0.85, 1], [-W / 2 + 0.25, H + 0.1, zf, H * 0.45, 2],
+        [W / 2 - 0.08, H + 0.1, zf, H * 0.95, 3], [W / 2 - 0.3, H + 0.1, zf, H * 0.35, 4], [0.12, H + 0.1, zf, H * 0.22, 5],
+      ];
+      for (let r = 1; r < rows.length; r += 2) list.push([(r % 4 === 1 ? -1 : 1) * W * 0.22, base + r * SHELF_H + 0.03, zf, SHELF_H * 1.3, 6 + r]);
+      vines(g, list);
+      bigPlant(g, W / 2 + 0.45, 0.25, 1.1);
+      bigPlant(g, -W / 2 - 0.28, 0.2, 0.8);
+    }
     if (th.lights) fairyLights(g, W + 0.3, H + 0.55, DEPTH / 2 + 0.05);
     // mobilier à côté du meuble
     armchair(g, th.chair, -W / 2 - 0.85, 0.95, 0.55, th.plaid);
