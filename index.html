@@ -267,6 +267,8 @@
   .rel-desc.open { -webkit-line-clamp: unset; }
   .rel-acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
   .rel-acts button, .rel-acts a { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 14px; padding: 5px 10px; font-size: 13px; text-decoration: none; cursor: pointer; }
+  .rel-sync { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 13px; margin: 0 2px 8px; }
+  .rel-sync button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
   .rel-note { color: var(--muted); font-size: 12px; margin-top: 20px; line-height: 1.5; }
   .ex-search {
     display: flex; align-items: center; gap: 10px; margin: 0 16px 18px; width: calc(100% - 32px);
@@ -737,7 +739,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 19 octobre, 18 h</p>
+    <p class="version">Version du 19 octobre, 21 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1684,17 +1686,29 @@ let relWeek = 0, relKind = "";
 const RELEASE_KEY = STORE_KEY + ".sorties";
 const isoDay = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
 function weekStart(offset) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * offset); return d; }
-/* Sorties relevées toutes les 4 heures sur leslibraires.fr par le robot du site (data/sorties.json) */
+/* Sorties relevées toutes les heures sur leslibraires.fr par le robot du site (data/sorties.json) */
+let relUpdated = "", relFetchedAt = 0, relSite = null;
+/* La liste du robot est relue à chaque ouverture de l'onglet (elle change toutes les heures) */
 async function siteReleases() {
-  const res = await fetch("data/sorties.json?h=" + Math.floor(Date.now() / 36e5), { cache: "no-cache" });
+  const res = await fetch("data/sorties.json?t=" + Date.now(), { cache: "no-store" });
   if (!res.ok) throw new Error("sorties " + res.status);
   const d = await res.json();
+  relUpdated = d.updated || "";
   return (d.books || []).map((b) => ({ ...b, categories: b.rayons || [], source: "leslibraires.fr" }));
 }
-async function loadReleases() {
+async function loadReleases(force) {
   const slot = today() + "-" + Math.floor(new Date().getHours() / 4);
-  try { const c = JSON.parse(localStorage.getItem(RELEASE_KEY)); if (c && c.slot === slot && c.list.length) return c.list; } catch {}
-  const site = await siteReleases().catch((e) => { console.warn(e); return []; });
+  let cache = null;
+  try { cache = JSON.parse(localStorage.getItem(RELEASE_KEY)); } catch {}
+  // pas plus d'une lecture par minute (on change souvent de semaine ou de genre)
+  if (!force && relSite && Date.now() - relFetchedAt < 60e3 && cache && cache.slot === slot && cache.google) return mergeReleases(relSite, cache.google);
+  let site = await siteReleases().catch((e) => { console.warn(e); return null; });
+  if (site) { relSite = site; relFetchedAt = Date.now(); }
+  else { site = (cache && cache.site) || []; relUpdated = (cache && cache.updated) || ""; } // hors ligne : la dernière liste connue
+  if (!force && cache && cache.slot === slot && cache.google) {
+    try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ ...cache, site, updated: relUpdated })); } catch {}
+    return mergeReleases(site, cache.google);
+  }
   const from = isoDay(weekStart(-1)), to = isoDay(new Date(weekStart(2).getTime() - 864e5));
   const authors = topCounts(books, (b) => b.authors.slice(0, 1)).slice(0, 4).map(([a]) => "inauthor:" + JSON.stringify(a));
   const seen = new Set(), out = [];
@@ -1710,10 +1724,25 @@ async function loadReleases() {
       seen.add(k); out.push(r);
     }
   }
-  out.sort((a, b) => a.date.localeCompare(b.date) || (b.cover ? 1 : 0) - (a.cover ? 1 : 0));
-  try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ slot, list: out })); } catch {}
-  return out;
+  const google = out.filter((b) => b.source !== "leslibraires.fr");
+  try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ slot, site, google, updated: relUpdated })); } catch {}
+  return mergeReleases(site, google);
 }
+function mergeReleases(site, google) {
+  const seen = new Set(), out = [];
+  for (const b of [...site, ...google]) {
+    const k = editionKey(b);
+    if (seen.has(k) || (b.isbn && seen.has("isbn:" + b.isbn))) continue;
+    seen.add(k); if (b.isbn) seen.add("isbn:" + b.isbn); out.push(b);
+  }
+  return out.sort((a, b) => a.date.localeCompare(b.date) || (b.cover ? 1 : 0) - (a.cover ? 1 : 0));
+}
+function sinceText(iso) {
+  if (!iso) return "";
+  const m = Math.max(0, Math.round((Date.now() - new Date(iso.replace("Z", ":00Z")).getTime()) / 6e4));
+  return m < 2 ? "à l'instant" : m < 60 ? `il y a ${m} min` : m < 48 * 60 ? `il y a ${Math.round(m / 60)} h` : `il y a ${Math.round(m / 1440)} jours`;
+}
+let relForce = false;
 async function renderReleases() {
   const el = $("#shelves");
   const weeks = [["-1", "Semaine dernière"], ["0", "Cette semaine"], ["1", "Semaine prochaine"]];
@@ -1721,13 +1750,17 @@ async function renderReleases() {
     <div class="rel-weeks">${weeks.map(([k, l]) => `<button data-w="${k}" class="${Number(k) === relWeek ? "on" : ""}">${l}</button>`).join("")}</div>
     <div class="rel-kinds">${REL_KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === relKind ? "on" : ""}">${l}</button>`).join("")}</div>
     <a class="rel-bn" href="https://booknode.com/dates_de_sortie" target="_blank" rel="noopener">📘 Voir aussi les sorties du mois sur Booknode</a>
+    <div class="rel-sync"><span id="relSync">Synchronisation…</span><button id="relRefresh">↻ Actualiser</button></div>
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
-    <p class="rel-note">Sorties relevées toutes les 4 heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
+    <p class="rel-note">Sorties relevées toutes les heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
   el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = Number(b.dataset.w); renderReleases(); }));
   el.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => { relKind = b.dataset.k; renderReleases(); }));
+  $("#relRefresh").onclick = () => { relForce = true; renderReleases(); };
   let all;
-  try { all = await loadReleases(); } catch { all = null; }
+  try { all = await loadReleases(relForce); } catch { all = null; }
+  relForce = false;
+  if ($("#relSync")) $("#relSync").textContent = relUpdated ? "Liste mise à jour " + sinceText(relUpdated) : "Liste du libraire indisponible pour l'instant";
   const box = $("#relList");
   if (!box || currentShelf !== "sorties") return;
   if (!all) { box.innerHTML = `<div class="ex-loading">Le catalogue ne répond pas. Réessaie dans un moment.</div>`; return; }

@@ -67,3 +67,7 @@ Dans ⋯ > Ambiance, « Jungle » donne des meubles en bois sombre (blanc pour �
 ## Âge conseillé
 
 Les livres n'ont pas de PEGI. L'app affiche l'âge indiqué par l'éditeur quand le résumé le dit (« dès 13 ans », « 16+ », « public averti » → 18+). Sinon elle l'estime (dark romance → 18+, young adult → dès 13 ans, new romance → dès 16 ans) et écrit « estimé ». On peut le corriger sur la fiche (ligne « Âge »). Les sorties montrent aussi l'âge quand il est connu.
+
+## Synchro des sorties
+
+Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à chaque ouverture de l'onglet Sorties et affiche « Liste mise à jour il y a … ». Le bouton « ↻ Actualiser » force aussi la mise à jour des compléments Google Livres.

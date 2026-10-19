@@ -1,8 +1,8 @@
 name: sorties
-# Met à jour data/sorties.json (onglet « Sorties » de l'app) plusieurs fois par jour
+# Met à jour data/sorties.json (onglet « Sorties » de l'app) toutes les heures
 on:
   schedule:
-    - cron: "17 */4 * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
