@@ -19,6 +19,17 @@
     fav:     { wall: "#7a3a3c", wall2: "#5a2628", pattern: "damask",  wood: "#26342b", back: "#141e18", chair: "#2f6b55", rows: 3, gold: true, lights: true },
   };
 
+  const BASE = JSON.parse(JSON.stringify(THEMES));
+  /* Déco de chaque meuble : ce qui est affiché par défaut */
+  const decoOf = (th) => ({ plantes: true, bougies: true, cadres: true, piles: true, fauteuil: true, lampe: true,
+    lianes: !!th.jungle, grandes: !!th.jungle, guirlande: !!th.lights, ...(th.deco || {}) });
+  function applyThemes(over) {
+    for (const k in BASE) {
+      THEMES[k] = { ...BASE[k], ...((over || {})[k] || {}) };
+      if (over && over[k] && over[k].wall && !over[k].wall2) THEMES[k].wall2 = shade(over[k].wall, -0.07);
+    }
+  }
+
   /* ---------- Textures dessinées sur canvas ---------- */
   function canvasTex(w, h, draw, repeat) {
     const c = document.createElement("canvas"); c.width = w; c.height = h;
@@ -63,12 +74,12 @@
       }
     }, rep || [1, 1]);
   }
-  const floorTex = () => canvasTex(512, 512, (g, w, h) => {
+  const floorTex = (base) => canvasTex(512, 512, (g, w, h) => {
     const plank = 64;
     for (let y = 0; y < h; y += plank) {
       const off = (y / plank) % 2 ? 160 : 0;
       for (let x = -off; x < w; x += 320) {
-        const tone = ["#93603a", "#8a5833", "#9c6840", "#85532f"][((x + y) / 64 & 3) >>> 0];
+        const tone = (base ? [base, shade(base, -0.03), shade(base, 0.03), shade(base, -0.05)] : ["#93603a", "#8a5833", "#9c6840", "#85532f"])[((x + y) / 64 & 3) >>> 0];
         g.fillStyle = tone; g.fillRect(x, y, 320, plank);
         g.fillStyle = "rgba(0,0,0,.25)"; g.fillRect(x, y, 2, plank);
         for (let k = 0; k < 6; k++) { g.fillStyle = "rgba(0,0,0,.05)"; g.fillRect(x, y + 6 + k * 10, 320, 1); }
@@ -307,19 +318,26 @@
     const H = base + rows.length * SHELF_H + 0.04;
     const wood = new T.MeshStandardMaterial({ map: woodTexture(th.wood, [1, 2]), roughness: 0.7 });
     const backM = new T.MeshStandardMaterial({ map: woodTexture(th.back, [2, 2]), roughness: 0.9 });
-    const trim = th.gold ? mat("#c9a227", { metalness: 0.7, roughness: 0.3 }) : wood;
+    const deco = decoOf(th), style = th.style || (th.gold ? "elegant" : "classique");
+    const trim = style === "elegant" ? mat("#c9a227", { metalness: 0.7, roughness: 0.3 }) : wood;
     box(0.05, H, DEPTH, wood, -W / 2 - 0.025, H / 2, 0, g);           // montants
     box(0.05, H, DEPTH, wood, W / 2 + 0.025, H / 2, 0, g);
-    box(W + 0.18, 0.06, DEPTH + 0.06, wood, 0, H + 0.03, 0.01, g);       // dessus
-    box(W + 0.22, 0.02, DEPTH + 0.08, trim, 0, H + 0.07, 0.01, g);
-    box(W + 0.1, base, DEPTH, wood, 0, base / 2, 0, g);                   // socle
+    if (style === "moderne") {
+      box(W + 0.1, 0.04, DEPTH, wood, 0, H + 0.02, 0, g);                  // dessus tout simple
+      box(W + 0.1, base, DEPTH - 0.04, wood, 0, base / 2, -0.02, g);
+    } else {
+      box(W + 0.18, 0.06, DEPTH + 0.06, wood, 0, H + 0.03, 0.01, g);       // dessus
+      box(W + 0.22, 0.02, DEPTH + 0.08, trim, 0, H + 0.07, 0.01, g);
+      box(W + 0.1, base, DEPTH, wood, 0, base / 2, 0, g);                   // socle
+    }
     box(W, H - base, 0.02, backM, 0, base + (H - base) / 2, -DEPTH / 2 + 0.01, g); // fond
     for (let r = 0; r <= rows.length; r++) box(W, 0.028, DEPTH - 0.02, wood, 0, base + r * SHELF_H, 0, g);
-    if (th.gold) for (let r = 1; r <= rows.length; r++) box(W, 0.006, 0.004, trim, 0, base + r * SHELF_H - 0.012, DEPTH / 2, g);
+    if (style === "elegant") for (let r = 1; r <= rows.length; r++) box(W, 0.006, 0.004, trim, 0, base + r * SHELF_H - 0.012, DEPTH / 2, g);
     if (key === "alire") for (let i = 0; i < 3; i++) box(0.12, 0.016, 0.02, mat("#c9a227", { metalness: 0.7, roughness: 0.3 }), -W / 3 + (i * W) / 3, base / 2, DEPTH / 2 + 0.01, g);
 
     // livres
-    const decorKinds = th.jungle ? ["plant", "plant", "candle", "plant", "stack"] : ["plant", "candle", "frame", "stack"];
+    const decorKinds = (th.jungle ? ["plant", "plant", "candle", "plant", "stack"] : ["plant", "candle", "frame", "stack"])
+      .filter((k) => deco[{ plant: "plantes", candle: "bougies", frame: "cadres", stack: "piles" }[k]]);
     rows.forEach((row, r) => {
       const y0 = base + (rows.length - 1 - r) * SHELF_H + 0.014; // on range depuis le rayon du haut
       let x = -W / 2 + 0.04;
@@ -352,7 +370,7 @@
         x = x0 + u.w;
       });
       const free = W / 2 - 0.04 - x;
-      const kind = decorKinds[(r + key.length) % decorKinds.length];
+      const kind = decorKinds.length ? decorKinds[(r + key.length) % decorKinds.length] : "";
       const z = 0.02;
       if (free > 0.3) {
         const dx = W / 2 - 0.18;
@@ -360,35 +378,35 @@
         if (kind === "candle") candle(g, dx, y0, z, 1.1);
         if (kind === "frame") frame(g, dx, y0, z);
         if (kind === "stack") bookStack(g, dx - 0.02, y0, z);
-        if (!row.length && free > 0.9) { (r % 2 ? candle : plant)(g, -W / 2 + 0.3, y0, z, 1); }
+        if (!row.length && free > 0.9 && kind) { (r % 2 && deco.bougies ? candle : deco.plantes ? plant : candle)(g, -W / 2 + 0.3, y0, z, 1); }
       }
     });
     // dessus du meuble
-    plant(g, -W / 2 + 0.22, H + 0.08, 0, 1.1);
-    candle(g, W / 2 - 0.2, H + 0.08, 0.02, 1.2);
-    if (th.jungle) {
-      // lianes qui tombent du haut et de quelques rayons, plantes au sol
-      plant(g, 0.1, H + 0.08, 0, 1.25);
+    const topY = style === "moderne" ? H + 0.04 : H + 0.08;
+    if (deco.plantes) plant(g, -W / 2 + 0.22, topY, 0, 1.1);
+    if (deco.bougies) candle(g, W / 2 - 0.2, topY, 0.02, 1.2);
+    if (deco.plantes && (deco.lianes || deco.grandes)) plant(g, 0.1, topY, 0, 1.25);
+    if (deco.lianes) {
+      // lianes qui tombent du haut et de quelques rayons
       const zf = DEPTH / 2 + 0.03, list = [
         [-W / 2 + 0.05, H + 0.1, zf, H * 0.85, 1], [-W / 2 + 0.25, H + 0.1, zf, H * 0.45, 2],
         [W / 2 - 0.08, H + 0.1, zf, H * 0.95, 3], [W / 2 - 0.3, H + 0.1, zf, H * 0.35, 4], [0.12, H + 0.1, zf, H * 0.22, 5],
       ];
       for (let r = 1; r < rows.length; r += 2) list.push([(r % 4 === 1 ? -1 : 1) * W * 0.22, base + r * SHELF_H + 0.03, zf, SHELF_H * 1.3, 6 + r]);
       vines(g, list);
-      bigPlant(g, W / 2 + 0.45, 0.25, 1.1);
-      bigPlant(g, -W / 2 - 0.28, 0.2, 0.8);
     }
-    if (th.lights) fairyLights(g, W + 0.3, H + 0.55, DEPTH / 2 + 0.05);
+    if (deco.grandes) { bigPlant(g, W / 2 + 0.45, 0.25, 1.1); bigPlant(g, -W / 2 - 0.28, 0.2, 0.8); }
+    if (deco.guirlande) fairyLights(g, W + 0.3, H + 0.55, DEPTH / 2 + 0.05);
     // mobilier à côté du meuble
-    armchair(g, th.chair, -W / 2 - 0.85, 0.95, 0.55, th.plaid);
-    sideTable(g, W / 2 + 0.55, 0.55);
+    if (deco.fauteuil) armchair(g, th.chair, -W / 2 - 0.85, 0.95, 0.55, th.plaid);
+    if (deco.lampe) sideTable(g, W / 2 + 0.55, 0.55);
     return { group: g, W, H };
   }
 
   /* ---------- La pièce ---------- */
   window.createRoom3D = function (container, opts) {
     // ambiance choisie dans les réglages : couleurs des murs et des meubles
-    if (opts.themes) for (const k in opts.themes) Object.assign(THEMES[k], opts.themes[k]);
+    applyThemes(opts.themes);
     const night = !!opts.night;
     let renderer;
     try {
@@ -414,7 +432,7 @@
     const ceilingLight = new T.PointLight("#ffd9a8", night ? 7.5 : 6, 12, 1.4); ceilingLight.position.set(0, 3.2, 0); scene.add(ceilingLight);
 
     // sol, plafond, tapis
-    const floor = new T.Mesh(new T.PlaneGeometry(ROOM * 2, ROOM * 2), new T.MeshStandardMaterial({ map: floorTex(), roughness: 0.8 }));
+    const floor = new T.Mesh(new T.PlaneGeometry(ROOM * 2, ROOM * 2), new T.MeshStandardMaterial({ map: floorTex(opts.floor), roughness: 0.8 }));
     floor.rotation.x = -Math.PI / 2; scene.add(floor);
     const ceil = new T.Mesh(new T.PlaneGeometry(ROOM * 2, ROOM * 2), mat("#f1e4cf")); ceil.rotation.x = Math.PI / 2; ceil.position.y = 3.6; scene.add(ceil);
     const rug = new T.Mesh(new T.CircleGeometry(1.5, 48), new T.MeshStandardMaterial({ map: rugTex(), roughness: 1 }));
@@ -426,9 +444,11 @@
 
     // murs : un par étagère, chacun à ses couleurs
     const dir = (a) => new T.Vector3(Math.sin(a), 0, -Math.cos(a));
+    const walls = {};
     KEYS.forEach((k, i) => {
       const a = i * QUARTER;
       const wall = new T.Mesh(new T.PlaneGeometry(ROOM * 2, 3.6), new T.MeshStandardMaterial({ map: wallTexture(THEMES[k]), roughness: 0.95 }));
+      walls[k] = wall;
       wall.position.copy(dir(a).multiplyScalar(ROOM)); wall.position.y = 1.8; wall.rotation.y = -a; scene.add(wall);
       const skirting = new T.Mesh(new T.BoxGeometry(ROOM * 2, 0.12, 0.03), mat("#f3e7d6"));
       skirting.position.copy(dir(a).multiplyScalar(ROOM - 0.015)); skirting.position.y = 0.06; skirting.rotation.y = -a; scene.add(skirting);
@@ -439,7 +459,16 @@
     let yaw = 0, targetYaw = 0, zoom = 1, targetZoom = 1, panX = 0, panY = 0, targetPanX = 0, targetPanY = 0;
     let width = 1, height = 1, needs = true, raf = 0;
 
+    let lastMap = {};
+    /* Changer la déco sans recharger : murs repeints, meubles reconstruits */
+    function setFloor(c) { const m = floor.material; if (m.map) m.map.dispose(); m.map = floorTex(c); m.needsUpdate = true; kick(); }
+    function setThemes(over) {
+      applyThemes(over);
+      KEYS.forEach((k) => { const m = walls[k].material; if (m.map) m.map.dispose(); m.map = wallTexture(THEMES[k]); m.needsUpdate = true; });
+      setBooks(lastMap);
+    }
     function setBooks(map) {
+      lastMap = map;
       Object.values(cases).forEach((c) => {
         scene.remove(c.group);
         c.group.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
@@ -600,6 +629,6 @@
       const v = new T.Vector3(); m.getWorldPosition(v); v.project(camera);
       return { yaw, targetYaw, x: (v.x + 1) / 2 * width, y: (1 - v.y) / 2 * height, id: m.userData.id };
     }
-    return { setBooks, face, step, resize, currentKey, canvas, debug };
+    return { setBooks, setThemes, setFloor, face, step, resize, currentKey, canvas, debug };
   };
 })();

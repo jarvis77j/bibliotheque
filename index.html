@@ -37,6 +37,19 @@
   .menu .swatches .dot.on { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--ink); }
   .swatches .pill { padding: 8px 14px !important; border-radius: 18px; background: var(--bg) !important; border: 1px solid var(--line) !important; font-size: 14px !important; }
   .swatches .pill.on { background: var(--ink) !important; color: var(--card); border-color: var(--ink) !important; }
+  .dpanel[hidden] { display: none !important; }
+  body.decorating .quick, body.decorating .tabs, body.decorating #toolbar, body.decorating .r3d-nav, body.decorating .r3d-hint { display: none !important; }
+  .dpanel { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; max-height: 46vh; display: flex; flex-direction: column; background: var(--card); border-radius: 18px 18px 0 0; box-shadow: 0 -8px 30px rgba(0,0,0,.25); padding-bottom: env(safe-area-inset-bottom); }
+  .dpanel-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px 6px; }
+  .dpanel-body { overflow-y: auto; padding: 0 16px 16px; }
+  .dpanel h4 { margin: 12px 0 6px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .dpanel .row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .dpanel .row button { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 999px; padding: 7px 12px; font-size: 14px; cursor: pointer; }
+  .dpanel .row button.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
+  .dpanel .row .dot { width: 32px; height: 32px; padding: 0; border-radius: 50%; box-shadow: inset 0 0 0 2px rgba(0,0,0,.12); }
+  .dpanel .row .dot.on { box-shadow: 0 0 0 3px var(--card), 0 0 0 5px var(--ink); border-color: transparent; }
+  .dpanel .actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .dpanel .actions button { flex: 1; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 12px; padding: 10px; font-size: 14px; cursor: pointer; }
   .menu .sw-title { padding: 14px 16px 8px; margin: 0; font-size: 14px; color: var(--muted); }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   [hidden] { display: none !important; }
@@ -731,6 +744,7 @@
     <div class="swatches" id="accentSw"></div>
     <p class="sw-title">Ambiance de la pièce</p>
     <div class="swatches" id="ambSw"></div>
+    <button id="decorBtn">🎨 Décorer ma bibliothèque (meubles, murs, déco)</button>
     <p class="sw-title">Mode</p>
     <div class="swatches" id="modeSw"></div>
     <button id="exportBtn">Sauvegarder ma bibliothèque (fichier)</button>
@@ -739,10 +753,15 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 19 octobre, 21 h</p>
+    <p class="version">Version du 20 octobre, 12 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
+
+<div class="dpanel" id="decorPanel" hidden>
+  <div class="dpanel-head"><b>🎨 Décorer</b><button class="link-btn" id="decorClose">Terminé</button></div>
+  <div class="dpanel-body" id="decorBody"></div>
+</div>
 
 <section class="sheet" id="statsSheet">
   <div class="sheet-head">
@@ -965,6 +984,78 @@ const AMBIANCES = {
     fav: { wall: "#4a2333", wall2: "#351824", wood: "#26342b", back: "#141e18", chair: "#2f6b55", lights: true },
   }, scene: "#0d0f18", night: true },
 };
+/* ---------- Décorer : meuble, bois, mur, fauteuil et déco de chaque étagère ---------- */
+const ROOM_KEYS = ["lu", "encours", "alire", "fav"];
+const DECO_OPTS = {
+  styles: [["classique", "Classique"], ["elegant", "Élégant (doré)"], ["moderne", "Moderne"]],
+  woods: ["#efe8dc", "#c9a26f", "#a8743f", "#7a4a2a", "#4a2f1d", "#2a1c13", "#1f1a17", "#8fa58a", "#26342b", "#2c3e57", "#e3b8b0"],
+  walls: ["#d8b38a", "#e7c2b4", "#f3d9de", "#e2dcf2", "#d6e8e1", "#b4c1a0", "#7f8f78", "#46613f", "#2f3b5a", "#7a3a3c", "#3d3a3a", "#f1ece2"],
+  patterns: [["uni", "Uni"], ["stripes", "Rayures"], ["dots", "Pois"], ["panel", "Lambris"], ["damask", "Damas"], ["leaves", "Feuilles"]],
+  floors: [["", "Miel"], ["#c9a57a", "Clair"], ["#5a3a24", "Foncé"], ["#2e2420", "Ébène"], ["#b9b2a6", "Gris"]],
+  chairs: ["#b5553a", "#c9962e", "#8fa58a", "#2f6b55", "#6b3a22", "#3b4a6b", "#e7a3b1", "#d9cfb2"],
+  deco: [["plantes", "🪴 Plantes"], ["lianes", "🌿 Lianes"], ["grandes", "🌴 Grandes plantes"], ["bougies", "🕯 Bougies"], ["cadres", "🖼 Cadres"], ["piles", "📚 Piles de livres"], ["guirlande", "✨ Guirlande"], ["fauteuil", "🛋 Fauteuil"], ["lampe", "💡 Lampe"]],
+};
+function roomThemes() {
+  const amb = (AMBIANCES[settings.ambiance] || {}).themes || {}, dec = settings.decor || {};
+  const out = {};
+  ROOM_KEYS.forEach((k) => { out[k] = { ...(amb[k] || {}), ...(dec[k] || {}), deco: { ...((amb[k] || {}).deco || {}), ...((dec[k] || {}).deco || {}) } }; });
+  return out;
+}
+let decorKey = "lu";
+function decoState(k) {
+  const th = roomThemes()[k];
+  const lights = th.lights ?? k === "fav";
+  return { plantes: true, bougies: true, cadres: true, piles: true, fauteuil: true, lampe: true, lianes: !!th.jungle, grandes: !!th.jungle, guirlande: !!lights, ...th.deco };
+}
+function setDecor(k, patch) {
+  settings.decor = settings.decor || {};
+  const cur = settings.decor[k] || {};
+  settings.decor[k] = { ...cur, ...patch, deco: { ...(cur.deco || {}), ...(patch.deco || {}) } };
+  saveSettings();
+  if (room3d && room3d.setThemes) room3d.setThemes(roomThemes());
+  renderDecor();
+}
+function renderDecor() {
+  const k = decorKey, th = roomThemes()[k], d = decoState(k);
+  const style = th.style || (th.gold ? "elegant" : "classique");
+  const dots = (list, cur, attr) => list.map((c) => `<button class="dot ${cur && cur.toLowerCase() === c ? "on" : ""}" style="background:${c}" data-${attr}="${c}" aria-label="${c}"></button>`).join("");
+  $("#decorBody").innerHTML = `
+    <h4>Étagère</h4><div class="row">${ROOM_KEYS.map((x) => `<button data-shelf="${x}" class="${x === k ? "on" : ""}">${SHELVES.find((s) => s.key === x).label}</button>`).join("")}</div>
+    <h4>Meuble</h4><div class="row">${DECO_OPTS.styles.map(([v, l]) => `<button data-style="${v}" class="${v === style ? "on" : ""}">${l}</button>`).join("")}</div>
+    <h4>Bois du meuble</h4><div class="row">${dots(DECO_OPTS.woods, th.wood, "wood")}</div>
+    <h4>Couleur du mur</h4><div class="row">${dots(DECO_OPTS.walls, th.wall, "wall")}</div>
+    <h4>Motif du mur</h4><div class="row">${DECO_OPTS.patterns.map(([v, l]) => `<button data-pattern="${v}" class="${v === (th.pattern || "") ? "on" : ""}">${l}</button>`).join("")}</div>
+    <h4>Sol (toute la pièce)</h4><div class="row">${DECO_OPTS.floors.map(([v, l]) => `<button data-floor="${v}" class="${v === (settings.floor || "") ? "on" : ""}">${l}</button>`).join("")}</div>
+    <h4>Déco</h4><div class="row">${DECO_OPTS.deco.map(([v, l]) => `<button data-deco="${v}" class="${d[v] ? "on" : ""}">${l}</button>`).join("")}</div>
+    <h4>Fauteuil</h4><div class="row">${dots(DECO_OPTS.chairs, th.chair, "chair")}</div>
+    <div class="actions"><button id="decorAll">Mettre ce style partout</button><button id="decorReset">Remettre comme avant</button></div>`;
+  const shade = (hex, amt) => { const n = parseInt(hex.slice(1), 16), f = (v) => Math.max(0, Math.min(255, Math.round(v + amt * 255))); return "#" + [f(n >> 16), f((n >> 8) & 255), f(n & 255)].map((v) => v.toString(16).padStart(2, "0")).join(""); };
+  const darken = (hex, f) => { const n = parseInt(hex.slice(1), 16); return "#" + [n >> 16, (n >> 8) & 255, n & 255].map((v) => Math.round(v * f).toString(16).padStart(2, "0")).join(""); };
+  $("#decorBody").onclick = (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.shelf) { decorKey = b.dataset.shelf; currentShelf = decorKey; render(); renderDecor(); return; }
+    if (b.dataset.style) setDecor(k, { style: b.dataset.style, gold: b.dataset.style === "elegant" });
+    if (b.dataset.wood) { const w = b.dataset.wood, light = parseInt(w.slice(1, 3), 16) > 200; setDecor(k, { wood: w, back: light ? shade(w, -0.08) : darken(w, 0.55) }); }
+    if (b.dataset.wall) setDecor(k, { wall: b.dataset.wall, wall2: shade(b.dataset.wall, -0.07) });
+    if (b.dataset.pattern) setDecor(k, { pattern: b.dataset.pattern });
+    if (b.dataset.deco) setDecor(k, { deco: { [b.dataset.deco]: !d[b.dataset.deco] } });
+    if (b.dataset.floor !== undefined) { settings.floor = b.dataset.floor; saveSettings(); if (room3d && room3d.setFloor) room3d.setFloor(settings.floor || undefined); renderDecor(); return; }
+    if (b.dataset.chair) setDecor(k, { chair: b.dataset.chair });
+    if (b.id === "decorAll") { const src = (settings.decor || {})[k] || {}; ROOM_KEYS.forEach((x) => { if (x !== k) settings.decor[x] = JSON.parse(JSON.stringify(src)); }); setDecor(k, {}); toast("Même style sur les 4 étagères"); }
+    if (b.id === "decorReset") { if (settings.decor) delete settings.decor[k]; saveSettings(); if (room3d && room3d.setThemes) room3d.setThemes(roomThemes()); renderDecor(); }
+  };
+}
+function openDecor() {
+  $("#menuSheet").classList.remove("open");
+  if (SPECIAL.includes(currentShelf)) { currentShelf = "lu"; }
+  decorKey = currentShelf;
+  render();
+  if (!room3d) { toast("La décoration se voit sur la bibliothèque en 3D"); }
+  $("#decorPanel").hidden = false;
+  document.body.classList.add("decorating");
+  render();
+  renderDecor();
+}
 function applyColors() {
   const root = document.documentElement;
   const sysDark = matchMedia("(prefers-color-scheme: dark)").matches;
@@ -1544,7 +1635,7 @@ function render3D() {
     size3d();
     const amb = AMBIANCES[settings.ambiance] || {};
     room3d = window.createRoom3D(r3dEl, {
-      colorOf, textOn, themes: amb.themes, sceneColor: amb.scene, night: amb.night,
+      colorOf, textOn, themes: roomThemes(), floor: settings.floor, sceneColor: amb.scene, night: amb.night,
       onTap: (id) => openDetail(id),
       onTapEmpty: () => openGrid(),
       onFace: (k) => {
@@ -2637,6 +2728,8 @@ function checkBadges() {
   setTimeout(() => toast(`${fresh[0].icon} Nouveau badge : ${fresh[0].name} !`), 600);
 }
 $("#stats").onclick = openStats;
+$("#decorBtn").onclick = openDecor;
+$("#decorClose").onclick = () => { $("#decorPanel").hidden = true; document.body.classList.remove("decorating"); render(); };
 $("#statsBtn").onclick = () => { $("#menuSheet").classList.remove("open"); openStats(); };
 
 /* ---------- Rappel de sauvegarde ---------- */

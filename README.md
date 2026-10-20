@@ -71,3 +71,7 @@ Les livres n'ont pas de PEGI. L'app affiche l'âge indiqué par l'éditeur quand
 ## Synchro des sorties
 
 Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à chaque ouverture de l'onglet Sorties et affiche « Liste mise à jour il y a … ». Le bouton « ↻ Actualiser » force aussi la mise à jour des compléments Google Livres.
+
+## Décorer
+
+⋯ > « 🎨 Décorer ma bibliothèque » ouvre un panneau en bas de l'écran, la bibliothèque restant visible au-dessus. Pour chaque étagère : style du meuble (classique, élégant doré, moderne), bois, couleur et motif du mur, fauteuil, et déco à cocher (plantes, lianes, grandes plantes, bougies, cadres, piles de livres, guirlande, fauteuil, lampe). Le sol se choisit pour toute la pièce. « Mettre ce style partout » copie le réglage sur les 4 étagères ; « Remettre comme avant » revient à l'ambiance.
