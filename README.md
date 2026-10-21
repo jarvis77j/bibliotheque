@@ -75,3 +75,7 @@ Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à cha
 ## Décorer
 
 ⋯ > « 🎨 Décorer ma bibliothèque » ouvre un panneau en bas de l'écran, la bibliothèque restant visible au-dessus. Pour chaque étagère : style du meuble (classique, élégant doré, moderne), bois, couleur et motif du mur, fauteuil, et déco à cocher (plantes, lianes, grandes plantes, bougies, cadres, piles de livres, guirlande, fauteuil, lampe). Le sol se choisit pour toute la pièce. « Mettre ce style partout » copie le réglage sur les 4 étagères ; « Remettre comme avant » revient à l'ambiance.
+
+## Sorties sur 6 mois et 3D plus réaliste (21 octobre)
+
+L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robot va chercher les précommandes jusqu'à 6 mois). La 3D a de vraies feuilles dessinées (pothos, sansevieria, monstera), du bois veiné, des tranches de livres arrondies avec grain et usure, des pages visibles, des ombres douces et l'ombre au fond de chaque case.

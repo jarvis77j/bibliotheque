@@ -49,6 +49,8 @@
     return canvasTex(256, 256, (g, w, h) => {
       const grad = g.createLinearGradient(0, 0, 0, h); grad.addColorStop(0, th.wall); grad.addColorStop(1, th.wall2);
       g.fillStyle = grad; g.fillRect(0, 0, w, h);
+      // grain d'enduit, pour que le mur ne soit pas parfaitement lisse
+      for (let i = 0; i < 1400; i++) { g.fillStyle = i % 2 ? "rgba(255,255,255,.035)" : "rgba(0,0,0,.04)"; g.fillRect((i * 73.13) % w, (i * 151.7) % h, 1 + (i % 3), 1 + (i % 2)); }
       g.globalAlpha = 0.18;
       if (th.pattern === "stripes") { g.fillStyle = "#fff"; for (let x = 0; x < w; x += 32) g.fillRect(x, 0, 3, h); g.fillStyle = "#000"; g.globalAlpha = 0.06; for (let x = 16; x < w; x += 32) g.fillRect(x, 0, 2, h); }
       if (th.pattern === "dots") { g.fillStyle = "#fff"; for (let y = 16; y < h; y += 32) for (let x = (y / 32) % 2 ? 0 : 16; x < w; x += 32) { g.beginPath(); g.arc(x, y, 3, 0, 7); g.fill(); } }
@@ -64,15 +66,30 @@
       if (th.pattern === "damask") { g.fillStyle = "#ffd9a0"; g.globalAlpha = 0.12; for (let y = 32; y < h; y += 64) for (let x = (y / 64) % 2 ? 0 : 32; x < w + 1; x += 64) { g.beginPath(); g.ellipse(x, y, 10, 18, 0, 0, 7); g.fill(); g.beginPath(); g.ellipse(x, y, 18, 6, 0, 0, 7); g.fill(); } }
     }, [6, 3]);
   }
+  /* Bois : veines fines et ondulées, quelques nœuds, légères différences de teinte */
+  const woodCache = new Map();
   function woodTexture(base, rep) {
-    return canvasTex(256, 256, (g, w, h) => {
+    const key = base + (rep || [1, 1]).join("x");
+    if (woodCache.has(key)) return woodCache.get(key);
+    let seed = parseInt(base.slice(1), 16) % 997;
+    const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    const t = canvasTex(512, 512, (g, w, h) => {
       g.fillStyle = base; g.fillRect(0, 0, w, h);
-      for (let i = 0; i < 60; i++) {
-        g.strokeStyle = i % 3 ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.06)"; g.lineWidth = 1 + (i % 4);
-        const y = (i * 37) % h; g.beginPath(); g.moveTo(0, y);
-        g.bezierCurveTo(w * 0.3, y + 6, w * 0.6, y - 6, w, y + 2); g.stroke();
+      for (let i = 0; i < 6; i++) { g.fillStyle = rnd() > 0.5 ? "rgba(255,255,255,.04)" : "rgba(0,0,0,.05)"; g.fillRect(0, rnd() * h, w, 20 + rnd() * 60); }
+      for (let i = 0; i < 170; i++) {
+        const y = rnd() * h, a = 2 + rnd() * 6, f = 1 + rnd() * 3, ph = rnd() * 6;
+        g.strokeStyle = rnd() > 0.3 ? `rgba(0,0,0,${0.04 + rnd() * 0.09})` : `rgba(255,255,255,${0.03 + rnd() * 0.05})`;
+        g.lineWidth = 0.6 + rnd() * 1.8; g.beginPath();
+        for (let x = 0; x <= w; x += 8) { const yy = y + Math.sin(x / w * Math.PI * f + ph) * a; x ? g.lineTo(x, yy) : g.moveTo(x, yy); }
+        g.stroke();
+      }
+      for (let k = 0; k < 2; k++) {
+        const x = rnd() * w, y = rnd() * h;
+        for (let r = 14; r > 2; r -= 3) { g.strokeStyle = `rgba(0,0,0,${0.12 - r / 200})`; g.lineWidth = 1.2; g.beginPath(); g.ellipse(x, y, r * 2.2, r * 0.7, 0, 0, 7); g.stroke(); }
       }
     }, rep || [1, 1]);
+    woodCache.set(key, t);
+    return t;
   }
   const floorTex = (base) => canvasTex(512, 512, (g, w, h) => {
     const plank = 64;
@@ -81,8 +98,13 @@
       for (let x = -off; x < w; x += 320) {
         const tone = (base ? [base, shade(base, -0.03), shade(base, 0.03), shade(base, -0.05)] : ["#93603a", "#8a5833", "#9c6840", "#85532f"])[((x + y) / 64 & 3) >>> 0];
         g.fillStyle = tone; g.fillRect(x, y, 320, plank);
-        g.fillStyle = "rgba(0,0,0,.25)"; g.fillRect(x, y, 2, plank);
-        for (let k = 0; k < 6; k++) { g.fillStyle = "rgba(0,0,0,.05)"; g.fillRect(x, y + 6 + k * 10, 320, 1); }
+        // veines du parquet
+        for (let k = 0; k < 14; k++) {
+          const yy = y + 3 + ((k * 37 + x * 7 + y) % (plank - 6)), amp = 1 + (k % 3), ph = (x + k * 13) / 40;
+          g.strokeStyle = k % 4 ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.06)"; g.lineWidth = 0.8 + (k % 2);
+          g.beginPath(); for (let xx = 0; xx <= 320; xx += 10) { const py = yy + Math.sin(xx / 60 + ph) * amp; xx ? g.lineTo(x + xx, py) : g.moveTo(x, py); } g.stroke();
+        }
+        g.fillStyle = "rgba(0,0,0,.3)"; g.fillRect(x, y, 2, plank);
       }
       g.fillStyle = "rgba(0,0,0,.35)"; g.fillRect(0, y, w, 2);
     }
@@ -102,8 +124,15 @@
     const tex = canvasTex(80, 480, (g, w, h) => {
       g.fillStyle = color; g.fillRect(0, 0, w, h);
       const sh = g.createLinearGradient(0, 0, w, 0);
-      sh.addColorStop(0, "rgba(255,255,255,.18)"); sh.addColorStop(0.25, "rgba(255,255,255,0)"); sh.addColorStop(0.8, "rgba(0,0,0,0)"); sh.addColorStop(1, "rgba(0,0,0,.28)");
+      // dos arrondi : clair au milieu, plus sombre sur les bords
+      sh.addColorStop(0, "rgba(0,0,0,.38)"); sh.addColorStop(0.18, "rgba(255,255,255,.06)"); sh.addColorStop(0.42, "rgba(255,255,255,.16)");
+      sh.addColorStop(0.7, "rgba(0,0,0,0)"); sh.addColorStop(1, "rgba(0,0,0,.42)");
       g.fillStyle = sh; g.fillRect(0, 0, w, h);
+      // grain du papier ou de la toile, et usure en haut et en bas
+      for (let i = 0; i < 500; i++) { g.fillStyle = i % 2 ? "rgba(255,255,255,.05)" : "rgba(0,0,0,.06)"; g.fillRect((i * 37.7) % w, (i * 97.3) % h, 1, 1 + (i % 3)); }
+      const wear = g.createLinearGradient(0, 0, 0, h);
+      wear.addColorStop(0, "rgba(0,0,0,.25)"); wear.addColorStop(0.03, "rgba(0,0,0,0)"); wear.addColorStop(0.97, "rgba(0,0,0,0)"); wear.addColorStop(1, "rgba(0,0,0,.3)");
+      g.fillStyle = wear; g.fillRect(0, 0, w, h);
       g.fillStyle = ink; g.globalAlpha = 0.45; g.fillRect(0, 26, w, 3); g.fillRect(0, h - 30, w, 3); g.globalAlpha = 1;
       g.save(); g.translate(w / 2, 44); g.rotate(Math.PI / 2);
       const title = b.title.length > 42 ? b.title.slice(0, 40) + "…" : b.title;
@@ -135,35 +164,81 @@
     if (!matCache.has(key)) matCache.set(key, new T.MeshStandardMaterial({ color, roughness: 0.85, metalness: 0, ...(opts || {}) }));
     return matCache.get(key);
   }
-  const pagesMat = new T.MeshStandardMaterial({ color: "#efe6d2", roughness: 0.95 });
+  // tranche des pages : fines lignes, un peu jaunies
+  const pagesTex = canvasTex(64, 64, (g, w, h) => {
+    g.fillStyle = "#efe4cc"; g.fillRect(0, 0, w, h);
+    for (let y = 0; y < h; y += 2) { g.fillStyle = y % 6 ? "rgba(120,90,50,.08)" : "rgba(120,90,50,.16)"; g.fillRect(0, y, w, 1); }
+  });
+  const pagesMat = new T.MeshStandardMaterial({ map: pagesTex, roughness: 0.95 });
   const box = (w, h, d, m, x, y, z, parent) => { const o = new T.Mesh(new T.BoxGeometry(w, h, d), m); o.position.set(x, y, z); parent.add(o); return o; };
   const cyl = (rt, rb, h, m, x, y, z, parent, seg) => { const o = new T.Mesh(new T.CylinderGeometry(rt, rb, h, seg || 20), m); o.position.set(x, y, z); parent.add(o); return o; };
   const ball = (r, m, x, y, z, parent) => { const o = new T.Mesh(new T.SphereGeometry(r, 16, 12), m); o.position.set(x, y, z); parent.add(o); return o; };
 
   /* ---------- Petits objets ---------- */
+  /* Feuilles dessinées (cœur de pothos, lame de sansevieria, feuille de monstera) posées sur des plans transparents */
+  function leafTexture(kind, c1, c2) {
+    return canvasTex(128, 128, (g, w, h) => {
+      const grad = g.createLinearGradient(0, 0, w, h); grad.addColorStop(0, c1); grad.addColorStop(1, c2);
+      g.fillStyle = grad; g.beginPath();
+      if (kind === "heart") { g.moveTo(64, 124); g.bezierCurveTo(10, 86, 4, 30, 34, 14); g.bezierCurveTo(50, 6, 60, 14, 64, 26); g.bezierCurveTo(68, 14, 78, 6, 94, 14); g.bezierCurveTo(124, 30, 118, 86, 64, 124); }
+      else if (kind === "blade") { g.moveTo(64, 126); g.bezierCurveTo(40, 90, 46, 30, 64, 2); g.bezierCurveTo(82, 30, 88, 90, 64, 126); }
+      else { g.ellipse(64, 66, 58, 56, 0, 0, 7); }
+      g.fill();
+      if (kind === "monstera") { g.globalCompositeOperation = "destination-out"; for (let i = 0; i < 5; i++) { const a = -0.9 + i * 0.45; g.lineWidth = 7; g.beginPath(); g.moveTo(64 + Math.cos(a) * 30, 66 + Math.sin(a) * 30); g.lineTo(64 + Math.cos(a) * 64, 66 + Math.sin(a) * 64); g.stroke(); g.beginPath(); g.moveTo(64 - Math.cos(a) * 30, 66 + Math.sin(a) * 30); g.lineTo(64 - Math.cos(a) * 64, 66 + Math.sin(a) * 64); g.stroke(); } g.globalCompositeOperation = "source-over"; }
+      g.strokeStyle = "rgba(230,255,200,.35)"; g.lineWidth = 2; g.beginPath(); g.moveTo(64, kind === "blade" ? 120 : 118); g.lineTo(64, kind === "blade" ? 10 : 24); g.stroke();
+      if (kind === "blade") { g.strokeStyle = "rgba(220,240,180,.25)"; for (let y = 20; y < 120; y += 14) { g.beginPath(); g.moveTo(52, y); g.lineTo(76, y + 6); g.stroke(); } }
+      else { g.lineWidth = 1.2; for (let i = 1; i < 5; i++) { g.beginPath(); g.moveTo(64, 30 + i * 18); g.lineTo(30, 20 + i * 18); g.moveTo(64, 30 + i * 18); g.lineTo(98, 20 + i * 18); g.stroke(); } }
+    });
+  }
+  const leafMat = (kind, c1, c2) => new T.MeshStandardMaterial({ map: leafTexture(kind, c1, c2), alphaTest: 0.5, side: T.DoubleSide, roughness: 0.6 });
+  const LEAVES = {
+    heart: [leafMat("heart", "#5f9d48", "#2f6a2c"), leafMat("heart", "#86b85c", "#4a8a3a"), leafMat("heart", "#3f7a36", "#24521f"), leafMat("heart", "#a6c96a", "#5e9a42")],
+    blade: [leafMat("blade", "#4c7a3c", "#2a4d24"), leafMat("blade", "#6f9a4a", "#3d6a2e")],
+    monstera: [leafMat("monstera", "#3e7a36", "#1f4d1d"), leafMat("monstera", "#5a9244", "#2d6127")],
+  };
+  /* Ombre douce au fond de chaque case (sous le rayon du dessus et dans les coins) */
+  const aoMat = new T.MeshBasicMaterial({ map: canvasTex(128, 128, (g, w, h) => {
+    const v = g.createLinearGradient(0, 0, 0, h); v.addColorStop(0, "rgba(0,0,0,.62)"); v.addColorStop(0.35, "rgba(0,0,0,.12)"); v.addColorStop(0.85, "rgba(0,0,0,.05)"); v.addColorStop(1, "rgba(0,0,0,.3)");
+    g.fillStyle = v; g.fillRect(0, 0, w, h);
+    const sides = g.createLinearGradient(0, 0, w, 0); sides.addColorStop(0, "rgba(0,0,0,.4)"); sides.addColorStop(0.08, "rgba(0,0,0,0)"); sides.addColorStop(0.92, "rgba(0,0,0,0)"); sides.addColorStop(1, "rgba(0,0,0,.4)");
+    g.fillStyle = sides; g.fillRect(0, 0, w, h);
+  }), transparent: true, depthWrite: false });
+  const leafPlane = new T.PlaneGeometry(0.1, 0.1); leafPlane.translate(0, 0.05, 0);
+  const pots = ["#b5653f", "#d9d2c4", "#2f2f2f", "#c9a07a", "#7d8f7a"];
   function plant(parent, x, y, z, s) {
     const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); parent.add(g);
-    cyl(0.075, 0.06, 0.13, mat("#b5653f"), 0, 0.065, 0, g);
-    const leaf = mat("#4f7a43"), leaf2 = mat("#6a9a5a");
-    for (let i = 0; i < 7; i++) {
-      const l = ball(0.06, i % 2 ? leaf : leaf2, Math.cos(i) * 0.05, 0.2 + (i % 3) * 0.045, Math.sin(i * 2) * 0.04, g);
-      l.scale.set(0.6, 1.6, 0.6); l.rotation.z = Math.cos(i * 1.7) * 0.6; l.rotation.x = Math.sin(i * 1.3) * 0.4;
+    const seed = Math.round(Math.abs(x * 97 + y * 31 + z * 13) * 10);
+    const potC = pots[seed % pots.length];
+    cyl(0.075, 0.06, 0.13, mat(potC, { roughness: 0.6 }), 0, 0.065, 0, g, 24);
+    cyl(0.068, 0.068, 0.01, mat("#3a2a1c"), 0, 0.125, 0, g, 20);
+    if (seed % 2) { // sansevieria : longues lames dressées
+      for (let i = 0; i < 9; i++) {
+        const l = new T.Mesh(leafPlane, LEAVES.blade[i % 2]); const a = i * 2.4;
+        l.position.set(Math.cos(a) * 0.03, 0.12, Math.sin(a) * 0.03); l.scale.set(0.55, 2.2 + (i % 3) * 0.5, 1);
+        l.rotation.set(Math.sin(a) * 0.18, a, Math.cos(a) * 0.18); g.add(l);
+      }
+    } else { // pothos en boule, quelques feuilles qui retombent
+      for (let i = 0; i < 26; i++) {
+        const l = new T.Mesh(leafPlane, LEAVES.heart[i % 4]); const a = i * 2.39, r = 0.015 + (i % 5) * 0.016;
+        l.position.set(Math.cos(a) * r, 0.125 + (i % 4) * 0.022, Math.sin(a) * r); l.scale.setScalar(0.85 + (i % 3) * 0.2);
+        l.rotation.set(-0.9 + (i % 4) * 0.35, -a + Math.PI / 2, 0, "YXZ"); g.add(l);
+      }
     }
     return g;
   }
-  /* Jungle : feuilles en cœur (pothos) partagées par toutes les lianes */
-  const leafGeo = new T.SphereGeometry(0.035, 8, 6); leafGeo.scale(1, 0.25, 1.25);
-  const leafMats = ["#3f7a3a", "#5c9a4a", "#2f6130", "#7fae5c"].map((c) => new T.MeshStandardMaterial({ color: c, roughness: 0.7 }));
+  /* Jungle : lianes de pothos (feuilles en cœur) */
+  const leafGeo = leafPlane;
+  const leafMats = LEAVES.heart;
   /* Une liane qui tombe : des feuilles le long d'une courbe, regroupées pour rester léger sur un vieux téléphone */
   function vines(parent, list) {
     const per = leafMats.map(() => []);
     const m4 = new T.Matrix4(), q = new T.Quaternion(), e = new T.Euler(), v = new T.Vector3(), sc = new T.Vector3();
     list.forEach(([x, y, z, len, seed], vi) => {
-      const n = Math.round(len / 0.045);
+      const n = Math.round(len / 0.028);
       for (let i = 0; i < n; i++) {
         const t = i / n, side = i % 2 ? 1 : -1;
         v.set(x + Math.sin(t * 5 + seed) * 0.07 + side * 0.03, y - t * len, z + 0.01 + Math.cos(t * 4 + seed) * 0.03);
-        e.set(1.1 + Math.sin(i + seed) * 0.4, side * 0.6 + Math.sin(i * 2.3) * 0.5, side * 0.5);
+        e.set(Math.PI + 0.3 + Math.sin(i + seed) * 0.4, side * 0.7 + Math.sin(i * 2.3) * 0.5, side * 0.4);
         const k = 0.75 + ((i * 7 + vi) % 5) / 10;
         m4.compose(v, q.setFromEuler(e), sc.set(k, k, k));
         per[(i + vi) % leafMats.length].push(m4.clone());
@@ -182,12 +257,15 @@
     cyl(0.17, 0.13, 0.32, mat("#b5653f"), 0, 0.16, 0, g);
     cyl(0.16, 0.16, 0.02, mat("#3a2a1c"), 0, 0.31, 0, g);
     const stem = mat("#4a6a33");
-    for (let i = 0; i < 9; i++) {
-      const a = i * 0.7, h = 0.45 + (i % 4) * 0.22, r = 0.08 + (i % 3) * 0.05;
-      const st = cyl(0.008, 0.01, h, stem, Math.cos(a) * r * 0.5, 0.32 + h / 2, Math.sin(a) * r * 0.5, g, 5);
-      st.rotation.z = Math.cos(a) * 0.35; st.rotation.x = -Math.sin(a) * 0.35;
-      const lf = ball(0.12, leafMats[i % 3], Math.cos(a) * (r + h * 0.33), 0.32 + h, Math.sin(a) * (r + h * 0.33), g);
-      lf.scale.set(0.9, 0.22, 1.5); lf.rotation.set(0.5 * Math.sin(a), a, 0.6 * Math.cos(a));
+    for (let i = 0; i < 11; i++) {
+      const a = i * 2.39, h = 0.4 + (i % 4) * 0.2, tilt = 0.25 + (i % 3) * 0.12;
+      const st = cyl(0.007, 0.01, h, stem, 0, 0.32 + h / 2, 0, g, 5);
+      st.rotation.z = Math.cos(a) * tilt; st.rotation.x = -Math.sin(a) * tilt;
+      st.position.x = Math.sin(tilt) * Math.cos(a) * h / 2; st.position.z = Math.sin(tilt) * Math.sin(a) * h / 2;
+      const lf = new T.Mesh(leafPlane, LEAVES.monstera[i % 2]);
+      lf.position.set(Math.sin(tilt) * Math.cos(a) * h, 0.32 + Math.cos(tilt) * h, Math.sin(tilt) * Math.sin(a) * h);
+      lf.scale.setScalar(3.2 + (i % 3) * 0.6);
+      lf.rotation.set(-1.0 - (i % 3) * 0.2, -a + Math.PI / 2, 0, "YXZ"); g.add(lf);
     }
     return g;
   }
@@ -332,6 +410,13 @@
     }
     box(W, H - base, 0.02, backM, 0, base + (H - base) / 2, -DEPTH / 2 + 0.01, g); // fond
     for (let r = 0; r <= rows.length; r++) box(W, 0.028, DEPTH - 0.02, wood, 0, base + r * SHELF_H, 0, g);
+    for (let r = 0; r < rows.length; r++) {
+      const ao = new T.Mesh(new T.PlaneGeometry(W, SHELF_H - 0.028), aoMat);
+      ao.position.set(0, base + r * SHELF_H + SHELF_H / 2, -DEPTH / 2 + 0.022); ao.renderOrder = 1; g.add(ao);
+      // le dessous de chaque rayon assombrit aussi le haut des livres
+      const under = new T.Mesh(new T.PlaneGeometry(W, DEPTH - 0.03), aoMat);
+      under.rotation.x = -Math.PI / 2; under.position.set(0, base + r * SHELF_H + 0.0145, 0); under.scale.y = -1; under.renderOrder = 1; g.add(under);
+    }
     if (style === "elegant") for (let r = 1; r <= rows.length; r++) box(W, 0.006, 0.004, trim, 0, base + r * SHELF_H - 0.012, DEPTH / 2, g);
     if (key === "alire") for (let i = 0; i < 3; i++) box(0.12, 0.016, 0.02, mat("#c9a227", { metalness: 0.7, roughness: 0.3 }), -W / 3 + (i * W) / 3, base / 2, DEPTH / 2 + 0.01, g);
 
@@ -413,7 +498,11 @@
       renderer = new T.WebGLRenderer({ antialias: true, powerPreference: "low-power" });
     } catch (e) { console.warn("3D indisponible", e); return null; }
     if (!renderer.getContext()) return null;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    // ombres douces, calculées une fois quand la pièce change (pas à chaque image)
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = T.PCFSoftShadowMap;
+    renderer.shadowMap.autoUpdate = false;
     renderer.outputColorSpace = T.SRGBColorSpace;
     renderer.toneMapping = T.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.05;
@@ -427,16 +516,20 @@
     scene.fog = new T.Fog(sceneColor, 9, 16);
     const camera = new T.PerspectiveCamera(50, 1, 0.05, 40);
 
-    scene.add(new T.AmbientLight(night ? "#c9c4e8" : "#ffe2c4", night ? 0.75 : 1.1));
-    scene.add(new T.HemisphereLight(night ? "#d8d4f0" : "#fff1dc", "#5a3a24", night ? 0.6 : 0.9));
-    const ceilingLight = new T.PointLight("#ffd9a8", night ? 7.5 : 6, 12, 1.4); ceilingLight.position.set(0, 3.2, 0); scene.add(ceilingLight);
+    scene.add(new T.AmbientLight(night ? "#c9c4e8" : "#ffe2c4", night ? 0.6 : 0.8));
+    scene.add(new T.HemisphereLight(night ? "#d8d4f0" : "#fff1dc", "#5a3a24", night ? 0.55 : 0.8));
+    const ceilingLight = new T.PointLight("#ffd9a8", night ? 9 : 8, 12, 1.3); ceilingLight.position.set(0, 2.75, 0); scene.add(ceilingLight);
+    ceilingLight.castShadow = true;
+    ceilingLight.shadow.mapSize.set(1024, 1024);
+    ceilingLight.shadow.radius = 4; ceilingLight.shadow.bias = -0.004; ceilingLight.shadow.normalBias = 0.02;
+    ceilingLight.shadow.camera.near = 0.2; ceilingLight.shadow.camera.far = 8;
 
     // sol, plafond, tapis
     const floor = new T.Mesh(new T.PlaneGeometry(ROOM * 2, ROOM * 2), new T.MeshStandardMaterial({ map: floorTex(opts.floor), roughness: 0.8 }));
-    floor.rotation.x = -Math.PI / 2; scene.add(floor);
+    floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
     const ceil = new T.Mesh(new T.PlaneGeometry(ROOM * 2, ROOM * 2), mat("#f1e4cf")); ceil.rotation.x = Math.PI / 2; ceil.position.y = 3.6; scene.add(ceil);
     const rug = new T.Mesh(new T.CircleGeometry(1.5, 48), new T.MeshStandardMaterial({ map: rugTex(), roughness: 1 }));
-    rug.rotation.x = -Math.PI / 2; rug.position.y = 0.004; scene.add(rug);
+    rug.rotation.x = -Math.PI / 2; rug.position.y = 0.004; rug.receiveShadow = true; scene.add(rug);
     // suspension au plafond
     cyl(0.005, 0.005, 0.6, mat("#3b2a1e"), 0, 3.3, 0, scene, 6);
     const lampShade = new T.Mesh(new T.CylinderGeometry(0.16, 0.32, 0.26, 28, 1, true), new T.MeshStandardMaterial({ color: "#f6d79a", emissive: "#ffb85c", emissiveIntensity: 0.7, side: T.DoubleSide }));
@@ -448,7 +541,7 @@
     KEYS.forEach((k, i) => {
       const a = i * QUARTER;
       const wall = new T.Mesh(new T.PlaneGeometry(ROOM * 2, 3.6), new T.MeshStandardMaterial({ map: wallTexture(THEMES[k]), roughness: 0.95 }));
-      walls[k] = wall;
+      walls[k] = wall; wall.receiveShadow = true;
       wall.position.copy(dir(a).multiplyScalar(ROOM)); wall.position.y = 1.8; wall.rotation.y = -a; scene.add(wall);
       const skirting = new T.Mesh(new T.BoxGeometry(ROOM * 2, 0.12, 0.03), mat("#f3e7d6"));
       skirting.position.copy(dir(a).multiplyScalar(ROOM - 0.015)); skirting.position.y = 0.06; skirting.rotation.y = -a; scene.add(skirting);
@@ -479,9 +572,11 @@
         const a = i * QUARTER;
         c.group.position.copy(dir(a).multiplyScalar(R + DEPTH / 2));
         c.group.rotation.y = -a;
+        c.group.traverse((o) => { if (o.isMesh && !(o.material && o.material.isMeshBasicMaterial)) { o.castShadow = !o.isInstancedMesh; o.receiveShadow = true; } });
         scene.add(c.group);
         cases[k] = c;
       });
+      renderer.shadowMap.needsUpdate = true;
       kick();
     }
     function fitDistance(c) {
