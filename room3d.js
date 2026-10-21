@@ -76,9 +76,14 @@
   const PHOTO_DIR = ((document.currentScript && document.currentScript.src) || "").replace(/[^/]*$/, "") + "textures/";
   const PHOTOS = {}, photoWaiters = [];
   const woodCache = new Map();
-  ["bois", "parquet", "briques", "briques-gris"].forEach((n) => {
+  const PHOTO_NAMES = ["bois", "parquet", "briques", "briques-gris"];
+  let photosLeft = PHOTO_NAMES.length;
+  // on prévient une seule fois, quand toutes les photos sont arrivées (ou ont échoué) : une seule reconstruction
+  const photoDone = () => { if (--photosLeft === 0) { woodCache.clear(); photoWaiters.forEach((f) => f()); } };
+  PHOTO_NAMES.forEach((n) => {
     const im = new Image();
-    im.onload = () => { PHOTOS[n] = im; woodCache.clear(); photoWaiters.forEach((f) => f(n)); };
+    im.onload = () => { PHOTOS[n] = im; photoDone(); };
+    im.onerror = photoDone;
     im.src = PHOTO_DIR + n + ".jpg";
   });
   // la photo grise (moyenne à 50 %) mélangée en « incrustation » garde la couleur et ajoute le grain
@@ -248,6 +253,16 @@
      Quatre reliures tirées au sort d'après l'identifiant : broché, relié à nervures, relié moderne, étiquette. */
   const spineCache = new Map();
   const goldFill = (g, x0, x1) => { const gr = g.createLinearGradient(x0, 0, x1, 0); gr.addColorStop(0, "#8a6526"); gr.addColorStop(0.45, "#f2d78c"); gr.addColorStop(0.6, "#d6b260"); gr.addColorStop(1, "#7d5a20"); return gr; };
+  // grain dessiné une seule fois, puis recopié sur chaque tranche (beaucoup plus rapide)
+  const grains = {};
+  function spineGrain(cloth) {
+    if (grains[cloth]) return grains[cloth];
+    const c = document.createElement("canvas"); c.width = 110; c.height = 576;
+    const g = c.getContext("2d"), w = 96, h = 576;
+    for (let i = 0; i < 900; i++) { g.fillStyle = i % 2 ? "rgba(255,255,255,.045)" : "rgba(0,0,0,.055)"; g.fillRect((i * 37.7) % w + 13 * (i % 2), (i * 97.3) % h, 1, 1 + (i % 4)); }
+    if (cloth) for (let y = 0; y < h; y += 3) { g.fillStyle = "rgba(0,0,0,.035)"; g.fillRect(0, y, c.width, 1); }
+    return (grains[cloth] = c);
+  }
   function spineTexture(b, color, ink) {
     const key = b.id + "|" + color + "|" + b.title + "|" + (b.tome || "") + "|" + !!b.fav;
     if (spineCache.has(key)) return spineCache.get(key);
@@ -258,8 +273,7 @@
     const tex = canvasTex(96, 576, (g, w, h) => {
       g.fillStyle = color; g.fillRect(0, 0, w, h);
       // grain de la toile ou du papier
-      for (let i = 0; i < 900; i++) { g.fillStyle = i % 2 ? "rgba(255,255,255,.045)" : "rgba(0,0,0,.055)"; g.fillRect((i * 37.7 + (hb % 13)) % w, (i * 97.3) % h, 1, 1 + (i % 4)); }
-      if (kind !== 0) for (let y = 0; y < h; y += 3) { g.fillStyle = "rgba(0,0,0,.035)"; g.fillRect(0, y, w, 1); } // trame de la toile
+      g.drawImage(spineGrain(kind !== 0), -(hb % 13), 0); // grain du papier, ou de la toile avec sa trame
       const gold = kind === 1 || kind === 2 || (kind === 3 && light);
       const filet = (y, t) => { g.fillStyle = gold ? goldFill(g, 0, w) : ink; g.globalAlpha = gold ? 0.9 : 0.45; g.fillRect(4, y, w - 8, t); g.globalAlpha = 1; };
       let top = 40, bot = h - 40;
@@ -1920,17 +1934,23 @@
       curOver = over;
       applyThemes(over);
       KEYS.forEach((k) => { const m = walls[k].material; if (m.map) m.map.dispose(); m.map = wallTexture(THEMES[k]); m.needsUpdate = true; });
-      setBooks(lastMap);
+      setBooks(lastMap, true);
     }
     // les photos de matières arrivent après le premier dessin : on repeint quand elles sont là
-    let photoTimer = 0;
-    photoWaiters.push(() => { clearTimeout(photoTimer); photoTimer = setTimeout(() => { setFloor(curFloor); setThemes(curOver); }, 60); });
+    const photosArrived = () => { waitPhotos = false; setFloor(curFloor); setThemes(curOver); };
+    if (photosLeft > 0) { photoWaiters.push(photosArrived); setTimeout(() => { if (waitPhotos) { waitPhotos = false; setBooks(lastMap, true); } }, 1500); }
     /* Livre qu'on vient de ranger : il glisse à sa place */
     const animIn = new Map(); let anims = [];
     const ANIM_MS = 1100;
     function shelve(id) { animIn.set(id, performance.now() + 120); setTimeout(() => animIn.delete(id), ANIM_MS + 400); }
-    function setBooks(map) {
-      lastMap = map; anims = [];
+    let lastSig = "", waitPhotos = photosLeft > 0;
+    function setBooks(map, force) {
+      const sig = (width / height < 0.8) + JSON.stringify(map);
+      if (!force && sig === lastSig && !animIn.size) return;
+      lastMap = map;
+      // au tout début, on attend les photos de bois (au plus 1,5 s) pour ne construire les meubles qu'une fois
+      if (waitPhotos) return;
+      lastSig = sig; anims = [];
       const keep = sharedGeos();
       Object.values(cases).forEach((c) => {
         scene.remove(c.group);

@@ -80,6 +80,12 @@ Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à cha
 
 L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robot va chercher les précommandes jusqu'à 6 mois). La 3D a de vraies feuilles dessinées (pothos, sansevieria, monstera), du bois veiné, des tranches de livres arrondies avec grain et usure, des pages visibles, des ombres douces et l'ombre au fond de chaque case.
 
+## Affichage plus rapide (21 octobre, soir)
+- La pièce n'est construite qu'une fois au démarrage (avant, elle était refaite à l'arrivée de chaque photo de bois).
+- Changer d'étagère ne reconstruit plus les meubles si les livres n'ont pas changé.
+- Les tranches des livres se dessinent plus vite.
+- Les couvertures et les photos de matières déjà vues sont gardées sur le téléphone (fichier `sw.js`) : elles s'affichent tout de suite la fois suivante, même sans réseau. Si on change un jour `three.min.js` ou une photo de `textures/`, changer le nom `images-v1` dans `sw.js`.
+
 ## Chantier 3D réaliste (21 octobre, soir)
 - Fauteuil rembourré aux formes arrondies, coussins, plaid tricoté ; guéridon en bois tourné, lampe en grès avec abat-jour en lin, tasse de thé ; tapis kilim à franges ; suspension en rotin au plafond.
 - Lumière plus chaude avec reflets doux, ombres plus douces ; meubles avec corniche moulurée, socle profilé, fond en lames et vernis satiné.
