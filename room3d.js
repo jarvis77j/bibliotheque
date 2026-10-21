@@ -200,6 +200,33 @@
 
   /* ---------- Petits objets ---------- */
   /* Feuilles dessinées (cœur de pothos, lame de sansevieria, feuille de monstera) posées sur des plans transparents */
+  function monsteraTexture(c1, c2) {
+    return canvasTex(256, 256, (g, w, h) => {
+      const cx = 128;
+      g.beginPath(); g.moveTo(cx, 250);
+      g.bezierCurveTo(30, 240, 0, 140, 22, 70); g.bezierCurveTo(40, 22, 100, 6, cx, 30);
+      g.bezierCurveTo(156, 6, 216, 22, 234, 70); g.bezierCurveTo(256, 140, 226, 240, cx, 250); g.closePath();
+      const grad = g.createLinearGradient(0, 0, w, h); grad.addColorStop(0, c1); grad.addColorStop(1, c2);
+      g.fillStyle = grad; g.fill();
+      g.save(); g.clip();
+      const rg = g.createRadialGradient(cx, 150, 10, cx, 140, 140); rg.addColorStop(0, "rgba(255,255,220,.16)"); rg.addColorStop(1, "rgba(0,0,0,.32)");
+      g.fillStyle = rg; g.fillRect(0, 0, w, h);
+      g.restore();
+      // découpes : fentes depuis le bord vers la nervure, et petits trous ovales près du centre
+      g.globalCompositeOperation = "destination-out";
+      for (let i = 0; i < 6; i++) {
+        const yy = 70 + i * 28, k = 1 - i * 0.08;
+        [-1, 1].forEach((sd) => {
+          g.lineWidth = 7 - i * 0.4; g.beginPath(); g.moveTo(cx + sd * 34, yy + 8); g.quadraticCurveTo(cx + sd * 70, yy - 4, cx + sd * 130 * k, yy - 22); g.stroke();
+          if (i > 0 && i < 5) { g.beginPath(); g.ellipse(cx + sd * 26, yy - 4, 4, 9, sd * 0.6, 0, 7); g.fill(); }
+        });
+      }
+      g.globalCompositeOperation = "source-over";
+      g.strokeStyle = "rgba(220,240,180,.45)"; g.lineWidth = 4; g.beginPath(); g.moveTo(cx, 248); g.quadraticCurveTo(cx - 4, 140, cx, 34); g.stroke();
+      g.lineWidth = 1.5; g.strokeStyle = "rgba(220,240,180,.2)";
+      for (let i = 0; i < 6; i++) { const yy = 84 + i * 28; [-1, 1].forEach((sd) => { g.beginPath(); g.moveTo(cx, yy + 8); g.quadraticCurveTo(cx + sd * 50, yy, cx + sd * 100, yy - 12); g.stroke(); }); }
+    });
+  }
   function leafTexture(kind, c1, c2) {
     return canvasTex(128, 128, (g, w, h) => {
       const grad = g.createLinearGradient(0, 0, w, h); grad.addColorStop(0, c1); grad.addColorStop(1, c2);
@@ -230,7 +257,7 @@
   const LEAVES = {
     heart: [leafMat("heart", "#4f7f3a", "#2c5424"), leafMat("heart", "#8fae5a", "#4c7a34"), leafMat("heart", "#3b6a30", "#1f421b"), leafMat("heart", "#5f8f45", "#335e28")],
     blade: [leafMat("blade", "#4c7a3c", "#2a4d24"), leafMat("blade", "#6f9a4a", "#3d6a2e")],
-    monstera: [leafMat("monstera", "#3e7a36", "#1f4d1d"), leafMat("monstera", "#5a9244", "#2d6127")],
+    monstera: [["#3f6f34", "#1d4219"], ["#4f8040", "#264f20"], ["#35602c", "#183a15"]].map(([a, b]) => new T.MeshStandardMaterial({ map: monsteraTexture(a, b), alphaTest: 0.5, side: T.DoubleSide, roughness: 0.45 })),
   };
   /* Ombre douce au fond de chaque case (sous le rayon du dessus et dans les coins) */
   const aoMat = new T.MeshBasicMaterial({ map: canvasTex(128, 128, (g, w, h) => {
@@ -241,13 +268,13 @@
   }), transparent: true, depthWrite: false });
   const leafPlane = new T.PlaneGeometry(0.1, 0.1); leafPlane.translate(0, 0.05, 0);
   const pots = ["#b5653f", "#d9d2c4", "#2f2f2f", "#c9a07a", "#7d8f7a"];
-  function plant(parent, x, y, z, s) {
+  function plant(parent, x, y, z, s, kind) {
     const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); parent.add(g);
     const seed = Math.round(Math.abs(x * 97 + y * 31 + z * 13) * 10);
     const potC = pots[seed % pots.length];
     cyl(0.075, 0.06, 0.13, mat(potC, { roughness: 0.6 }), 0, 0.065, 0, g, 24);
     cyl(0.068, 0.068, 0.01, mat("#3a2a1c"), 0, 0.125, 0, g, 20);
-    if (seed % 2) { // sansevieria : longues lames dressées
+    if (kind !== "pothos" && seed % 2) { // sansevieria : longues lames dressées
       for (let i = 0; i < 9; i++) {
         const l = new T.Mesh(leafPlane, LEAVES.blade[i % 2]); const a = i * 2.4;
         l.position.set(Math.cos(a) * 0.03, 0.12, Math.sin(a) * 0.03); l.scale.set(0.55, 2.2 + (i % 3) * 0.5, 1);
@@ -271,26 +298,34 @@
   function vines(parent, list) {
     const per = leafMats.map(() => []);
     const m4 = new T.Matrix4(), q = new T.Quaternion(), e = new T.Euler(), v = new T.Vector3(), sc = new T.Vector3();
-    list.forEach(([x, y, z, len, seed, big], vi) => {
-      big = big || 1;
-      // la tige descend en ondulant doucement et s'écarte un peu du meuble
-      const N = Math.max(3, Math.round(len / 0.1)), pts = [];
-      for (let i = 0; i <= N; i++) {
-        const t = i / N;
-        pts.push(new T.Vector3(x + Math.sin(t * 3.2 + seed) * 0.045 * big, y - t * len, z + Math.sin(t * 2.1 + seed * 1.7) * 0.02 + t * 0.025));
+    const tg = new T.Vector3();
+    list.forEach((spec, vi) => {
+      let pts, seed, big, yaw = 0;
+      if (Array.isArray(spec[0])) { [pts, seed, big, yaw] = spec; pts = pts.map((p) => new T.Vector3(p[0], p[1], p[2])); }
+      else { // ancienne forme : liane qui tombe tout droit d'un point
+        const [x, y, z, len] = spec; seed = spec[4]; big = spec[5];
+        const N = Math.max(3, Math.round(len / 0.1)); pts = [];
+        for (let i = 0; i <= N; i++) { const t = i / N; pts.push(new T.Vector3(x + Math.sin(t * 3.2 + seed) * 0.045, y - t * len, z + Math.sin(t * 2.1 + seed * 1.7) * 0.02 + t * 0.025)); }
       }
-      const curve = new T.CatmullRomCurve3(pts);
-      parent.add(new T.Mesh(new T.TubeGeometry(curve, N * 3, 0.0022 * big, 3, false), stemMat));
+      big = big || 1; yaw = yaw || 0;
+      const curve = new T.CatmullRomCurve3(pts), len = curve.getLength();
+      parent.add(new T.Mesh(new T.TubeGeometry(curve, Math.max(8, Math.round(len * 40)), 0.0022 * big, 3, false), stemMat));
       // feuilles alternées, espacées irrégulièrement, de plus en plus petites vers le bout
-      let t = 0.01, i = 0;
+      let t = 0.02, i = 0;
       while (t < 0.99) {
-        const r = rr(seed * 97 + i), side = i % 2 ? 1 : -1, p = curve.getPoint(t);
-        const k = (1.1 - t * 0.5) * (0.8 + r * 0.6) * big;
-        v.set(p.x + side * 0.01 * k, p.y + 0.004, p.z + 0.004);
-        e.set(Math.PI + 0.35 + r * 0.6, side * (0.35 + r * 0.7), side * (0.25 + rr(i + seed) * 0.5));
+        const r = rr(seed * 97 + i), side = i % 2 ? 1 : -1, p = curve.getPointAt(t);
+        curve.getTangentAt(t, tg);
+        const k = (1.1 - t * 0.45) * (0.8 + r * 0.6) * big;
+        if (tg.y < -0.55) { // partie qui pend : la feuille pend sous son pétiole, tournée vers l'extérieur
+          v.set(p.x + side * 0.01 * k * Math.cos(yaw), p.y + 0.004, p.z + 0.004 - side * 0.01 * k * Math.sin(yaw));
+          e.set(Math.PI + 0.35 + r * 0.6, yaw + side * (0.35 + r * 0.7), side * (0.25 + rr(i + seed) * 0.5), "YXZ");
+        } else { // partie posée sur le meuble : feuilles couchées
+          v.set(p.x, p.y + 0.006, p.z);
+          e.set(-Math.PI / 2 + 0.25 + r * 0.3, Math.atan2(tg.x, tg.z) + side * (0.9 + r * 0.6), 0, "YXZ");
+        }
         m4.compose(v, q.setFromEuler(e), sc.set(k, k * (0.9 + r * 0.2), k));
         per[Math.floor(rr(seed + i * 3.1) * leafMats.length)].push(m4.clone());
-        t += ((0.038 + r * 0.045) * big) / len; i++;
+        t += ((0.036 + r * 0.04) * big) / len; i++;
       }
     });
     per.forEach((ms, i) => {
@@ -303,18 +338,24 @@
   /* Grande plante posée au sol, à côté du meuble */
   function bigPlant(parent, x, z, s) {
     const g = new T.Group(); g.position.set(x, 0, z); g.scale.setScalar(s || 1); parent.add(g);
-    cyl(0.17, 0.13, 0.32, mat("#b5653f"), 0, 0.16, 0, g);
-    cyl(0.16, 0.16, 0.02, mat("#3a2a1c"), 0, 0.31, 0, g);
-    const stem = mat("#4a6a33");
-    for (let i = 0; i < 11; i++) {
-      const a = i * 2.39, h = 0.4 + (i % 4) * 0.2, tilt = 0.25 + (i % 3) * 0.12;
-      const st = cyl(0.007, 0.01, h, stem, 0, 0.32 + h / 2, 0, g, 5);
-      st.rotation.z = Math.cos(a) * tilt; st.rotation.x = -Math.sin(a) * tilt;
-      st.position.x = Math.sin(tilt) * Math.cos(a) * h / 2; st.position.z = Math.sin(tilt) * Math.sin(a) * h / 2;
-      const lf = new T.Mesh(leafPlane, LEAVES.monstera[i % 2]);
-      lf.position.set(Math.sin(tilt) * Math.cos(a) * h, 0.32 + Math.cos(tilt) * h, Math.sin(tilt) * Math.sin(a) * h);
-      lf.scale.setScalar(3.2 + (i % 3) * 0.6);
-      lf.rotation.set(-1.0 - (i % 3) * 0.2, -a + Math.PI / 2, 0, "YXZ"); g.add(lf);
+    cyl(0.17, 0.13, 0.32, mat("#b5653f", { roughness: 0.8 }), 0, 0.16, 0, g, 28);
+    cyl(0.18, 0.18, 0.04, mat("#a85b38", { roughness: 0.8 }), 0, 0.31, 0, g, 28);
+    cyl(0.16, 0.16, 0.02, mat("#3a2a1c", { roughness: 1 }), 0, 0.32, 0, g, 24);
+    const stem = new T.MeshStandardMaterial({ color: "#4d6b34", roughness: 0.7 });
+    for (let i = 0; i < 13; i++) {
+      const a = i * 2.39 + 0.3, h = 0.45 + rr(i + 3) * 0.55, out = 0.12 + rr(i + 7) * 0.32;
+      // tige qui monte puis s'incline vers l'extérieur
+      const p0 = new T.Vector3(Math.cos(a) * 0.03, 0.32, Math.sin(a) * 0.03);
+      const p1 = new T.Vector3(Math.cos(a) * out * 0.3, 0.32 + h * 0.6, Math.sin(a) * out * 0.3);
+      const p2 = new T.Vector3(Math.cos(a) * out, 0.32 + h, Math.sin(a) * out);
+      const c = new T.QuadraticBezierCurve3(p0, p1, p2);
+      g.add(new T.Mesh(new T.TubeGeometry(c, 10, 0.007, 5, false), stem));
+      const lf = new T.Mesh(leafPlane, LEAVES.monstera[i % 3]);
+      lf.position.copy(p2);
+      lf.scale.setScalar(2.4 + rr(i + 11) * 1.4);
+      // la feuille part du bout de la tige, penchée vers l'extérieur et un peu vers le bas
+      lf.rotation.set(-0.5 - rr(i + 5) * 0.7, -a + Math.PI / 2, (rr(i) - 0.5) * 0.4, "YXZ");
+      g.add(lf);
     }
     return g;
   }
@@ -628,6 +669,8 @@
     const decorKinds = (th.jungle ? ["plant", "mushroom", "plant", "candle", "rabbit", "plant", "stack"] : ["plant", "candle", "rabbit", "frame", "mushroom", "stack"])
       .filter((k) => deco[{ plant: "plantes", candle: "bougies", frame: "cadres", stack: "piles", mushroom: "champignons", rabbit: "lapin" }[k]]);
     let faces = 0;
+    const lianes = deco.lianes === true ? 2 : +deco.lianes || 0;
+    let shelfTrail = 0; const shelfVines = [];
     // rayons vides : on y pose de face un ou deux livres pris dans le rayon le plus rempli
     const onEmpty = new Map();
     rows.forEach((row, r) => {
@@ -700,7 +743,11 @@
       const z = 0.02;
       if (free > 0.3) {
         const dx = right - 0.14;
-        if (kind === "plant") plant(g, dx, y0, z, 0.9);
+        if (kind === "plant") {
+          const trail = lianes >= 2 || (lianes === 1 && !shelfTrail++);
+          plant(g, dx, y0, z, 0.9, trail ? "pothos" : undefined);
+          if (trail) shelfVines.push([dx, y0, r]);
+        }
         if (kind === "candle") candle(g, dx, y0, z, 1.1);
         if (kind === "frame") frame(g, dx, y0, z);
         if (kind === "stack") bookStack(g, dx - 0.02, y0, z);
@@ -711,28 +758,44 @@
     });
     // dessus du meuble
     const topY = style === "moderne" ? H + 0.04 : H + 0.08;
-    if (deco.plantes) plant(g, -W / 2 + 0.22, topY, 0, 1.1);
+    const zEdge = style === "moderne" ? DEPTH / 2 + 0.005 : DEPTH / 2 + 0.045;
+    const potL = -W / 2 + 0.22, potM = 0.1, potR = W / 2 - 0.42;
+    if (deco.plantes || lianes) plant(g, potL, topY, 0, 1.1, lianes ? "pothos" : undefined);
     if (deco.bougies) candle(g, W / 2 - 0.2, topY, 0.02, 1.2);
-    const lianes = deco.lianes === true ? 2 : +deco.lianes || 0;
-    if (deco.plantes && (lianes || deco.grandes)) plant(g, 0.1, topY, 0, 1.25);
-    if (lianes === 1) {
-      // un peu : deux lianes qui tombent des coins du haut, une sur un rayon
-      const zf = DEPTH / 2 + 0.03;
-      vines(g, [[-W / 2 + 0.08, H + 0.1, zf, H * 0.55, 1], [W / 2 - 0.1, H + 0.1, zf, H * 0.4, 3], [W * 0.2, base + SHELF_H * Math.min(2, rows.length - 1) + 0.03, zf, SHELF_H * 0.9, 7],
-        [-W / 2 + 0.3, H + 0.1, zf, 0.2, 9]]);
-    }
-    if (lianes >= 2) {
-      // lianes qui tombent du haut et de quelques rayons
-      const zf = DEPTH / 2 + 0.03, list = [
-        [-W / 2 + 0.05, H + 0.1, zf, H * 0.85, 1], [-W / 2 + 0.25, H + 0.1, zf, H * 0.45, 2],
-        [W / 2 - 0.08, H + 0.1, zf, H * 0.95, 3], [W / 2 - 0.3, H + 0.1, zf, H * 0.35, 4], [0.12, H + 0.1, zf, H * 0.22, 5],
-      ];
-      for (let r = 1; r < rows.length; r += 2) list.push([(r % 4 === 1 ? -1 : 1) * W * 0.22, base + r * SHELF_H + 0.03, zf, SHELF_H * 1.3, 6 + r]);
-      // rideau de grandes feuilles sur le côté droit, jusqu'au sol, comme sur les photos
-      for (let j = 0; j < 3; j++) list.push([W / 2 + 0.02 - j * 0.07, H + 0.1, zf + 0.01 * j, H + 0.05 - j * 0.2, 20 + j, 1.35]);
-      list.push([-W / 2 - 0.01, H + 0.1, zf, H * 0.7, 30, 1.2]);
-      // feuillage couché sur le dessus du meuble
-      for (let x = -W / 2 + 0.05; x < W / 2; x += 0.16) list.push([x, H + 0.12, zf - 0.08, 0.1, 40 + x * 10, 1.1]);
+    if ((deco.plantes && deco.grandes) || lianes >= 2) plant(g, potM, topY, 0, 1.25, lianes ? "pothos" : undefined);
+    if (lianes >= 2) plant(g, potR, topY, 0, 1.05, "pothos");
+    if (lianes) {
+      const y1 = topY + 0.1, list = [];
+      // liane qui sort du pot, rampe sur le dessus, passe le bord puis tombe devant le meuble
+      const front = (px, drift, len, seed, big) => {
+        const p = [[px, y1, 0.01], [px + drift * 0.25, topY + 0.02, zEdge - 0.06], [px + drift * 0.45, topY + 0.008, zEdge], [px + drift * 0.55, topY - 0.05, zEdge + 0.02]];
+        const n = Math.max(2, Math.round(len / 0.12));
+        for (let k = 1; k <= n; k++) p.push([px + drift * (0.55 + 0.5 * k / n) + Math.sin(k * 1.7 + seed) * 0.02, topY - 0.05 - len * k / n, zEdge + 0.02 + Math.sin(k + seed) * 0.008]);
+        list.push([p, seed, big || 1]);
+      };
+      // liane qui passe par le coin et descend le long du côté du meuble
+      const side = (sx, px, len, seed) => {
+        const xo = sx * (W / 2 + (style === "moderne" ? 0.06 : 0.1)), xs = sx * (W / 2 + 0.065);
+        const p = [[px, y1, 0], [sx * (W / 2 - 0.03), topY + 0.015, 0.04], [xo, topY - 0.03, 0.06], [xs, topY - 0.1, 0.07]];
+        const n = Math.max(2, Math.round(len / 0.14));
+        for (let k = 1; k <= n; k++) p.push([xs + sx * Math.abs(Math.sin(k * 1.3 + seed)) * 0.015, topY - 0.1 - len * k / n, 0.07 + Math.sin(k * 0.9 + seed) * 0.08]);
+        list.push([p, seed, 1.1, sx * Math.PI / 2]);
+      };
+      front(potL, 0.25, H * (lianes >= 2 ? 0.75 : 0.5), 1);
+      front(potL, -0.1, H * (lianes >= 2 ? 0.4 : 0.28), 2);
+      if (lianes >= 2) {
+        front(potM, 0.15, H * 0.22, 5);
+        front(potR, 0.2, H * 0.85, 3); front(potR, -0.15, H * 0.35, 4);
+        side(1, potR, H * 0.9, 20); side(1, potR, H * 0.6, 21);
+        side(-1, potL, H * 0.65, 30);
+      }
+      // lianes des pots posés sur les rayons : elles passent le bord du rayon et tombent sur celui du dessous
+      shelfVines.forEach(([px, y0, r], j) => {
+        const len = Math.min(SHELF_H * 1.15, y0 - 0.05);
+        const p = [[px, y0 + 0.11, 0.03], [px + 0.04, y0 + 0.02, DEPTH / 2 - 0.03], [px + 0.06, y0 + 0.004, DEPTH / 2], [px + 0.07, y0 - 0.04, DEPTH / 2 + 0.02]];
+        for (let k = 1; k <= 3; k++) p.push([px + 0.07 + Math.sin(k + j) * 0.02, y0 - 0.04 - len * k / 3, DEPTH / 2 + 0.022]);
+        list.push([p, 50 + j, 0.95]);
+      });
       vines(g, list);
     }
     if (deco.grandes) { bigPlant(g, W / 2 + 0.45, 0.25, 1.1); bigPlant(g, -W / 2 - 0.28, 0.2, 0.8); }

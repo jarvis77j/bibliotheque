@@ -265,6 +265,9 @@
   /* Explorer : le catalogue */
   .explore { padding: 16px 0 40px; }
   .rel { padding: 12px 16px 40px; max-width: 640px; margin: 0 auto; }
+  .rel-end { display: flex; flex-direction: column; gap: 8px; margin: 18px 0 8px; }
+  .rel-end button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 20px; padding: 11px 14px; font: inherit; font-size: 15px; cursor: pointer; }
+  .rel-end #relNext { background: var(--ink); color: var(--card); border-color: var(--ink); text-transform: none; }
   .rel-daypick { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 2px 0 12px; padding-bottom: 2px; }
   .rel-daypick button { flex: 0 0 auto; min-width: 46px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 12px; padding: 5px 4px; display: flex; flex-direction: column; align-items: center; gap: 1px; cursor: pointer; font: inherit; }
   .rel-daypick button span { font-size: 11px; color: var(--muted); text-transform: capitalize; }
@@ -766,7 +769,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 16 h</p>
+    <p class="version">Version du 21 octobre, 17 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1928,6 +1931,24 @@ async function renderReleases() {
     }).join("");
   }).join("");
   bindDays();
+  // en bas : remonter, ou passer au jour suivant ; et glisser sur les côtés pour changer de jour
+  const dayKeys = Object.keys(perDay).sort();
+  const goDay = (n) => {
+    const i = relDay ? dayKeys.indexOf(relDay) : (n > 0 ? -1 : dayKeys.length);
+    const k = dayKeys[i + n]; if (!k) { toast(n > 0 ? "C'est le dernier jour avec des sorties" : "C'est le premier jour avec des sorties"); return; }
+    relDay = k; relDayScroll = 0; renderReleases();
+    const top = $("#relDays"); if (top) window.scrollTo({ top: Math.max(0, top.getBoundingClientRect().top + window.scrollY - 90), behavior: "smooth" });
+  };
+  const next = relDay ? dayKeys[dayKeys.indexOf(relDay) + 1] : "";
+  box.insertAdjacentHTML("beforeend", `<div class="rel-end">${next ? `<button id="relNext">Jour suivant · ${new Date(next + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric" })} ›</button>` : ""}<button id="relTop">↑ Revenir en haut</button></div>`);
+  $("#relTop").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  if ($("#relNext")) $("#relNext").onclick = () => goDay(1);
+  let sx = 0, sy = 0;
+  box.ontouchstart = (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; };
+  box.ontouchend = (e) => {
+    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 70 && Math.abs(dy) < 50 && !e.target.closest("#relDays")) goDay(dx < 0 ? 1 : -1);
+  };
   box.querySelectorAll(".rel-card").forEach((c) => {
     const b = all[c.dataset.n];
     c.querySelectorAll("[data-open]").forEach((x) => (x.onclick = () => openPreview(b)));
