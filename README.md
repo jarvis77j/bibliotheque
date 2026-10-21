@@ -84,6 +84,7 @@ L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robo
 - Bois des meubles, parquet et murs en briques faits à partir de vraies photos (libres, venant des exemples de three.js), teintées avec la couleur choisie dans « Décorer ».
 - Deux nouveaux motifs de mur : Briques et Briques peintes.
 - Quelques livres sont posés de face avec leur vraie couverture (un coup de cœur en priorité).
+- Lianes plus réalistes (vraie tige, feuilles de tailles variées), avec un réglage Aucune / Un peu / Beaucoup dans « Décorer ».
 - Nouvelle déco à activer dans « Décorer » : suspensions en macramé, fleurs séchées encadrées, champignons, petit lapin, lanterne, mousse sur le meuble. L'ambiance Jungle les met d'office.
 - Un livre qu'on ajoute glisse dans son rayon, avec un petit bruit ; ouvrir une fiche fait un bruit de page. Les sons se coupent dans ⋯ (Sons).
 - La lumière de la pièce suit l'heure : matin doré, journée claire, soirée chaude, nuit tamisée.

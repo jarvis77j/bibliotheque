@@ -22,7 +22,7 @@
   const BASE = JSON.parse(JSON.stringify(THEMES));
   /* Déco de chaque meuble : ce qui est affiché par défaut */
   const decoOf = (th) => ({ plantes: true, bougies: true, cadres: true, piles: true, fauteuil: true, lampe: true,
-    lianes: !!th.jungle, grandes: !!th.jungle, guirlande: !!th.lights,
+    lianes: th.jungle ? 2 : 0, grandes: !!th.jungle, guirlande: !!th.lights,
     suspensions: !!th.jungle, mousse: !!th.jungle, champignons: !!th.jungle, lanterne: !!th.jungle, lapin: false, fleurs: false, ...(th.deco || {}) });
   function applyThemes(over) {
     for (const k in BASE) {
@@ -208,6 +208,18 @@
       else if (kind === "blade") { g.moveTo(64, 126); g.bezierCurveTo(40, 90, 46, 30, 64, 2); g.bezierCurveTo(82, 30, 88, 90, 64, 126); }
       else { g.ellipse(64, 66, 58, 56, 0, 0, 7); }
       g.fill();
+      if (kind === "heart") {
+        // plus clair le long de la nervure, bords plus sombres, quelques stries claires comme un vrai pothos
+        g.save(); g.clip();
+        const rg = g.createRadialGradient(60, 60, 6, 64, 70, 70); rg.addColorStop(0, "rgba(255,255,220,.22)"); rg.addColorStop(0.6, "rgba(0,0,0,0)"); rg.addColorStop(1, "rgba(0,0,0,.35)");
+        g.fillStyle = rg; g.fillRect(0, 0, w, h);
+        if (c1 === "#8fae5a" || c1 === "#5f8f45") for (let i = 0; i < 7; i++) { g.strokeStyle = "rgba(235,225,150,.28)"; g.lineWidth = 2 + (i % 3); g.beginPath(); g.moveTo(64 + (i - 3) * 4, 118); g.quadraticCurveTo(64 + (i - 3) * 14, 70, 64 + (i - 3) * 9, 20); g.stroke(); }
+        g.restore();
+        g.strokeStyle = "rgba(225,245,190,.4)"; g.lineWidth = 2; g.beginPath(); g.moveTo(64, 120); g.quadraticCurveTo(62, 70, 64, 26); g.stroke();
+        g.lineWidth = 1.1; g.strokeStyle = "rgba(225,245,190,.22)";
+        for (let i = 1; i < 5; i++) { const y = 40 + i * 17; [-1, 1].forEach((k) => { g.beginPath(); g.moveTo(64, y); g.quadraticCurveTo(64 + k * 22, y - 4, 64 + k * 38, y - 18); g.stroke(); }); }
+        return;
+      }
       if (kind === "monstera") { g.globalCompositeOperation = "destination-out"; for (let i = 0; i < 5; i++) { const a = -0.9 + i * 0.45; g.lineWidth = 7; g.beginPath(); g.moveTo(64 + Math.cos(a) * 30, 66 + Math.sin(a) * 30); g.lineTo(64 + Math.cos(a) * 64, 66 + Math.sin(a) * 64); g.stroke(); g.beginPath(); g.moveTo(64 - Math.cos(a) * 30, 66 + Math.sin(a) * 30); g.lineTo(64 - Math.cos(a) * 64, 66 + Math.sin(a) * 64); g.stroke(); } g.globalCompositeOperation = "source-over"; }
       g.strokeStyle = "rgba(230,255,200,.35)"; g.lineWidth = 2; g.beginPath(); g.moveTo(64, kind === "blade" ? 120 : 118); g.lineTo(64, kind === "blade" ? 10 : 24); g.stroke();
       if (kind === "blade") { g.strokeStyle = "rgba(220,240,180,.25)"; for (let y = 20; y < 120; y += 14) { g.beginPath(); g.moveTo(52, y); g.lineTo(76, y + 6); g.stroke(); } }
@@ -216,7 +228,7 @@
   }
   const leafMat = (kind, c1, c2) => new T.MeshStandardMaterial({ map: leafTexture(kind, c1, c2), alphaTest: 0.5, side: T.DoubleSide, roughness: 0.6 });
   const LEAVES = {
-    heart: [leafMat("heart", "#5f9d48", "#2f6a2c"), leafMat("heart", "#86b85c", "#4a8a3a"), leafMat("heart", "#3f7a36", "#24521f"), leafMat("heart", "#a6c96a", "#5e9a42")],
+    heart: [leafMat("heart", "#4f7f3a", "#2c5424"), leafMat("heart", "#8fae5a", "#4c7a34"), leafMat("heart", "#3b6a30", "#1f421b"), leafMat("heart", "#5f8f45", "#335e28")],
     blade: [leafMat("blade", "#4c7a3c", "#2a4d24"), leafMat("blade", "#6f9a4a", "#3d6a2e")],
     monstera: [leafMat("monstera", "#3e7a36", "#1f4d1d"), leafMat("monstera", "#5a9244", "#2d6127")],
   };
@@ -254,19 +266,31 @@
   const leafGeo = leafPlane;
   const leafMats = LEAVES.heart;
   /* Une liane qui tombe : des feuilles le long d'une courbe, regroupées pour rester léger sur un vieux téléphone */
+  const rr = (n) => { const x = Math.sin(n * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); };
+  const stemMat = new T.MeshStandardMaterial({ color: "#56703a", roughness: 0.8 });
   function vines(parent, list) {
     const per = leafMats.map(() => []);
     const m4 = new T.Matrix4(), q = new T.Quaternion(), e = new T.Euler(), v = new T.Vector3(), sc = new T.Vector3();
     list.forEach(([x, y, z, len, seed, big], vi) => {
       big = big || 1;
-      const n = Math.round(len / (0.028 * big));
-      for (let i = 0; i < n; i++) {
-        const t = i / n, side = i % 2 ? 1 : -1;
-        v.set(x + Math.sin(t * 5 + seed) * 0.07 + side * 0.03, y - t * len, z + 0.01 + Math.cos(t * 4 + seed) * 0.03);
-        e.set(Math.PI + 0.3 + Math.sin(i + seed) * 0.4, side * 0.7 + Math.sin(i * 2.3) * 0.5, side * 0.4);
-        const k = (0.75 + ((i * 7 + vi) % 5) / 10) * big;
-        m4.compose(v, q.setFromEuler(e), sc.set(k, k, k));
-        per[(i + vi) % leafMats.length].push(m4.clone());
+      // la tige descend en ondulant doucement et s'écarte un peu du meuble
+      const N = Math.max(3, Math.round(len / 0.1)), pts = [];
+      for (let i = 0; i <= N; i++) {
+        const t = i / N;
+        pts.push(new T.Vector3(x + Math.sin(t * 3.2 + seed) * 0.045 * big, y - t * len, z + Math.sin(t * 2.1 + seed * 1.7) * 0.02 + t * 0.025));
+      }
+      const curve = new T.CatmullRomCurve3(pts);
+      parent.add(new T.Mesh(new T.TubeGeometry(curve, N * 3, 0.0022 * big, 3, false), stemMat));
+      // feuilles alternées, espacées irrégulièrement, de plus en plus petites vers le bout
+      let t = 0.01, i = 0;
+      while (t < 0.99) {
+        const r = rr(seed * 97 + i), side = i % 2 ? 1 : -1, p = curve.getPoint(t);
+        const k = (1.1 - t * 0.5) * (0.8 + r * 0.6) * big;
+        v.set(p.x + side * 0.01 * k, p.y + 0.004, p.z + 0.004);
+        e.set(Math.PI + 0.35 + r * 0.6, side * (0.35 + r * 0.7), side * (0.25 + rr(i + seed) * 0.5));
+        m4.compose(v, q.setFromEuler(e), sc.set(k, k * (0.9 + r * 0.2), k));
+        per[Math.floor(rr(seed + i * 3.1) * leafMats.length)].push(m4.clone());
+        t += ((0.038 + r * 0.045) * big) / len; i++;
       }
     });
     per.forEach((ms, i) => {
@@ -689,8 +713,15 @@
     const topY = style === "moderne" ? H + 0.04 : H + 0.08;
     if (deco.plantes) plant(g, -W / 2 + 0.22, topY, 0, 1.1);
     if (deco.bougies) candle(g, W / 2 - 0.2, topY, 0.02, 1.2);
-    if (deco.plantes && (deco.lianes || deco.grandes)) plant(g, 0.1, topY, 0, 1.25);
-    if (deco.lianes) {
+    const lianes = deco.lianes === true ? 2 : +deco.lianes || 0;
+    if (deco.plantes && (lianes || deco.grandes)) plant(g, 0.1, topY, 0, 1.25);
+    if (lianes === 1) {
+      // un peu : deux lianes qui tombent des coins du haut, une sur un rayon
+      const zf = DEPTH / 2 + 0.03;
+      vines(g, [[-W / 2 + 0.08, H + 0.1, zf, H * 0.55, 1], [W / 2 - 0.1, H + 0.1, zf, H * 0.4, 3], [W * 0.2, base + SHELF_H * Math.min(2, rows.length - 1) + 0.03, zf, SHELF_H * 0.9, 7],
+        [-W / 2 + 0.3, H + 0.1, zf, 0.2, 9]]);
+    }
+    if (lianes >= 2) {
       // lianes qui tombent du haut et de quelques rayons
       const zf = DEPTH / 2 + 0.03, list = [
         [-W / 2 + 0.05, H + 0.1, zf, H * 0.85, 1], [-W / 2 + 0.25, H + 0.1, zf, H * 0.45, 2],
@@ -698,10 +729,10 @@
       ];
       for (let r = 1; r < rows.length; r += 2) list.push([(r % 4 === 1 ? -1 : 1) * W * 0.22, base + r * SHELF_H + 0.03, zf, SHELF_H * 1.3, 6 + r]);
       // rideau de grandes feuilles sur le côté droit, jusqu'au sol, comme sur les photos
-      for (let j = 0; j < 4; j++) list.push([W / 2 + 0.02 - j * 0.06, H + 0.1, zf + 0.01 * j, H + 0.05 - j * 0.12, 20 + j, 1.7]);
-      list.push([-W / 2 - 0.01, H + 0.1, zf, H * 0.7, 30, 1.4]);
+      for (let j = 0; j < 3; j++) list.push([W / 2 + 0.02 - j * 0.07, H + 0.1, zf + 0.01 * j, H + 0.05 - j * 0.2, 20 + j, 1.35]);
+      list.push([-W / 2 - 0.01, H + 0.1, zf, H * 0.7, 30, 1.2]);
       // feuillage couché sur le dessus du meuble
-      for (let x = -W / 2 + 0.05; x < W / 2; x += 0.09) list.push([x, H + 0.12, zf - 0.08, 0.09, 40 + x * 10, 1.3]);
+      for (let x = -W / 2 + 0.05; x < W / 2; x += 0.16) list.push([x, H + 0.12, zf - 0.08, 0.1, 40 + x * 10, 1.1]);
       vines(g, list);
     }
     if (deco.grandes) { bigPlant(g, W / 2 + 0.45, 0.25, 1.1); bigPlant(g, -W / 2 - 0.28, 0.2, 0.8); }
