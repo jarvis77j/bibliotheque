@@ -80,6 +80,13 @@ Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à cha
 
 L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robot va chercher les précommandes jusqu'à 6 mois). La 3D a de vraies feuilles dessinées (pothos, sansevieria, monstera), du bois veiné, des tranches de livres arrondies avec grain et usure, des pages visibles, des ombres douces et l'ombre au fond de chaque case.
 
+## Recherche plus complète (21 octobre, soir, après l'audit)
+- La BnF est toujours interrogée en même temps que Google : les livres que seule la BnF connaît s'ajoutent à la fin des résultats quelques secondes après, et ses résumés complètent les fiches Google.
+- La BnF est lue en UNIMARC : nom de série et numéro de tome, langue, résumé ; doublons retirés ; nouvel essai si elle répond mal ; si rien n'est trouvé, nouvel essai en enlevant un mot (faute de frappe).
+- Les livres que Google marque dans une autre langue sont gardés si leur ISBN est français (978-2, 979-10).
+- Couverture ou résumé manquant : la fiche Google est demandée par l'ISBN à l'ouverture du livre.
+- Rapport complet de l'audit : bibliotheque-audit/couverture-livres-francais.md (dossier du projet).
+
 ## Toute la série (21 octobre, soir)
 - Sur la fiche d'un livre qui fait partie d'une série (manga, BD, roman), un bouton « 📚 Toute la série » montre tous les tomes dans l'ordre, avec leur couverture, ceux qu'elle a déjà (✓) et les numéros introuvables.
 - Les tomes viennent de Google Livres (jusqu'à 5 pages de 40) et la BnF comble les trous. On peut ajouter d'un coup « du tome X au tome Y » dans l'étagère choisie.

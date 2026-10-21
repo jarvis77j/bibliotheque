@@ -783,7 +783,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 22 h 30</p>
+    <p class="version">Version du 21 octobre, 23 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1254,7 +1254,10 @@ async function googleFetch(query, order, anyLang, start) {
   const data = await googleJSON(url, order);
   const isbnQuery = query.startsWith("isbn:");
   // Google laisse passer des éditions étrangères malgré langRestrict : on ne garde que le français
-  return (data.items || []).filter((it) => isbnQuery || anyLang || (it.volumeInfo || {}).language === "fr").map((it) => {
+  // Google laisse passer des éditions étrangères malgré langRestrict : on ne garde que le français
+  // (ou un ISBN français, 978-2 / 979-10, que Google aurait mal étiqueté)
+  const frIsbn = (v) => (v.industryIdentifiers || []).some((x) => /^(9782|97910)/.test(x.identifier || ""));
+  return (data.items || []).filter((it) => isbnQuery || anyLang || (it.volumeInfo || {}).language === "fr" || frIsbn(it.volumeInfo || {})).map((it) => {
     const v = it.volumeInfo || {};
     const ids = v.industryIdentifiers || [];
     const isbn13 = (ids.find((x) => x.type === "ISBN_13") || ids.find((x) => x.type === "ISBN_10") || {}).identifier || "";
@@ -1343,15 +1346,24 @@ async function openLibraryDescription(key) {
 let searchSource = "";
 /* Google d'abord. S'il ne répond pas ou trouve peu de livres en français, on complète avec la BnF
    (dépôt légal : tous les livres publiés en France y sont) puis Open Library. */
-async function searchBooks(p) {
+/* Recherche : Google Livres et la BnF en même temps. Si Google a déjà de quoi répondre, on affiche tout de suite
+   et les livres que seule la BnF connaît arrivent ensuite (onMore), sans bouleverser l'ordre. */
+async function searchBooks(p, onMore) {
+  const bnfJob = searchBnf(p).catch((e) => { console.warn(e); return null; });
   let google = [], gErr = "";
   try { google = await searchGoogle(p); } catch (e) { console.warn(e); gErr = e.message.replace("google ", "erreur "); }
   const sources = [];
   if (google.length) sources.push("Google Livres");
   let extra = [];
-  if (google.length < 5) {
+  if (google.length >= 5) {
+    searchSource = "Google Livres";
+    const first = groupEditions(google, p).concat(groupEditions(otherLangResults, p).map((b) => ({ ...b, otherLang: true })));
+    if (onMore) bnfJob.then((bnf) => { if (bnf && bnf.length) { searchSource = "Google Livres, BnF"; onMore(mergeBnf(first, bnf, p)); } });
+    return first;
+  }
+  {
     const [bnf, ol] = await Promise.all([
-      searchBnf(p).catch((e) => { console.warn(e); return null; }),
+      bnfJob,
       google.length ? Promise.resolve([]) : searchOpenLibrary(p).catch((e) => { console.warn(e); return null; }),
     ]);
     if (bnf && bnf.length) sources.push("BnF");
@@ -1364,7 +1376,38 @@ async function searchBooks(p) {
   return groupEditions([...google, ...extra], p).concat(groupEditions(otherLangResults, p).map((b) => ({ ...b, otherLang: true })));
 }
 
-/* Catalogue de la BnF (SRU, Dublin Core) */
+/* Ajoute aux résultats Google ce que seule la BnF connaît (à la fin), et complète les résumés manquants */
+function mergeBnf(list, bnf, p) {
+  const isbns = new Set(), keys = new Map();
+  for (const b of list) for (const x of [b, ...(b.others || [])]) { if (x.isbn) isbns.add(x.isbn); keys.set(editionKey(x), b); }
+  const fresh = [];
+  for (const r of bnf) {
+    const same = keys.get(editionKey(r));
+    if (same) { if (!same.description && r.description) same.description = r.description; continue; }
+    if (r.isbn && isbns.has(r.isbn)) continue;
+    if (r.isbn) isbns.add(r.isbn);
+    fresh.push(r);
+  }
+  const main = list.filter((b) => !b.otherLang), other = list.filter((b) => b.otherLang);
+  return main.concat(groupEditions(fresh, p), other);
+}
+/* Catalogue de la BnF (SRU). Format UNIMARC : série et numéro de tome, langue, résumé. */
+const BNF_SRU = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&recordSchema=unimarcXchange";
+async function bnfFetch(query, max, start) {
+  const url = BNF_SRU + "&maximumRecords=" + max + (start ? "&startRecord=" + start : "") + "&query=" + encodeURIComponent(query);
+  // la BnF répond parfois mal (surcharge) : on réessaie une fois
+  for (let i = 0; i < 2; i++) {
+    const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 12000);
+    try {
+      const res = await fetch(url, { signal: ctl.signal });
+      if (res.ok) return parseBnf(await res.text());
+      if (res.status < 500 && res.status !== 429) throw new Error("bnf " + res.status);
+    } catch (e) { if (i || (e.message || "").startsWith("bnf 4")) throw e; }
+    finally { clearTimeout(timer); }
+    await new Promise((ok) => setTimeout(ok, 1200));
+  }
+  throw new Error("bnf indisponible");
+}
 async function searchBnf(p) {
   const isbn = p.q.replace(/[-\s]/g, "");
   const clean = (x) => String(x || "").replace(/"/g, " ").trim();
@@ -1379,14 +1422,23 @@ async function searchBnf(p) {
     parts.push(`bib.doctype any "a"`);
     query = parts.join(" and ");
   }
-  const url = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&recordSchema=dublincore&maximumRecords=25&query=" + encodeURIComponent(query);
-  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 10000);
-  const res = await fetch(url, { signal: ctl.signal }).finally(() => clearTimeout(timer));
-  if (!res.ok) throw new Error("bnf " + res.status);
-  return parseBnf(await res.text());
+  let r = await bnfFetch(query, 25);
+  // rien trouvé avec tous les mots : peut-être une faute de frappe, on réessaie en enlevant un mot à la fois
+  const words = clean(p.q).split(/\s+/).filter(Boolean);
+  if (!r.length && p.q && !ISBN_RE.test(isbn) && words.length > 1) {
+    const order = words.slice().sort((a, b) => a.length - b.length).slice(0, 3);
+    for (const w of order) {
+      const rest = words.filter((x) => x !== w).join(" ");
+      r = await bnfFetch(query.replace(`bib.anywhere all "${clean(p.q)}"`, `bib.anywhere all "${rest}"`), 25).catch(() => []);
+      if (r.length) break;
+    }
+  }
+  return r;
 }
 function parseBnf(text) {
   const xml = new DOMParser().parseFromString(text, "application/xml");
+  const marc = [...xml.getElementsByTagNameNS("*", "record")].filter((r) => r.namespaceURI !== "http://www.loc.gov/zing/srw/" && r.getElementsByTagNameNS("*", "datafield").length);
+  if (marc.length) return parseUnimarc(marc);
   const recs = [...xml.getElementsByTagNameNS("*", "dc")];
   return recs.map((r) => {
     const all = (tag) => [...r.getElementsByTagNameNS("*", tag)].map((n) => n.textContent.trim());
@@ -1413,6 +1465,50 @@ function parseBnf(text) {
       source: "BnF",
     };
   }).filter((b) => b.title && (!b.lang || b.lang.startsWith("fr")));
+}
+/* Notice UNIMARC de la BnF → livre de l'app */
+function parseUnimarc(recs) {
+  const seen = new Set();
+  return recs.map((r) => {
+    const fields = (tag) => [...r.getElementsByTagNameNS("*", "datafield")].filter((f) => f.getAttribute("tag") === tag);
+    const sub = (f, code) => { if (!f) return ""; const s = [...f.getElementsByTagNameNS("*", "subfield")].find((x) => x.getAttribute("code") === code); return s ? s.textContent.trim() : ""; };
+    const first = (tag, code) => { for (const f of fields(tag)) { const v = sub(f, code); if (v) return v; } return ""; };
+    const ctl = [...r.getElementsByTagNameNS("*", "controlfield")].map((c) => c.textContent.trim());
+    const ark = (ctl.find((x) => /ark:/.test(x)) || "").replace(/^.*(ark:\/.*)$/, "$1");
+    const isbnRaw = fields("010").map((f) => sub(f, "a").replace(/[^\dXx]/g, "")).find((x) => x.length === 13 || x.length === 10) || "";
+    const t200 = fields("200")[0];
+    const main = sub(t200, "a").replace(/\s+/g, " "), subtitle = sub(t200, "e"), partNo = sub(t200, "h"), partTitle = sub(t200, "i");
+    // série : lien 461 (titre + numéro), sinon collection 225 ; à défaut, le numéro dans le titre (200 $h)
+    const s461 = fields("461")[0], s225 = fields("225")[0];
+    let series = sub(s461, "t") || "", tome = sub(s461, "v") || "";
+    if (!series && s225 && sub(s225, "v")) { series = sub(s225, "a"); tome = sub(s225, "v"); }
+    if (!series && partNo && /^\d{1,3}$/.test(partNo)) { series = main; tome = partNo; }
+    tome = (String(tome).match(/\d{1,3}/) || [""])[0];
+    let title = main + (subtitle ? " : " + subtitle : "");
+    if (series && tome) {
+      const name = plain(series) === plain(main) ? main : series;
+      const own = plain(main) !== plain(series) ? main : partTitle;
+      title = name + " - Tome " + tome + (own ? " : " + own : "");
+    }
+    const authors = [...fields("700"), ...fields("701")].map((f) => [sub(f, "b"), sub(f, "a")].filter(Boolean).join(" ")).filter(Boolean);
+    const publisher = first("214", "c") || first("210", "c");
+    const date = ((first("214", "d") || first("210", "d")).match(/\d{4}/) || [""])[0];
+    const pages = Number((first("215", "a").match(/(\d+)\s*p\./) || [])[1]) || 0;
+    return {
+      id: "bnf:" + (ark || isbnRaw || title),
+      title, authors, publisher, pages, date,
+      isbn: isbnRaw,
+      categories: [], description: first("330", "a"), cover: "",
+      lang: first("101", "a"),
+      source: "BnF",
+    };
+  }).filter((b) => {
+    if (!b.title || (b.lang && !b.lang.startsWith("fr"))) return false;
+    // la BnF a parfois deux notices pour le même livre
+    const k = b.isbn || b.id;
+    if (seen.has(k)) return false;
+    seen.add(k); return true;
+  });
 }
 /* Un même livre en plusieurs éditions = une seule ligne (la plus complète), les autres restent consultables */
 const plain = (x) => String(x || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
@@ -2135,7 +2231,12 @@ async function runSearch() {
   const seq = ++searchSeq;
   box.innerHTML = `<div class="status">Recherche…</div>`;
   try {
-    const r = await searchBooks(p);
+    const r = await searchBooks(p, (more) => {
+      if (seq !== searchSeq) return;
+      const keep = $("#searchSheet .sheet-body") ? $("#searchSheet .sheet-body").scrollTop : 0;
+      lastResults = more; renderResults();
+      if ($("#searchSheet .sheet-body")) $("#searchSheet .sheet-body").scrollTop = keep;
+    });
     if (seq !== searchSeq) return;
     lastResults = r;
     openEditions.clear();
@@ -2260,14 +2361,11 @@ async function bnfSeries(name, author) {
   const ln = plain(author).split(" ").pop() || "";
   const query = `bib.title all "${clean(name)}"` + (ln ? ` and bib.author all "${clean(ln)}"` : "") + ` and bib.doctype any "a"`;
   const out = [];
-  for (let start = 1; start <= 301; start += 50) {
-    const url = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&recordSchema=dublincore&maximumRecords=50&startRecord=" + start + "&query=" + encodeURIComponent(query);
-    const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 12000);
-    const res = await fetch(url, { signal: ctl.signal }).finally(() => clearTimeout(timer));
-    if (!res.ok) break;
-    const recs = parseBnf(await res.text());
+  for (let start = 1; start <= 151; start += 50) {
+    let recs = [];
+    try { recs = await bnfFetch(query, 50, start); } catch (e) { console.warn(e); break; }
     out.push(...recs);
-    if (recs.length < 40) break;
+    if (recs.length < 35) break;
   }
   return out;
 }
@@ -2396,7 +2494,7 @@ function renderResults() {
 }
 /* Livre trouvé à la BnF ou sur Open Library : on demande à Google son résumé et son genre grâce à l'ISBN */
 async function enrichFromGoogle(book) {
-  if (!book.isbn || (book.description && book.categories.length)) return false;
+  if (!book.isbn || (book.description && book.categories.length && book.cover)) return false;
   try {
     const [g] = await googleFetch("isbn:" + book.isbn);
     if (!g) return false;
@@ -2661,6 +2759,7 @@ async function openPreview(b) {
     <div class="panel facts">${facts.map(([k, v]) => `<div><span>${k}</span><span>${esc(v)}</span></div>`).join("")}</div>
     ${b.description ? `<div class="desc">${esc(b.description)}</div>` : ""}
   </div>`;
+  $("#detail").dataset.id = ""; $("#detail").dataset.pv = b.id;
   bindFaces(b);
   $("#detail").querySelectorAll(".add-row button").forEach((btn) => (btn.onclick = async () => {
     btn.textContent = "…";
@@ -2669,6 +2768,12 @@ async function openPreview(b) {
   }));
   $("#detailSheet").classList.add("open");
   $("#detailSheet .sheet-body").scrollTop = 0;
+  // couverture ou résumé manquant (souvent un livre trouvé à la BnF) : on demande la fiche Google par l'ISBN
+  if ((!b.cover || !b.description) && b.isbn && !b.triedEnrich) {
+    b.triedEnrich = true;
+    if (!b.categories) b.categories = [];
+    enrichFromGoogle(b).then((ok) => { if (ok && $("#detailSheet").classList.contains("open") && $("#detail").dataset.pv === b.id) openPreview(b); });
+  }
 }
 function update(id, patch) {
   const b = books.find((x) => x.id === id);
@@ -2747,7 +2852,7 @@ function openDetail(id) {
   }
   $("#seriesList").innerHTML = [...new Set(books.map((x) => x.series).filter(Boolean))].map((x) => `<option value="${esc(x)}">`).join("");
   const keepScroll = $("#detailSheet").classList.contains("open") && $("#detail").dataset.id === id ? $("#detailSheet .sheet-body").scrollTop : 0;
-  $("#detail").dataset.id = id;
+  $("#detail").dataset.id = id; $("#detail").dataset.pv = "";
   const color = colorOf(b);
   const ink = textOn(color);
   const facts = [
@@ -2906,7 +3011,7 @@ function openDetail(id) {
   $("#detailSheet").classList.add("open");
   $("#detailSheet .sheet-body").scrollTop = keepScroll;
   // résumé manquant (Google était peut-être en panne à l'ajout) : on réessaie une fois
-  if (!b.description && b.isbn && !enrichTried.has(id)) {
+  if ((!b.description || !b.cover) && b.isbn && !enrichTried.has(id)) {
     enrichTried.add(id);
     enrichFromGoogle(b).then((changed) => { if (changed) { save(); render(); if ($("#detail").dataset.id === id) openDetail(id); } });
   }
