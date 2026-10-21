@@ -209,11 +209,12 @@ def main():
         b["title"] = clean_title(b["title"])
         b["kind"] = kind_of(b, hint)
         if b["title"] and b["date"]: books[bid] = b
-    # Google Livres toutes les 4 heures (quota limité) ; entre-temps on garde la dernière récolte
+    # Google Livres seulement à la demande (GOOGLE=1) : la clé et son quota (1 000 recherches/jour) sont partagés
+    # avec les recherches de l'app, et Google ne donne presque pas de sorties françaises à venir
     t = date.today(); m2 = (t.month - 3) % 12 + 1
     # on garde depuis le 1er du mois d'il y a deux mois (août quand on est en octobre)
     lo, hi = date(t.year - (1 if t.month <= 2 else 0), m2, 1).isoformat(), (date.today() + timedelta(days=186)).isoformat()
-    if datetime.utcnow().hour % 4 == 0 or os.environ.get("GOOGLE") == "1" or not any(k.startswith("gb:") for k in old):
+    if os.environ.get("GOOGLE") == "1":
         gb = google_upcoming(date.today().isoformat(), hi, stats)
         if gb: old = {k: v for k, v in old.items() if not k.startswith("gb:")}
         isbns = {b.get("isbn") for b in books.values() if b.get("isbn")}
