@@ -92,3 +92,4 @@ L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robo
 - Sorties : la rangée des jours reste collée en haut ; toucher un jour fait descendre jusqu'à lui, et le jour affiché s'allume en défilant. En bas, un bouton pour remonter.
 - Le robot complète la liste du libraire avec les sorties annoncées sur Google Livres jusqu'à 6 mois (toutes les 4 heures).
 - Les lianes partent de vrais pots, passent sur le bord du meuble puis retombent ; grandes plantes avec tiges courbes et vraies feuilles découpées.
+- Recherche : les livres récents passent devant (date de première parution), le titre exact reste en tête ; une recherche par auteur va du plus récent au plus ancien. La clé Google est intégrée, rien à saisir.

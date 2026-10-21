@@ -752,7 +752,7 @@
   </div>
   <div class="sheet-body menu">
     <button id="statsBtn">Mes statistiques et mon objectif</button>
-    <label class="key-row">Clé Google Livres<input id="googleKeyIn" type="text" placeholder="Colle ta clé ici" autocomplete="off" spellcheck="false"></label>
+    <label class="key-row" style="display:none">Clé Google Livres<input id="googleKeyIn" type="text" placeholder="Colle ta clé ici" autocomplete="off" spellcheck="false"></label>
     <p class="sw-title">Couleur préférée</p>
     <div class="swatches" id="accentSw"></div>
     <p class="sw-title">Ambiance de la pièce</p>
@@ -768,7 +768,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 18 h</p>
+    <p class="version">Version du 21 octobre, 18 h 15</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1207,7 +1207,7 @@ async function searchGoogle(p) {
 }
 async function googleFetch(query, order, anyLang) {
   if (!query) return [];
-  const key = (settings.googleKey || GOOGLE_KEY).trim();
+  const key = GOOGLE_KEY;
   const url = "https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(query) + (key ? "&key=" + encodeURIComponent(key) : "") +
     (query.startsWith("isbn:") || anyLang ? "" : "&langRestrict=fr") + "&printType=books&maxResults=40" +
     (order === "newest" ? "&orderBy=newest" : "");
@@ -1328,7 +1328,7 @@ async function searchBooks(p) {
     if (!google.length && !otherLangResults.length && bnf === null && ol === null) throw new Error(gErr ? "Google " + gErr : "aucune source ne répond");
   }
   searchSource = (sources.join(", ") || "Google Livres, BnF et Open Library") + (gErr ? " (Google indisponible : " + gErr + ")" : "");
-  return groupEditions([...google, ...extra]).concat(groupEditions(otherLangResults).map((b) => ({ ...b, otherLang: true })));
+  return groupEditions([...google, ...extra], p).concat(groupEditions(otherLangResults, p).map((b) => ({ ...b, otherLang: true })));
 }
 
 /* Catalogue de la BnF (SRU, Dublin Core) */
@@ -1394,7 +1394,7 @@ function editionScore(b) {
 }
 /* Livres « autour » d'une œuvre (analyses, fiches de lecture, guides…) : on les met après l'œuvre elle-même */
 const DERIVED_RE = /\b(analyse|fiche|fiches|resume|etude|guide|commentaire|selon|autour|dictionnaire|encyclopedie|atlas|quiz|carnet|calendrier|coloriage|cahier|lecture analytique|bac)\b/;
-function groupEditions(list) {
+function groupEditions(list, p) {
   const groups = new Map();
   list.forEach((b, i) => {
     const k = editionKey(b);
@@ -1419,9 +1419,20 @@ function groupEditions(list) {
       // pertinence de Google + bon auteur + série + popularité (nombre d'éditions) + fiche complète
       best.rank = -g.first * 0.6 + 3 * Math.min(4, items.length - 1) + (best.cover ? 4 : 0) + (best.description ? 2 : 0) +
         (main && lastName(best) === main ? 10 : 0) + (best.seriesKey ? 4 : 0) - (DERIVED_RE.test(plain(best.title)) ? 14 : 0);
+      // les sorties récentes d'abord : on regarde la date de la première parution de l'œuvre (pas d'une réédition en poche)
+      const dates = items.map((x) => String(x.date || "")).filter((d) => /^\d{4}/.test(d)).sort();
+      best.firstDate = dates[0] || "";
+      const age = best.firstDate ? (Date.now() - new Date(best.firstDate.length === 4 ? best.firstDate + "-07-01" : best.firstDate).getTime()) / (365 * 864e5) : 99;
+      best.rank += age < 1 ? 9 : age < 2 ? 6 : age < 4 ? 3 : 0;
+      // mais le titre cherché reste devant s'il correspond vraiment
+      const want = plain((p && (p.title || p.q)) || "");
+      if (want && !ISBN_RE.test(want.replace(/\s/g, ""))) { const t = plain(best.title); best.rank += t === want ? 12 : want.split(" ").every((w) => t.includes(w)) ? 6 : 0; }
       return best;
     })
     .sort((a, b) => b.rank - a.rank);
+  if (p && p.author && !p.title && !p.q) {
+    ranked.sort((a, b) => (main && (lastName(b) === main) - (lastName(a) === main)) || (DERIVED_RE.test(plain(a.title)) - DERIVED_RE.test(plain(b.title))) || b.firstDate.localeCompare(a.firstDate));
+  }
   // pour une série, on préfère que tous les tomes viennent de la même édition (même éditeur, même année)
   const bySeries = new Map();
   for (const b of ranked) if (b.seriesKey) { if (!bySeries.has(b.seriesKey)) bySeries.set(b.seriesKey, []); bySeries.get(b.seriesKey).push(b); }
@@ -1436,10 +1447,10 @@ function groupEditions(list) {
       if (setOf(v) === common[0]) return;
       const match = v.others.find((e) => setOf(e) === common[0]);
       if (!match) return;
-      const { seriesKey, tomeNo, rank } = v;
-      const others = [v, ...v.others.filter((e) => e !== match)].map(({ others, seriesKey, tomeNo, rank, ...e }) => e);
+      const { seriesKey, tomeNo, rank, firstDate } = v;
+      const others = [v, ...v.others.filter((e) => e !== match)].map(({ others, seriesKey, tomeNo, rank, firstDate, ...e }) => e);
       const idx = ranked.indexOf(v);
-      ranked[idx] = { ...match, others, seriesKey, tomeNo, rank };
+      ranked[idx] = { ...match, others, seriesKey, tomeNo, rank, firstDate };
     });
   }
   // les tomes d'une même série restent ensemble, dans l'ordre, à la place du mieux classé
@@ -2189,10 +2200,10 @@ function renderResults() {
     </div>`;
   }).join("") + `<div class="source-note">Résultats : ${esc(searchSource)}</div>` + manualLink;
   bindManualLink();
-  box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => { const { others, rank, seriesKey, tomeNo, otherLang, lang, ...b } = flat[btn.dataset.n].b; addBook(b, btn); }));
+  box.querySelectorAll(".add-btn").forEach((btn) => (btn.onclick = () => { const { others, rank, seriesKey, tomeNo, otherLang, lang, firstDate, ...b } = flat[btn.dataset.n].b; addBook(b, btn); }));
   box.querySelectorAll(".res-open, .result-title").forEach((el, k) => (el.onclick = () => {
     const n = el.dataset.n ?? el.closest(".result").querySelector(".res-open").dataset.n;
-    const { others, rank, seriesKey, tomeNo, otherLang, lang, ...b } = flat[n].b;
+    const { others, rank, seriesKey, tomeNo, otherLang, lang, firstDate, ...b } = flat[n].b;
     openPreview(b);
   }));
   box.querySelectorAll(".ed-btn").forEach((btn) => (btn.onclick = () => {
