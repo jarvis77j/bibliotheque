@@ -106,27 +106,33 @@ def main():
     except Exception:
         old = {}
     todo = {}  # chemin -> genre suggéré
+    stats = {"precommandes": [], "nouveautes": [], "rayons": {}}
     # précommandes : on va loin pour voir les sorties des 6 prochains mois
     for p in range(1, 31):
-        links = list_links(get(f"/dossiers/precommandes/?page={p}"))
+        page = get(f"/dossiers/precommandes/?page={p}")
+        links = list_links(page)
+        stats["precommandes"].append(len(links) if page else -1)
         if not links: break
         for l in links: todo.setdefault(l, "")
     for p in range(1, 9):
-        for l in list_links(get(f"/dossiers/nouveautes/?page={p}")): todo.setdefault(l, "")
+        links = list_links(get(f"/dossiers/nouveautes/?page={p}"))
+        stats["nouveautes"].append(len(links))
+        for l in links: todo.setdefault(l, "")
     for rayon, k in RAYONS:
         d = nouveautes_dossier(get(rayon))
+        stats["rayons"][k] = d or "introuvable"
         if not d: continue
         for p in range(1, 9):
             links = list_links(get(d + ("" if p == 1 else f"?page={p}")))
             if not links: break
             for l in links: todo[l] = k
     print(len(todo), "livres listés", file=sys.stderr)
-    books, new = {}, 0
+    books, new, skipped = {}, 0, 0
     for path, hint in todo.items():
         bid = "ll:" + path.split("/")[2].split("-")[0]
         b = old.get(bid)
         if not b:
-            if new >= MAX_NEW: continue
+            if new >= MAX_NEW: skipped += 1; continue
             page = get(path); new += 1
             if not page: continue
             try: b = parse_book(path, page)
@@ -139,9 +145,10 @@ def main():
     for bid, b in old.items():
         b["title"] = clean_title(b["title"]); books.setdefault(bid, b)
     lo, hi = (date.today() - timedelta(days=45)).isoformat(), (date.today() + timedelta(days=186)).isoformat()
+    stats.update(listes=len(todo), lues=new, en_attente=skipped, plus_loin=max((b["date"] for b in books.values()), default=""))
     keep = sorted((b for b in books.values() if lo <= b["date"] <= hi), key=lambda b: (b["date"], b["title"]))
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    json.dump({"source": "leslibraires.fr", "updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ"), "books": keep},
+    json.dump({"source": "leslibraires.fr", "updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ"), "stats": stats, "books": keep},
               open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     print(len(keep), "livres gardés,", new, "fiches lues", file=sys.stderr)
 
