@@ -80,6 +80,11 @@ Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à cha
 
 L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robot va chercher les précommandes jusqu'à 6 mois). La 3D a de vraies feuilles dessinées (pothos, sansevieria, monstera), du bois veiné, des tranches de livres arrondies avec grain et usure, des pages visibles, des ombres douces et l'ombre au fond de chaque case.
 
+## Économie des recherches Google (21 octobre, soir)
+- Google Livres donne 1 000 recherches par jour pour toute l'app (tous les utilisateurs réunis), gratuitement.
+- Une recherche déjà faite est gardée 3 jours sur le téléphone (1 jour pour le tri « plus récents ») ; deux demandes identiques en même temps n'en font qu'une ; « Pour toi » est gardé 3 jours (refait plus tôt si les livres changent). Les résultats sont les mêmes.
+- Le robot des Sorties n'interroge plus Google (il en consommait environ 770 par jour) ; on peut le relancer à la main avec GOOGLE=1.
+
 ## Affichage plus rapide (21 octobre, soir)
 - La pièce n'est construite qu'une fois au démarrage (avant, elle était refaite à l'arrivée de chaque photo de bois).
 - Changer d'étagère ne reconstruit plus les meubles si les livres n'ont pas changé.

@@ -768,7 +768,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 21 h 30</p>
+    <p class="version">Version du 21 octobre, 22 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1205,20 +1205,38 @@ async function searchGoogle(p) {
   }
   return r;
 }
+/* Économie du quota Google (1 000 recherches par jour pour toute l'app) :
+   une même recherche est gardée sur le téléphone 3 jours (1 jour pour « les plus récents »),
+   et deux demandes identiques en même temps n'en font qu'une. Les résultats restent exactement les mêmes. */
+const GCACHE = "recherches-google-v1", gPending = new Map();
+async function googleJSON(url, order) {
+  const id = url.replace(/&key=[^&]*/, "");
+  if (gPending.has(id)) return gPending.get(id);
+  const job = (async () => {
+    const ttl = (order === "newest" ? 1 : 3) * 86400000;
+    let box = null;
+    try { box = await caches.open(GCACHE); const hit = await box.match(id); if (hit && Date.now() - Number(hit.headers.get("x-quand")) < ttl) return await hit.json(); } catch {}
+    let res = await fetch(url);
+    // Google renvoie parfois une erreur passagère (503, 500, 429) : on réessaie deux fois
+    for (let i = 0; i < 2 && !res.ok && (res.status >= 500 || res.status === 429); i++) {
+      await new Promise((ok) => setTimeout(ok, 700 * (i + 1)));
+      res = await fetch(url);
+    }
+    if (!res.ok) throw new Error("google " + res.status);
+    const data = await res.json();
+    try { if (box) await box.put(id, new Response(JSON.stringify(data), { headers: { "content-type": "application/json", "x-quand": String(Date.now()) } })); } catch {}
+    return data;
+  })();
+  gPending.set(id, job);
+  try { return await job; } finally { gPending.delete(id); }
+}
 async function googleFetch(query, order, anyLang) {
   if (!query) return [];
   const key = GOOGLE_KEY;
   const url = "https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(query) + (key ? "&key=" + encodeURIComponent(key) : "") +
     (query.startsWith("isbn:") || anyLang ? "" : "&langRestrict=fr") + "&printType=books&maxResults=40" +
     (order === "newest" ? "&orderBy=newest" : "");
-  let res = await fetch(url);
-  // Google renvoie parfois une erreur passagère (503, 500, 429) : on réessaie deux fois
-  for (let i = 0; i < 2 && !res.ok && (res.status >= 500 || res.status === 429); i++) {
-    await new Promise((ok) => setTimeout(ok, 700 * (i + 1)));
-    res = await fetch(url);
-  }
-  if (!res.ok) throw new Error("google " + res.status);
-  const data = await res.json();
+  const data = await googleJSON(url, order);
   const isbnQuery = query.startsWith("isbn:");
   // Google laisse passer des éditions étrangères malgré langRestrict : on ne garde que le français
   return (data.items || []).filter((it) => isbnQuery || anyLang || (it.volumeInfo || {}).language === "fr").map((it) => {
@@ -1987,7 +2005,8 @@ async function renderReleases() {
 let exploreRows = EXPLORE_ROWS;
 const exploreCache = {};
 const RECO_KEY = STORE_KEY + ".reco2"; // changer le numéro vide le cache des rayons perso
-function recoCache() { try { const c = JSON.parse(localStorage.getItem(RECO_KEY)); if (c && c.day === today()) return c; } catch {} return { day: today(), rows: {} }; }
+// les rayons « Pour toi » sont gardés 3 jours (ils sont refaits plus tôt si les livres changent)
+function recoCache() { try { const c = JSON.parse(localStorage.getItem(RECO_KEY)); if (c && Date.now() - new Date(c.day).getTime() < 3 * 86400000) return c; } catch {} return { day: today(), rows: {} }; }
 let exploreObserver;
 function renderExplore(mine) {
   const el = $("#shelves");
