@@ -128,7 +128,7 @@ def gget(q, start):
         print("  google", q, e, file=sys.stderr); return None
 
 def google_upcoming(lo, hi, stats):
-    out, errors = {}, 0
+    out, errors, seen_items, max_d, sample = {}, 0, 0, "", []
     for q, hint in GQUERIES:
         for start in (0, 40, 80):
             items = gget(q, start); time.sleep(1)
@@ -138,6 +138,8 @@ def google_upcoming(lo, hi, stats):
             for it in items:
                 v = it.get("volumeInfo", {})
                 d = v.get("publishedDate", "")
+                seen_items += 1; max_d = max(max_d, d)
+                if len(sample) < 6 and start == 0: sample.append(d + " " + v.get("title", "")[:30])
                 if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", d) or v.get("language") not in (None, "fr"): continue
                 if d >= lo: newer += 1
                 if not (lo <= d <= hi) or not v.get("title"): continue
@@ -155,7 +157,7 @@ def google_upcoming(lo, hi, stats):
                     "mature": v.get("maturityRating") == "MATURE",
                 }
             if not newer: break  # la suite de la liste est plus ancienne
-    stats["google"] = {"trouves": len(out), "erreurs": errors}
+    stats["google"] = {"trouves": len(out), "erreurs": errors, "vus": seen_items, "plus_loin": max_d, "exemples": sample}
     return out
 
 def main():
