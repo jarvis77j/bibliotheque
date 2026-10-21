@@ -132,11 +132,49 @@
       g.fillStyle = "rgba(0,0,0,.35)"; g.fillRect(0, y, w, 2);
     }
   }, [4, 4]);
-  const rugTex = () => canvasTex(512, 512, (g, w, h) => {
-    const c = w / 2;
-    [["#8a3626", 256], ["#e9c99a", 236], ["#b4553d", 222], ["#e9c99a", 160], ["#9a3f2c", 148], ["#e9c99a", 70], ["#b4553d", 60]].forEach(([col, r]) => { g.fillStyle = col; g.beginPath(); g.arc(c, c, r, 0, 7); g.fill(); });
-    g.strokeStyle = "rgba(233,201,154,.7)"; g.lineWidth = 4;
-    for (let i = 0; i < 16; i++) { const a = (i / 16) * Math.PI * 2; g.beginPath(); g.moveTo(c + Math.cos(a) * 75, c + Math.sin(a) * 75); g.lineTo(c + Math.cos(a) * 145, c + Math.sin(a) * 145); g.stroke(); }
+  /* Tapis kilim : motifs en escalier tissés point par point (couleurs un peu passées, bandes d'« abrash »), trame visible */
+  const rugTex = () => canvasTex(1040, 800, (g, w, h) => {
+    let s = 9; const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+    const C = 8, NX = w / C, NY = h / C;
+    const col = { red: [160, 82, 62], rose: [184, 112, 88], ink: [68, 76, 94], ochre: [196, 150, 88], cream: [226, 210, 180], brown: [86, 58, 44], green: [110, 120, 88] };
+    // bordure : rangée de losanges sur fond indigo, encadrée de filets
+    const border = (t, d) => {
+      if (d < 2) return "brown";
+      if (d < 3) return "cream";
+      if (d < 4) return "ochre";
+      if (d < 16) { const a = ((t % 14) + 14) % 14 - 7, b = d - 9.5, m = Math.abs(a) + Math.abs(b) * 1.1; return m < 2 ? "red" : m < 4 ? "ochre" : m < 5.2 ? "cream" : "ink"; }
+      if (d < 17) return "cream";
+      if (d < 18) return "red";
+      if (d < 19) return "cream";
+      return null;
+    };
+    const cx0 = NX / 2, cy0 = NY / 2;
+    for (let j = 0; j < NY; j++) {
+      const abrash = 1 + (Math.sin(j * 0.21) * 0.04 + Math.sin(j * 0.057 + 1) * 0.05);
+      for (let i = 0; i < NX; i++) {
+        const d = Math.min(i, j, NX - 1 - i, NY - 1 - j);
+        let c = border(d === i || d === NX - 1 - i ? j : i, d);
+        if (!c) {
+          // champ rouge : trois médaillons en losange à gradins, petites croix semées autour
+          const fx = i - cx0, fy = j - cy0;
+          let near = 9;
+          c = "red";
+          [-30, 0, 30].forEach((ox, k) => {
+            const m = Math.abs(fx - ox) / 12 + Math.abs(fy) / 26;
+            near = Math.min(near, m);
+            if (m < 1) { const ring = Math.floor(m * 6); c = k === 1 ? ["cream", "ink", "ochre", "cream", "ink", "cream"][ring] : ["ochre", "cream", "green", "cream", "rose", "cream"][ring]; }
+          });
+          const px = (i + 5) % 10, py = (j + 4) % 10;
+          if (near > 1.12 && ((px === 5 && py > 2 && py < 8) || (py === 5 && px > 2 && px < 8))) c = (i + j) % 20 < 10 ? "cream" : "ochre";
+        }
+        const [r, gg, b] = col[c], f = abrash * (0.95 + rnd() * 0.08);
+        g.fillStyle = `rgb(${r * f | 0},${gg * f | 0},${b * f | 0})`; g.fillRect(i * C, j * C, C, C);
+      }
+    }
+    // trame : chaque point est un petit grain de laine
+    for (let y = 0; y < h; y += 4) for (let x = 0; x < w; x += C) { g.fillStyle = "rgba(255,255,255,.08)"; g.fillRect(x + 1, y, C - 2, 2); g.fillStyle = "rgba(0,0,0,.12)"; g.fillRect(x, y + 3, C, 1); }
+    // laine usée par endroits
+    for (let i = 0; i < 26; i++) { const x = rnd() * w, y = rnd() * h, r = 30 + rnd() * 90, gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, "rgba(225,205,175,.07)"); gr.addColorStop(1, "rgba(240,225,200,0)"); g.fillStyle = gr; g.fillRect(x - r, y - r, r * 2, r * 2); }
   });
 
   /* Tranche d'un livre : sa couleur, deux filets et le titre à la verticale */
@@ -384,35 +422,298 @@
     });
     return g;
   }
+  /* Fauteuil rembourré : pieds fuselés, accoudoirs ronds, coussins bombés avec passepoil, coussin et plaid tricoté */
   function armchair(parent, color, x, z, ry, plaid) {
-    const g = new T.Group(); g.position.set(x, 0, z); g.rotation.y = ry; parent.add(g);
-    const m = mat(color, { roughness: 1 }), dark = mat(shade(color, -0.12), { roughness: 1 }), leg = mat("#4a2c18");
-    box(0.8, 0.16, 0.72, dark, 0, 0.26, 0, g);                 // base
-    const seat = box(0.62, 0.12, 0.62, m, 0, 0.4, 0.04, g);     // coussin
-    seat.geometry.translate(0, 0, 0);
-    box(0.8, 0.62, 0.16, m, 0, 0.62, -0.3, g).rotation.x = -0.12; // dossier
-    box(0.15, 0.36, 0.72, m, -0.36, 0.48, 0, g);                // accoudoirs
-    box(0.15, 0.36, 0.72, m, 0.36, 0.48, 0, g);
-    box(0.32, 0.22, 0.1, dark, 0.04, 0.56, -0.15, g).rotation.set(-0.3, 0, 0.12); // petit coussin
-    [[-0.34, -0.3], [0.34, -0.3], [-0.34, 0.3], [0.34, 0.3]].forEach(([lx, lz]) => cyl(0.025, 0.018, 0.18, leg, lx, 0.09, lz, g, 8));
-    if (plaid) {
-      const tex = canvasTex(128, 128, (c, w, h) => { c.fillStyle = "#d9c9a8"; c.fillRect(0, 0, w, h); c.fillStyle = "rgba(163,74,53,.7)"; for (let i = 8; i < w; i += 32) { c.fillRect(i, 0, 8, h); c.fillRect(0, i, w, 8); } });
-      const p = box(0.2, 0.5, 0.6, new T.MeshStandardMaterial({ map: tex, roughness: 1 }), 0.42, 0.5, 0.02, g); p.rotation.z = -0.15;
-    }
+    const g = new T.Group(); g.name = "fauteuil"; g.position.set(x, 0, z); g.rotation.y = ry; parent.add(g);
+    const m = fabricMat(color), dark = fabricMat(shade(color, -0.06)), pipe = fabricMat(shade(color, -0.12));
+    const add = (geo, mm, px, py, pz, rx) => { const o = new T.Mesh(geo, mm); o.position.set(px, py, pz); if (rx) o.rotation.x = rx; g.add(o); return o; };
+    // pieds en bois, un peu écartés
+    const legGeo = cachedGeo("pied-fauteuil", () => uvAlong(new T.LatheGeometry([[0, 0], [0.012, 0], [0.015, 0.006], [0.02, 0.1], [0.025, 0.165], [0, 0.17]].map(([a, b]) => new T.Vector2(a, b)), 10)));
+    [[-0.34, -0.29], [0.34, -0.29], [-0.34, 0.3], [0.34, 0.3]].forEach(([lx, lz]) => { const l = add(legGeo, legMat(), lx, 0, lz); l.rotation.set(Math.sign(lz) * 0.1, 0, -Math.sign(lx) * 0.1); });
+    add(softBox(0.56, 0.22, 0.72, 0.035), dark, 0, 0.28, 0.0);                        // assise (caisse)
+    add(softBox(0.8, 0.62, 0.17, 0.075, [0.012, 0.03, 0.02]), m, 0, 0.615, -0.295, -0.12); // dossier
+    const arm = softBox(0.14, 0.52, 0.76, 0.066, [0.012, 0.006, 0.006]);
+    add(arm, m, -0.33, 0.43, 0); add(arm, m, 0.33, 0.43, 0);                           // accoudoirs
+    // coussin d'assise et coussin de dossier, bombés, avec passepoil
+    add(softBox(0.52, 0.13, 0.62, 0.045, [0, 0.024, 0.006]), m, 0, 0.455, 0.06);
+    add(piping("assise", 0.26, 0.31, 0.045, 0.052), pipe, 0, 0.455, 0.06);
+    const back = new T.Group(); back.position.set(0, 0.735, -0.165); back.rotation.x = -0.16; g.add(back);
+    back.add(new T.Mesh(softBox(0.52, 0.42, 0.14, 0.05, [0.006, 0.006, 0.03]), m));
+    const bp = new T.Mesh(piping("dossier", 0.26, 0.21, 0.05, 0.057), pipe); bp.rotation.x = Math.PI / 2; back.add(bp);
+    // petit coussin à rayures posé contre le dossier
+    const pil = add(softBox(0.36, 0.34, 0.03, 0.012, [0, 0, 0.055]), pillowMat(color), -0.1, 0.66, -0.04);
+    pil.rotation.set(-0.3, 0.32, 0.16);
+    // plaid tricoté jeté sur l'accoudoir droit (à carreaux si le thème le demande)
+    add(cachedGeo("plaid", drapeGeo), knitMat(!!plaid), 0.33, 0, 0.03);
     return g;
   }
+
+  /* ---------- Outils du mobilier ---------- */
+  const geoCache = new Map();
+  const cachedGeo = (k, make) => { if (!geoCache.has(k)) geoCache.set(k, make()); return geoCache.get(k); };
+  // pour les pièces tournées : le fil du bois suit la hauteur
+  function uvAlong(geo, ru) {
+    const uv = geo.attributes.uv;
+    for (let i = 0; i < uv.count; i++) { const u = uv.getX(i), v = uv.getY(i); uv.setXY(i, v, u * (ru || 0.25)); }
+    return geo;
+  }
+  /* Bloc rembourré : boîte aux arêtes arrondies (même principe que RoundedBoxGeometry des exemples three.js r160)
+     avec un léger bombé au milieu de chaque face. UV à l'échelle réelle : la trame du tissu garde partout la même taille. */
+  function softBox(w, h, d, r, puff) {
+    const key = ["sb", w, h, d, r, puff].join("|");
+    if (geoCache.has(key)) return geoCache.get(key);
+    const H = [w / 2, h / 2, d / 2], P = puff || [0, 0, 0];
+    r = Math.min(r, H[0], H[1], H[2]);
+    // positions le long d'un axe : serrées dans l'arrondi, régulières sur le plat
+    const samples = (hh) => {
+      const s = [], inner = hh - r, band = [3, 2, 1].map((j) => r * Math.tan((j / 3) * Math.PI / 4));
+      band.forEach((b) => s.push(-(inner + b)));
+      for (let i = 0; i <= 4; i++) s.push(-inner + (2 * inner * i) / 4);
+      band.reverse().forEach((b) => s.push(inner + b));
+      return s;
+    };
+    const pos = [], nor = [], uv = [], idx = [], n = new T.Vector3(), TILE = 1 / 0.15;
+    for (let ax = 0; ax < 3; ax++) for (const sg of [1, -1]) {
+      const a = (ax + 1) % 3, b = (ax + 2) % 3, sa = samples(H[a]), sb = samples(H[b]), nb = sb.length, base = pos.length / 3;
+      for (let i = 0; i < sa.length; i++) for (let j = 0; j < nb; j++) {
+        const p = [0, 0, 0]; p[ax] = sg * H[ax]; p[a] = sa[i]; p[b] = sb[j];
+        const c = p.map((v, k) => Math.max(-(H[k] - r), Math.min(H[k] - r, v)));
+        n.set(p[0] - c[0], p[1] - c[1], p[2] - c[2]).normalize();
+        const q = [n.x, n.y, n.z], o = c.map((v, k) => v + q[k] * r), nn = q.slice();
+        const u = p.map((v, k) => Math.min(1, Math.abs(v) / H[k]));
+        for (let k = 0; k < 3; k++) {
+          if (!P[k]) continue;
+          const k1 = (k + 1) % 3, k2 = (k + 2) % 3, f1 = 1 - u[k1] * u[k1], f2 = 1 - u[k2] * u[k2], wq = Math.abs(q[k]);
+          o[k] += q[k] * P[k] * f1 * f2;
+          nn[k1] += wq * P[k] * (2 * p[k1] / (H[k1] * H[k1])) * f2;
+          nn[k2] += wq * P[k] * (2 * p[k2] / (H[k2] * H[k2])) * f1;
+        }
+        n.set(nn[0], nn[1], nn[2]).normalize();
+        pos.push(o[0], o[1], o[2]); nor.push(n.x, n.y, n.z); uv.push(o[a] * TILE, o[b] * TILE);
+      }
+      for (let i = 0; i < sa.length - 1; i++) for (let j = 0; j < nb - 1; j++) {
+        const v00 = base + i * nb + j, v10 = v00 + nb, v01 = v00 + 1, v11 = v10 + 1;
+        if (sg > 0) idx.push(v00, v10, v11, v00, v11, v01); else idx.push(v00, v11, v10, v00, v01, v11);
+      }
+    }
+    const geo = new T.BufferGeometry();
+    geo.setAttribute("position", new T.Float32BufferAttribute(pos, 3));
+    geo.setAttribute("normal", new T.Float32BufferAttribute(nor, 3));
+    geo.setAttribute("uv", new T.Float32BufferAttribute(uv, 2));
+    geo.setIndex(idx);
+    geoCache.set(key, geo);
+    return geo;
+  }
+  // passepoil : petit boudin le long des deux arêtes d'un coussin (rectangle arrondi, demi-côtés hw × hd, à ±y)
+  function piping(name, hw, hd, rc, y) {
+    return cachedGeo("passepoil-" + name, () => {
+      const one = (yy) => {
+        const pts = [], a = hw - rc * 0.3, b = hd - rc * 0.3, rr = rc * 0.75;
+        for (let k = 0; k < 4; k++) {
+          const cx = (k === 0 || k === 3 ? 1 : -1) * (a - rr), cz = (k < 2 ? 1 : -1) * (b - rr);
+          for (let s = 0; s <= 4; s++) { const t = (k + s / 4) * Math.PI / 2; pts.push(new T.Vector3(cx + Math.cos(t) * rr, yy, cz + Math.sin(t) * rr)); }
+        }
+        return new T.TubeGeometry(new T.CatmullRomCurve3(pts, true), 72, 0.0055, 5, true);
+      };
+      return mergeGeos([one(y), one(-y)]);
+    });
+  }
+  // assemble des géométries indexées en une seule (un seul appel de dessin)
+  function mergeGeos(list) {
+    const out = new T.BufferGeometry(), names = ["position", "normal", "uv"], data = { position: [], normal: [], uv: [] }, idx = [];
+    let off = 0;
+    list.forEach((geo) => {
+      names.forEach((nm) => data[nm].push(...geo.attributes[nm].array));
+      geo.index.array.forEach((i) => idx.push(i + off));
+      off += geo.attributes.position.count; geo.dispose();
+    });
+    out.setAttribute("position", new T.Float32BufferAttribute(data.position, 3));
+    out.setAttribute("normal", new T.Float32BufferAttribute(data.normal, 3));
+    out.setAttribute("uv", new T.Float32BufferAttribute(data.uv, 2));
+    out.setIndex(idx);
+    return out;
+  }
+  /* Plaid : il part de l'assise, passe par-dessus l'accoudoir et retombe à l'extérieur en faisant des plis */
+  function drapeGeo() {
+    const path = new T.SplineCurve([[-0.15, 0.53], [-0.09, 0.54], [-0.073, 0.6], ...[150, 120, 90, 60, 30].map((d) => [Math.cos(d * Math.PI / 180) * 0.07, 0.625 + Math.sin(d * Math.PI / 180) * 0.07]), [0.073, 0.6], [0.076, 0.42], [0.08, 0.26], [0.095, 0.13]].map(([a, b]) => new T.Vector2(a, b)));
+    const NS = 34, NZ = 18, Z0 = -0.24, Z1 = 0.26, pts = path.getSpacedPoints(NS), len = path.getLength();
+    const pos = [], uv = [], idx = [];
+    for (let i = 0; i <= NS; i++) {
+      const p = pts[i], q = pts[Math.min(NS, i + 1)], o = pts[Math.max(0, i - 1)];
+      let tx = q.x - o.x, ty = q.y - o.y; const tl = Math.hypot(tx, ty) || 1; tx /= tl; ty /= tl;
+      const s = i / NS, drop = Math.max(0, (s - 0.55) / 0.45), inner = Math.max(0, (0.25 - s) / 0.25);
+      for (let j = 0; j <= NZ; j++) {
+        const t = j / NZ, zz = Z0 + (Z1 - Z0) * t;
+        // plis : plus marqués là où le plaid pend ; bas un peu irrégulier
+        const amp = 0.003 + drop * drop * 0.018 + inner * 0.008;
+        const off = 0.013 + amp * (0.6 + 0.4 * Math.sin(zz * 41 + 1.3)) * Math.sin(zz * 23 + s * 2.2);
+        const hem = drop * drop * 0.025 * Math.sin(zz * 17 + 0.4);
+        pos.push(p.x - ty * off, p.y + tx * off + hem, zz + drop * 0.02 * Math.sin(zz * 9));
+        uv.push(t * (Z1 - Z0) * 3, s * len * 3);
+      }
+    }
+    for (let i = 0; i < NS; i++) for (let j = 0; j < NZ; j++) { const a = i * (NZ + 1) + j, b = a + NZ + 1; idx.push(a, a + 1, b, b, a + 1, b + 1); }
+    const geo = new T.BufferGeometry();
+    geo.setAttribute("position", new T.Float32BufferAttribute(pos, 3));
+    geo.setAttribute("uv", new T.Float32BufferAttribute(uv, 2));
+    geo.setIndex(idx); geo.computeVertexNormals();
+    return geo;
+  }
+
+  /* ---------- Tissus et matières du mobilier ---------- */
+  const texCache = new Map();
+  const cachedTex = (k, make) => { if (!texCache.has(k)) texCache.set(k, make()); return texCache.get(k); };
+  const seeded = (s) => () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  // trame de lin un peu bouclée, presque blanche : la couleur vient du matériau
+  const linenTex = () => cachedTex("lin", () => canvasTex(256, 256, (g, w, h) => {
+    const rnd = seeded(11);
+    g.fillStyle = "#ededed"; g.fillRect(0, 0, w, h);
+    for (let y = 0; y < h; y += 2) { g.fillStyle = `rgba(255,255,255,${0.12 + rnd() * 0.2})`; g.fillRect(0, y, w, 1); g.fillStyle = `rgba(0,0,0,${0.04 + rnd() * 0.06})`; g.fillRect(0, y + 1, w, 1); }
+    for (let x = 0; x < w; x += 2) { g.fillStyle = `rgba(0,0,0,${0.03 + rnd() * 0.07})`; g.fillRect(x, 0, 1, h); }
+    // fils plus épais du lin (flammes)
+    for (let i = 0; i < 120; i++) { const x = rnd() * w, y = (rnd() * h) | 0, l = 8 + rnd() * 40; g.fillStyle = rnd() > 0.5 ? "rgba(255,255,255,.28)" : "rgba(0,0,0,.1)"; g.fillRect(x, y, l, 1); if (x + l > w) g.fillRect(x - w, y, l, 1); }
+    // bouclettes
+    for (let i = 0; i < 900; i++) { const x = rnd() * w, y = rnd() * h; g.fillStyle = `rgba(${rnd() > 0.5 ? "255,255,255" : "0,0,0"},${0.05 + rnd() * 0.08})`; g.beginPath(); g.arc(x, y, 0.7 + rnd() * 1.3, 0, 7); g.fill(); }
+  }, [1, 1]));
+  const furnMats = new Map();
+  const furnMat = (k, make) => { if (!furnMats.has(k)) furnMats.set(k, make()); return furnMats.get(k); };
+  const fabricMat = (color) => furnMat("tissu" + color, () => new T.MeshStandardMaterial({ color: shade(color, 0.03), map: linenTex(), bumpMap: linenTex(), bumpScale: 1.2, roughness: 0.96 }));
+  // bois des pieds : la photo de bois teintée (elle peut arriver après coup, d'où la vérification)
+  function legMat() {
+    const t = woodTexture("#4e2f1a");
+    return furnMat("bois-pied" + t.uuid, () => new T.MeshStandardMaterial({ map: t, roughness: 0.55 }));
+  }
+  // coussin : lin crème tissé de rayures de la couleur du fauteuil
+  const pillowMat = (color) => furnMat("coussin" + color, () => {
+    const map = canvasTex(128, 128, (g, w, h) => {
+      g.fillStyle = "#e6dcc8"; g.fillRect(0, 0, w, h);
+      const ink = shade(color, -0.14);
+      [[20, 10], [36, 3], [84, 10], [100, 3]].forEach(([y, hh]) => { g.fillStyle = ink; g.fillRect(0, y, w, hh); });
+      for (let x = 0; x < w; x += 6) { g.fillStyle = "rgba(230,220,200,.45)"; g.fillRect(x, 20, 2, 10); g.fillRect(x + 3, 84, 2, 10); }
+      g.globalAlpha = 0.35; g.drawImage(linenTex().image, 0, 0, w, h); g.globalAlpha = 1;
+    }, [1, 1]);
+    return new T.MeshStandardMaterial({ map, bumpMap: linenTex(), bumpScale: 1, roughness: 0.95 });
+  });
+  // maille tricotée : colonnes de petits « V » en relief ; à carreaux rouille si demandé
+  const knitMat = (check) => furnMat("plaid" + check, () => {
+    const draw = (mono) => (g, w, h) => {
+      g.fillStyle = mono ? "#303030" : "#a39279"; g.fillRect(0, 0, w, h);
+      const SW = 16, SH = 12;
+      for (let y = -SH; y < h + SH; y += SH) for (let x = 0; x < w; x += SW) {
+        const col = (x / SW) | 0, row = ((y + SH) / SH) | 0;
+        const stripe = check && (col % 8 === 3 || row % 10 === 4);
+        const base = mono ? "#d8d8d8" : stripe ? "#b0603f" : "#ebe1cf";
+        [-1, 1].forEach((sd) => {
+          g.save(); g.translate(x + SW / 2 + sd * 3.6, y + SH / 2); g.rotate(sd * -0.6);
+          const gr = g.createLinearGradient(-4, 0, 4, 0);
+          gr.addColorStop(0, shade(base, -0.16)); gr.addColorStop(0.45, shade(base, 0.03)); gr.addColorStop(1, shade(base, -0.2));
+          g.fillStyle = gr; g.beginPath(); g.ellipse(0, 0, 4.6, 7.8, 0, 0, 7); g.fill(); g.restore();
+        });
+      }
+    };
+    const map = canvasTex(128, 120, draw(false), [1, 1]), bump = canvasTex(128, 120, draw(true), [1, 1]);
+    return new T.MeshStandardMaterial({ map, bumpMap: bump, bumpScale: 3, roughness: 1, side: T.DoubleSide });
+  });
+
+  /* Guéridon en bois tourné, lampe à pied en céramique et abat-jour en lin, tasse de thé */
   function sideTable(parent, x, z, lampColor) {
-    const g = new T.Group(); g.position.set(x, 0, z); parent.add(g);
-    const wood = mat("#6b4126");
-    cyl(0.24, 0.24, 0.035, wood, 0, 0.56, 0, g, 28);
-    [0, 2.1, 4.2].forEach((a) => { const l = cyl(0.018, 0.018, 0.56, wood, Math.cos(a) * 0.16, 0.28, Math.sin(a) * 0.16, g, 8); l.rotation.z = Math.cos(a) * 0.1; l.rotation.x = -Math.sin(a) * 0.1; });
-    cyl(0.07, 0.09, 0.03, mat("#c9a227", { metalness: 0.6, roughness: 0.35 }), -0.05, 0.59, 0, g);
-    cyl(0.012, 0.012, 0.32, mat("#c9a227", { metalness: 0.6, roughness: 0.35 }), -0.05, 0.75, 0, g, 8);
-    const shadeMat = new T.MeshStandardMaterial({ color: lampColor || "#f4dfb2", emissive: "#ffb85c", emissiveIntensity: 0.55, side: T.DoubleSide, roughness: 1 });
-    cyl(0.09, 0.17, 0.2, shadeMat, -0.05, 0.96, 0, g, 24).geometry = new T.CylinderGeometry(0.09, 0.17, 0.2, 24, 1, true);
+    const g = new T.Group(); g.name = "gueridon"; g.position.set(x, 0, z); parent.add(g);
+    const t = woodTexture("#6b4126");
+    const wood = furnMat("bois-gueridon" + t.uuid, () => new T.MeshStandardMaterial({ map: t, roughness: 0.5 }));
+    const add = (geo, m, py, px, pz) => { const o = new T.Mesh(geo, m); o.position.set(px || 0, py, pz || 0); g.add(o); return o; };
+    const V = (list) => list.map(([a, b]) => new T.Vector2(a, b));
+    // plateau rond au chant arrondi
+    add(cachedGeo("plateau", () => new T.CylinderGeometry(0.232, 0.232, 0.036, 40)), wood, 0.56);
+    add(cachedGeo("chant", () => new T.TorusGeometry(0.232, 0.018, 8, 48)), wood, 0.56).rotation.x = Math.PI / 2;
+    // pied tourné : socle rond, colonne avec bagues
+    add(cachedGeo("pied-gueridon", () => uvAlong(new T.LatheGeometry(V([[0, 0], [0.15, 0], [0.163, 0.006], [0.165, 0.02], [0.152, 0.032], [0.1, 0.045], [0.06, 0.065], [0.038, 0.095], [0.046, 0.115], [0.046, 0.13], [0.032, 0.148], [0.025, 0.3], [0.029, 0.37], [0.042, 0.392], [0.042, 0.41], [0.03, 0.428], [0.025, 0.47], [0.034, 0.505], [0.058, 0.53], [0.085, 0.542], [0, 0.542]]), 24), 0.5)), wood, 0);
+    // lampe : pied en grès émaillé tourné, douille en laiton, abat-jour en lin qui laisse passer la lumière
+    const glaze = furnMat("gres", () => new T.MeshStandardMaterial({ map: glazeTex(), roughness: 0.3, metalness: 0 }));
+    add(cachedGeo("pied-lampe", () => new T.LatheGeometry(V([[0, 0], [0.048, 0], [0.056, 0.006], [0.07, 0.03], [0.084, 0.07], [0.087, 0.1], [0.079, 0.14], [0.06, 0.168], [0.036, 0.188], [0.022, 0.198], [0.024, 0.212], [0, 0.214]]), 28)), glaze, 0.578, -0.05);
+    const brass = mat("#c9a227", { metalness: 0.7, roughness: 0.3 });
+    cyl(0.007, 0.007, 0.1, brass, -0.05, 0.84, 0, g, 8);
+    cyl(0.016, 0.014, 0.04, brass, -0.05, 0.895, 0, g, 12);
+    add(cachedGeo("ampoule", () => new T.SphereGeometry(0.03, 12, 8)), furnMat("ampoule", () => new T.MeshBasicMaterial({ color: "#fff0cc" })), 0.94, -0.05);
+    const lin = linenTex();
+    const shadeOut = furnMat("abat-jour" + (lampColor || ""), () => new T.MeshStandardMaterial({ color: lampColor || "#f3e2c2", map: lin, emissive: "#ffc477", emissiveMap: lin, emissiveIntensity: 0.95, roughness: 1 }));
+    const shadeIn = furnMat("abat-jour-dedans", () => new T.MeshStandardMaterial({ color: "#fff3dc", emissive: "#ffcf8a", emissiveIntensity: 1.1, roughness: 1, side: T.BackSide }));
+    const sg = cachedGeo("abat-jour", () => { const c = new T.CylinderGeometry(0.1, 0.17, 0.21, 36, 1, true), uv = c.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * 6, uv.getY(i) * 1.4); return c; });
+    add(sg, shadeOut, 0.96, -0.05); add(sg, shadeIn, 0.96, -0.05);
+    const trim = furnMat("galon", () => new T.MeshStandardMaterial({ color: "#efe2c8", roughness: 0.9 }));
+    add(cachedGeo("galon-bas", () => new T.TorusGeometry(0.17, 0.0045, 4, 36)), trim, 0.855, -0.05).rotation.x = Math.PI / 2;
+    add(cachedGeo("galon-haut", () => new T.TorusGeometry(0.1, 0.004, 4, 30)), trim, 1.065, -0.05).rotation.x = Math.PI / 2;
     const light = new T.PointLight("#ffc27a", 2.2, 5, 1.6); light.position.set(-0.05, 0.92, 0); g.add(light);
-    // tasse
-    cyl(0.04, 0.035, 0.08, mat("#f6efe2"), 0.12, 0.62, 0.06, g);
+    // tasse en céramique avec son anse, thé dedans
+    const cup = new T.Group(); cup.position.set(0.13, 0.578, 0.07); cup.rotation.y = -0.6; g.add(cup);
+    const cupMat = furnMat("tasse", () => new T.MeshStandardMaterial({ color: "#f3ece0", roughness: 0.25, side: T.DoubleSide }));
+    cup.add(new T.Mesh(cachedGeo("tasse", () => new T.LatheGeometry(V([[0, 0.001], [0.03, 0.001], [0.035, 0.006], [0.038, 0.08], [0.034, 0.08], [0.031, 0.012], [0, 0.012]]), 24)), cupMat));
+    const tea = new T.Mesh(cachedGeo("the", () => new T.CircleGeometry(0.033, 20)), furnMat("the", () => new T.MeshStandardMaterial({ color: "#6b3a17", roughness: 0.15 })));
+    tea.rotation.x = -Math.PI / 2; tea.position.y = 0.062; cup.add(tea);
+    const handle = new T.Mesh(cachedGeo("anse", () => new T.TorusGeometry(0.02, 0.005, 6, 14, Math.PI)), cupMat);
+    handle.position.set(0.037, 0.042, 0); handle.rotation.z = -Math.PI / 2; cup.add(handle);
+    return g;
+  }
+  // émail de grès : ocre qui coule sur un fond plus clair, petits points
+  const glazeTex = () => cachedTex("email", () => canvasTex(256, 128, (g, w, h) => {
+    const rnd = seeded(5);
+    const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#c98a52"); gr.addColorStop(0.55, "#b5683e"); gr.addColorStop(1, "#d9c4a4");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 22; i++) { const x = rnd() * w, l = h * (0.45 + rnd() * 0.35); g.fillStyle = `rgba(120,50,20,${0.06 + rnd() * 0.1})`; g.fillRect(x, 0, 2 + rnd() * 5, l); g.beginPath(); g.arc(x + 2, l, 3, 0, 7); g.fill(); }
+    for (let i = 0; i < 300; i++) { g.fillStyle = `rgba(60,30,15,${0.2 + rnd() * 0.3})`; g.fillRect(rnd() * w, rnd() * h, 1, 1); }
+  }));
+
+  /* Tapis tissé à plat (kilim) : un peu épais, avec ses franges aux deux bouts */
+  function makeRug(scene) {
+    const RW = 2.6, RD = 2.0, top = rugTex();
+    const side = new T.MeshStandardMaterial({ color: "#7c3b2b", roughness: 1 });
+    const rug = new T.Mesh(new T.BoxGeometry(RW, 0.012, RD), [side, side, new T.MeshStandardMaterial({ map: top, bumpMap: top, bumpScale: 1.5, roughness: 1 }), side, side, side]);
+    rug.position.y = 0.006; rug.receiveShadow = true; scene.add(rug);
+    const fr = canvasTex(64, 512, (g, w, h) => {
+      const rnd = seeded(3);
+      for (let y = 2; y < h; y += 4) {
+        const l = w * (0.78 + rnd() * 0.2), k = (y / 16) | 0;
+        g.strokeStyle = `rgb(${226 - rnd() * 25},${210 - rnd() * 25},${180 - rnd() * 25})`; g.lineWidth = 2.4;
+        g.beginPath(); g.moveTo(0, y); g.quadraticCurveTo(w * 0.5, y + (rnd() - 0.5) * 3, l, y + (k % 2 ? 1.5 : -1.5)); g.stroke();
+        if (y % 16 === 2) { g.fillStyle = "#cdbb98"; g.fillRect(6, y - 1, 6, 14); }
+      }
+    });
+    const fm = new T.MeshStandardMaterial({ map: fr, alphaTest: 0.5, roughness: 1, side: T.DoubleSide });
+    const fg = new T.PlaneGeometry(0.1, RD - 0.04);
+    [-1, 1].forEach((s) => {
+      const f = new T.Mesh(fg, fm); f.rotation.set(-Math.PI / 2, 0, s > 0 ? 0 : Math.PI);
+      f.position.set(s * (RW / 2 + 0.048), 0.003, 0); f.receiveShadow = true; scene.add(f);
+    });
+    return rug;
+  }
+
+  /* Suspension en rotin tressé au plafond, avec son cordon en tissu et son ampoule */
+  function pendantLamp(scene) {
+    const g = new T.Group(); g.position.set(0, 2.8, 0); scene.add(g);
+    const weaveTex = canvasTex(128, 128, (c, w, h) => {
+      // tressage : brins clairs qui passent dessus/dessous, jours entre eux
+      c.clearRect(0, 0, w, h);
+      const strand = (x, y, ww, hh, dir) => {
+        const gr = dir ? c.createLinearGradient(x, 0, x + ww, 0) : c.createLinearGradient(0, y, 0, y + hh);
+        gr.addColorStop(0, "#9c6a35"); gr.addColorStop(0.5, "#e2b678"); gr.addColorStop(1, "#9c6a35");
+        c.fillStyle = gr; c.fillRect(x, y, ww, hh);
+      };
+      const S = 32;
+      for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+        const x = i * S, y = j * S;
+        if ((i + j) % 2) { strand(x + 2, y, 12, S, true); strand(x + 18, y, 12, S, true); }
+        else { strand(x, y + 2, S, 12, false); strand(x, y + 18, S, 12, false); }
+      }
+    }, [14, 4]);
+    const rattan = new T.MeshStandardMaterial({ map: weaveTex, alphaTest: 0.5, side: T.DoubleSide, roughness: 0.85, emissive: "#ffb066", emissiveMap: weaveTex, emissiveIntensity: 0.35 });
+    const prof = [];
+    for (let i = 0; i <= 14; i++) { const a = (i / 14) * Math.PI / 2; prof.push(new T.Vector2(0.03 + Math.cos(a) * 0.29, Math.sin(a) * 0.3)); }
+    g.add(new T.Mesh(new T.LatheGeometry(prof, 44), rattan));
+    const cane = mat("#b88a52", { roughness: 0.8 });
+    const rim = new T.Mesh(new T.TorusGeometry(0.32, 0.009, 6, 48), cane); rim.rotation.x = Math.PI / 2; g.add(rim);
+    cyl(0.04, 0.05, 0.04, cane, 0, 0.3, 0, g, 16);
+    ball(0.045, new T.MeshBasicMaterial({ color: "#fff1c8" }), 0, 0.08, 0, g);
+    cyl(0.006, 0.006, 0.48, mat("#3b2a1e"), 0, 0.56, 0, g, 6);       // cordon
+    cyl(0.06, 0.06, 0.02, mat("#efe2cc"), 0, 0.79, 0, g, 20);        // cache-piton
     return g;
   }
   function fairyLights(parent, w, y, z) {
@@ -888,12 +1189,9 @@
     const floor = new T.Mesh(new T.PlaneGeometry(ROOM * 2, ROOM * 2), new T.MeshStandardMaterial({ map: floorTex(opts.floor), roughness: 0.8 }));
     floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
     const ceil = new T.Mesh(new T.PlaneGeometry(ROOM * 2, ROOM * 2), mat("#f1e4cf")); ceil.rotation.x = Math.PI / 2; ceil.position.y = 3.6; scene.add(ceil);
-    const rug = new T.Mesh(new T.CircleGeometry(1.5, 48), new T.MeshStandardMaterial({ map: rugTex(), roughness: 1 }));
-    rug.rotation.x = -Math.PI / 2; rug.position.y = 0.004; rug.receiveShadow = true; scene.add(rug);
+    makeRug(scene);
     // suspension au plafond
-    cyl(0.005, 0.005, 0.6, mat("#3b2a1e"), 0, 3.3, 0, scene, 6);
-    const lampShade = new T.Mesh(new T.CylinderGeometry(0.16, 0.32, 0.26, 28, 1, true), new T.MeshStandardMaterial({ color: "#f6d79a", emissive: "#ffb85c", emissiveIntensity: 0.7, side: T.DoubleSide }));
-    lampShade.position.set(0, 2.9, 0); scene.add(lampShade);
+    pendantLamp(scene);
 
     // murs : un par étagère, chacun à ses couleurs
     const dir = (a) => new T.Vector3(Math.sin(a), 0, -Math.cos(a));
