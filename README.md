@@ -58,7 +58,7 @@ Quand on scanne ou ajoute un livre, l'app propose son genre (littérature géné
 
 ## Sorties, Explorer, Pour toi
 
-Sous le titre, trois boutons : 🗓 Sorties, 🔎 Explorer et ✨ Pour toi (propositions selon les genres, auteurs et séries de la bibliothèque, dont les sorties qui devraient plaire). Les champs de recherche et de tri de l'étagère sont repliés derrière « 🔍 Chercher, trier, filtrer ». Dans Sorties, un lien ouvre aussi les sorties du mois sur Booknode, et chaque livre a un lien « Avis Booknode ».
+Sous le titre, trois boutons : 🗓 Sorties, 🔎 Explorer et ✨ Pour toi (propositions selon les genres, auteurs et séries de la bibliothèque, dont les sorties qui devraient plaire). Les champs de recherche et de tri de l'étagère sont repliés derrière « 🔍 Chercher, trier, filtrer ». Les liens Booknode ont été retirés à la demande de Julie (21 octobre).
 
 ## Ambiance Jungle
 

@@ -753,7 +753,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 12 h</p>
+    <p class="version">Version du 21 octobre, 13 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1847,7 +1847,6 @@ async function renderReleases() {
   el.innerHTML = `<div class="rel">
     <div class="rel-weeks" id="relWeeks">${weeks.map(([k, l]) => `<button data-w="${k}" class="${k === String(relWeek) ? "on" : ""}">${l}</button>`).join("")}</div>
     <div class="rel-kinds">${REL_KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === relKind ? "on" : ""}">${l}</button>`).join("")}</div>
-    <a class="rel-bn" href="https://booknode.com/dates_de_sortie" target="_blank" rel="noopener">📘 Voir aussi les sorties du mois sur Booknode</a>
     <div class="rel-sync"><span id="relSync">Synchronisation…</span><button id="relRefresh">↻ Actualiser</button></div>
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
     <p class="rel-note">Sorties relevées toutes les heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
@@ -1887,7 +1886,6 @@ async function renderReleases() {
             <button data-add ${owned ? "disabled" : ""}>${owned ? "✓ Dans ma bibliothèque" : "🔖 À lire"}</button>
             ${b.url ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">Fiche libraire</a>` : ""}
             <a href="https://www.babelio.com/resrecherche.php?Recherche=${encodeURIComponent(b.title)}" target="_blank" rel="noopener">Avis Babelio</a>
-            <a href="https://booknode.com/search?q=${encodeURIComponent(b.title)}" target="_blank" rel="noopener">Avis Booknode</a>
           </div>
         </div>
       </div>`;

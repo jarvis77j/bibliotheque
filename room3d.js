@@ -233,13 +233,14 @@
   function vines(parent, list) {
     const per = leafMats.map(() => []);
     const m4 = new T.Matrix4(), q = new T.Quaternion(), e = new T.Euler(), v = new T.Vector3(), sc = new T.Vector3();
-    list.forEach(([x, y, z, len, seed], vi) => {
-      const n = Math.round(len / 0.028);
+    list.forEach(([x, y, z, len, seed, big], vi) => {
+      big = big || 1;
+      const n = Math.round(len / (0.028 * big));
       for (let i = 0; i < n; i++) {
         const t = i / n, side = i % 2 ? 1 : -1;
         v.set(x + Math.sin(t * 5 + seed) * 0.07 + side * 0.03, y - t * len, z + 0.01 + Math.cos(t * 4 + seed) * 0.03);
         e.set(Math.PI + 0.3 + Math.sin(i + seed) * 0.4, side * 0.7 + Math.sin(i * 2.3) * 0.5, side * 0.4);
-        const k = 0.75 + ((i * 7 + vi) % 5) / 10;
+        const k = (0.75 + ((i * 7 + vi) % 5) / 10) * big;
         m4.compose(v, q.setFromEuler(e), sc.set(k, k, k));
         per[(i + vi) % leafMats.length].push(m4.clone());
       }
@@ -478,6 +479,11 @@
         [W / 2 - 0.08, H + 0.1, zf, H * 0.95, 3], [W / 2 - 0.3, H + 0.1, zf, H * 0.35, 4], [0.12, H + 0.1, zf, H * 0.22, 5],
       ];
       for (let r = 1; r < rows.length; r += 2) list.push([(r % 4 === 1 ? -1 : 1) * W * 0.22, base + r * SHELF_H + 0.03, zf, SHELF_H * 1.3, 6 + r]);
+      // rideau de grandes feuilles sur le côté droit, jusqu'au sol, comme sur les photos
+      for (let j = 0; j < 4; j++) list.push([W / 2 + 0.02 - j * 0.06, H + 0.1, zf + 0.01 * j, H + 0.05 - j * 0.12, 20 + j, 1.7]);
+      list.push([-W / 2 - 0.01, H + 0.1, zf, H * 0.7, 30, 1.4]);
+      // feuillage couché sur le dessus du meuble
+      for (let x = -W / 2 + 0.05; x < W / 2; x += 0.09) list.push([x, H + 0.12, zf - 0.08, 0.09, 40 + x * 10, 1.3]);
       vines(g, list);
     }
     if (deco.grandes) { bigPlant(g, W / 2 + 0.45, 0.25, 1.1); bigPlant(g, -W / 2 - 0.28, 0.2, 0.8); }
