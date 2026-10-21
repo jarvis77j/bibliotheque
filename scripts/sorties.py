@@ -175,17 +175,22 @@ def main():
         if not links or seen.issuperset(links): break
         seen.update(links)
         for l in links: todo.setdefault(l, "")
-    for p in range(1, 9):
+    seen_n = set()
+    for p in range(1, 21):  # assez loin pour remonter aux deux mois passés
         links = list_links(get(f"/dossiers/nouveautes/?page={p}"))
         stats["nouveautes"].append(len(links))
+        if not links or seen_n.issuperset(links): break
+        seen_n.update(links)
         for l in links: todo.setdefault(l, "")
     for rayon, k in RAYONS:
         d = nouveautes_dossier(get(rayon))
         stats["rayons"][k] = d or "introuvable"
         if not d: continue
-        for p in range(1, 9):
+        seen_r = set()
+        for p in range(1, 13):
             links = list_links(get(d + ("" if p == 1 else f"?page={p}")))
-            if not links: break
+            if not links or seen_r.issuperset(links): break
+            seen_r.update(links)
             for l in links: todo[l] = k
     print(len(todo), "livres listés", file=sys.stderr)
     books, new, skipped = {}, 0, 0
@@ -203,7 +208,9 @@ def main():
         b["kind"] = kind_of(b, hint)
         if b["title"] and b["date"]: books[bid] = b
     # Google Livres toutes les 4 heures (quota limité) ; entre-temps on garde la dernière récolte
-    lo, hi = (date.today() - timedelta(days=45)).isoformat(), (date.today() + timedelta(days=186)).isoformat()
+    t = date.today(); m2 = (t.month - 3) % 12 + 1
+    # on garde depuis le 1er du mois d'il y a deux mois (août quand on est en octobre)
+    lo, hi = date(t.year - (1 if t.month <= 2 else 0), m2, 1).isoformat(), (date.today() + timedelta(days=186)).isoformat()
     if datetime.utcnow().hour % 4 == 0 or os.environ.get("GOOGLE") == "1" or not any(k.startswith("gb:") for k in old):
         gb = google_upcoming(date.today().isoformat(), hi, stats)
         if gb: old = {k: v for k, v in old.items() if not k.startswith("gb:")}

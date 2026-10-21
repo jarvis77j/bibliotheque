@@ -768,7 +768,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 18 h 15</p>
+    <p class="version">Version du 21 octobre, 18 h 30</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1833,7 +1833,7 @@ async function loadReleases(force) {
     try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ ...cache, site, updated: relUpdated })); } catch {}
     return mergeReleases(site, cache.google);
   }
-  const from = isoDay(weekStart(-1)), to = isoDay(new Date(Date.now() + 186 * 864e5));
+  const from = isoDay(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)), to = isoDay(new Date(Date.now() + 186 * 864e5));
   const authors = topCounts(books, (b) => b.authors.slice(0, 1)).slice(0, 4).map(([a]) => "inauthor:" + JSON.stringify(a));
   const seen = new Set(), out = [];
   for (const b of site) { const k = editionKey(b); if (!seen.has(k)) { seen.add(k); if (b.isbn) seen.add("isbn:" + b.isbn); out.push(b); } }
@@ -1866,12 +1866,18 @@ function sinceText(iso) {
   const m = Math.max(0, Math.round((Date.now() - new Date(iso.replace("Z", ":00Z")).getTime()) / 6e4));
   return m < 2 ? "à l'instant" : m < 60 ? `il y a ${m} min` : m < 48 * 60 ? `il y a ${Math.round(m / 60)} h` : `il y a ${Math.round(m / 1440)} jours`;
 }
-let relForce = false, relScroll = 0, relDayScroll = 0;
+let relForce = false, relScroll = -1, relDayScroll = 0;
 async function renderReleases() {
   const el = $("#shelves");
   // semaines proches, puis les 6 prochains mois
-  const weeks = [["-1", "Semaine dernière"], ["0", "Cette semaine"], ["1", "Semaine prochaine"]];
-  const now = new Date();
+  const now = new Date(), weeks = [];
+  const month = (i) => {
+    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+    const l = d.toLocaleDateString("fr-FR", { month: "long" }) + (d.getFullYear() !== now.getFullYear() ? " " + d.getFullYear() : "");
+    return ["m" + d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0"), l.charAt(0).toUpperCase() + l.slice(1)];
+  };
+  // les deux mois passés, les semaines proches, puis les 6 mois à venir
+  weeks.push(month(-2), month(-1), ["-1", "Semaine dernière"], ["0", "Cette semaine"], ["1", "Semaine prochaine"]);
   for (let i = 0; i < 7; i++) {
     const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
     const l = d.toLocaleDateString("fr-FR", { month: "long" }) + (d.getFullYear() !== now.getFullYear() ? " " + d.getFullYear() : "");
@@ -1885,6 +1891,7 @@ async function renderReleases() {
     <p class="rel-note">Sorties relevées toutes les heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
   el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
+  if (relScroll < 0) { const on = $("#relWeeks .on"); relScroll = on ? Math.max(0, on.offsetLeft - 16) : 0; }
   $("#relWeeks").scrollLeft = relScroll;
   el.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => { relKind = b.dataset.k; renderReleases(); }));
   $("#relRefresh").onclick = () => { relForce = true; renderReleases(); };
