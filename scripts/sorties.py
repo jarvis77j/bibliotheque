@@ -111,11 +111,11 @@ def main():
     for p in range(1, 31):
         page = get(f"/dossiers/precommandes/?page={p}")
         links = list_links(page)
-        if p == 1:  # liens de pagination et de tri de la page, pour vérifier le bon format
-            stats["liens_page"] = sorted(set(re.findall(r'href="([^"]*(?:page|tri|sort|order)[^"]*)"', page)))[:25]
-        stats.setdefault("uniques", set()).update(links)
         stats["precommandes"].append(len(links) if page else -1)
-        if not links: break
+        # après la dernière page, le site renvoie la première : on s'arrête dès qu'on ne voit plus rien de neuf
+        seen = stats.setdefault("uniques", set())
+        if not links or seen.issuperset(links): break
+        seen.update(links)
         for l in links: todo.setdefault(l, "")
     for p in range(1, 9):
         links = list_links(get(f"/dossiers/nouveautes/?page={p}"))
