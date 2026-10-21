@@ -94,7 +94,20 @@
     let seed = parseInt(base.slice(1), 16) % 997;
     const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     const t = canvasTex(512, 512, (g, w, h) => {
-      if (PHOTOS.bois) { tinted(g, PHOTOS.bois, base, w, h); return; }
+      if (PHOTOS.bois) {
+        // une seule planche de la photo, répétée en miroir et décalée : plus de joints sombres au milieu d'un chant
+        g.fillStyle = base; g.fillRect(0, 0, w, h);
+        g.globalCompositeOperation = "overlay"; g.globalAlpha = 0.85;
+        const bh = h / 4, sx = PHOTOS.bois.width, sy = PHOTOS.bois.height / 4;
+        for (let k = 0; k < 4; k++) {
+          const off = (k * 0.37 % 1) * w;
+          g.save(); g.translate(0, k * bh + (k % 2 ? bh : 0)); g.scale(1, k % 2 ? -1 : 1);
+          g.drawImage(PHOTOS.bois, 0, 3, sx, sy - 6, -off, 0, w, bh); g.drawImage(PHOTOS.bois, 0, 3, sx, sy - 6, w - off, 0, w, bh);
+          g.restore();
+        }
+        g.globalCompositeOperation = "source-over"; g.globalAlpha = 1;
+        return;
+      }
       g.fillStyle = base; g.fillRect(0, 0, w, h);
       for (let i = 0; i < 6; i++) { g.fillStyle = rnd() > 0.5 ? "rgba(255,255,255,.04)" : "rgba(0,0,0,.05)"; g.fillRect(0, rnd() * h, w, 20 + rnd() * 60); }
       for (let i = 0; i < 170; i++) {
@@ -111,6 +124,60 @@
     }, rep || [1, 1]);
     woodCache.set(key, t);
     return t;
+  }
+  /* Fond du meuble en lames verticales : bois teinté tourné d'un quart, rainure sombre entre deux lames */
+  const plankCache = new Map();
+  function plankTexture(base) {
+    const key = base + !!PHOTOS.bois;
+    if (plankCache.has(key)) return plankCache.get(key);
+    const t = canvasTex(512, 512, (g, w, h) => {
+      g.save(); g.translate(w, 0); g.rotate(Math.PI / 2); g.drawImage(woodTexture(base).image, 0, 0, h, w); g.restore();
+      const n = 5, lw = w / n;
+      for (let i = 0; i < n; i++) {
+        const x = i * lw;
+        g.fillStyle = (i * 0.61) % 1 > 0.5 ? `rgba(255,235,210,${0.03 + (i % 2) * 0.03})` : `rgba(0,0,0,${0.05 + (i % 3) * 0.04})`; g.fillRect(x, 0, lw, h);
+        const gr = g.createLinearGradient(x, 0, x + 7, 0); gr.addColorStop(0, "rgba(0,0,0,.6)"); gr.addColorStop(1, "rgba(0,0,0,0)");
+        g.fillStyle = gr; g.fillRect(x, 0, 7, h);
+        g.fillStyle = "rgba(255,240,220,.1)"; g.fillRect(x + lw - 2, 0, 2, h);
+      }
+    }, [1, 1]);
+    plankCache.set(key, t);
+    return t;
+  }
+  /* Fusionne plusieurs géométries en une : toute la structure d'un meuble se dessine en un seul appel */
+  function mergeGeos(list) {
+    const out = new T.BufferGeometry(), parts = { position: [], normal: [], uv: [] };
+    list.forEach((g0) => {
+      const g1 = g0.index ? g0.toNonIndexed() : g0;
+      for (const k in parts) parts[k].push(g1.attributes[k].array);
+      if (g1 !== g0) g1.dispose(); g0.dispose();
+    });
+    for (const k in parts) {
+      const arr = new Float32Array(parts[k].reduce((s, a) => s + a.length, 0)); let o = 0;
+      parts[k].forEach((a) => { arr.set(a, o); o += a.length; });
+      out.setAttribute(k, new T.BufferAttribute(arr, k === "uv" ? 2 : 3));
+    }
+    return out;
+  }
+  // rectangle aux coins arrondis (rayons dans l'ordre : a0b0, a1b0, a1b1, a0b1)
+  function roundRect(a0, b0, a1, b1, r) {
+    const s = new T.Shape(), [r0, r1, r2, r3] = r;
+    s.moveTo(a0 + r0, b0);
+    s.lineTo(a1 - r1, b0); if (r1) s.quadraticCurveTo(a1, b0, a1, b0 + r1);
+    s.lineTo(a1, b1 - r2); if (r2) s.quadraticCurveTo(a1, b1, a1 - r2, b1);
+    s.lineTo(a0 + r3, b1); if (r3) s.quadraticCurveTo(a0, b1, a0, b1 - r3);
+    s.lineTo(a0, b0 + r0); if (r0) s.quadraticCurveTo(a0, b0, a0 + r0, b0);
+    return s;
+  }
+  /* Profilé : une section tirée sur une longueur, le fil du bois dans la longueur.
+     "x" : pièce horizontale, section en (z, y) ; "y" : pièce verticale, section en (x, z). */
+  function rail(shape, len, axis, x, y, z, segs) {
+    const geo = new T.ExtrudeGeometry(shape, { depth: len, bevelEnabled: false, curveSegments: segs || 3 });
+    const uv = geo.attributes.uv;
+    for (let i = 0; i < uv.count; i++) { const u = uv.getX(i), v = uv.getY(i); uv.setXY(i, (1 - v) / 0.9 + x * 0.37 + y * 0.53, u / 0.45); }
+    if (axis === "y") geo.rotateX(Math.PI / 2).translate(x, y + len, z);
+    else geo.rotateY(-Math.PI / 2).translate(x + len / 2, y, z);
+    return geo;
   }
   const floorTex = (base) => PHOTOS.parquet ? canvasTex(1024, 512, (g, w, h) => {
     tinted(g, PHOTOS.parquet, base || "#9a6840", w, h);
@@ -177,42 +244,80 @@
     for (let i = 0; i < 26; i++) { const x = rnd() * w, y = rnd() * h, r = 30 + rnd() * 90, gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, "rgba(225,205,175,.07)"); gr.addColorStop(1, "rgba(240,225,200,0)"); g.fillStyle = gr; g.fillRect(x - r, y - r, r * 2, r * 2); }
   });
 
-  /* Tranche d'un livre : sa couleur, deux filets et le titre à la verticale */
+  /* Tranche d'un livre : dos arrondi, grain, usure, nervures ou filets dorés selon le genre de reliure, titre à la verticale.
+     Quatre reliures tirées au sort d'après l'identifiant : broché, relié à nervures, relié moderne, étiquette. */
   const spineCache = new Map();
+  const goldFill = (g, x0, x1) => { const gr = g.createLinearGradient(x0, 0, x1, 0); gr.addColorStop(0, "#8a6526"); gr.addColorStop(0.45, "#f2d78c"); gr.addColorStop(0.6, "#d6b260"); gr.addColorStop(1, "#7d5a20"); return gr; };
   function spineTexture(b, color, ink) {
     const key = b.id + "|" + color + "|" + b.title + "|" + (b.tome || "") + "|" + !!b.fav;
     if (spineCache.has(key)) return spineCache.get(key);
-    const tex = canvasTex(80, 480, (g, w, h) => {
+    const hb = hash(b.id || b.title), kind = hb % 4;
+    // titre doré seulement sur une couverture bien sombre, sinon il resterait illisible
+    const n = parseInt(color.slice(1), 16), lum = (0.3 * (n >> 16) + 0.59 * ((n >> 8) & 255) + 0.11 * (n & 255)) / 255;
+    const light = ink !== "#1d1410" && lum < 0.33;
+    const tex = canvasTex(96, 576, (g, w, h) => {
       g.fillStyle = color; g.fillRect(0, 0, w, h);
+      // grain de la toile ou du papier
+      for (let i = 0; i < 900; i++) { g.fillStyle = i % 2 ? "rgba(255,255,255,.045)" : "rgba(0,0,0,.055)"; g.fillRect((i * 37.7 + (hb % 13)) % w, (i * 97.3) % h, 1, 1 + (i % 4)); }
+      if (kind !== 0) for (let y = 0; y < h; y += 3) { g.fillStyle = "rgba(0,0,0,.035)"; g.fillRect(0, y, w, 1); } // trame de la toile
+      const gold = kind === 1 || kind === 2 || (kind === 3 && light);
+      const filet = (y, t) => { g.fillStyle = gold ? goldFill(g, 0, w) : ink; g.globalAlpha = gold ? 0.9 : 0.45; g.fillRect(4, y, w - 8, t); g.globalAlpha = 1; };
+      let top = 40, bot = h - 40;
+      if (kind === 1) {
+        // nervures : bourrelets en relief, éclairés par le haut
+        [58, 118, h - 150, h - 90].forEach((y) => {
+          const n = g.createLinearGradient(0, y - 8, 0, y + 10);
+          n.addColorStop(0, "rgba(0,0,0,.35)"); n.addColorStop(0.3, "rgba(255,255,255,.22)"); n.addColorStop(0.6, "rgba(0,0,0,0)"); n.addColorStop(1, "rgba(0,0,0,.42)");
+          g.fillStyle = n; g.fillRect(0, y - 8, w, 18);
+          filet(y - 10, 2); filet(y + 11, 2);
+        });
+        top = 132; bot = h - 162;
+      } else if (kind === 2) {
+        // bandes plus sombres en tête et en queue, bordées d'un filet doré
+        g.fillStyle = "rgba(0,0,0,.28)"; g.fillRect(0, 0, w, 64); g.fillRect(0, h - 64, w, 64);
+        filet(64, 3); filet(70, 1); filet(h - 67, 3); filet(h - 71, 1);
+        top = 86; bot = h - 86;
+      } else if (kind === 3) {
+        // étiquette de titre, plus claire ou plus sombre que la couverture, cernée d'un filet
+        g.fillStyle = light ? "rgba(0,0,0,.3)" : "rgba(255,250,235,.35)"; g.fillRect(10, 60, w - 20, h - 150);
+        g.strokeStyle = gold ? goldFill(g, 0, w) : ink; g.globalAlpha = 0.6; g.lineWidth = 2; g.strokeRect(14, 64, w - 28, h - 158); g.globalAlpha = 1;
+        top = 80; bot = h - 100;
+      } else { filet(30, 3); filet(h - 34, 3); top = 48; bot = h - 54; }
+      // dos arrondi : ombre sur les bords, reflet un peu décalé vers la gauche
       const sh = g.createLinearGradient(0, 0, w, 0);
-      // dos arrondi : clair au milieu, plus sombre sur les bords
-      sh.addColorStop(0, "rgba(0,0,0,.38)"); sh.addColorStop(0.18, "rgba(255,255,255,.06)"); sh.addColorStop(0.42, "rgba(255,255,255,.16)");
-      sh.addColorStop(0.7, "rgba(0,0,0,0)"); sh.addColorStop(1, "rgba(0,0,0,.42)");
+      sh.addColorStop(0, "rgba(0,0,0,.5)"); sh.addColorStop(0.1, "rgba(0,0,0,.12)"); sh.addColorStop(0.32, "rgba(255,255,255,.16)"); sh.addColorStop(0.45, "rgba(255,255,255,.1)");
+      sh.addColorStop(0.75, "rgba(0,0,0,.04)"); sh.addColorStop(0.92, "rgba(0,0,0,.22)"); sh.addColorStop(1, "rgba(0,0,0,.5)");
       g.fillStyle = sh; g.fillRect(0, 0, w, h);
-      // grain du papier ou de la toile, et usure en haut et en bas
-      for (let i = 0; i < 500; i++) { g.fillStyle = i % 2 ? "rgba(255,255,255,.05)" : "rgba(0,0,0,.06)"; g.fillRect((i * 37.7) % w, (i * 97.3) % h, 1, 1 + (i % 3)); }
+      // usure : coiffes frottées en tête et en queue, quelques éraflures claires
       const wear = g.createLinearGradient(0, 0, 0, h);
-      wear.addColorStop(0, "rgba(0,0,0,.25)"); wear.addColorStop(0.03, "rgba(0,0,0,0)"); wear.addColorStop(0.97, "rgba(0,0,0,0)"); wear.addColorStop(1, "rgba(0,0,0,.3)");
+      wear.addColorStop(0, "rgba(0,0,0,.35)"); wear.addColorStop(0.012, "rgba(255,255,255,.12)"); wear.addColorStop(0.03, "rgba(0,0,0,0)");
+      wear.addColorStop(0.97, "rgba(0,0,0,0)"); wear.addColorStop(0.988, "rgba(255,255,255,.1)"); wear.addColorStop(1, "rgba(0,0,0,.4)");
       g.fillStyle = wear; g.fillRect(0, 0, w, h);
-      g.fillStyle = ink; g.globalAlpha = 0.45; g.fillRect(0, 26, w, 3); g.fillRect(0, h - 30, w, 3); g.globalAlpha = 1;
-      g.save(); g.translate(w / 2, 44); g.rotate(Math.PI / 2);
+      for (let i = 0; i < 6; i++) { const r = rr(hb + i); g.fillStyle = `rgba(255,255,255,${0.04 + r * 0.06})`; g.fillRect(r * w, rr(hb * 3 + i) * h, 1, 6 + r * 30); }
+      // titre et auteur à la verticale, légèrement frappés dans la couverture
+      g.save(); g.translate(w / 2, top); g.rotate(Math.PI / 2);
       const title = b.title.length > 42 ? b.title.slice(0, 40) + "…" : b.title;
-      let size = 34;
-      g.font = `bold ${size}px Georgia, serif`;
       const author = b.authors && b.authors[0] ? b.authors[0] : "";
-      const room = h - 96;
-      while (size > 16 && g.measureText(title).width + (author ? 140 : 0) > room) { size -= 2; g.font = `bold ${size}px Georgia, serif`; }
-      g.fillStyle = ink; g.textBaseline = "middle";
-      g.fillText(title, 0, 0);
+      const room = bot - top - (b.tome ? 40 : 0) - (b.fav ? 30 : 0);
+      let size = 40;
+      const face = kind === 0 ? "Helvetica, Arial, sans-serif" : "Georgia, serif";
+      g.font = `bold ${size}px ${face}`;
+      while (size > 18 && g.measureText(title).width + (author ? 150 : 0) > room) { size -= 2; g.font = `bold ${size}px ${face}`; }
+      if (gold && light) { const gr = g.createLinearGradient(0, -size / 2, 0, size / 2); gr.addColorStop(0, "#f6dd94"); gr.addColorStop(0.5, "#d4ad58"); gr.addColorStop(1, "#9a7330"); g.fillStyle = gr; } else g.fillStyle = ink;
+      const txt = g.fillStyle;
+      g.textBaseline = "middle";
+      g.fillStyle = ink !== "#1d1410" ? "rgba(0,0,0,.45)" : "rgba(255,255,255,.25)"; g.fillText(title, 1, 1.5);
+      g.fillStyle = txt; g.fillText(title, 0, 0);
       if (author) {
         const tw = g.measureText(title).width;
-        g.font = `${Math.max(14, size - 10)}px Georgia, serif`; g.globalAlpha = 0.8;
-        let a = author; while (a.length > 3 && g.measureText(a).width > room - tw - 20) a = a.slice(0, -2);
-        g.fillText(a === author ? a : a + "…", tw + 18, 0);
+        g.font = `${Math.max(16, size - 12)}px ${face}`; g.globalAlpha = 0.85;
+        let a = author; while (a.length > 3 && g.measureText(a).width > room - tw - 22) a = a.slice(0, -2);
+        g.fillText(a === author ? a : a + "…", tw + 20, 0);
       }
       g.restore();
-      if (b.fav) { g.fillStyle = "#e8c04a"; g.font = "28px serif"; g.textAlign = "center"; g.fillText("♥", w / 2, h - 52); }
-      if (b.tome) { g.fillStyle = ink; g.font = "bold 26px Georgia, serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(String(b.tome), w / 2, h - 92); }
+      g.textAlign = "center"; g.textBaseline = "middle";
+      if (b.fav) { g.fillStyle = "#e8c04a"; g.font = "30px serif"; g.fillText("♥", w / 2, bot - 14); }
+      if (b.tome) { g.fillStyle = gold && light ? goldFill(g, 20, w - 20) : ink; g.font = "bold 30px Georgia, serif"; g.fillText(String(b.tome), w / 2, bot - (b.fav ? 50 : 18)); }
     });
     spineCache.set(key, tex);
     return tex;
@@ -227,11 +332,19 @@
     return matCache.get(key);
   }
   // tranche des pages : fines lignes, un peu jaunies
-  const pagesTex = canvasTex(64, 64, (g, w, h) => {
-    g.fillStyle = "#efe4cc"; g.fillRect(0, 0, w, h);
-    for (let y = 0; y < h; y += 2) { g.fillStyle = y % 6 ? "rgba(120,90,50,.08)" : "rgba(120,90,50,.16)"; g.fillRect(0, y, w, 1); }
+  // feuillets fins d'épaisseur irrégulière, papier plus jauni et plus sombre près des couvertures
+  const pagesTex = canvasTex(128, 128, (g, w, h) => {
+    const rr = (n) => { const x = Math.sin(n * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); };
+    g.fillStyle = "#efe5cf"; g.fillRect(0, 0, w, h);
+    for (let y = 0; y < h; y++) { const r = rr(y * 7.1); g.fillStyle = r > 0.55 ? `rgba(110,80,45,${0.05 + r * 0.1})` : `rgba(255,252,240,${r * 0.25})`; g.fillRect(0, y, w, 1); }
+    for (let i = 0; i < 40; i++) { const r = rr(i * 3.3 + 1); g.fillStyle = "rgba(110,80,45,.06)"; g.fillRect(r * w, rr(i + 9) * h, 6 + r * 30, 1); }
+    const e = g.createLinearGradient(0, 0, 0, h);
+    e.addColorStop(0, "rgba(90,60,30,.35)"); e.addColorStop(0.08, "rgba(150,110,60,.08)"); e.addColorStop(0.5, "rgba(0,0,0,0)"); e.addColorStop(0.92, "rgba(150,110,60,.08)"); e.addColorStop(1, "rgba(90,60,30,.35)");
+    g.fillStyle = e; g.fillRect(0, 0, w, h);
+    const s2 = g.createLinearGradient(0, 0, w, 0); s2.addColorStop(0, "rgba(120,85,40,.12)"); s2.addColorStop(0.15, "rgba(0,0,0,0)"); s2.addColorStop(0.85, "rgba(0,0,0,0)"); s2.addColorStop(1, "rgba(120,85,40,.12)");
+    g.fillStyle = s2; g.fillRect(0, 0, w, h);
   });
-  const pagesMat = new T.MeshStandardMaterial({ map: pagesTex, roughness: 0.95 });
+  const pagesMat = new T.MeshStandardMaterial({ map: pagesTex, roughness: 0.92, envMapIntensity: 0.6 });
   const box = (w, h, d, m, x, y, z, parent) => { const o = new T.Mesh(new T.BoxGeometry(w, h, d), m); o.position.set(x, y, z); parent.add(o); return o; };
   const cyl = (rt, rb, h, m, x, y, z, parent, seg) => { const o = new T.Mesh(new T.CylinderGeometry(rt, rb, h, seg || 20), m); o.position.set(x, y, z); parent.add(o); return o; };
   const ball = (r, m, x, y, z, parent) => { const o = new T.Mesh(new T.SphereGeometry(r, 16, 12), m); o.position.set(x, y, z); parent.add(o); return o; };
@@ -297,12 +410,14 @@
     blade: [leafMat("blade", "#4c7a3c", "#2a4d24"), leafMat("blade", "#6f9a4a", "#3d6a2e")],
     monstera: [["#3f6f34", "#1d4219"], ["#4f8040", "#264f20"], ["#35602c", "#183a15"]].map(([a, b]) => new T.MeshStandardMaterial({ map: monsteraTexture(a, b), alphaTest: 0.5, side: T.DoubleSide, roughness: 0.45 })),
   };
-  /* Ombre douce au fond de chaque case (sous le rayon du dessus et dans les coins) */
-  const aoMat = new T.MeshBasicMaterial({ map: canvasTex(128, 128, (g, w, h) => {
-    const v = g.createLinearGradient(0, 0, 0, h); v.addColorStop(0, "rgba(0,0,0,.62)"); v.addColorStop(0.35, "rgba(0,0,0,.12)"); v.addColorStop(0.85, "rgba(0,0,0,.05)"); v.addColorStop(1, "rgba(0,0,0,.3)");
-    g.fillStyle = v; g.fillRect(0, 0, w, h);
-    const sides = g.createLinearGradient(0, 0, w, 0); sides.addColorStop(0, "rgba(0,0,0,.4)"); sides.addColorStop(0.08, "rgba(0,0,0,0)"); sides.addColorStop(0.92, "rgba(0,0,0,0)"); sides.addColorStop(1, "rgba(0,0,0,.4)");
-    g.fillStyle = sides; g.fillRect(0, 0, w, h);
+  /* Ombre douce dans chaque case (occlusion simulée), deux moitiés :
+     à gauche le fond de la case (sombre sous le rayon du dessus et dans les coins), à droite le dessus d'un rayon (sombre vers le fond) */
+  const aoMat = new T.MeshBasicMaterial({ map: canvasTex(256, 128, (g, w, h) => {
+    const k = (a) => `rgba(28,14,6,${a})`, half = w / 2;
+    const grad = (x0, y0, x1, y1, stops) => { const gr = g.createLinearGradient(x0, y0, x1, y1); stops.forEach(([o, a]) => gr.addColorStop(o, k(a))); return gr; };
+    g.fillStyle = grad(0, 0, 0, h, [[0, 0.7], [0.12, 0.38], [0.4, 0.12], [0.8, 0.06], [0.94, 0.18], [1, 0.42]]); g.fillRect(0, 0, half, h);
+    g.fillStyle = grad(half, 0, half, h, [[0, 0.62], [0.18, 0.3], [0.5, 0.08], [1, 0]]); g.fillRect(half, 0, half, h);
+    [0, half].forEach((x0) => { g.fillStyle = grad(x0, 0, x0 + half, 0, [[0, 0.42], [0.035, 0.08], [0.07, 0], [0.93, 0], [0.965, 0.08], [1, 0.42]]); g.fillRect(x0, 0, half, h); });
   }), transparent: true, depthWrite: false });
   const leafPlane = new T.PlaneGeometry(0.1, 0.1); leafPlane.translate(0, 0.05, 0);
   const pots = ["#b5653f", "#d9d2c4", "#2f2f2f", "#c9a07a", "#7d8f7a"];
@@ -915,10 +1030,17 @@
     if (coffretLabels.has(key)) return coffretLabels.get(key);
     const tex = canvasTex(512, 48, (g, w, h) => {
       g.fillStyle = color; g.fillRect(0, 0, w, h);
-      g.fillStyle = ink; g.globalAlpha = 0.5; g.fillRect(0, 4, w, 2); g.fillRect(0, h - 6, w, 2); g.globalAlpha = 1;
+      for (let y = 0; y < h; y += 3) { g.fillStyle = "rgba(0,0,0,.04)"; g.fillRect(0, y, w, 1); }
+      // dessus du coffret un peu bombé, filets dorés, titre frappé
+      const sh = g.createLinearGradient(0, 0, 0, h); sh.addColorStop(0, "rgba(0,0,0,.3)"); sh.addColorStop(0.35, "rgba(255,255,255,.1)"); sh.addColorStop(1, "rgba(0,0,0,.35)");
+      g.fillStyle = sh; g.fillRect(0, 0, w, h);
+      const gold = g.createLinearGradient(0, 0, w, 0); gold.addColorStop(0, "#8a6526"); gold.addColorStop(0.5, "#f2d78c"); gold.addColorStop(1, "#8a6526");
+      g.fillStyle = gold; g.globalAlpha = 0.85; g.fillRect(6, 5, w - 12, 2); g.fillRect(6, h - 7, w - 12, 2); g.globalAlpha = 1;
       let size = 30; g.font = `bold ${size}px Georgia, serif`;
       while (size > 12 && g.measureText(text).width > w - 30) { size -= 2; g.font = `bold ${size}px Georgia, serif`; }
-      g.fillStyle = ink; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(text, w / 2, h / 2 + 1);
+      g.textAlign = "center"; g.textBaseline = "middle";
+      g.fillStyle = ink === "#1d1410" ? "rgba(255,255,255,.25)" : "rgba(0,0,0,.45)"; g.fillText(text, w / 2 + 1, h / 2 + 2);
+      g.fillStyle = ink === "#1d1410" ? ink : "#efd28a"; g.fillText(text, w / 2, h / 2 + 1);
     });
     coffretLabels.set(key, tex);
     return tex;
@@ -940,31 +1062,64 @@
     const { W, rows } = layout(books, th.rows, helpers.narrow);
     const base = 0.12;
     const H = base + rows.length * SHELF_H + 0.04;
-    const wood = new T.MeshStandardMaterial({ map: woodTexture(th.wood, [1, 2]), roughness: 0.7 });
-    const backM = new T.MeshStandardMaterial({ map: woodTexture(th.back, [2, 2]), roughness: 0.9 });
+    // bois vernis satiné : un léger vernis brillant par-dessus le bois mat
+    const wood = new T.MeshPhysicalMaterial({ map: woodTexture(th.wood, [1, 1]), roughness: 0.55, clearcoat: 0.35, clearcoatRoughness: 0.4, envMapIntensity: 0.8 });
+    const backM = new T.MeshStandardMaterial({ map: plankTexture(th.back), roughness: 0.85, envMapIntensity: 0.5 });
     const deco = decoOf(th), style = th.style || (th.gold ? "elegant" : "classique");
-    const trim = style === "elegant" ? mat("#c9a227", { metalness: 0.7, roughness: 0.3 }) : wood;
-    box(0.05, H, DEPTH, wood, -W / 2 - 0.025, H / 2, 0, g);           // montants
-    box(0.05, H, DEPTH, wood, W / 2 + 0.025, H / 2, 0, g);
+    const gold = mat("#c9a227", { metalness: 0.7, roughness: 0.3 });
+    const trim = style === "elegant" ? gold : wood;
+    /* Structure : chaque pièce est profilée (chants arrondis, corniche moulurée), puis tout est fusionné par matière */
+    const parts = new Map(), put = (m, geo) => { if (!parts.has(m)) parts.set(m, []); parts.get(m).push(geo); };
+    const bx = (w, h, d, x, y, z) => new T.BoxGeometry(w, h, d).translate(x, y, z);
+    const f = DEPTH / 2;
+    [-1, 1].forEach((sx) => put(wood, rail(roundRect(-0.025, -f, 0.025, f, [0, 0, 0.01, 0.01]), H, "y", sx * (W / 2 + 0.025), 0, 0)));  // montants
     if (style === "moderne") {
-      box(W + 0.1, 0.04, DEPTH, wood, 0, H + 0.02, 0, g);                  // dessus tout simple
-      box(W + 0.1, base, DEPTH - 0.04, wood, 0, base / 2, -0.02, g);
+      put(wood, rail(roundRect(-f, 0, f, 0.04, [0, 0.006, 0.006, 0]), W + 0.1, "x", 0, H, 0));   // dessus tout simple
+      put(wood, bx(W + 0.1, base, DEPTH - 0.04, 0, base / 2, -0.02));
     } else {
-      box(W + 0.18, 0.06, DEPTH + 0.06, wood, 0, H + 0.03, 0.01, g);       // dessus
-      box(W + 0.22, 0.02, DEPTH + 0.08, trim, 0, H + 0.07, 0.01, g);
-      box(W + 0.1, base, DEPTH, wood, 0, base / 2, 0, g);                   // socle
+      // corniche : petit tore, gorge qui s'évase, listel au bord arrondi (le dessus reste à H + 0.08)
+      const c = new T.Shape(), zb = -f - 0.02;
+      c.moveTo(zb, 0); c.lineTo(f + 0.004, 0);
+      c.quadraticCurveTo(f + 0.014, 0, f + 0.014, 0.008); c.quadraticCurveTo(f + 0.014, 0.016, f + 0.008, 0.016);
+      c.quadraticCurveTo(f + 0.012, 0.05, f + 0.044, 0.052); c.lineTo(f + 0.044, 0.058); c.lineTo(f + 0.048, 0.06);
+      c.quadraticCurveTo(f + 0.054, 0.06, f + 0.054, 0.068); c.lineTo(f + 0.054, 0.072); c.quadraticCurveTo(f + 0.054, 0.08, f + 0.046, 0.08);
+      c.lineTo(zb, 0.08); c.closePath();
+      put(wood, rail(c, W + 0.22, "x", 0, H, 0, 5));
+      if (style === "elegant") put(trim, rail(roundRect(f + 0.04, 0.057, f + 0.057, 0.071, [0, 0.004, 0.004, 0]), W + 0.226, "x", 0, H, 0));
+      // socle : retrait au ras du sol, plinthe surmontée d'un quart-de-rond
+      const s = new T.Shape();
+      s.moveTo(-f, 0); s.lineTo(f - 0.006, 0); s.lineTo(f - 0.006, 0.012); s.lineTo(f + 0.006, 0.014); s.lineTo(f + 0.006, 0.078);
+      s.quadraticCurveTo(f + 0.017, 0.079, f + 0.017, 0.089); s.quadraticCurveTo(f + 0.017, 0.098, f + 0.008, 0.099);
+      s.lineTo(f + 0.002, 0.106); s.lineTo(f, base); s.lineTo(-f, base); s.closePath();
+      put(wood, rail(s, W + 0.1, "x", 0, 0, 0, 4));
+      put(wood, rail(roundRect(f - 0.02, -0.04, f, 0, [0, 0, 0.004, 0]), W, "x", 0, H, 0));   // bandeau sous le dessus
     }
-    box(W, H - base, 0.02, backM, 0, base + (H - base) / 2, -DEPTH / 2 + 0.01, g); // fond
-    for (let r = 0; r <= rows.length; r++) box(W, 0.028, DEPTH - 0.02, wood, 0, base + r * SHELF_H, 0, g);
+    // fond en lames : la texture se répète selon la taille du fond
+    const back = bx(W, H - base, 0.02, 0, base + (H - base) / 2, -f + 0.01), buv = back.attributes.uv;
+    for (let i = 0; i < buv.count; i++) buv.setXY(i, buv.getX(i) * W / 0.62, buv.getY(i) * (H - base) / 1.1);
+    put(backM, back);
+    // tablettes : chant avant plus épais et arrondi, comme une vraie planche
+    const d2 = (DEPTH - 0.02) / 2, sh = new T.Shape();
+    sh.moveTo(-d2, -0.012); sh.lineTo(d2 - 0.022, -0.012); sh.lineTo(d2 - 0.02, -0.022); sh.lineTo(d2 - 0.004, -0.022);
+    sh.quadraticCurveTo(d2, -0.022, d2, -0.017); sh.lineTo(d2, 0.008); sh.quadraticCurveTo(d2, 0.014, d2 - 0.006, 0.014); sh.lineTo(-d2, 0.014); sh.closePath();
+    for (let r = 0; r <= rows.length; r++) put(wood, rail(sh, W, "x", 0, base + r * SHELF_H, 0));
+    if (style === "elegant") for (let r = 1; r <= rows.length; r++) put(trim, bx(W, 0.005, 0.004, 0, base + r * SHELF_H - 0.006, d2 + 0.001));
+    if (key === "alire") for (let i = 0; i < 3; i++) put(gold, rail(roundRect(-0.01, -0.008, 0.01, 0.008, [0.004, 0.004, 0.004, 0.004]), 0.12, "x", -W / 3 + (i * W) / 3, base / 2, f + 0.012));
+    parts.forEach((list, m) => g.add(new T.Mesh(mergeGeos(list), m)));
+    /* Ombre douce au fond de chaque case, sur le rayon et sous le rayon du dessus : un seul maillage */
+    const ao = [], q = (w, h, x, y, z, rx, u0) => {
+      const p = new T.PlaneGeometry(w, h), uv = p.attributes.uv;
+      for (let i = 0; i < uv.count; i++) uv.setXY(i, u0 + 0.01 + uv.getX(i) * 0.48, rx > 0 ? 1 - uv.getY(i) : uv.getY(i));
+      if (rx) p.rotateX(rx);
+      ao.push(p.translate(x, y, z));
+    };
     for (let r = 0; r < rows.length; r++) {
-      const ao = new T.Mesh(new T.PlaneGeometry(W, SHELF_H - 0.028), aoMat);
-      ao.position.set(0, base + r * SHELF_H + SHELF_H / 2, -DEPTH / 2 + 0.022); ao.renderOrder = 1; g.add(ao);
-      // le dessous de chaque rayon assombrit aussi le haut des livres
-      const under = new T.Mesh(new T.PlaneGeometry(W, DEPTH - 0.03), aoMat);
-      under.rotation.x = -Math.PI / 2; under.position.set(0, base + r * SHELF_H + 0.0145, 0); under.scale.y = -1; under.renderOrder = 1; g.add(under);
+      const y = base + r * SHELF_H;
+      q(W, SHELF_H - 0.034, 0, y + SHELF_H / 2 - 0.004, -f + 0.0205, 0, 0);                         // fond de la case
+      q(W, DEPTH - 0.045, 0, y + 0.0145, -0.012, -Math.PI / 2, 0.5);                                 // sur le rayon
+      q(W, DEPTH - 0.06, 0, y + SHELF_H - 0.0125, -0.02, Math.PI / 2, 0.5);                           // sous le rayon du dessus
     }
-    if (style === "elegant") for (let r = 1; r <= rows.length; r++) box(W, 0.006, 0.004, trim, 0, base + r * SHELF_H - 0.012, DEPTH / 2, g);
-    if (key === "alire") for (let i = 0; i < 3; i++) box(0.12, 0.016, 0.02, mat("#c9a227", { metalness: 0.7, roughness: 0.3 }), -W / 3 + (i * W) / 3, base / 2, DEPTH / 2 + 0.01, g);
+    const aoMesh = new T.Mesh(mergeGeos(ao), aoMat); aoMesh.renderOrder = 1; g.add(aoMesh);
 
     // livres
     const decorKinds = (th.jungle ? ["plant", "mushroom", "plant", "candle", "rabbit", "plant", "stack"] : ["plant", "candle", "rabbit", "frame", "mushroom", "stack"])
@@ -1148,21 +1303,52 @@
     scene.fog = new T.Fog(sceneColor, 9, 16);
     const camera = new T.PerspectiveCamera(50, 1, 0.05, 40);
 
-    const ambient = new T.AmbientLight("#ffe2c4", 0.8); scene.add(ambient);
-    const hemi = new T.HemisphereLight("#fff1dc", "#5a3a24", 0.8); scene.add(hemi);
-    const ceilingLight = new T.PointLight("#ffd9a8", 8, 12, 1.3); ceilingLight.position.set(0, 2.75, 0); scene.add(ceilingLight);
+    /* Reflets doux : une petite pièce lumineuse (d'après RoomEnvironment des exemples three.js r160, licence MIT),
+       teintée chaud, transformée en carte d'environnement. Une par moment de la journée, calculée à la demande. */
+    const pmrem = new T.PMREMGenerator(renderer);
+    const envCache = new Map();
+    function roomEnv(day, lamp, sky) {
+      const key = day + "|" + lamp + "|" + sky;
+      if (envCache.has(key)) return envCache.get(key);
+      const es = new T.Scene(), geo = new T.BoxGeometry();
+      const wallM = new T.MeshStandardMaterial({ color: "#c9a17a", side: T.BackSide, roughness: 1 });
+      const furn = new T.MeshStandardMaterial({ color: "#6b4a30", roughness: 1 });
+      const glow = (c, k) => new T.MeshBasicMaterial({ color: new T.Color(c).multiplyScalar(k) });
+      const add = (m, p, sc, ry) => { const o = new T.Mesh(geo, m); o.position.set(p[0], p[1], p[2]); o.scale.set(sc[0], sc[1], sc[2]); o.rotation.y = ry || 0; es.add(o); };
+      const main = new T.PointLight("#ffd2a0", 900 * lamp, 28, 2); main.position.set(0.418, 16.199, 0.3); es.add(main);
+      add(wallM, [-0.757, 13.219, 0.717], [31.713, 28.305, 28.591]);
+      [[[-10.906, 2.009, 1.846], [2.328, 7.905, 4.651], -0.195], [[-5.607, -0.754, -0.758], [1.97, 1.534, 3.955], 0.994], [[6.167, 0.857, 7.803], [3.927, 6.285, 3.448], 0.561],
+        [[-2.017, 0.018, 6.124], [2.002, 4.566, 2.064], 0.333], [[2.291, -0.756, -2.621], [1.546, 1.552, 1.496], -0.286], [[-2.193, -0.369, -5.547], [3.875, 3.487, 2.986], 0.516]]
+        .forEach(([p, sc, ry]) => add(furn, p, sc, ry));
+      // fenêtres (lumière du jour) et lampe au plafond
+      add(glow(sky, 50 * day), [-16.116, 14.37, 8.208], [0.1, 2.428, 2.739]);
+      add(glow(sky, 50 * day), [-16.109, 18.021, -8.207], [0.1, 2.425, 2.751]);
+      add(glow(sky, 17 * day), [14.904, 12.198, -1.832], [0.15, 4.265, 6.331]);
+      add(glow("#ffe0b8", 43 * (day * 0.7 + lamp * 0.3)), [-0.462, 8.89, 14.52], [4.38, 5.441, 0.088]);
+      add(glow("#ffd6a8", 20 * (day * 0.6 + lamp * 0.4)), [3.235, 11.486, -12.541], [2.5, 2, 0.1]);
+      add(glow("#ffc78a", 100 * lamp), [0, 20, 0], [1, 0.1, 1]);
+      const tex = pmrem.fromScene(es, 0.04).texture;
+      geo.dispose(); es.traverse((o) => o.material && o.material.dispose());
+      envCache.set(key, tex);
+      return tex;
+    }
+
+    const ambient = new T.AmbientLight("#ffe2c4", 0.3); scene.add(ambient);
+    const hemi = new T.HemisphereLight("#fff1dc", "#5a3a24", 0.3); scene.add(hemi);
+    const ceilingLight = new T.PointLight("#ffd3a0", 8, 12, 1.6); ceilingLight.position.set(0, 2.75, 0); scene.add(ceilingLight);
     // lumière du jour qui entre de biais (plus chaude le matin et le soir, absente la nuit)
     const sun = new T.DirectionalLight("#fff4e6", 0); sun.position.set(3, 3.2, 2); scene.add(sun);
-    /* La lumière suit l'heure : matin doré, journée claire, soirée chaude, nuit tamisée */
-    const LIGHT_KEYS = [ // heure, ambiante, intensité, ciel, intensité, plafond, soleil, intensité, exposition
-      [0, "#b9bde6", 0.45, "#c9c8ec", 0.35, 8.5, "#8090c0", 0, 0.95],
-      [6, "#c9c4e0", 0.5, "#d8d4f0", 0.45, 8, "#ffb070", 0, 0.98],
-      [8, "#ffe6c8", 0.75, "#fff0dc", 0.75, 5.5, "#ffc98a", 1.1, 1.05],
-      [12, "#fff3e6", 0.9, "#fffaf0", 0.95, 4.5, "#fff4e6", 1.4, 1.1],
-      [16, "#ffeedd", 0.85, "#fff4e4", 0.85, 5, "#ffe2b8", 1.2, 1.08],
-      [19, "#ffd0a4", 0.6, "#ffe0bc", 0.55, 8, "#ff9a5a", 0.5, 1.02],
-      [22, "#c4bfe4", 0.48, "#d0cceb", 0.4, 8.5, "#8090c0", 0, 0.96],
-      [24, "#b9bde6", 0.45, "#c9c8ec", 0.35, 8.5, "#8090c0", 0, 0.95],
+    /* La lumière suit l'heure : matin doré, journée claire, soirée chaude, nuit tamisée.
+       Les deux dernières colonnes règlent les reflets : part du jour et part de la lampe. */
+    const LIGHT_KEYS = [ // heure, ambiante, intensité, ciel, intensité, plafond, soleil, intensité, exposition, jour, lampe
+      [0, "#b9bde6", 0.18, "#c9c8ec", 0.16, 11, "#8090c0", 0, 0.95, 0.04, 0.22],
+      [6, "#c9c4e0", 0.22, "#d8d4f0", 0.2, 10.5, "#ffb070", 0, 0.98, 0.1, 0.2],
+      [8, "#ffe6c8", 0.3, "#fff0dc", 0.32, 7.5, "#ffc98a", 1.1, 1.02, 0.3, 0.1],
+      [12, "#fff3e6", 0.36, "#fffaf0", 0.4, 6.5, "#fff4e6", 1.4, 1.05, 0.38, 0.06],
+      [16, "#ffeedd", 0.34, "#fff4e4", 0.38, 7, "#ffe2b8", 1.2, 1.04, 0.34, 0.08],
+      [19, "#ffd0a4", 0.25, "#ffe0bc", 0.24, 10.5, "#ff9a5a", 0.5, 1.0, 0.14, 0.18],
+      [22, "#c4bfe4", 0.2, "#d0cceb", 0.18, 11, "#8090c0", 0, 0.96, 0.05, 0.22],
+      [24, "#b9bde6", 0.18, "#c9c8ec", 0.16, 11, "#8090c0", 0, 0.95, 0.04, 0.22],
     ];
     const ca = new T.Color(), cb = new T.Color();
     function setHour(h) {
@@ -1175,14 +1361,17 @@
       ceilingLight.intensity = lerp(5);
       sun.color.copy(col(6)); sun.intensity = lerp(7);
       renderer.toneMappingExposure = lerp(8);
+      // reflets : valeurs arrondies pour ne recalculer la carte que rarement
+      const r2 = (v) => Math.round(v * 50) / 50;
+      scene.environment = roomEnv(r2(lerp(9)), r2(lerp(10)), (t < 0.5 ? A : B)[3]);
       kick();
     }
     const nowHour = () => { const d = new Date(); return d.getHours() + d.getMinutes() / 60; };
     let fixedHour = opts.hour;
     setInterval(() => { if (fixedHour === undefined) setHour(nowHour()); }, 5 * 60 * 1000);
     ceilingLight.castShadow = true;
-    ceilingLight.shadow.mapSize.set(1024, 1024);
-    ceilingLight.shadow.radius = 4; ceilingLight.shadow.bias = -0.004; ceilingLight.shadow.normalBias = 0.02;
+    ceilingLight.shadow.mapSize.set(512, 512);
+    ceilingLight.shadow.radius = 3; ceilingLight.shadow.bias = -0.0015; ceilingLight.shadow.normalBias = 0.006;
     ceilingLight.shadow.camera.near = 0.2; ceilingLight.shadow.camera.far = 8;
 
     // sol, plafond, tapis
