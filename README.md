@@ -80,6 +80,13 @@ Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à cha
 
 L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robot va chercher les précommandes jusqu'à 6 mois). La 3D a de vraies feuilles dessinées (pothos, sansevieria, monstera), du bois veiné, des tranches de livres arrondies avec grain et usure, des pages visibles, des ombres douces et l'ombre au fond de chaque case.
 
+## Chantier 3D réaliste (21 octobre, soir)
+- Fauteuil rembourré aux formes arrondies, coussins, plaid tricoté ; guéridon en bois tourné, lampe en grès avec abat-jour en lin, tasse de thé ; tapis kilim à franges ; suspension en rotin au plafond.
+- Lumière plus chaude avec reflets doux, ombres plus douces ; meubles avec corniche moulurée, socle profilé, fond en lames et vernis satiné.
+- Tranches de livres plus crédibles (reliures variées, nervures, dorures, usure), pages en feuillets fins.
+- Pots tournés (terre cuite, céramique, béton), pothos, sansevieria, pilea ; bougies avec coulures, cadres moulurés sous verre, champignons, lapin, lanterne, mousse, macramé, guirlande, tous refaits.
+- Fait par une équipe de trois spécialistes, puis relu et testé par un superviseur (toutes les ambiances, tous les onglets, téléphone et grand écran).
+
 ## Matières, déco et lumière (21 octobre)
 - Bois des meubles, parquet et murs en briques faits à partir de vraies photos (libres, venant des exemples de three.js), teintées avec la couleur choisie dans « Décorer ».
 - Deux nouveaux motifs de mur : Briques et Briques peintes.
