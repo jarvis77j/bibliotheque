@@ -1275,7 +1275,12 @@
     return g;
   }
   /* Cadre avec des fleurs séchées pressées : lavande, fougère ou bouquet champêtre, sur papier épais */
+  const driedCache = new Map();
   function driedTex(seed) {
+    if (!driedCache.has(seed)) driedCache.set(seed, driedDraw(seed));
+    return driedCache.get(seed);
+  }
+  function driedDraw(seed) {
     return canvasTex(192, 240, (g, w, h) => {
       g.fillStyle = "#f2eadb"; g.fillRect(0, 0, w, h);
       for (let i = 0; i < 900; i++) { g.fillStyle = i % 3 ? "rgba(120,90,50,.035)" : "rgba(255,255,255,.08)"; g.fillRect(rz(i + seed) * w, rz(i * 1.3 + seed) * h, 2, 2); }
@@ -1757,7 +1762,7 @@
       });
       vines(g, list);
     }
-    if (deco.grandes) { bigPlant(g, W / 2 + 0.45, 0.25, 1.1); bigPlant(g, -W / 2 - 0.28, 0.2, 0.8); }
+    if (deco.grandes) { bigPlant(g, W / 2 + 0.36, 0.14, 1.1); bigPlant(g, -W / 2 - 0.28, 0.2, 0.8); }
     if (deco.guirlande) fairyLights(g, W + 0.3, H + 0.55, DEPTH / 2 + 0.05);
     if (deco.mousse) moss(g, W + 0.12, topY - 0.01, 0);
     if (deco.champignons) mushrooms(g, W / 2 - 0.5, topY, 0.03, 1.3);
@@ -1770,13 +1775,19 @@
     }
     if (deco.fleurs) {
       const wz = -(ROOM - R) + DEPTH / 2 + 0.015;
-      driedFrame(g, -W / 2 - 0.42, 1.62, wz, 1); driedFrame(g, -W / 2 - 0.42, 1.22, wz, 2); driedFrame(g, W / 2 + 0.44, 1.5, wz, 3);
+      // au mur, un peu à l'écart des suspensions pour ne pas être cachés derrière
+      driedFrame(g, -W / 2 - 0.88, 1.68, wz, 1); driedFrame(g, -W / 2 - 0.88, 1.28, wz, 2); driedFrame(g, W / 2 + 0.92, 1.58, wz, 3);
     }
     // mobilier à côté du meuble
     if (deco.fauteuil) armchair(g, th.chair, -W / 2 - 0.85, 0.95, 0.55, th.plaid);
-    if (deco.lampe) sideTable(g, W / 2 + 0.55, 0.55);
+    // à côté de la grande plante, le guéridon s'écarte pour ne pas toucher le pot
+    if (deco.lampe) sideTable(g, W / 2 + (deco.grandes ? 0.8 : 0.55), deco.grandes ? 0.72 : 0.55);
     return { group: g, W, H };
   }
+
+  /* Géométries gardées en cache et partagées d'une reconstruction à l'autre : on ne les libère jamais */
+  const sharedGeos = () => new Set([...latheCache.values(), ...geoCache.values(), ...frameGeoCache.values(), waxGeoC, mushMoss, ...(rabbitGeo || []), ...(lanternGeo || []),
+    soilGeo, leafPlane, leafCurve, discLeaf, unitCyl, unitBox, unitBall, wickGeo, fairyCap]);
 
   /* ---------- La pièce ---------- */
   window.createRoom3D = function (container, opts) {
@@ -1920,9 +1931,10 @@
     function shelve(id) { animIn.set(id, performance.now() + 120); setTimeout(() => animIn.delete(id), ANIM_MS + 400); }
     function setBooks(map) {
       lastMap = map; anims = [];
+      const keep = sharedGeos();
       Object.values(cases).forEach((c) => {
         scene.remove(c.group);
-        c.group.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
+        c.group.traverse((o) => { if (o.geometry && !keep.has(o.geometry)) o.geometry.dispose(); });
       });
       cases = {}; pick = [];
       KEYS.forEach((k, i) => {
