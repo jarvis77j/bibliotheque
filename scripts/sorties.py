@@ -111,6 +111,9 @@ def main():
     for p in range(1, 31):
         page = get(f"/dossiers/precommandes/?page={p}")
         links = list_links(page)
+        if p == 1:  # liens de pagination et de tri de la page, pour vérifier le bon format
+            stats["liens_page"] = sorted(set(re.findall(r'href="([^"]*(?:page|tri|sort|order)[^"]*)"', page)))[:25]
+        stats.setdefault("uniques", set()).update(links)
         stats["precommandes"].append(len(links) if page else -1)
         if not links: break
         for l in links: todo.setdefault(l, "")
@@ -145,6 +148,7 @@ def main():
     for bid, b in old.items():
         b["title"] = clean_title(b["title"]); books.setdefault(bid, b)
     lo, hi = (date.today() - timedelta(days=45)).isoformat(), (date.today() + timedelta(days=186)).isoformat()
+    stats["uniques"] = len(stats.get("uniques", ()))
     stats.update(listes=len(todo), lues=new, en_attente=skipped, plus_loin=max((b["date"] for b in books.values()), default=""))
     keep = sorted((b for b in books.values() if lo <= b["date"] <= hi), key=lambda b: (b["date"], b["title"]))
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
