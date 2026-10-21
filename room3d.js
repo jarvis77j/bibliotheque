@@ -997,21 +997,6 @@
       return mergeGeos([one(y), one(-y)]);
     });
   }
-  // assemble des géométries indexées en une seule (un seul appel de dessin)
-  function mergeGeos(list) {
-    const out = new T.BufferGeometry(), names = ["position", "normal", "uv"], data = { position: [], normal: [], uv: [] }, idx = [];
-    let off = 0;
-    list.forEach((geo) => {
-      names.forEach((nm) => data[nm].push(...geo.attributes[nm].array));
-      geo.index.array.forEach((i) => idx.push(i + off));
-      off += geo.attributes.position.count; geo.dispose();
-    });
-    out.setAttribute("position", new T.Float32BufferAttribute(data.position, 3));
-    out.setAttribute("normal", new T.Float32BufferAttribute(data.normal, 3));
-    out.setAttribute("uv", new T.Float32BufferAttribute(data.uv, 2));
-    out.setIndex(idx);
-    return out;
-  }
   /* Plaid : il part de l'assise, passe par-dessus l'accoudoir et retombe à l'extérieur en faisant des plis */
   function drapeGeo() {
     const path = new T.SplineCurve([[-0.15, 0.53], [-0.09, 0.54], [-0.073, 0.6], ...[150, 120, 90, 60, 30].map((d) => [Math.cos(d * Math.PI / 180) * 0.07, 0.625 + Math.sin(d * Math.PI / 180) * 0.07]), [0.073, 0.6], [0.076, 0.42], [0.08, 0.26], [0.095, 0.13]].map(([a, b]) => new T.Vector2(a, b)));
