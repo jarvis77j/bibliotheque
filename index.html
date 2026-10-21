@@ -399,6 +399,13 @@
     padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
   }
   .sheet.open { display: flex; }
+  .series-all { display: block; margin: -8px auto 18px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 18px; padding: 8px 14px; font-size: 14px; cursor: pointer; font-family: inherit; }
+  .series-head { padding: 14px 16px 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .series-add { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 16px 0; font-size: 15px; }
+  .series-add input { width: 64px; padding: 7px 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); font-size: 15px; }
+  .series-add button { border: 0; background: var(--accent); color: #fff; border-radius: 18px; padding: 8px 16px; font-size: 15px; cursor: pointer; }
+  .tome-no { position: absolute; left: 4px; bottom: 4px; z-index: 2; background: rgba(0,0,0,.72); color: #fff; font-size: 12px; font-weight: 600; border-radius: 8px; padding: 1px 7px; }
+  .tome-own { position: absolute; top: 4px; right: 4px; z-index: 2; background: #2f7d4f; color: #fff; font-size: 12px; border-radius: 10px; padding: 1px 6px; }
   .grid-covers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 12px; padding: 16px; }
   @media (min-width: 560px) { .grid-covers { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); } }
   .grid-covers button { border: 0; background: none; padding: 0; text-align: left; cursor: pointer; min-width: 0; }
@@ -737,6 +744,14 @@
   </div>
 </div>
 
+<section class="sheet" id="seriesSheet">
+  <div class="sheet-head">
+    <b style="flex:1" id="seriesTitle"></b>
+    <button class="link-btn" data-close>Fermer</button>
+  </div>
+  <div class="sheet-body" id="seriesBody"></div>
+</section>
+
 <section class="sheet" id="detailSheet">
   <div class="sheet-head">
     <span style="flex:1"></span>
@@ -768,7 +783,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 22 h</p>
+    <p class="version">Version du 21 octobre, 22 h 30</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1230,12 +1245,12 @@ async function googleJSON(url, order) {
   gPending.set(id, job);
   try { return await job; } finally { gPending.delete(id); }
 }
-async function googleFetch(query, order, anyLang) {
+async function googleFetch(query, order, anyLang, start) {
   if (!query) return [];
   const key = GOOGLE_KEY;
   const url = "https://www.googleapis.com/books/v1/volumes?q=" + encodeURIComponent(query) + (key ? "&key=" + encodeURIComponent(key) : "") +
     (query.startsWith("isbn:") || anyLang ? "" : "&langRestrict=fr") + "&printType=books&maxResults=40" +
-    (order === "newest" ? "&orderBy=newest" : "");
+    (order === "newest" ? "&orderBy=newest" : "") + (start ? "&startIndex=" + start : "");
   const data = await googleJSON(url, order);
   const isbnQuery = query.startsWith("isbn:");
   // Google laisse passer des éditions étrangères malgré langRestrict : on ne garde que le français
@@ -1368,7 +1383,10 @@ async function searchBnf(p) {
   const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 10000);
   const res = await fetch(url, { signal: ctl.signal }).finally(() => clearTimeout(timer));
   if (!res.ok) throw new Error("bnf " + res.status);
-  const xml = new DOMParser().parseFromString(await res.text(), "application/xml");
+  return parseBnf(await res.text());
+}
+function parseBnf(text) {
+  const xml = new DOMParser().parseFromString(text, "application/xml");
   const recs = [...xml.getElementsByTagNameNS("*", "dc")];
   return recs.map((r) => {
     const all = (tag) => [...r.getElementsByTagNameNS("*", tag)].map((n) => n.textContent.trim());
@@ -2170,6 +2188,8 @@ const authorLinks = (b) => shareView ? esc(b.authors.join(", ")) : b.authors.map
 document.addEventListener("click", (e) => {
   const a = e.target.closest(".author-link");
   if (a) openAuthor(a.dataset.author);
+  const s = e.target.closest(".series-all");
+  if (s) openSeries(s.dataset.series, s.dataset.sauthor);
 });
 function openAuthor(name) {
   ["#detailSheet", "#gridSheet", "#statsSheet"].forEach((s) => $(s).classList.remove("open"));
@@ -2180,6 +2200,142 @@ function openAuthor(name) {
   $("#filters").hidden = true; // filtres repliés pour voir tout de suite ses livres
   updateFiltersLabel();
   runSearch();
+}
+/* ---------- Toute la série : tous les tomes, dans l'ordre (Google Livres, complété par la BnF) ---------- */
+// « One Piece - Édition originale » → « One Piece »
+const seriesName = (b) => String(b.series || guessSeries(b.title).series || "").replace(/[\s,.:\-–—]*[ée]dition(\s+(originale|collector|deluxe|perfect|ultimate|fran[cç]aise))?\s*$/i, "").trim();
+// a-t-elle déjà ce tome (quelle que soit l'édition) ?
+const hasTome = (name, n) => books.some((x) => (x.tome === n && plain(seriesName(x)) === plain(name)) || tomeIn(x.title, name) === n);
+const NOT_TOME_RE = /\b(coffret|integrale|pack|lot|artbook|guide|fanbook|roman|light novel|calendrier|agenda|coloriage|carnet)\b/;
+// numéro de tome juste après le nom de la série (« One Piece - Tome 105 », « One piece. 105, Le rêve… », « One Piece Vol.105 »)
+function tomeIn(title, name) {
+  const t = plain(title), n = plain(name);
+  if (!t.startsWith(n)) return 0;
+  const rest = t.slice(n.length);
+  if (NOT_TOME_RE.test(rest) && !NOT_TOME_RE.test(n)) return 0;
+  // « One Piece - Édition originale - Tome 3 » : on saute les mots d'édition
+  const m = rest.match(/^\s*(?:(?:edition|originale|nouvelle|collector|perfect|deluxe|ultimate|kanzenban|francaise)\s+)*(?:(?:tome|tomes|t|vol|volume|volumes|n|no|numero|livre|partie)\s*)?(\d{1,3})(?!\d)/);
+  return m ? Number(m[1]) : 0;
+}
+async function seriesVolumes(name, author) {
+  const ln = plain(author).split(" ").pop() || "";
+  const q = 'intitle:"' + name.replace(/"/g, " ") + '"' + (ln ? " inauthor:" + ln : "");
+  const found = [];
+  // jusqu'à 5 pages de 40 résultats chez Google (gardées 3 jours sur le téléphone)
+  for (let start = 0; start < 200; start += 40) {
+    let page = [];
+    try { page = await googleFetch(q, "", false, start); } catch (e) { console.warn(e); break; }
+    found.push(...page);
+    if (page.length < 30) break;
+  }
+  // la BnF a presque tout ce qui paraît en France : elle comble les trous
+  let bnf = [];
+  try { bnf = await bnfSeries(name, author); } catch (e) { console.warn(e); }
+  const byTome = new Map();
+  for (const b of [...found, ...bnf]) {
+    if (DERIVED_RE.test(plain(b.title))) continue;
+    const n = tomeIn(b.title, name) || (b.tomeHint && plain(b.title).startsWith(plain(name)) ? Number(b.tomeHint) : 0);
+    if (!n || n > 400) continue;
+    if (ln && b.authors.length && !b.authors.some((a) => plain(a).includes(ln))) continue;
+    if (!byTome.has(n)) byTome.set(n, []);
+    byTome.get(n).push(b);
+  }
+  // l'éditeur le plus présent = l'édition principale de la série
+  const pubCount = new Map();
+  for (const [, l] of byTome) for (const p of new Set(l.map((x) => plain(x.publisher)).filter(Boolean))) pubCount.set(p, (pubCount.get(p) || 0) + 1);
+  const mainPub = ([...pubCount].sort((a, b) => b[1] - a[1])[0] || [""])[0];
+  const vols = [...byTome].sort((a, b) => a[0] - b[0]).map(([n, l]) => {
+    const items = l.slice().sort((a, b) => (plain(b.publisher) === mainPub) - (plain(a.publisher) === mainPub) || editionScore(b) - editionScore(a));
+    const best = { ...items[0], others: items.slice(1) };
+    if (!best.cover) { const c = items.find((x) => x.cover); if (c) best.cover = c.cover; }
+    if (!best.description) { const d = items.find((x) => x.description); if (d) best.description = d.description; }
+    if (!best.isbn) { const i = items.find((x) => x.isbn); if (i) best.isbn = i.isbn; }
+    best.series = name; best.tome = n;
+    return best;
+  });
+  return vols;
+}
+async function bnfSeries(name, author) {
+  const clean = (x) => String(x || "").replace(/"/g, " ").trim();
+  const ln = plain(author).split(" ").pop() || "";
+  const query = `bib.title all "${clean(name)}"` + (ln ? ` and bib.author all "${clean(ln)}"` : "") + ` and bib.doctype any "a"`;
+  const out = [];
+  for (let start = 1; start <= 301; start += 50) {
+    const url = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&recordSchema=dublincore&maximumRecords=50&startRecord=" + start + "&query=" + encodeURIComponent(query);
+    const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 12000);
+    const res = await fetch(url, { signal: ctl.signal }).finally(() => clearTimeout(timer));
+    if (!res.ok) break;
+    const recs = parseBnf(await res.text());
+    out.push(...recs);
+    if (recs.length < 40) break;
+  }
+  return out;
+}
+let seriesState = null;
+async function openSeries(name, author) {
+  seriesState = { name, author, vols: null };
+  $("#seriesTitle").textContent = name;
+  $("#detailSheet").classList.remove("open"); // un tome touché rouvrira sa fiche par-dessus
+  $("#seriesBody").innerHTML = `<div class="status">Recherche de tous les tomes…</div>`;
+  $("#seriesSheet").classList.add("open");
+  $("#seriesSheet .sheet-body").scrollTop = 0;
+  let vols = [];
+  try { vols = await seriesVolumes(name, author); } catch (e) { console.warn(e); }
+  if (!seriesState || seriesState.name !== name) return;
+  seriesState.vols = vols;
+  renderSeries();
+}
+function renderSeries() {
+  const { name, vols } = seriesState;
+  if (!vols.length) { $("#seriesBody").innerHTML = `<div class="status">Je n'ai pas trouvé les tomes de « ${esc(name)} ».</div>`; return; }
+  const keys = ownedKeys();
+  const owned = (b) => isOwned(b, keys) || hasTome(name, b.tome);
+  const max = vols[vols.length - 1].tome, have = new Set(vols.map((v) => v.tome));
+  const missing = []; for (let i = 1; i <= max; i++) if (!have.has(i)) missing.push(i);
+  const mine = vols.filter(owned).length;
+  const firstFree = (vols.find((v) => !owned(v)) || vols[0]).tome;
+  $("#seriesTitle").textContent = name + " · " + vols.length + " tome" + (vols.length > 1 ? "s" : "");
+  $("#seriesBody").innerHTML = `<div class="series-head">Tomes 1 à ${max} · ${mine ? `tu en as ${mine}` : "tu n'en as aucun"}${missing.length ? `<br>Pas trouvés : ${missing.length > 12 ? missing.slice(0, 12).join(", ") + "…" : missing.join(", ")}` : ""}</div>
+    ${mine < vols.length ? `<div class="series-add">Ajouter du tome <input type="number" id="serFrom" min="1" max="${max}" value="${firstFree}" inputmode="numeric"> au tome <input type="number" id="serTo" min="1" max="${max}" value="${max}" inputmode="numeric"> <button id="serAdd">Ajouter</button></div>` : ""}
+    <div class="grid-covers">${vols.map((b, i) => `<button data-i="${i}">
+      <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}<i class="tome-no">${b.tome}</i>${owned(b) ? `<i class="tome-own">✓</i>` : ""}</div>
+      <span>Tome ${b.tome}</span><small>${esc(b.publisher || "")}${b.date ? " · " + esc(String(b.date).slice(0, 4)) : ""}</small></button>`).join("")}</div>`;
+  $("#seriesBody").querySelectorAll("[data-i]").forEach((x) => (x.onclick = () => openPreview(vols[+x.dataset.i])));
+  const add = $("#serAdd");
+  if (add) add.onclick = () => addSeries(+$("#serFrom").value, +$("#serTo").value);
+}
+/* Ajoute d'un coup plusieurs tomes (ceux qu'elle n'a pas déjà) dans l'étagère choisie */
+async function addSeries(from, to) {
+  const { name, vols } = seriesState;
+  if (from > to) [from, to] = [to, from];
+  const keys = ownedKeys();
+  const todo = vols.filter((v) => v.tome >= from && v.tome <= to && !isOwned(v, keys) && !hasTome(name, v.tome));
+  if (!todo.length) { toast("Tu as déjà ces tomes"); return; }
+  const where = await chooseShelf(todo.length > 1 ? `${name}, tomes ${todo[0].tome} à ${todo[todo.length - 1].tome}` : todo[0].title, null);
+  if (!where) return;
+  const btn = $("#serAdd"); if (btn) btn.textContent = "…";
+  const fav = where === "fav", status = fav ? "lu" : where;
+  const g0 = guessGenreFull(todo[0]) || "";
+  // même nom de série que les tomes qu'elle a déjà, pour qu'ils restent ensemble sur l'étagère
+  const known = books.find((x) => x.series && plain(seriesName(x)) === plain(name));
+  const keepName = known ? known.series : name;
+  for (const v of todo) {
+    const book = normalize({ ...v, others: undefined, genre: g0, addedAt: new Date().toISOString(), status, fav, readDate: status === "lu" ? today() : "" });
+    book.series = keepName; book.tome = v.tome;
+    if (!book.cover && book.isbn && amzCover(book)) book.cover = amzCover(book);
+    book.color = colorOf(book);
+    books.push(book);
+  }
+  save();
+  render();
+  toast(todo.length + " tome" + (todo.length > 1 ? "s" : "") + " rangé" + (todo.length > 1 ? "s" : "") + " dans " + (fav ? "Coups de cœur" : SHELVES.find((x) => x.key === status).label));
+  renderSeries();
+  // les vraies couleurs des couvertures arrivent ensuite, sans bloquer
+  for (const v of todo) {
+    const b = books.find((x) => x.id === v.id);
+    if (b && b.cover) { const c = await dominantColor(b.cover); if (c) b.color = c; }
+  }
+  save(); render();
 }
 /* Toucher la bibliothèque (pas un livre) : tous les livres de l'étagère, en couvertures */
 function openGrid() {
@@ -2499,6 +2655,7 @@ async function openPreview(b) {
     <div class="author">${authorLinks(b)}</div>
     ${tagsHtml(b)}
     ${!shareView && b.authors[0] ? `<button class="author-link author-more" data-author="${esc(b.authors[0])}">📚 Tous les livres de ${esc(b.authors[0])}</button>` : ""}
+    ${!shareView && seriesName(b) ? `<button class="series-all" data-series="${esc(seriesName(b))}" data-sauthor="${esc(b.authors[0] || "")}">📚 Toute la série « ${esc(seriesName(b))} »</button>` : ""}
     ${shareView ? `<div class="sub">${b.rating ? "★".repeat(b.rating) + "☆".repeat(5 - b.rating) + " · " : ""}${b.fav ? "💖 Coup de cœur · " : ""}${esc((SHELVES.find((x) => x.key === b.status) || {}).label || "")}</div>`
       : `<div class="add-row"><button data-s="lu">Je l'ai lu</button><button data-s="encours">En cours</button><button data-s="alire">À lire</button><button data-s="fav">💖 Coup de cœur</button></div>`}
     <div class="panel facts">${facts.map(([k, v]) => `<div><span>${k}</span><span>${esc(v)}</span></div>`).join("")}</div>
@@ -2615,6 +2772,7 @@ function openDetail(id) {
     <div class="author">${authorLinks(b)}</div>
     ${tagsHtml(b)}
     ${!shareView && b.authors[0] ? `<button class="author-link author-more" data-author="${esc(b.authors[0])}">📚 Tous les livres de ${esc(b.authors[0])}</button>` : ""}
+    ${!shareView && seriesName(b) ? `<button class="series-all" data-series="${esc(seriesName(b))}" data-sauthor="${esc(b.authors[0] || "")}">📚 Toute la série « ${esc(seriesName(b))} »</button>` : ""}
 
     <div class="panel">
       <div class="panel-title">Ma lecture</div>

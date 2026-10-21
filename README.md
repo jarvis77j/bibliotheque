@@ -80,6 +80,10 @@ Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à cha
 
 L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robot va chercher les précommandes jusqu'à 6 mois). La 3D a de vraies feuilles dessinées (pothos, sansevieria, monstera), du bois veiné, des tranches de livres arrondies avec grain et usure, des pages visibles, des ombres douces et l'ombre au fond de chaque case.
 
+## Toute la série (21 octobre, soir)
+- Sur la fiche d'un livre qui fait partie d'une série (manga, BD, roman), un bouton « 📚 Toute la série » montre tous les tomes dans l'ordre, avec leur couverture, ceux qu'elle a déjà (✓) et les numéros introuvables.
+- Les tomes viennent de Google Livres (jusqu'à 5 pages de 40) et la BnF comble les trous. On peut ajouter d'un coup « du tome X au tome Y » dans l'étagère choisie.
+
 ## Économie des recherches Google (21 octobre, soir)
 - Google Livres donne 1 000 recherches par jour pour toute l'app (tous les utilisateurs réunis), gratuitement.
 - Une recherche déjà faite est gardée 3 jours sur le téléphone (1 jour pour le tri « plus récents ») ; deux demandes identiques en même temps n'en font qu'une ; « Pour toi » est gardé 3 jours (refait plus tôt si les livres changent). Les résultats sont les mêmes.
