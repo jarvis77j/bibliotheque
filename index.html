@@ -753,7 +753,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 20 octobre, 12 h</p>
+    <p class="version">Version du 21 octobre, 12 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1774,7 +1774,7 @@ function distributorOf(publisher) {
 const REL_KINDS = [["", "Tout"], ["roman", "Romans"], ["romance", "Romance"], ["fantasy", "Fantasy & SF"], ["policier", "Polar & thriller"], ["ya", "Young adult"], ["bd", "BD & manga"], ["jeunesse", "Jeunesse"]];
 const REL_QUERIES = ['subject:"fiction"', 'subject:"romance"', 'subject:"fantasy"', 'subject:"thriller"', 'subject:"young adult"', "roman", "manga", "bande dessinée tome"];
 let relWeek = 0, relKind = "";
-const RELEASE_KEY = STORE_KEY + ".sorties";
+const RELEASE_KEY = STORE_KEY + ".sorties2";
 const isoDay = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
 function weekStart(offset) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * offset); return d; }
 /* Sorties relevées toutes les heures sur leslibraires.fr par le robot du site (data/sorties.json) */
@@ -1800,7 +1800,7 @@ async function loadReleases(force) {
     try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ ...cache, site, updated: relUpdated })); } catch {}
     return mergeReleases(site, cache.google);
   }
-  const from = isoDay(weekStart(-1)), to = isoDay(new Date(weekStart(2).getTime() - 864e5));
+  const from = isoDay(weekStart(-1)), to = isoDay(new Date(Date.now() + 186 * 864e5));
   const authors = topCounts(books, (b) => b.authors.slice(0, 1)).slice(0, 4).map(([a]) => "inauthor:" + JSON.stringify(a));
   const seen = new Set(), out = [];
   for (const b of site) { const k = editionKey(b); if (!seen.has(k)) { seen.add(k); if (b.isbn) seen.add("isbn:" + b.isbn); out.push(b); } }
@@ -1833,19 +1833,27 @@ function sinceText(iso) {
   const m = Math.max(0, Math.round((Date.now() - new Date(iso.replace("Z", ":00Z")).getTime()) / 6e4));
   return m < 2 ? "à l'instant" : m < 60 ? `il y a ${m} min` : m < 48 * 60 ? `il y a ${Math.round(m / 60)} h` : `il y a ${Math.round(m / 1440)} jours`;
 }
-let relForce = false;
+let relForce = false, relScroll = 0;
 async function renderReleases() {
   const el = $("#shelves");
+  // semaines proches, puis les 6 prochains mois
   const weeks = [["-1", "Semaine dernière"], ["0", "Cette semaine"], ["1", "Semaine prochaine"]];
+  const now = new Date();
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+    const l = d.toLocaleDateString("fr-FR", { month: "long" }) + (d.getFullYear() !== now.getFullYear() ? " " + d.getFullYear() : "");
+    weeks.push(["m" + d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0"), l.charAt(0).toUpperCase() + l.slice(1)]);
+  }
   el.innerHTML = `<div class="rel">
-    <div class="rel-weeks">${weeks.map(([k, l]) => `<button data-w="${k}" class="${Number(k) === relWeek ? "on" : ""}">${l}</button>`).join("")}</div>
+    <div class="rel-weeks" id="relWeeks">${weeks.map(([k, l]) => `<button data-w="${k}" class="${k === String(relWeek) ? "on" : ""}">${l}</button>`).join("")}</div>
     <div class="rel-kinds">${REL_KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === relKind ? "on" : ""}">${l}</button>`).join("")}</div>
     <a class="rel-bn" href="https://booknode.com/dates_de_sortie" target="_blank" rel="noopener">📘 Voir aussi les sorties du mois sur Booknode</a>
     <div class="rel-sync"><span id="relSync">Synchronisation…</span><button id="relRefresh">↻ Actualiser</button></div>
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
     <p class="rel-note">Sorties relevées toutes les heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
-  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = Number(b.dataset.w); renderReleases(); }));
+  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
+  $("#relWeeks").scrollLeft = relScroll;
   el.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => { relKind = b.dataset.k; renderReleases(); }));
   $("#relRefresh").onclick = () => { relForce = true; renderReleases(); };
   let all;
@@ -1855,10 +1863,12 @@ async function renderReleases() {
   const box = $("#relList");
   if (!box || currentShelf !== "sorties") return;
   if (!all) { box.innerHTML = `<div class="ex-loading">Le catalogue ne répond pas. Réessaie dans un moment.</div>`; return; }
-  const start = weekStart(relWeek), end = new Date(start.getTime() + 6 * 864e5);
+  let start, end;
+  if (typeof relWeek === "string") { const [y, m] = relWeek.slice(1).split("-").map(Number); start = new Date(y, m - 1, 1, 12); end = new Date(y, m, 0, 12); }
+  else { start = weekStart(relWeek); end = new Date(start.getTime() + 6 * 864e5); }
   const keys = ownedKeys();
   const list = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind));
-  if (!list.length) { box.innerHTML = `<div class="ex-loading">Aucune sortie trouvée pour cette semaine${relKind ? " dans ce genre" : ""}.</div>`; return; }
+  if (!list.length) { box.innerHTML = `<div class="ex-loading">Aucune sortie trouvée pour ${typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind ? " dans ce genre" : ""}.</div>`; return; }
   const days = [...new Set(list.map((b) => b.date))];
   box.innerHTML = days.map((d) => {
     const items = list.filter((b) => b.date === d);

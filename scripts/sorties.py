@@ -12,7 +12,7 @@ BASE = "https://www.leslibraires.fr"
 UA = "Mozilla/5.0 (compatible; MaBibliothequeBot/1.0; +https://jarvis77j.github.io/bibliotheque/)"
 DELAY = 5
 OUT = os.path.join(os.path.dirname(__file__), "..", "data", "sorties.json")
-MAX_NEW = int(os.environ.get("MAX_NEW", "220"))
+MAX_NEW = int(os.environ.get("MAX_NEW", "350"))
 # rayons à suivre : page du rayon (pour trouver son dossier « Nouveautés ») et genre dans l'app
 RAYONS = [
     ("/boutique/25/livres-papier/821432/romance", "romance"),
@@ -106,13 +106,17 @@ def main():
     except Exception:
         old = {}
     todo = {}  # chemin -> genre suggéré
+    # précommandes : on va loin pour voir les sorties des 6 prochains mois
+    for p in range(1, 31):
+        links = list_links(get(f"/dossiers/precommandes/?page={p}"))
+        if not links: break
+        for l in links: todo.setdefault(l, "")
     for p in range(1, 9):
-        for l in list_links(get(f"/dossiers/precommandes/?page={p}")): todo.setdefault(l, "")
         for l in list_links(get(f"/dossiers/nouveautes/?page={p}")): todo.setdefault(l, "")
     for rayon, k in RAYONS:
         d = nouveautes_dossier(get(rayon))
         if not d: continue
-        for p in range(1, 6):
+        for p in range(1, 9):
             links = list_links(get(d + ("" if p == 1 else f"?page={p}")))
             if not links: break
             for l in links: todo[l] = k
@@ -134,7 +138,7 @@ def main():
     # on garde aussi les fiches déjà connues qui ne sont plus listées mais restent dans la fenêtre
     for bid, b in old.items():
         b["title"] = clean_title(b["title"]); books.setdefault(bid, b)
-    lo, hi = (date.today() - timedelta(days=45)).isoformat(), (date.today() + timedelta(days=90)).isoformat()
+    lo, hi = (date.today() - timedelta(days=45)).isoformat(), (date.today() + timedelta(days=186)).isoformat()
     keep = sorted((b for b in books.values() if lo <= b["date"] <= hi), key=lambda b: (b["date"], b["title"]))
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     json.dump({"source": "leslibraires.fr", "updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ"), "books": keep},
