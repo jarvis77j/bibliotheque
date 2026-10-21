@@ -258,6 +258,9 @@
   .r3d-hint.gone { opacity: 0; }
   .r3d-note { position: absolute; top: 58px; left: 50%; transform: translateX(-50%); z-index: 2; width: min(340px, calc(100% - 110px)); }
   .r3d-note .empty-note { margin: 0; }
+  .r3d-note .mini-note { display: block; margin: 0 auto; width: fit-content; background: rgba(30,20,12,.6); color: #fff; font-size: 13px; padding: 6px 12px; border-radius: 14px; }
+  .r3d-search { position: absolute; left: 12px; bottom: 14px; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(255,250,240,.55); font-size: 18px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.2); backdrop-filter: blur(4px); }
+  body.decorating .r3d-search, body.shared .r3d-search { display: none; }
 
   /* Explorer : le catalogue */
   .explore { padding: 16px 0 40px; }
@@ -753,7 +756,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 13 h</p>
+    <p class="version">Version du 21 octobre, 13 h 30</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1630,6 +1633,7 @@ function render3D() {
       <div class="r3d-label" id="r3dLabel"></div>
       <button class="r3d-grid" id="r3dGrid">▦ Couvertures</button>
       <div class="r3d-note" id="r3dNote"></div>
+      <button class="r3d-search" id="r3dSearch" aria-label="Chercher un livre à ajouter">🔍</button>
       <div class="r3d-hint ${seen ? "gone" : ""}" id="r3dHint">Glisse pour changer d'étagère · pince pour zoomer</div>`;
     el.innerHTML = ""; el.appendChild(r3dEl);
     size3d();
@@ -1663,10 +1667,9 @@ function render3D() {
   const total = books.filter((b) => inShelf(b, currentShelf)).length;
   $("#toolbar").hidden = total < 2;
   $("#r3dLabel").textContent = shelf.label + (total ? ` · ${total} livre${total > 1 ? "s" : ""}` : "");
-  $("#r3dNote").innerHTML = list.length ? "" : total
-    ? `<div class="empty-note">Aucun livre ne correspond à ces filtres.</div>`
-    : `<div class="empty-note">${shelf.empty}<br><button id="emptyAdd">Chercher un livre</button></div>`;
-  const add = $("#emptyAdd"); if (add) add.onclick = openSearch;
+  // étagère vide : pas de grand cadre, juste la petite loupe en bas à gauche
+  $("#r3dNote").innerHTML = list.length || !total ? "" : `<span class="mini-note">Aucun livre ne correspond à ces filtres</span>`;
+  $("#r3dSearch").onclick = () => { hideHint(); openSearch(); };
   return true;
 }
 
