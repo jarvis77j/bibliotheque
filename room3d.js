@@ -199,6 +199,67 @@
   const ball = (r, m, x, y, z, parent) => { const o = new T.Mesh(new T.SphereGeometry(r, 16, 12), m); o.position.set(x, y, z); parent.add(o); return o; };
 
   /* ---------- Petits objets ---------- */
+  /* Outils des petits objets : hasard fixe, grain, morceaux fusionnés en une seule géométrie, profils tournés */
+  const rz = (n) => { const x = Math.sin(n * 91.345 + 47.853) * 43758.5453; return x - Math.floor(x); };
+  const vnoise = (x, y) => { // bruit doux (valeurs interpolées)
+    const xi = Math.floor(x), yi = Math.floor(y), u = x - xi, v = y - yi, h = (a, b) => rz(a * 57.13 + b * 113.71);
+    const su = u * u * (3 - 2 * u), sv = v * v * (3 - 2 * v);
+    return (h(xi, yi) * (1 - su) + h(xi + 1, yi) * su) * (1 - sv) + (h(xi, yi + 1) * (1 - su) + h(xi + 1, yi + 1) * su) * sv;
+  };
+  // relief en niveaux de gris (sans correction de couleur)
+  function reliefTex(w, h, draw, repeat) { const t = canvasTex(w, h, draw, repeat || [1, 1]); t.colorSpace = T.NoColorSpace; return t; }
+  const grainTex = reliefTex(128, 128, (g, w, h) => {
+    g.fillStyle = "#808080"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 3000; i++) { const v = (70 + rz(i) * 120) | 0; g.fillStyle = `rgb(${v},${v},${v})`; g.fillRect(rz(i + 0.3) * w, rz(i + 0.7) * h, 1 + rz(i + 0.9) * 2, 1 + rz(i + 0.1) * 2); }
+  });
+  const _q = new T.Quaternion(), _e = new T.Euler(), _up = new T.Vector3(0, 1, 0);
+  // position, rotation, échelle → matrice
+  const tm = (x, y, z, rx, ry, rzz, sx, sy, sz, order) => new T.Matrix4().compose(new T.Vector3(x, y, z), _q.clone().setFromEuler(_e.set(rx || 0, ry || 0, rzz || 0, order || "XYZ")), new T.Vector3(sx || 1, sy === undefined ? sx || 1 : sy, sz === undefined ? sx || 1 : sz));
+  // un cylindre unité étiré du point a au point b
+  function segM(a, b, r) { const d = new T.Vector3().subVectors(b, a), l = d.length(); return new T.Matrix4().compose(a.clone().addScaledVector(d, 0.5), new T.Quaternion().setFromUnitVectors(_up, d.normalize()), new T.Vector3(r, l, r)); }
+  const unitCyl = new T.CylinderGeometry(1, 1, 1, 5, 1, true), unitBox = new T.BoxGeometry(1, 1, 1), unitBall = new T.SphereGeometry(1, 12, 9);
+  /* Fusionne des morceaux { geo, m (matrice), c (couleur), uv [u0, v0, su, sv], vc (assombrir selon la position) } */
+  const _nm = new T.Matrix3(), _p = new T.Vector3(), _c = new T.Color(), _id = new T.Matrix4();
+  function bake(parts) {
+    let nv = 0, ni = 0;
+    for (const p of parts) { const P = p.geo.attributes.position; nv += P.count; ni += p.geo.index ? p.geo.index.count : P.count; }
+    const pos = new Float32Array(nv * 3), nor = new Float32Array(nv * 3), uv = new Float32Array(nv * 2), col = new Float32Array(nv * 3), idx = new Uint32Array(ni);
+    let o = 0, oi = 0;
+    for (const p of parts) {
+      const G = p.geo, P = G.attributes.position, N = G.attributes.normal, U = G.attributes.uv, m = p.m || _id, r = p.uv || [0, 0, 1, 1];
+      _nm.getNormalMatrix(m); _c.set(p.c || "#ffffff");
+      const cr = _c.r, cg = _c.g, cb = _c.b;
+      for (let i = 0; i < P.count; i++) {
+        const k = (o + i) * 3;
+        _p.fromBufferAttribute(P, i).applyMatrix4(m); pos[k] = _p.x; pos[k + 1] = _p.y; pos[k + 2] = _p.z;
+        const f = p.vc ? p.vc(_p) : 1;
+        col[k] = cr * f; col[k + 1] = cg * f; col[k + 2] = cb * f;
+        if (N) { _p.fromBufferAttribute(N, i).applyMatrix3(_nm).normalize(); nor[k] = _p.x; nor[k + 1] = _p.y; nor[k + 2] = _p.z; }
+        if (U) { uv[(o + i) * 2] = r[0] + U.getX(i) * r[2]; uv[(o + i) * 2 + 1] = r[1] + U.getY(i) * r[3]; }
+      }
+      if (G.index) for (let i = 0; i < G.index.count; i++) idx[oi + i] = G.index.getX(i) + o;
+      else for (let i = 0; i < P.count; i++) idx[oi + i] = o + i;
+      o += P.count; oi += G.index ? G.index.count : P.count;
+    }
+    const geo = new T.BufferGeometry();
+    geo.setAttribute("position", new T.BufferAttribute(pos, 3)); geo.setAttribute("normal", new T.BufferAttribute(nor, 3));
+    geo.setAttribute("uv", new T.BufferAttribute(uv, 2)); geo.setAttribute("color", new T.BufferAttribute(col, 3));
+    geo.setIndex(new T.BufferAttribute(idx, 1));
+    return geo;
+  }
+  /* Profil tourné (rayon, hauteur), gardé en cache ; la texture suit la longueur du profil */
+  const latheCache = new Map();
+  function lathe(key, pts, seg) {
+    if (latheCache.has(key)) return latheCache.get(key);
+    const geo = new T.LatheGeometry(pts.map(([x, y]) => new T.Vector2(x, y)), seg || 24);
+    const L = [0], np = pts.length;
+    for (let j = 1; j < np; j++) L.push(L[j - 1] + Math.hypot(pts[j][0] - pts[j - 1][0], pts[j][1] - pts[j - 1][1]));
+    const uv = geo.attributes.uv;
+    for (let i = 0; i < uv.count; i++) uv.setY(i, L[i % np] / L[np - 1]);
+    latheCache.set(key, geo);
+    return geo;
+  }
+
   /* Feuilles dessinées (cœur de pothos, lame de sansevieria, feuille de monstera) posées sur des plans transparents */
   function monsteraTexture(c1, c2) {
     return canvasTex(256, 256, (g, w, h) => {
@@ -211,14 +272,18 @@
       g.save(); g.clip();
       const rg = g.createRadialGradient(cx, 150, 10, cx, 140, 140); rg.addColorStop(0, "rgba(255,255,220,.16)"); rg.addColorStop(1, "rgba(0,0,0,.32)");
       g.fillStyle = rg; g.fillRect(0, 0, w, h);
+      // reflet brillant d'un côté de la nervure, petites marbrures
+      const sh = g.createLinearGradient(60, 0, 150, 0); sh.addColorStop(0, "rgba(255,255,240,0)"); sh.addColorStop(0.7, "rgba(255,255,240,.12)"); sh.addColorStop(1, "rgba(255,255,240,0)");
+      g.fillStyle = sh; g.fillRect(0, 0, w, h);
+      for (let i = 0; i < 260; i++) { g.fillStyle = i % 2 ? "rgba(255,255,220,.035)" : "rgba(0,20,0,.05)"; g.beginPath(); g.ellipse(rz(i) * w, rz(i + 0.5) * h, 2 + rz(i + 0.2) * 6, 1 + rz(i + 0.7) * 3, rz(i + 0.9) * 3, 0, 7); g.fill(); }
       g.restore();
       // découpes : fentes depuis le bord vers la nervure, et petits trous ovales près du centre
       g.globalCompositeOperation = "destination-out";
       for (let i = 0; i < 6; i++) {
         const yy = 70 + i * 28, k = 1 - i * 0.08;
         [-1, 1].forEach((sd) => {
-          g.lineWidth = 7 - i * 0.4; g.beginPath(); g.moveTo(cx + sd * 34, yy + 8); g.quadraticCurveTo(cx + sd * 70, yy - 4, cx + sd * 130 * k, yy - 22); g.stroke();
-          if (i > 0 && i < 5) { g.beginPath(); g.ellipse(cx + sd * 26, yy - 4, 4, 9, sd * 0.6, 0, 7); g.fill(); }
+          g.lineWidth = 7 - i * 0.4 + sd * 0.6; g.lineCap = "round"; g.beginPath(); g.moveTo(cx + sd * (36 + (i % 2) * 6), yy + 8); g.quadraticCurveTo(cx + sd * 70, yy - 4 + sd * 2, cx + sd * 130 * k, yy - 22); g.stroke();
+          if (i > 0 && i < 5) { g.beginPath(); g.ellipse(cx + sd * (24 + (i % 2) * 3), yy - 4, 3.5, 8 + (i % 2) * 2, sd * 0.6, 0, 7); g.fill(); }
         });
       }
       g.globalCompositeOperation = "source-over";
@@ -227,31 +292,50 @@
       for (let i = 0; i < 6; i++) { const yy = 84 + i * 28; [-1, 1].forEach((sd) => { g.beginPath(); g.moveTo(cx, yy + 8); g.quadraticCurveTo(cx + sd * 50, yy, cx + sd * 100, yy - 12); g.stroke(); }); }
     });
   }
+  /* Dessine une feuille dans une case de 128 px (ox, oy) : la base (le pétiole) en bas, la pointe en haut */
+  function drawLeaf(g, kind, c1, c2, ox, oy, variegated) {
+    g.save(); g.translate(ox, oy);
+    const P = new Path2D();
+    if (kind === "round") { // pilea : presque ronde, bord un peu ondulé
+      for (let i = 0; i <= 40; i++) { const a = (i / 40) * Math.PI * 2, r = 56 + Math.sin(a * 5) * 1.5 + Math.sin(a * 2 + 1) * 2; P.lineTo(64 + Math.cos(a) * r, 66 + Math.sin(a) * r); }
+    } else { // cœur : creux à la base, pointe un peu déjetée
+      P.moveTo(64, 108);
+      P.bezierCurveTo(56, 122, 24, 124, 13, 102); P.bezierCurveTo(1, 78, 9, 42, 34, 23); P.bezierCurveTo(46, 14, 58, 9, 67, 3);
+      P.bezierCurveTo(74, 11, 86, 16, 97, 25); P.bezierCurveTo(121, 45, 126, 80, 115, 102); P.bezierCurveTo(105, 122, 73, 122, 64, 108);
+    }
+    P.closePath();
+    const grad = g.createLinearGradient(20, 10, 110, 120); grad.addColorStop(0, c1); grad.addColorStop(1, c2);
+    g.fillStyle = grad; g.fill(P);
+    g.save(); g.clip(P);
+    const bx = 64, by = kind === "round" ? 74 : 106;
+    // plus clair au centre, bord plus sombre ; reflet brillant d'un côté
+    const rg = g.createRadialGradient(58, 58, 4, 64, 64, 72); rg.addColorStop(0, "rgba(255,255,215,.2)"); rg.addColorStop(0.62, "rgba(0,0,0,0)"); rg.addColorStop(1, "rgba(0,15,0,.42)");
+    g.fillStyle = rg; g.fillRect(0, 0, 128, 128);
+    const sh = g.createLinearGradient(30, 0, 70, 0); sh.addColorStop(0, "rgba(255,255,240,0)"); sh.addColorStop(0.6, "rgba(255,255,240,.13)"); sh.addColorStop(1, "rgba(255,255,240,0)");
+    g.fillStyle = sh; g.fillRect(0, 0, 128, 128);
+    if (variegated) for (let i = 0; i < 9; i++) { // marbrures crème du pothos doré, le long des nervures
+      g.strokeStyle = `rgba(240,228,150,${0.22 + rz(i) * 0.25})`; g.lineWidth = 1.5 + rz(i + 3) * 4;
+      const sx = (rz(i + 7) - 0.5) * 50;
+      g.beginPath(); g.moveTo(64 + sx * 0.15, 104); g.quadraticCurveTo(64 + sx * 1.2, 64, 64 + sx * 0.6, 14 + rz(i + 1) * 20); g.stroke();
+    }
+    for (let i = 0; i < 160; i++) { g.fillStyle = i % 2 ? "rgba(255,255,220,.05)" : "rgba(0,30,0,.06)"; g.fillRect(rz(i + 9) * 128, rz(i + 4) * 128, 1 + rz(i) * 3, 1 + rz(i + 2) * 2); }
+    // nervures : principale claire, secondaires qui remontent vers la pointe
+    g.lineCap = "round";
+    if (kind === "round") {
+      g.strokeStyle = "rgba(220,240,180,.32)"; g.lineWidth = 1.4;
+      for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + (i - 4) * 0.62; g.beginPath(); g.moveTo(bx, by); g.quadraticCurveTo(bx + Math.cos(a) * 26, by + Math.sin(a) * 30, bx + Math.cos(a) * 50, by + Math.sin(a) * 54 + 4); g.stroke(); }
+      g.fillStyle = "rgba(230,245,200,.5)"; g.beginPath(); g.arc(bx, by, 3, 0, 7); g.fill();
+    } else {
+      g.strokeStyle = "rgba(225,245,190,.5)"; g.lineWidth = 2.2; g.beginPath(); g.moveTo(64, 108); g.quadraticCurveTo(62, 60, 66, 6); g.stroke();
+      g.lineWidth = 1.1; g.strokeStyle = "rgba(225,245,190,.26)";
+      for (let i = 0; i < 5; i++) { const y = 96 - i * 16; [-1, 1].forEach((k) => { g.beginPath(); g.moveTo(63, y); g.quadraticCurveTo(64 + k * (26 - i * 3), y - 8, 64 + k * (44 - i * 6), y - 30); g.stroke(); }); }
+    }
+    g.restore();
+    g.strokeStyle = "rgba(10,30,5,.2)"; g.lineWidth = 1; g.stroke(P); // liseré du bord
+    g.restore();
+  }
   function leafTexture(kind, c1, c2) {
-    return canvasTex(128, 128, (g, w, h) => {
-      const grad = g.createLinearGradient(0, 0, w, h); grad.addColorStop(0, c1); grad.addColorStop(1, c2);
-      g.fillStyle = grad; g.beginPath();
-      if (kind === "heart") { g.moveTo(64, 124); g.bezierCurveTo(10, 86, 4, 30, 34, 14); g.bezierCurveTo(50, 6, 60, 14, 64, 26); g.bezierCurveTo(68, 14, 78, 6, 94, 14); g.bezierCurveTo(124, 30, 118, 86, 64, 124); }
-      else if (kind === "blade") { g.moveTo(64, 126); g.bezierCurveTo(40, 90, 46, 30, 64, 2); g.bezierCurveTo(82, 30, 88, 90, 64, 126); }
-      else { g.ellipse(64, 66, 58, 56, 0, 0, 7); }
-      g.fill();
-      if (kind === "heart") {
-        // plus clair le long de la nervure, bords plus sombres, quelques stries claires comme un vrai pothos
-        g.save(); g.clip();
-        const rg = g.createRadialGradient(60, 60, 6, 64, 70, 70); rg.addColorStop(0, "rgba(255,255,220,.22)"); rg.addColorStop(0.6, "rgba(0,0,0,0)"); rg.addColorStop(1, "rgba(0,0,0,.35)");
-        g.fillStyle = rg; g.fillRect(0, 0, w, h);
-        if (c1 === "#8fae5a" || c1 === "#5f8f45") for (let i = 0; i < 7; i++) { g.strokeStyle = "rgba(235,225,150,.28)"; g.lineWidth = 2 + (i % 3); g.beginPath(); g.moveTo(64 + (i - 3) * 4, 118); g.quadraticCurveTo(64 + (i - 3) * 14, 70, 64 + (i - 3) * 9, 20); g.stroke(); }
-        g.restore();
-        g.strokeStyle = "rgba(225,245,190,.4)"; g.lineWidth = 2; g.beginPath(); g.moveTo(64, 120); g.quadraticCurveTo(62, 70, 64, 26); g.stroke();
-        g.lineWidth = 1.1; g.strokeStyle = "rgba(225,245,190,.22)";
-        for (let i = 1; i < 5; i++) { const y = 40 + i * 17; [-1, 1].forEach((k) => { g.beginPath(); g.moveTo(64, y); g.quadraticCurveTo(64 + k * 22, y - 4, 64 + k * 38, y - 18); g.stroke(); }); }
-        return;
-      }
-      if (kind === "monstera") { g.globalCompositeOperation = "destination-out"; for (let i = 0; i < 5; i++) { const a = -0.9 + i * 0.45; g.lineWidth = 7; g.beginPath(); g.moveTo(64 + Math.cos(a) * 30, 66 + Math.sin(a) * 30); g.lineTo(64 + Math.cos(a) * 64, 66 + Math.sin(a) * 64); g.stroke(); g.beginPath(); g.moveTo(64 - Math.cos(a) * 30, 66 + Math.sin(a) * 30); g.lineTo(64 - Math.cos(a) * 64, 66 + Math.sin(a) * 64); g.stroke(); } g.globalCompositeOperation = "source-over"; }
-      g.strokeStyle = "rgba(230,255,200,.35)"; g.lineWidth = 2; g.beginPath(); g.moveTo(64, kind === "blade" ? 120 : 118); g.lineTo(64, kind === "blade" ? 10 : 24); g.stroke();
-      if (kind === "blade") { g.strokeStyle = "rgba(220,240,180,.25)"; for (let y = 20; y < 120; y += 14) { g.beginPath(); g.moveTo(52, y); g.lineTo(76, y + 6); g.stroke(); } }
-      else { g.lineWidth = 1.2; for (let i = 1; i < 5; i++) { g.beginPath(); g.moveTo(64, 30 + i * 18); g.lineTo(30, 20 + i * 18); g.moveTo(64, 30 + i * 18); g.lineTo(98, 20 + i * 18); g.stroke(); } }
-    });
+    return canvasTex(128, 128, (g) => drawLeaf(g, kind, c1, c2, 0, 0, c1 === "#8fae5a"));
   }
   const leafMat = (kind, c1, c2) => new T.MeshStandardMaterial({ map: leafTexture(kind, c1, c2), alphaTest: 0.5, side: T.DoubleSide, roughness: 0.6 });
   const LEAVES = {
@@ -267,26 +351,168 @@
     g.fillStyle = sides; g.fillRect(0, 0, w, h);
   }), transparent: true, depthWrite: false });
   const leafPlane = new T.PlaneGeometry(0.1, 0.1); leafPlane.translate(0, 0.05, 0);
-  const pots = ["#b5653f", "#d9d2c4", "#2f2f2f", "#c9a07a", "#7d8f7a"];
+  /* Une seule texture pour les feuilles des pots (4 cases) : toute une plante tient en un seul appel de dessin */
+  const leafAtlas = canvasTex(256, 256, (g) => {
+    drawLeaf(g, "heart", "#4f7f3a", "#2c5424", 0, 0); drawLeaf(g, "heart", "#8fae5a", "#4c7a34", 128, 0, true);
+    drawLeaf(g, "heart", "#3b6a30", "#1f421b", 0, 128); drawLeaf(g, "round", "#6fa84c", "#3d772b", 128, 128);
+  });
+  const ATLAS = [[0, 0.5, 0.5, 0.5], [0.5, 0.5, 0.5, 0.5], [0, 0, 0.5, 0.5], [0.5, 0, 0.5, 0.5]];
+  const stalkUV = (q) => [ATLAS[q][0] + 0.25, ATLAS[q][1] + 0.2, 0.002, 0.002]; // un point vert de la nervure, pour les tiges
+  const plantMat = new T.MeshStandardMaterial({ map: leafAtlas, vertexColors: true, alphaTest: 0.45, alphaToCoverage: true, side: T.DoubleSide, roughness: 0.5 });
+  // feuille un peu creusée le long de la nervure, pointe qui retombe
+  const leafCurve = (() => {
+    const p = new T.PlaneGeometry(0.1, 0.1, 3, 3); p.translate(0, 0.05, 0);
+    const a = p.attributes.position;
+    for (let i = 0; i < a.count; i++) { const x = a.getX(i) / 0.05, y = a.getY(i) / 0.1; a.setZ(i, x * x * 0.011 - y * y * 0.02); }
+    p.computeVertexNormals(); return p;
+  })();
+  const discLeaf = (() => {
+    const p = new T.CircleGeometry(0.05, 16); const a = p.attributes.position;
+    for (let i = 0; i < a.count; i++) { const r = Math.hypot(a.getX(i), a.getY(i)) / 0.05; a.setZ(i, -r * r * 0.008); }
+    p.computeVertexNormals(); return p;
+  })();
+
+  /* ---------- Pots tournés : profil avec lèvre, terre cuite, céramique émaillée, béton ---------- */
+  const POT_SHAPES = {
+    classic: [[0, 0], [0.052, 0], [0.058, 0.003], [0.06, 0.012], [0.068, 0.094], [0.07, 0.099], [0.078, 0.101], [0.08, 0.107], [0.08, 0.126], [0.077, 0.131], [0.072, 0.131], [0.068, 0.125], [0.066, 0.112]],
+    belly: [[0, 0], [0.042, 0], [0.05, 0.005], [0.064, 0.034], [0.074, 0.074], [0.074, 0.104], [0.068, 0.123], [0.069, 0.129], [0.066, 0.132], [0.062, 0.127], [0.06, 0.112]],
+    straight: [[0, 0], [0.06, 0], [0.067, 0.003], [0.07, 0.012], [0.072, 0.124], [0.071, 0.13], [0.067, 0.131], [0.065, 0.124], [0.064, 0.112]],
+    big: [[0, 0], [0.125, 0], [0.132, 0.008], [0.135, 0.02], [0.163, 0.268], [0.166, 0.276], [0.181, 0.28], [0.186, 0.29], [0.186, 0.325], [0.182, 0.333], [0.172, 0.333], [0.166, 0.326], [0.163, 0.3]],
+  };
+  const SOIL = { classic: [0.067, 0.117], belly: [0.061, 0.115], straight: [0.065, 0.117], big: [0.164, 0.31] };
+  const pots = ["terre", "creme", "noir", "beton", "sauge"];
+  const POT_LOOK = { // couleurs haut/bas, rugosité, relief
+    terre: ["#bf6d44", "#9c5232", 0.9, 0.9], creme: ["#ece6d8", "#d8cfbd", 0.32, 0.25], noir: ["#34312e", "#262422", 0.6, 0.3],
+    beton: ["#b0aca4", "#96928a", 0.95, 1.2], sauge: ["#8ea086", "#6c8066", 0.38, 0.25],
+  };
+  const potMats = {};
+  function potMat(kind) {
+    if (potMats[kind]) return potMats[kind];
+    const L = POT_LOOK[kind];
+    const map = canvasTex(256, 128, (g, w, h) => {
+      const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, L[0]); gr.addColorStop(1, L[1]); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+      for (let i = 0; i < 46; i++) { // taches douces
+        const x = rz(i * 3.1 + kind.length) * w, y = rz(i * 5.7) * h, r = 6 + rz(i * 1.3) * 24, rg = g.createRadialGradient(x, y, 0, x, y, r);
+        rg.addColorStop(0, rz(i * 7.7) > 0.5 ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.08)"); rg.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = rg;
+        [0, -w, w].forEach((o) => { g.save(); g.translate(o, 0); g.fillRect(x - r, y - r, 2 * r, 2 * r); g.restore(); }); // raccord sans couture
+      }
+      if (kind === "terre") {
+        for (let y = 0; y < h; y += 3) { g.fillStyle = `rgba(${rz(y) > 0.5 ? "255,230,200" : "60,20,0"},${0.03 + rz(y + 1) * 0.04})`; g.fillRect(0, y, w, 1); } // traces du tour
+        for (let i = 0; i < 30; i++) { const x = rz(i + 40) * w, y = 4 + rz(i + 41) * 40, r = 4 + rz(i + 42) * 14; g.fillStyle = "rgba(240,232,215,.12)"; g.beginPath(); g.ellipse(x, y, r * 1.8, r * 0.6, 0, 0, 7); g.fill(); } // voile calcaire sous la lèvre
+      }
+      if (kind === "beton") for (let i = 0; i < 500; i++) { g.fillStyle = rz(i) > 0.3 ? "rgba(50,48,44,.28)" : "rgba(255,255,255,.2)"; g.fillRect(rz(i + 0.4) * w, rz(i + 0.8) * h, 1, 1 + (i % 2)); }
+      if (kind === "creme" || kind === "sauge" || kind === "noir") {
+        for (let i = 0; i < 380; i++) { g.fillStyle = kind === "noir" ? "rgba(255,240,220,.18)" : "rgba(80,50,30,.4)"; g.fillRect(rz(i + 0.4) * w, rz(i + 0.8) * h, 1, 1); } // mouchetures
+        for (let i = 0; i < 26; i++) { const x = rz(i + 9) * w, l = 10 + rz(i + 3) * 40; g.fillStyle = "rgba(0,0,0,.05)"; g.fillRect(x, h * 0.25, 2 + rz(i) * 3, l); } // coulures d'émail
+      }
+    });
+    return (potMats[kind] = new T.MeshStandardMaterial({ map, roughness: L[2], bumpMap: grainTex, bumpScale: L[3] }));
+  }
+  const soilGeo = (() => { const c = new T.CircleGeometry(1, 22); c.rotateX(-Math.PI / 2); c.attributes.position.setY(0, 0.006); c.computeVertexNormals(); return c; })();
+  const soilMat = new T.MeshStandardMaterial({ roughness: 1, bumpMap: grainTex, bumpScale: 2, map: canvasTex(128, 128, (g, w, h) => {
+    g.fillStyle = "#33241a"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 900; i++) { const v = rz(i); g.fillStyle = v > 0.94 ? "rgba(235,230,220,.8)" : v > 0.6 ? "rgba(90,62,40,.7)" : "rgba(15,10,6,.6)"; g.beginPath(); g.ellipse(rz(i + 0.3) * w, rz(i + 0.6) * h, 0.6 + rz(i + 0.1) * 1.8, 0.5 + rz(i + 0.2) * 1.2, rz(i + 0.5) * 3, 0, 7); g.fill(); }
+  }) });
+  // pose un pot et son terreau ; renvoie la hauteur du terreau
+  function potMesh(parent, kind, shape) {
+    parent.add(new T.Mesh(lathe("pot-" + shape, POT_SHAPES[shape], shape === "big" ? 36 : 28), potMat(kind)));
+    const [r, y] = SOIL[shape], s = new T.Mesh(soilGeo, soilMat); s.position.y = y; s.scale.set(r, 1, r); parent.add(s);
+    return y + 0.004;
+  }
+  /* Pothos en touffe : feuilles de tailles, d'angles et de teintes variés, quelques-unes passent par-dessus le bord */
+  const _rX = new T.Matrix4(), _rY = new T.Matrix4();
+  function pothosParts(parts, y, n, rim, seed, quads) {
+    const base = new T.Vector3(), tip = new T.Vector3();
+    for (let i = 0; i < n; i++) {
+      const r1 = rz(seed + i * 1.37), r2 = rz(seed * 3 + i * 2.11), r3 = rz(seed + i * 4.7), q = quads[i % quads.length];
+      const a = i * 2.39996 + seed + r1 * 0.5, trail = i % 7 === 4;
+      const out = trail ? rim * (1.02 + r2 * 0.1) : rim * (0.1 + 1.05 * Math.sqrt((i + 0.5) / n));
+      const h = trail ? y + 0.006 : y + 0.014 + Math.max(0, 1 - out / rim) * 0.1 * (0.45 + r2 * 0.8);
+      const tilt = trail ? 1.85 + r3 * 0.6 : 0.5 + (out / rim) * 0.8 + r2 * 0.35;
+      const s = (0.8 + r2 * 0.6) * (trail ? 0.9 : 1.05 - 0.2 * (out / rim));
+      const yaw = Math.atan2(-Math.cos(a), -Math.sin(a)) + (r1 - 0.5) * 1.2;
+      tip.set(Math.cos(a) * out, h, Math.sin(a) * out);
+      const young = Math.max(0, 1 - out / rim);
+      // orientation : cap (vers l'extérieur), inclinaison, puis la feuille tourne un peu sur sa nervure pour montrer sa face
+      const m = new T.Matrix4().makeTranslation(tip.x, tip.y, tip.z).multiply(_rY.makeRotationY(yaw)).multiply(_rX.makeRotationX(-tilt))
+        .multiply(_rY.makeRotationY((r3 - 0.5) * 1.6)).multiply(_rX.makeRotationZ((r1 - 0.5) * 0.5)).multiply(_rX.makeScale(s, s * (0.92 + r1 * 0.16), s));
+      parts.push({ geo: leafCurve, m,
+        c: new T.Color(0.78 + r1 * 0.2 + young * 0.12, 0.82 + r2 * 0.16 + young * 0.1, 0.7 + r3 * 0.2), uv: ATLAS[q],
+        vc: (p) => Math.min(1.08, 0.55 + Math.max(0, p.y - y + 0.01) * 9) });
+      // pétiole : du centre du pot à la base de la feuille
+      base.set(Math.cos(a) * out * 0.2, y - 0.003, Math.sin(a) * out * 0.2);
+      parts.push({ geo: unitCyl, m: segM(base, tip, 0.0018), c: "#9db36a", uv: stalkUV(q) });
+    }
+  }
+  /* Sansevieria : lames dressées, un peu creusées et torsadées, avec des bandes */
+  const sansMats = [false, true].map((edge) => new T.MeshStandardMaterial({ vertexColors: true, side: T.DoubleSide, roughness: 0.42, map: canvasTex(64, 256, (g, w, h) => {
+    const gr = g.createLinearGradient(0, 0, w, 0); gr.addColorStop(0, "#2c4a28"); gr.addColorStop(0.5, "#37592f"); gr.addColorStop(1, "#2c4a28");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    // bandes claires irrégulières : épaisseur, écart et ondulation changent d'une bande à l'autre
+    for (let y = 3, i = 0; y < h - 6; y += 6 + rz(i) * 14, i++) {
+      const th = 2 + rz(i + 5) * 6, amp = 1.5 + rz(i + 8) * 3.5, fr = 0.07 + rz(i + 9) * 0.08;
+      g.fillStyle = `rgba(150,178,128,${0.22 + rz(i + 2) * 0.3})`; g.beginPath();
+      for (let x = 0; x <= w; x += 4) { const yy = y + Math.sin(x * fr + i * 1.7) * amp + (vnoise(x * 0.08, i * 3) - 0.5) * 5; x ? g.lineTo(x, yy) : g.moveTo(x, yy); }
+      for (let x = w; x >= 0; x -= 4) { const yy = y + th * (0.4 + vnoise(x * 0.09 + 5, i)) + Math.sin(x * fr + i * 1.7) * amp; g.lineTo(x, yy); }
+      g.fill();
+    }
+    for (let i = 0; i < 120; i++) { g.fillStyle = "rgba(20,40,15,.35)"; g.fillRect(rz(i) * w, rz(i + 0.5) * h, 2 + rz(i + 0.3) * 4, 1); }
+    if (edge) { // liseré jaune (variété « laurentii »)
+      [[0, 1], [w, -1]].forEach(([x0, d]) => { const eg = g.createLinearGradient(x0, 0, x0 + d * 10, 0); eg.addColorStop(0, "#d9c75e"); eg.addColorStop(0.6, "#c9c060"); eg.addColorStop(1, "rgba(201,192,96,0)"); g.fillStyle = eg; g.fillRect(Math.min(x0, x0 + d * 10), 0, 10, h); });
+    }
+    const bt = g.createLinearGradient(0, h - 30, 0, h); bt.addColorStop(0, "rgba(220,210,170,0)"); bt.addColorStop(1, "rgba(200,190,150,.75)"); g.fillStyle = bt; g.fillRect(0, h - 30, w, 30); // pied plus pâle
+    g.fillStyle = "#8a7a4a"; g.fillRect(w / 2 - 2, 0, 4, 3); // pointe sèche
+  }) }));
+  function bladeGeo(L, W, twist, bend) {
+    const N = 10, pos = [], uv = [], idx = [];
+    for (let i = 0; i <= N; i++) {
+      const t = i / N, w = W * (0.62 + 1.25 * t) * Math.pow(1 - t, 0.7) * 0.6, th = twist * t, f = w * 0.3;
+      const cx = 0, cy = L * t, cz = bend * L * t * t, dx = Math.cos(th), dz = Math.sin(th);
+      pos.push(cx - dx * w, cy, cz - dz * w + Math.cos(th) * f, cx, cy, cz, cx + dx * w, cy, cz + dz * w + Math.cos(th) * f);
+      uv.push(0, t, 0.5, t, 1, t);
+      if (i) { const a = (i - 1) * 3; idx.push(a, a + 1, a + 3, a + 1, a + 4, a + 3, a + 1, a + 2, a + 4, a + 2, a + 5, a + 4); }
+    }
+    const geo = new T.BufferGeometry();
+    geo.setAttribute("position", new T.Float32BufferAttribute(pos, 3)); geo.setAttribute("uv", new T.Float32BufferAttribute(uv, 2)); geo.setIndex(idx);
+    geo.computeVertexNormals(); return geo;
+  }
   function plant(parent, x, y, z, s, kind) {
     const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); parent.add(g);
     const seed = Math.round(Math.abs(x * 97 + y * 31 + z * 13) * 10);
-    const potC = pots[seed % pots.length];
-    cyl(0.075, 0.06, 0.13, mat(potC, { roughness: 0.6 }), 0, 0.065, 0, g, 24);
-    cyl(0.068, 0.068, 0.01, mat("#3a2a1c"), 0, 0.125, 0, g, 20);
-    if (kind !== "pothos" && seed % 2) { // sansevieria : longues lames dressées
-      for (let i = 0; i < 9; i++) {
-        const l = new T.Mesh(leafPlane, LEAVES.blade[i % 2]); const a = i * 2.4;
-        l.position.set(Math.cos(a) * 0.03, 0.12, Math.sin(a) * 0.03); l.scale.set(0.55, 2.2 + (i % 3) * 0.5, 1);
-        l.rotation.set(Math.sin(a) * 0.18, a, Math.cos(a) * 0.18); g.add(l);
+    const shape = ["classic", "belly", "straight", "straight", "belly"][seed % 5];
+    const top = potMesh(g, pots[seed % pots.length], shape), rim = SOIL[shape][0];
+    const type = kind === "pothos" ? "pothos" : ["pothos", "sans", "pilea", "sans"][seed % 4];
+    const parts = [];
+    if (type === "sans") { // sansevieria : longues lames dressées
+      const n = 8 + (seed % 3);
+      for (let i = 0; i < n; i++) {
+        const r1 = rz(seed + i * 1.9), r2 = rz(seed + i * 3.3), a = i * 2.4 + seed, rr0 = 0.006 + r1 * 0.026;
+        const L = (0.2 + r2 * 0.14) * (i < 3 ? 1.12 : 0.9), tilt = 0.04 + (rr0 / 0.032) * 0.28;
+        parts.push({ geo: bladeGeo(L, 0.05 + r1 * 0.016, (r2 - 0.5) * 2.2, -0.12 - r1 * 0.2), m: tm(Math.cos(a) * rr0, top - 0.006, Math.sin(a) * rr0, -tilt, Math.atan2(-Math.cos(a), -Math.sin(a)) + (r2 - 0.5) * 1.4, 0, 1, 1, 1, "YXZ"),
+          c: new T.Color(0.85 + r1 * 0.25, 0.9 + r2 * 0.15, 0.85 + r1 * 0.15), vc: (p) => Math.min(1, 0.6 + (p.y - top) * 4) });
       }
-    } else { // pothos en boule, quelques feuilles qui retombent
-      for (let i = 0; i < 26; i++) {
-        const l = new T.Mesh(leafPlane, LEAVES.heart[i % 4]); const a = i * 2.39, r = 0.015 + (i % 5) * 0.016;
-        l.position.set(Math.cos(a) * r, 0.125 + (i % 4) * 0.022, Math.sin(a) * r); l.scale.setScalar(0.85 + (i % 3) * 0.2);
-        l.rotation.set(-0.9 + (i % 4) * 0.35, -a + Math.PI / 2, 0, "YXZ"); g.add(l);
-      }
+      g.add(new T.Mesh(bake(parts), sansMats[seed % 3 === 1 ? 1 : 0]));
+      return g;
     }
+    if (type === "pilea") { // pilea : feuilles rondes au bout de longs pétioles, autour d'une petite tige
+      const trunk = top + 0.08;
+      parts.push({ geo: unitCyl, m: segM(new T.Vector3(0, top - 0.004, 0), new T.Vector3(0.004, trunk, 0.002), 0.0045), c: "#7f9a52", uv: stalkUV(3) });
+      for (let i = 0; i < 15; i++) {
+        const t = i / 14, r1 = rz(seed + i * 2.3), a = i * 2.39996 + seed, hy = top + 0.012 + t * 0.065;
+        const len = 0.1 - t * 0.055 + r1 * 0.02, el = 0.25 + t * 0.7 + r1 * 0.2;
+        const b = new T.Vector3(0.003 * t, hy, 0.002 * t), e = new T.Vector3(Math.cos(a) * len * Math.cos(el), hy + len * Math.sin(el), Math.sin(a) * len * Math.cos(el));
+        const mid = b.clone().lerp(e, 0.5); mid.y += 0.012;
+        parts.push({ geo: unitCyl, m: segM(b, mid, 0.0014), c: "#a6bf72", uv: stalkUV(3) }, { geo: unitCyl, m: segM(mid, e, 0.0013), c: "#a6bf72", uv: stalkUV(3) });
+        const sc = 0.7 + (1 - t) * 0.55 + r1 * 0.25, out = 0.35 + (1 - t) * 0.35;
+        parts.push({ geo: discLeaf, m: tm(e.x, e.y + 0.003, e.z, -Math.PI / 2 + out, Math.atan2(Math.cos(a), Math.sin(a)) , 0, sc, sc, sc, "YXZ"),
+          c: new T.Color(0.85 + r1 * 0.2 + t * 0.1, 0.9 + t * 0.12, 0.8), uv: ATLAS[3] });
+      }
+      g.add(new T.Mesh(bake(parts), plantMat));
+      return g;
+    }
+    // pothos en boule, quelques feuilles qui retombent
+    pothosParts(parts, top, kind === "pothos" ? 36 : 32, rim, seed, seed % 3 ? [0, 2] : [1]);
+    g.add(new T.Mesh(bake(parts), plantMat));
     return g;
   }
   /* Jungle : lianes de pothos (feuilles en cœur) */
@@ -338,9 +564,7 @@
   /* Grande plante posée au sol, à côté du meuble */
   function bigPlant(parent, x, z, s) {
     const g = new T.Group(); g.position.set(x, 0, z); g.scale.setScalar(s || 1); parent.add(g);
-    cyl(0.17, 0.13, 0.32, mat("#b5653f", { roughness: 0.8 }), 0, 0.16, 0, g, 28);
-    cyl(0.18, 0.18, 0.04, mat("#a85b38", { roughness: 0.8 }), 0, 0.31, 0, g, 28);
-    cyl(0.16, 0.16, 0.02, mat("#3a2a1c", { roughness: 1 }), 0, 0.32, 0, g, 24);
+    potMesh(g, x > 0 ? "terre" : "creme", "big"); // pot tourné avec sa lèvre et son terreau
     const stem = new T.MeshStandardMaterial({ color: "#4d6b34", roughness: 0.7 });
     for (let i = 0; i < 13; i++) {
       const a = i * 2.39 + 0.3, h = 0.45 + rr(i + 3) * 0.55, out = 0.12 + rr(i + 7) * 0.32;
@@ -359,29 +583,169 @@
     }
     return g;
   }
+  /* Bougie : cire un peu translucide (elle s'éclaire près de la flamme), bord fondu, coulures, mèche noire, flamme douce */
+  const glowTex = canvasTex(64, 64, (g, w, h) => {
+    const rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    rg.addColorStop(0, "rgba(255,236,190,1)"); rg.addColorStop(0.18, "rgba(255,205,130,.6)"); rg.addColorStop(0.5, "rgba(255,170,80,.16)"); rg.addColorStop(1, "rgba(255,160,60,0)");
+    g.fillStyle = rg; g.fillRect(0, 0, w, h);
+  });
+  const flameMat = new T.SpriteMaterial({ transparent: true, depthWrite: false, blending: T.AdditiveBlending, map: canvasTex(64, 128, (g, w, h) => {
+    const blob = (cy, ry, r, stops) => { g.save(); g.translate(32, cy); g.scale(1, ry); const rg = g.createRadialGradient(0, 0, 0, 0, 0, r); stops.forEach(([k, c]) => rg.addColorStop(k, c)); g.fillStyle = rg; g.beginPath(); g.arc(0, 0, r, 0, 7); g.fill(); g.restore(); };
+    blob(78, 2.6, 18, [[0, "rgba(255,170,70,.9)"], [0.55, "rgba(255,120,30,.35)"], [1, "rgba(255,90,20,0)"]]);  // enveloppe orange
+    blob(92, 2.3, 10, [[0, "rgba(255,252,240,1)"], [0.5, "rgba(255,226,150,.9)"], [1, "rgba(255,200,100,0)"]]); // cœur clair
+    blob(116, 1, 7, [[0, "rgba(110,140,255,.55)"], [1, "rgba(110,140,255,0)"]]);                                  // pied bleuté
+  }) });
+  const haloMat = new T.SpriteMaterial({ map: glowTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, opacity: 0.55 });
+  // guirlande : ampoule en goutte, douille, halo en points
+  const fairyBulb = lathe("ampoule", [[0, -0.024], [0.005, -0.022], [0.0078, -0.016], [0.0072, -0.009], [0.0042, -0.004], [0.0034, 0]], 10);
+  const fairyCap = (() => { const c = new T.CylinderGeometry(0.0034, 0.0036, 0.007, 8); c.translate(0, 0.0035, 0); return c; })();
+  const fairyGlow = new T.PointsMaterial({ map: glowTex, size: 0.17, transparent: true, depthWrite: false, blending: T.AdditiveBlending, color: "#ffc47a" });
+  let waxGeoC = null;
+  function waxGeo() {
+    if (waxGeoC) return waxGeoC;
+    const L = lathe("wax", [[0, 0], [0.034, 0], [0.035, 0.004], [0.035, 0.13], [0.0352, 0.146], [0.0346, 0.153], [0.0322, 0.1575], [0.0292, 0.1565], [0.0255, 0.152], [0.013, 0.149], [0, 0.148]], 28).clone();
+    const p = L.attributes.position;
+    for (let i = 0; i < p.count; i++) { // bord fondu irrégulier
+      const y = p.getY(i); if (y < 0.12) continue;
+      const a = Math.atan2(p.getZ(i), p.getX(i)), k = (y - 0.12) / 0.038;
+      p.setY(i, y - 0.007 * k * (0.5 + 0.5 * Math.sin(a * 2 + 1.2)) - 0.0015 * k * Math.sin(a * 5));
+    }
+    const parts = [{ geo: L }], drip = new T.CapsuleGeometry(0.0032, 0.016, 3, 6);
+    [[0.6, 0.016], [2.3, 0.026], [4.4, 0.012]].forEach(([a, l]) => parts.push({ geo: drip, m: tm(Math.cos(a) * 0.0345, 0.148 - l * 0.6, Math.sin(a) * 0.0345, 0, 0, 0, 1, l / 0.016, 1), uv: [0, 0.8, 1, 0.1] }));
+    return (waxGeoC = bake(parts));
+  }
+  const waxMat = new T.MeshStandardMaterial({ color: "#f4ead8", roughness: 0.5,
+    map: canvasTex(64, 128, (g, w, h) => { g.fillStyle = "#fbf6ec"; g.fillRect(0, 0, w, h); for (let i = 0; i < 40; i++) { g.fillStyle = `rgba(200,180,150,${0.04 + rz(i) * 0.06})`; g.fillRect(rz(i + 1) * w, 0, 1 + rz(i + 2) * 3, h); } }),
+    emissive: "#ff9a40", emissiveIntensity: 0.55,
+    emissiveMap: canvasTex(8, 128, (g, w, h) => { const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#ffd29a"); gr.addColorStop(0.1, "#c8783a"); gr.addColorStop(0.32, "#3a1a08"); gr.addColorStop(0.5, "#000"); gr.addColorStop(1, "#000"); g.fillStyle = gr; g.fillRect(0, 0, w, h); }) });
+  const brassMat = new T.MeshStandardMaterial({ color: "#b8955c", metalness: 0.45, roughness: 0.35, bumpMap: grainTex, bumpScale: 0.3 });
+  const wickGeo = (() => { const c = new T.CylinderGeometry(0.0011, 0.0013, 0.013, 5); c.translate(0, 0.0065, 0); return c; })();
   function candle(parent, x, y, z, s) {
     const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); parent.add(g);
-    cyl(0.06, 0.06, 0.012, mat("#b08d57", { metalness: 0.6, roughness: 0.4 }), 0, 0.006, 0, g);
-    cyl(0.035, 0.035, 0.16, mat("#f3e6cf"), 0, 0.09, 0, g);
-    const f = ball(0.016, new T.MeshBasicMaterial({ color: "#ffcf6a" }), 0, 0.19, 0, g); f.scale.set(1, 1.8, 1);
-    const halo = new T.Mesh(new T.SphereGeometry(0.06, 12, 8), new T.MeshBasicMaterial({ color: "#ffb84a", transparent: true, opacity: 0.18, depthWrite: false }));
-    halo.position.set(0, 0.19, 0); g.add(halo);
+    g.add(new T.Mesh(lathe("bougeoir", [[0, 0], [0.054, 0], [0.061, 0.002], [0.064, 0.009], [0.062, 0.012], [0.057, 0.008], [0.04, 0.006], [0.036, 0.01], [0.034, 0.012], [0, 0.012]], 28), brassMat));
+    const w = new T.Mesh(waxGeo(), waxMat); w.position.y = 0.011; g.add(w);
+    const wick = new T.Mesh(wickGeo, mat("#16110d", { roughness: 0.9 })); wick.position.y = 0.155; wick.rotation.z = 0.2; g.add(wick);
+    const f = new T.Sprite(flameMat); f.center.set(0.5, 0.06); f.position.set(0.001, 0.163, 0); f.scale.set(0.02, 0.05, 1); g.add(f);
+    const halo = new T.Sprite(haloMat); halo.position.set(0, 0.185, 0); halo.scale.set(0.16, 0.16, 1); g.add(halo);
     return g;
+  }
+  /* Cadres : moulure profilée (contour biseauté), passe-partout, image dessinée, verre avec un reflet */
+  const frameGeoCache = new Map();
+  function frameGeo(w, h, b, d) {
+    const key = [w, h, b, d].join();
+    if (frameGeoCache.has(key)) return frameGeoCache.get(key);
+    const bv = Math.min(b * 0.32, d * 0.3), W = w / 2 - bv, H = h / 2 - bv, iw = w / 2 - b + bv, ih = h / 2 - b + bv;
+    const s = new T.Shape(); s.moveTo(-W, -H); s.lineTo(W, -H); s.lineTo(W, H); s.lineTo(-W, H); s.closePath();
+    const hole = new T.Path(); hole.moveTo(-iw, -ih); hole.lineTo(-iw, ih); hole.lineTo(iw, ih); hole.lineTo(iw, -ih); hole.closePath(); s.holes.push(hole);
+    const geo = new T.ExtrudeGeometry(s, { depth: d - 2 * bv, bevelEnabled: true, bevelThickness: bv, bevelSize: bv, bevelSegments: 3, curveSegments: 1 });
+    geo.translate(0, 0, -d / 2 + bv);
+    const uv = geo.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * 3, uv.getY(i) * 3);
+    frameGeoCache.set(key, geo); return geo;
+  }
+  const glassGlare = new T.MeshBasicMaterial({ transparent: true, depthWrite: false, blending: T.AdditiveBlending, opacity: 0.5, map: canvasTex(128, 128, (g, w, h) => {
+    g.fillStyle = "#000"; g.fillRect(0, 0, w, h);
+    [[30, 26, 0.22], [62, 10, 0.12], [86, 6, 0.08]].forEach(([x, bw, a]) => {
+      const gr = g.createLinearGradient(x - bw, 0, x + bw, 0); gr.addColorStop(0, "rgba(255,255,255,0)"); gr.addColorStop(0.5, `rgba(255,250,240,${a})`); gr.addColorStop(1, "rgba(255,255,255,0)");
+      g.save(); g.translate(w / 2, h / 2); g.rotate(-0.55); g.translate(-w / 2, -h / 2); g.fillStyle = gr; g.fillRect(x - bw - 60, -60, bw * 2, h + 120); g.restore();
+    });
+  }) });
+  const FRAME_LOOKS = [ // moulure, passe-partout, image
+    { m: () => mat("#b8913c", { metalness: 0.45, roughness: 0.38 }), mat: "#f2ecdf", pic: "paysage" },
+    { m: () => woodMat("#3b2618"), mat: "#f7f4ee", pic: "botanique" },
+    { m: () => woodMat("#b88a58"), mat: "#efe6d6", pic: "arches" },
+  ];
+  // image du cadre : aquarelle de montagnes, planche botanique ou arches bohèmes
+  function drawPicture(g, kind, x, y, w, h) {
+    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip(); g.translate(x, y);
+    if (kind === "paysage") {
+      const sky = g.createLinearGradient(0, 0, 0, h * 0.6); sky.addColorStop(0, "#bcd3dc"); sky.addColorStop(1, "#f1dcc0"); g.fillStyle = sky; g.fillRect(0, 0, w, h);
+      g.fillStyle = "rgba(255,240,205,.9)"; g.beginPath(); g.arc(w * 0.7, h * 0.24, w * 0.08, 0, 7); g.fill();
+      [["#9fb0bb", 0.42, 0.12], ["#7f978f", 0.5, 0.1], ["#5d7a5e", 0.6, 0.08], ["#3f5d43", 0.72, 0.06]].forEach(([c, b, amp], k) => {
+        g.fillStyle = c; g.beginPath(); g.moveTo(0, h);
+        for (let i = 0; i <= 24; i++) { const xx = (i / 24) * w; g.lineTo(xx, h * (b - amp * Math.abs(Math.sin(i * 0.7 + k * 2.1)) - amp * 0.5 * vnoise(i * 0.8, k * 3))); }
+        g.lineTo(w, h); g.fill();
+      });
+      g.fillStyle = "rgba(190,210,215,.85)"; g.fillRect(0, h * 0.78, w, h * 0.08); // lac
+      g.fillStyle = "rgba(255,255,255,.25)"; for (let i = 0; i < 6; i++) g.fillRect(w * rz(i), h * (0.79 + rz(i + 1) * 0.06), w * 0.15, 1);
+      g.fillStyle = "#4e6a3c"; g.fillRect(0, h * 0.86, w, h);
+      g.fillStyle = "#233a28";
+      for (let i = 0; i < 7; i++) { const tx = w * (0.05 + i * 0.07 + rz(i) * 0.03), th = h * (0.1 + rz(i + 4) * 0.08), ty = h * 0.88; g.beginPath(); g.moveTo(tx, ty - th); g.lineTo(tx + th * 0.22, ty); g.lineTo(tx - th * 0.22, ty); g.fill(); }
+    } else if (kind === "botanique") {
+      g.fillStyle = "#f3ecdc"; g.fillRect(0, 0, w, h);
+      g.strokeStyle = "#6e7f55"; g.lineWidth = 1.3; g.beginPath(); g.moveTo(w * 0.5, h * 0.82); g.quadraticCurveTo(w * 0.42, h * 0.5, w * 0.56, h * 0.1); g.stroke();
+      for (let i = 0; i < 11; i++) {
+        const t = 0.15 + i * 0.065, px = w * (0.5 - 0.08 * Math.sin(t * 3) + (i % 2 ? 0.01 : -0.01)), py = h * (0.82 - t * 0.85), sd = i % 2 ? 1 : -1, L = w * (0.2 - i * 0.012);
+        g.fillStyle = i % 3 ? "#7f9466" : "#6a8258"; g.save(); g.translate(px, py); g.rotate(sd * (0.9 - i * 0.03)); g.beginPath(); g.ellipse(0, -L / 2, L * 0.22, L / 2, 0, 0, 7); g.fill();
+        g.strokeStyle = "rgba(240,240,220,.5)"; g.lineWidth = 0.6; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, -L * 0.9); g.stroke(); g.restore();
+      }
+      g.fillStyle = "rgba(90,80,60,.6)"; g.fillRect(w * 0.3, h * 0.88, w * 0.4, 1.5); g.fillRect(w * 0.36, h * 0.92, w * 0.28, 1);
+    } else {
+      g.fillStyle = "#efe2cf"; g.fillRect(0, 0, w, h);
+      [["#c47a52", 0.36], ["#e0b387", 0.28], ["#a95a3c", 0.2], ["#efe2cf", 0.12]].forEach(([c, r]) => { g.fillStyle = c; g.beginPath(); g.moveTo(w * (0.5 - r), h * 0.86); g.arc(w * 0.5, h * 0.55, w * r, Math.PI, 0); g.lineTo(w * (0.5 + r), h * 0.86); g.fill(); });
+      g.fillStyle = "#d89a5a"; g.beginPath(); g.arc(w * 0.74, h * 0.2, w * 0.08, 0, 7); g.fill();
+      g.fillStyle = "#7d8a66"; g.fillRect(0, h * 0.86, w, h);
+    }
+    for (let i = 0; i < 500; i++) { g.fillStyle = i % 2 ? "rgba(255,255,255,.06)" : "rgba(60,40,20,.05)"; g.fillRect(rz(i + 3) * w, rz(i + 8) * h, 1, 1); } // grain du papier
+    g.restore();
   }
   function frame(parent, x, y, z) {
     const g = new T.Group(); g.position.set(x, y, z); parent.add(g);
-    box(0.2, 0.26, 0.02, mat("#c9a227", { metalness: 0.5, roughness: 0.4 }), 0, 0.13, 0, g);
-    const pic = canvasTex(64, 84, (c, w, h) => { c.fillStyle = "#9fc3d6"; c.fillRect(0, 0, w, h); c.fillStyle = "#ffe6a0"; c.beginPath(); c.arc(44, 20, 7, 0, 7); c.fill(); c.fillStyle = "#5f8a5a"; c.beginPath(); c.moveTo(0, h); c.lineTo(22, 46); c.lineTo(36, 62); c.lineTo(46, 52); c.lineTo(64, h); c.fill(); });
-    box(0.16, 0.22, 0.004, new T.MeshStandardMaterial({ map: pic, roughness: 0.6 }), 0, 0.13, 0.012, g);
+    const look = FRAME_LOOKS[Math.round(Math.abs(x * 13 + y * 7 + z * 3) * 10) % FRAME_LOOKS.length];
+    const fm = look.m();
+    // moulure et béquille à l'arrière, en une seule géométrie
+    g.add(new T.Mesh(bake([{ geo: frameGeo(0.2, 0.26, 0.026, 0.022), m: tm(0, 0.13, 0) }, { geo: unitBox, m: tm(0, 0.1, -0.045, 0.32, 0, 0, 0.03, 0.2, 0.006) }]), fm));
+    const key = "cadre" + look.pic;
+    if (!frameGeoCache.has(key)) frameGeoCache.set(key, canvasTex(160, 208, (c, w, h) => {
+      c.fillStyle = look.mat; c.fillRect(0, 0, w, h);
+      for (let i = 0; i < 300; i++) { c.fillStyle = "rgba(120,100,70,.05)"; c.fillRect(rz(i) * w, rz(i + 1) * h, 2, 2); }
+      const m = 22; drawPicture(c, look.pic, m, m, w - 2 * m, h - 2 * m - 6);
+      c.strokeStyle = "rgba(255,255,255,.9)"; c.lineWidth = 2; c.strokeRect(m - 1, m - 1, w - 2 * m + 2, h - 2 * m - 4); // biseau du passe-partout
+      c.strokeStyle = "rgba(0,0,0,.18)"; c.lineWidth = 1; c.strokeRect(m, m, w - 2 * m, h - 2 * m - 6);
+    }));
+    const pic = new T.Mesh(new T.PlaneGeometry(0.16, 0.22), new T.MeshStandardMaterial({ map: frameGeoCache.get(key), roughness: 0.85 }));
+    pic.position.set(0, 0.13, 0.0); g.add(pic);
+    const glass = new T.Mesh(pic.geometry, glassGlare); glass.position.set(0, 0.13, 0.004); g.add(glass);
     g.rotation.x = -0.12;
     return g;
   }
+  /* Pile de livres : tranche tournée vers nous avec titre et filets, pages visibles sur les côtés, couverture toilée */
+  const stackMats = new Map();
+  function stackBookMats(c, i) {
+    const key = c + i;
+    if (stackMats.has(key)) return stackMats.get(key);
+    const ink = ["#e9d9a6", "#e9d9a6", "#3a2a14"][i % 3];
+    const titles = ["Herbier", "Poèmes", "Jardins"];
+    const spine = canvasTex(256, 48, (g, w, h) => {
+      g.fillStyle = c; g.fillRect(0, 0, w, h);
+      const sh = g.createLinearGradient(0, 0, 0, h); sh.addColorStop(0, "rgba(0,0,0,.35)"); sh.addColorStop(0.3, "rgba(255,255,255,.1)"); sh.addColorStop(0.55, "rgba(255,255,255,.04)"); sh.addColorStop(1, "rgba(0,0,0,.4)");
+      g.fillStyle = sh; g.fillRect(0, 0, w, h);
+      for (let k = 0; k < 400; k++) { g.fillStyle = k % 2 ? "rgba(255,255,255,.05)" : "rgba(0,0,0,.07)"; g.fillRect(rz(k + i) * w, rz(k + 2) * h, 2, 1); }
+      g.fillStyle = ink; g.globalAlpha = 0.7; [18, 24, w - 26, w - 20].forEach((x) => g.fillRect(x, 4, 2, h - 8)); g.globalAlpha = 1;
+      g.font = "italic bold 22px Georgia, serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(titles[i % 3], w / 2, h / 2 + 1);
+    });
+    const pages = canvasTex(128, 32, (g, w, h) => {
+      g.fillStyle = "#efe4cc"; g.fillRect(0, 0, w, h);
+      for (let y = 4; y < h - 4; y += 1) { g.fillStyle = `rgba(120,90,50,${0.05 + rz(y + i) * 0.1})`; g.fillRect(0, y, w, 0.6); }
+      g.fillStyle = c; g.fillRect(0, 0, w, 4); g.fillRect(0, h - 4, w, 4); // les plats dépassent un peu
+      g.fillStyle = "rgba(0,0,0,.25)"; g.fillRect(0, 4, w, 1); g.fillRect(0, h - 5, w, 1);
+    });
+    const cloth = canvasTex(128, 128, (g, w, h) => {
+      g.fillStyle = c; g.fillRect(0, 0, w, h);
+      for (let y = 0; y < h; y += 2) { g.fillStyle = "rgba(255,255,255,.04)"; g.fillRect(0, y, w, 1); }
+      for (let x = 0; x < w; x += 2) { g.fillStyle = "rgba(0,0,0,.05)"; g.fillRect(x, 0, 1, h); }
+      g.strokeStyle = "rgba(0,0,0,.2)"; g.lineWidth = 2; g.strokeRect(10, 10, w - 20, h - 20);
+    });
+    const P = new T.MeshStandardMaterial({ map: pages, roughness: 0.95 }), C = new T.MeshStandardMaterial({ map: cloth, roughness: 0.8 });
+    const r = [P, P, C, C, new T.MeshStandardMaterial({ map: spine, roughness: 0.7 }), P];
+    stackMats.set(key, r); return r;
+  }
   function bookStack(parent, x, y, z) {
     const g = new T.Group(); g.position.set(x, y, z); parent.add(g);
-    [["#7b2d26", 0.26], ["#1f3a5f", 0.23], ["#c9a227", 0.25]].forEach(([c, w], i) => {
-      const m = box(w, 0.045, 0.17, [mat(c), mat(c), mat(c), mat(c), pagesMat, mat(c)], (i - 1) * 0.01, 0.0225 + i * 0.045, 0, g);
+    [["#7b2d26", 0.26, 0.045], ["#1f3a5f", 0.23, 0.04], ["#c9a227", 0.25, 0.05]].reduce((yy, [c, w, h], i) => {
+      const m = box(w, h, 0.17, stackBookMats(c, i), (i - 1) * 0.01, yy + h / 2, 0, g);
       m.rotation.y = (i - 1) * 0.12;
-    });
+      return yy + h;
+    }, 0);
     return g;
   }
   function armchair(parent, color, x, z, ry, plaid) {
@@ -416,133 +780,287 @@
     return g;
   }
   function fairyLights(parent, w, y, z) {
+    // fil souple, petites ampoules en goutte sous leur douille, halo doux (un seul appel pour tous les halos)
     const g = new T.Group(); parent.add(g);
-    const bulb = new T.MeshBasicMaterial({ color: "#ffd27a" });
-    const halo = new T.MeshBasicMaterial({ color: "#ffb84a", transparent: true, opacity: 0.25, depthWrite: false });
-    const n = 15;
+    const n = 18, at = (t) => new T.Vector3(-w / 2 + t * w, y - Math.sin(t * Math.PI * 3) ** 2 * 0.12, z + Math.sin(t * 11) * 0.008);
+    const pts = []; for (let i = 0; i <= 90; i++) pts.push(at(i / 90));
+    g.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 180, 0.0017, 4), mat("#2f2b22", { roughness: 0.55 })));
+    const bulbs = new T.InstancedMesh(fairyBulb, new T.MeshBasicMaterial({ color: "#ffe2a8" }), n + 1);
+    const caps = new T.InstancedMesh(fairyCap, mat("#3a352a", { roughness: 0.5, metalness: 0.3 }), n + 1);
+    const glow = [];
     for (let i = 0; i <= n; i++) {
-      const t = i / n, x = -w / 2 + t * w, yy = y - Math.sin(t * Math.PI * 3) ** 2 * 0.12;
-      ball(0.018, bulb, x, yy, z, g); ball(0.04, halo, x, yy, z, g);
+      const p = at(i / n), m = tm(p.x, p.y - 0.004, p.z, (rz(i) - 0.5) * 0.5, 0, (rz(i + 1) - 0.5) * 0.6);
+      bulbs.setMatrixAt(i, m); caps.setMatrixAt(i, m);
+      const b = new T.Vector3(0, -0.014, 0).applyMatrix4(m); glow.push(b.x, b.y, b.z);
     }
+    g.add(bulbs, caps);
+    const gg = new T.BufferGeometry(); gg.setAttribute("position", new T.Float32BufferAttribute(glow, 3));
+    g.add(new T.Points(gg, fairyGlow));
     const l = new T.PointLight("#ffbf70", 1.2, 3, 1.5); l.position.set(0, y - 0.1, z + 0.2); g.add(l);
     return g;
   }
 
   /* ---------- Déco des photos de Julie : suspensions, fleurs séchées, champignons, lapin, lanterne, mousse ---------- */
   function rod(a, b, r, m, parent) {
-    const d = new T.Vector3().subVectors(b, a), len = d.length();
-    const o = new T.Mesh(new T.CylinderGeometry(r, r, len, 5), m);
-    o.position.copy(a).addScaledVector(d, 0.5); o.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), d.normalize()); parent.add(o); return o;
+    const o = new T.Mesh(unitCyl, m); o.applyMatrix4(segM(a, b, r)); parent.add(o); return o;
   }
-  const weave = canvasTex(64, 64, (g, w, h) => {
-    g.fillStyle = "#b8925e"; g.fillRect(0, 0, w, h);
-    for (let y = 0; y < h; y += 8) for (let x = (y / 8) % 2 ? 0 : 8; x < w; x += 16) { g.fillStyle = "rgba(255,240,200,.25)"; g.fillRect(x, y + 1, 8, 6); g.fillStyle = "rgba(60,35,10,.3)"; g.fillRect(x + 8, y, 1, 8); }
-  }, [4, 2]);
-  function leafBall(g, y, n, r0) {
-    for (let i = 0; i < n; i++) {
-      const l = new T.Mesh(leafPlane, LEAVES.heart[i % 4]); const a = i * 2.39, r = r0 + (i % 5) * 0.018;
-      l.position.set(Math.cos(a) * r, y + (i % 4) * 0.02, Math.sin(a) * r); l.scale.setScalar(0.9 + (i % 3) * 0.2);
-      l.rotation.set(-0.9 + (i % 4) * 0.35, -a + Math.PI / 2, 0, "YXZ"); g.add(l);
+  /* Vannerie : brins horizontaux arrondis, montants qui passent devant un rang sur deux */
+  const weave = canvasTex(128, 64, (g, w, h) => {
+    g.fillStyle = "#4e331a"; g.fillRect(0, 0, w, h);
+    const rows = 8, rh = h / rows, cols = 8, cw = w / cols;
+    for (let r = 0; r < rows; r++) {
+      const tone = ["#c49a62", "#b68a53", "#cfa66e", "#ab804a"][r % 4], y = r * rh;
+      const gr = g.createLinearGradient(0, y, 0, y + rh); gr.addColorStop(0, "#5a3a1c"); gr.addColorStop(0.2, tone); gr.addColorStop(0.45, shade(tone, 0.1)); gr.addColorStop(0.8, tone); gr.addColorStop(1, "#5a3a1c");
+      g.fillStyle = gr; g.fillRect(0, y + 0.5, w, rh - 1);
     }
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) if ((r + c) % 2) {
+      const x = c * cw + cw * 0.28, gr = g.createLinearGradient(x, 0, x + cw * 0.44, 0);
+      gr.addColorStop(0, "#6e4b28"); gr.addColorStop(0.5, "#b48a55"); gr.addColorStop(1, "#6e4b28");
+      g.fillStyle = gr; g.fillRect(x, r * rh - 1, cw * 0.44, rh + 2);
+    }
+    for (let i = 0; i < 260; i++) { g.fillStyle = i % 2 ? "rgba(255,235,190,.12)" : "rgba(50,30,10,.12)"; g.fillRect(rz(i) * w, rz(i + 0.5) * h, 3 + rz(i + 0.2) * 6, 0.7); } // fibres
+  }, [7, 4]);
+  const basketMat = new T.MeshStandardMaterial({ map: weave, bumpMap: weave, bumpScale: 1.5, roughness: 0.92 });
+  // corde de coton torsadée (rayures en biais)
+  const ropeTex = canvasTex(32, 32, (g, w, h) => {
+    g.fillStyle = "#eadfc8"; g.fillRect(0, 0, w, h);
+    for (let k = -2; k < 4; k++) { g.save(); g.translate(k * 16, 0); g.transform(1, 0, -0.9, 1, 0, 0);
+      const gr = g.createLinearGradient(0, 0, 16, 0); gr.addColorStop(0, "rgba(120,100,70,.55)"); gr.addColorStop(0.3, "rgba(255,255,250,.25)"); gr.addColorStop(0.75, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(120,100,70,.5)");
+      g.fillStyle = gr; g.fillRect(0, 0, 16, h * 2); g.restore(); }
+  }, [1, 1]);
+  const ropeMat = new T.MeshStandardMaterial({ map: ropeTex, bumpMap: ropeTex, bumpScale: 1, roughness: 1 });
+  function leafBall(g, y, n, r0) {
+    const parts = [];
+    pothosParts(parts, y, n + 6, 0.11 + r0, 7 + n, [0, 2]);
+    g.add(new T.Mesh(bake(parts), plantMat));
   }
   /* Suspension en macramé avec un pothos qui retombe, accrochée au plafond */
+  const BASKET = [[0, -0.12], [0.05, -0.117], [0.09, -0.1], [0.118, -0.072], [0.132, -0.035], [0.137, 0], [0.137, 0.01], [0.13, 0.012], [0.127, 0.002], [0.124, -0.012]];
   function hangingBasket(parent, x, y, z) {
     const g = new T.Group(); g.position.set(x, y, z); parent.add(g);
-    const bowl = new T.Mesh(new T.SphereGeometry(0.13, 20, 10, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new T.MeshStandardMaterial({ map: weave, roughness: 1, side: T.DoubleSide }));
-    g.add(bowl);
-    const rim = new T.Mesh(new T.TorusGeometry(0.13, 0.012, 6, 24), mat("#a07a48", { roughness: 1 })); rim.rotation.x = Math.PI / 2; g.add(rim);
-    cyl(0.12, 0.12, 0.01, mat("#3a2a1c"), 0, -0.01, 0, g, 18);
-    const rope = mat("#e6d6b8", { roughness: 1 }), knot = new T.Vector3(0, 0.55, 0);
-    for (let i = 0; i < 4; i++) { const a = i * QUARTER + 0.4; rod(new T.Vector3(Math.cos(a) * 0.13, -0.02, Math.sin(a) * 0.13), knot, 0.004, rope, g); }
-    rod(knot, new T.Vector3(0, 3.6 - y, 0), 0.005, rope, g);
-    ball(0.018, rope, 0, 0.55, 0, g);
+    g.add(new T.Mesh(lathe("panier", BASKET, 36), basketMat));
+    const soil = new T.Mesh(soilGeo, soilMat); soil.position.y = -0.008; soil.scale.set(0.124, 1, 0.124); g.add(soil);
+    // cordes : 4 paires partent du nœud du haut, se nouent, se croisent en losange, enveloppent le panier et finissent en pompon
+    const P = (a, r, yy) => new T.Vector3(Math.cos(a) * r, yy, Math.sin(a) * r);
+    const parts = [], tube = (pts, r) => {
+      const c = new T.CatmullRomCurve3(pts), l = c.getLength();
+      parts.push({ geo: new T.TubeGeometry(c, Math.max(8, Math.round(l * 45)), r, 4), uv: [0, 0, l / 0.012, 1] });
+    };
+    const knot = (p, sx, sy) => parts.push({ geo: unitBall, m: tm(p.x, p.y, p.z, 0, 0, 0, sx, sy, sx), uv: [0, 0, 2, 2] });
+    for (let i = 0; i < 4; i++) {
+      const a = i * QUARTER + 0.4;
+      knot(P(a, 0.05, 0.36), 0.0075, 0.018);
+      knot(P(a + QUARTER / 2, 0.122, 0.175), 0.0072, 0.015);
+      for (const sd of [-1, 1]) {
+        const a2 = a + sd * QUARTER / 2, ar = a2 - sd * 0.16;
+        tube([P(a + sd * 0.4, 0.008, 0.515), P(a + sd * 0.08, 0.05, 0.36), P(a2 - sd * 0.06, 0.12, 0.175), P(ar, 0.142, 0.012), P(ar, 0.137, -0.04), P(ar + sd * 0.05, 0.11, -0.09), P(ar + sd * 0.1, 0.064, -0.122), P(a, 0.012, -0.136)], 0.0026);
+      }
+    }
+    // nœud du haut, cordon jusqu'au plafond, nœud du bas et pompon
+    parts.push({ geo: unitCyl, m: segM(new T.Vector3(0, 0.5, 0), new T.Vector3(0, 0.565, 0), 0.009), uv: [0, 0, 3, 5] });
+    knot(new T.Vector3(0, 0.567, 0), 0.0095, 0.006);
+    parts.push({ geo: unitCyl, m: segM(new T.Vector3(0, 0.56, 0), new T.Vector3(0, 3.6 - y, 0), 0.0045), uv: [0, 0, 1, (3.6 - y) / 0.012] });
+    parts.push({ geo: unitCyl, m: segM(new T.Vector3(0, -0.13, 0), new T.Vector3(0, -0.17, 0), 0.011), uv: [0, 0, 3, 4] });
+    knot(new T.Vector3(0, -0.13, 0), 0.011, 0.006);
+    for (let i = 0; i < 14; i++) {
+      const a = i * 2.4, l = 0.13 + rz(i + 3) * 0.05;
+      parts.push({ geo: unitCyl, m: segM(P(a, 0.006, -0.165), P(a + 0.3, 0.014 + rz(i) * 0.014, -0.165 - l), 0.0019), uv: [0, 0, 1, l / 0.012] });
+    }
+    // tresse du bord du panier
+    parts.push({ geo: new T.TorusGeometry(0.135, 0.0075, 6, 56), m: tm(0, 0.011, 0, Math.PI / 2), uv: [0, 0, 60, 1] });
+    g.add(new T.Mesh(bake(parts), ropeMat));
     leafBall(g, 0.01, 24, 0.02);
     vines(g, [[-0.09, 0.02, 0.06, 0.55, 1], [0.08, 0.02, 0.02, 0.8, 2], [0.0, 0.02, 0.1, 0.4, 3], [-0.03, 0.02, -0.08, 0.6, 4]]);
     return g;
   }
-  /* Cadre avec des fleurs séchées pressées */
-  const FLOWER_COLORS = ["#c98f8a", "#d6b36a", "#9c8ab8", "#e3d2b5", "#b06d5a", "#8fa07a"];
+  /* Cadre avec des fleurs séchées pressées : lavande, fougère ou bouquet champêtre, sur papier épais */
   function driedTex(seed) {
-    return canvasTex(128, 160, (g, w, h) => {
+    return canvasTex(192, 240, (g, w, h) => {
       g.fillStyle = "#f2eadb"; g.fillRect(0, 0, w, h);
-      for (let i = 0; i < 300; i++) { g.fillStyle = "rgba(120,90,50,.04)"; g.fillRect((i * 37.3) % w, (i * 71.1) % h, 2, 2); }
-      const n = 3 + (seed % 2);
-      for (let k = 0; k < n; k++) {
-        const bx = w / 2 + (k - (n - 1) / 2) * 16, top = 30 + ((k * 23 + seed * 7) % 30), c = FLOWER_COLORS[(k + seed) % FLOWER_COLORS.length];
-        g.strokeStyle = "#7d8460"; g.lineWidth = 1.6; g.beginPath(); g.moveTo(w / 2, h - 24); g.quadraticCurveTo(bx, h - 70, bx + (k - 1) * 6, top); g.stroke();
-        for (let j = 0; j < 9; j++) { g.fillStyle = c; g.globalAlpha = 0.85; g.beginPath(); g.ellipse(bx + (k - 1) * 6 + Math.sin(j * 2.1) * 7, top + j * 4 - 6, 3.2, 2.2, j, 0, 7); g.fill(); }
-        g.globalAlpha = 1; g.fillStyle = "#8a9468";
-        for (let j = 0; j < 3; j++) { g.beginPath(); g.ellipse(bx + (j % 2 ? 6 : -6), h - 60 - j * 14, 5, 2, j % 2 ? -0.6 : 0.6, 0, 7); g.fill(); }
-      }
-      g.strokeStyle = "#c9b48c"; g.lineWidth = 2; g.beginPath(); g.moveTo(w / 2 - 8, h - 26); g.lineTo(w / 2 + 8, h - 22); g.stroke();
+      for (let i = 0; i < 900; i++) { g.fillStyle = i % 3 ? "rgba(120,90,50,.035)" : "rgba(255,255,255,.08)"; g.fillRect(rz(i + seed) * w, rz(i * 1.3 + seed) * h, 2, 2); }
+      const R = (i) => rz(seed * 31 + i), tx = w / 2, ty = h * 0.8;
+      const stem = (x0, y0, x1, y1, bend, lw) => { g.lineWidth = lw; g.beginPath(); g.moveTo(x0, y0); g.quadraticCurveTo((x0 + x1) / 2 + bend, (y0 + y1) / 2, x1, y1); g.stroke(); };
+      const dot = (x, y, rx, ry, a) => { g.beginPath(); g.ellipse(x, y, rx, ry, a, 0, 7); g.fill(); };
+      const art = (sh) => { // sh : ombre portée douce du brin pressé
+        const C = (c) => (sh ? "rgba(60,40,20,.12)" : c);
+        g.save(); if (sh) g.translate(1.5, 2);
+        if (seed % 3 === 1) { // lavande en botte
+          for (let k = 0; k < 7; k++) {
+            const ex = tx + (k - 3) * 13 + (R(k) - 0.5) * 8, ey = h * (0.12 + R(k + 9) * 0.12);
+            g.strokeStyle = C("#7d8a5c"); stem(tx + (k - 3) * 1.5, ty + 18, ex, ey, (k - 3) * 4, 1.4);
+            for (let j = 0; j < 14; j++) { const t = j / 13, px = ex + (tx - ex) * t * 0.35, py = ey + (ty - ey) * t * 0.35; g.fillStyle = C(j % 2 ? "#8b75b4" : "#6d5a9a"); dot(px + (j % 2 ? 2.5 : -2.5), py, 2.6 - t, 3.4 - t, (j % 2 ? 0.5 : -0.5)); }
+          }
+          g.strokeStyle = C("#b8955c"); g.lineWidth = 2; stem(tx - 12, ty, tx + 12, ty + 3, 0, 2); stem(tx, ty + 1, tx - 14, ty + 14, 6, 1.2); stem(tx, ty + 1, tx + 12, ty + 16, -4, 1.2);
+        } else if (seed % 3 === 2) { // fougère et petites fleurs roses
+          g.strokeStyle = C("#76804e"); stem(tx + 6, h * 0.9, tx - 4, h * 0.1, -14, 1.8);
+          for (let j = 0; j < 16; j++) {
+            const t = 0.08 + j * 0.055, px = tx + 6 - 10 * t - 14 * Math.sin(t * Math.PI) * 0.5, py = h * (0.9 - t * 0.8), L = (1 - t) * 44 + 8;
+            [-1, 1].forEach((sd) => { for (let q = 1; q < 7; q++) { g.fillStyle = C(q % 2 ? "#8a9461" : "#7b8656"); const d = (q / 7) * L; dot(px + sd * d, py - d * 0.25, 3.4 - q * 0.3, 1.8, sd * 0.3); } });
+          }
+          for (let k = 0; k < 4; k++) { const px = w * (0.22 + R(k) * 0.12), py = h * (0.3 + k * 0.14); g.strokeStyle = C("#8a8c60"); stem(px, py, px + 10, py + 30, 3, 1); for (let p = 0; p < 5; p++) { g.fillStyle = C("#d9a3a0"); dot(px + Math.cos(p * 1.26) * 3.5, py + Math.sin(p * 1.26) * 3.5, 3, 2, p * 1.26); } g.fillStyle = C("#c99a4a"); dot(px, py, 1.6, 1.6, 0); }
+        } else { // bouquet champêtre : marguerites, graminées, gypsophile
+          for (let k = 0; k < 9; k++) {
+            const ex = tx + (k - 4) * 15 + (R(k) - 0.5) * 10, ey = h * (0.12 + R(k + 3) * 0.25);
+            g.strokeStyle = C(k % 3 ? "#8a915e" : "#a69a62"); stem(tx + (k - 4), ty + 20, ex, ey, (k - 4) * 5, 1.2);
+            if (k % 3 === 0) { for (let p = 0; p < 11; p++) { g.fillStyle = C("#fbf6ea"); dot(ex + Math.cos(p * 0.57) * 6, ey + Math.sin(p * 0.57) * 6, 4.2, 1.6, p * 0.57); } g.fillStyle = C("#d9a83a"); dot(ex, ey, 3, 3, 0); }
+            else if (k % 3 === 1) { for (let j = 0; j < 9; j++) { g.fillStyle = C("#c9a868"); dot(ex + (j % 2 ? 2 : -2), ey + j * 3.5, 1.8, 3, j % 2 ? 0.5 : -0.5); } }
+            else { g.fillStyle = C("#f6f1e6"); for (let j = 0; j < 14; j++) dot(ex + (R(j + k) - 0.5) * 18, ey + (R(j + k * 2) - 0.5) * 14, 1.6, 1.6, 0); }
+          }
+          g.strokeStyle = C("#c0a06a"); stem(tx - 14, ty + 4, tx + 14, ty + 6, 0, 2.2);
+        }
+        g.restore();
+      };
+      art(true); art(false);
+      // petite étiquette écrite à la main
+      g.fillStyle = "rgba(90,70,45,.55)"; g.font = "italic 11px Georgia, serif"; g.textAlign = "center";
+      g.fillText(["Prairie, juin", "Lavandula", "Fougère"][seed % 3], w / 2, h * 0.95);
     });
   }
   function driedFrame(parent, x, y, z, seed) {
     const g = new T.Group(); g.position.set(x, y, z); parent.add(g);
-    const fr = woodMat("#b88a58");
-    box(0.26, 0.025, 0.025, fr, 0, 0.155, 0, g); box(0.26, 0.025, 0.025, fr, 0, -0.155, 0, g);
-    box(0.025, 0.335, 0.025, fr, -0.1175, 0, 0, g); box(0.025, 0.335, 0.025, fr, 0.1175, 0, 0, g);
-    box(0.21, 0.285, 0.004, new T.MeshStandardMaterial({ map: driedTex(seed), roughness: 0.9 }), 0, 0, -0.004, g);
+    g.add(new T.Mesh(frameGeo(0.26, 0.335, 0.025, 0.025), woodMat("#b88a58")));
+    const pic = new T.Mesh(new T.PlaneGeometry(0.22, 0.295), new T.MeshStandardMaterial({ map: driedTex(seed), roughness: 0.9 }));
+    pic.position.z = -0.004; g.add(pic);
+    const glass = new T.Mesh(pic.geometry, glassGlare); glass.position.z = 0.003; g.add(glass);
     return g;
   }
-  /* Champignons (amanites rouges à pois blancs et petits bruns) */
-  const capRed = new T.MeshStandardMaterial({ roughness: 0.5, map: canvasTex(64, 32, (g, w, h) => {
-    g.fillStyle = "#b8322a"; g.fillRect(0, 0, w, h); g.fillStyle = "#f6efe0";
-    for (let i = 0; i < 14; i++) { g.beginPath(); g.arc((i * 23) % w, 4 + ((i * 7) % 20), 1.6 + (i % 3) * 0.6, 0, 7); g.fill(); }
+  /* Champignons : amanites rouges à pois blancs (lamelles dessous, anneau sur le pied) et un cèpe brun */
+  const capRed = new T.MeshStandardMaterial({ roughness: 0.4, map: canvasTex(128, 64, (g, w, h) => {
+    const gv = Math.round(h * 0.37), top = h - gv;
+    const gr = g.createLinearGradient(0, 0, 0, top); gr.addColorStop(0, "#8a1d16"); gr.addColorStop(0.55, "#bf3327"); gr.addColorStop(1, "#dc5a2c");
+    g.fillStyle = gr; g.fillRect(0, 0, w, top);
+    g.fillStyle = "#efe4cc"; g.fillRect(0, top, w, gv);
+    for (let x = 0; x < w; x += 2) { g.fillStyle = "rgba(140,110,70,.4)"; g.fillRect(x, top, 1, gv); } // lamelles
+    const eg = g.createLinearGradient(0, top - 3, 0, top + 6); eg.addColorStop(0, "rgba(0,0,0,0)"); eg.addColorStop(0.4, "rgba(90,30,10,.35)"); eg.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = eg; g.fillRect(0, top - 3, w, 9);
+    for (let i = 0; i < 30; i++) { // verrues blanches, plus larges en « u » près du sommet où le chapeau est étroit
+      const yy = 2 + rz(i) * (top - 8), f = Math.max(0.22, yy / top), r = 1 + rz(i + 1) * 2.2, xx = rz(i + 2) * w;
+      g.fillStyle = "#f5eedf"; [xx, xx - w, xx + w].forEach((px) => { g.beginPath(); g.ellipse(px, yy, r / f, r, 0, 0, 7); g.fill(); });
+    }
   }) });
-  const capGeo = new T.SphereGeometry(1, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2);
+  capRed.bumpMap = capRed.map; capRed.bumpScale = 1.2;
+  const capBrown = new T.MeshStandardMaterial({ roughness: 0.5, map: canvasTex(128, 64, (g, w, h) => {
+    const gv = Math.round(h * 0.37), top = h - gv;
+    const gr = g.createLinearGradient(0, 0, 0, top); gr.addColorStop(0, "#5e3a22"); gr.addColorStop(0.7, "#80522f"); gr.addColorStop(1, "#a07446");
+    g.fillStyle = gr; g.fillRect(0, 0, w, top);
+    for (let i = 0; i < 40; i++) { g.fillStyle = "rgba(255,230,190,.06)"; g.beginPath(); g.ellipse(rz(i) * w, rz(i + 1) * top, 6, 3, 0, 0, 7); g.fill(); }
+    g.fillStyle = "#d6bf78"; g.fillRect(0, top, w, gv);
+    for (let i = 0; i < 300; i++) { g.fillStyle = "rgba(120,100,40,.45)"; g.fillRect(rz(i + 5) * w, top + rz(i + 6) * gv, 1, 1); } // pores
+  }) });
+  const CAP = [[0.2, 0.1], [0.6, 0.05], [0.95, 0.02], [1.0, 0.07], [0.97, 0.25], [0.86, 0.45], [0.62, 0.6], [0.32, 0.68], [0, 0.7]];
+  const mushStemMat = new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.7, side: T.DoubleSide, map: canvasTex(64, 64, (g, w, h) => {
+    g.fillStyle = "#f4eee2"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 70; i++) { g.fillStyle = `rgba(150,130,100,${0.06 + rz(i) * 0.1})`; g.fillRect(rz(i + 1) * w, rz(i + 2) * h, 1, 6 + rz(i + 3) * 20); }
+  }) });
+  let mushMoss = null;
   function mushrooms(parent, x, y, z, s) {
     const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); parent.add(g);
-    const stem = mat("#efe6d4", { roughness: 0.6 }), brown = mat("#8a5a3a", { roughness: 0.6 });
-    [[0, 0, 0.07, 0.03, capRed], [0.045, 0.02, 0.045, 0.022, brown], [-0.04, 0.015, 0.035, 0.018, capRed]].forEach(([dx, dz, h, r, m]) => {
-      cyl(r * 0.35, r * 0.45, h, stem, dx, h / 2, dz, g, 10);
-      const c = new T.Mesh(capGeo, m); c.scale.set(r, r * 0.7, r); c.position.set(dx, h - 0.002, dz); g.add(c);
+    const stems = [], red = [], brown = [];
+    [[0, 0, 0.07, 0.03, 1], [0.045, 0.02, 0.045, 0.024, 0], [-0.04, 0.015, 0.035, 0.018, 1], [-0.012, 0.04, 0.02, 0.01, 1]].forEach(([dx, dz, h, r, isRed], i) => {
+      const sr = r * (isRed ? 0.36 : 0.55), tx = (rz(i) - 0.5) * 0.25, tz = (rz(i + 4) - 0.5) * 0.25;
+      stems.push({ geo: lathe(isRed ? "pied" : "pied-cepe", isRed ? [[0, 0], [0.9, 0], [1.15, 0.05], [1.0, 0.13], [0.76, 0.3], [0.66, 0.7], [0.62, 1], [0, 1]] : [[0, 0], [0.8, 0], [1.1, 0.12], [1.15, 0.32], [0.98, 0.62], [0.78, 0.9], [0.7, 1], [0, 1]], 12), m: tm(dx, 0, dz, tx * 0.4, 0, tz * 0.4, sr, h, sr), c: isRed ? "#ffffff" : "#e6d6b4" });
+      if (isRed) stems.push({ geo: lathe("anneau", [[0.6, 0], [1.1, -0.06], [1.35, -0.12]], 12), m: tm(dx + tz * 0.3 * h, h * 0.78, dz - tx * 0.3 * h, tx * 0.4, 0, tz * 0.4, sr, h * 0.6, sr), c: "#fbf7ee" });
+      (isRed ? red : brown).push({ geo: lathe("chapeau", CAP, 20), m: tm(dx + tz * h * 0.4, h - 0.06 * r, dz - tx * h * 0.4, tx, i, tz, r, isRed ? r : r * 0.8, r) });
     });
-    // un peu de mousse au pied
-    const ms = mat("#5d7a34", { roughness: 1 });
-    for (let i = 0; i < 4; i++) { const b = ball(0.03, ms, Math.cos(i * 1.7) * 0.04, 0, Math.sin(i * 1.7) * 0.03, g); b.scale.set(1, 0.3, 1); }
+    g.add(new T.Mesh(bake(stems), mushStemMat), new T.Mesh(bake(red), capRed), new T.Mesh(bake(brown), capBrown));
+    // touffe de mousse au pied
+    if (!mushMoss) mushMoss = mossPatch(0.17, 0.12, false, 3, []);
+    const ms = new T.Mesh(mushMoss, mossMats[0]); ms.position.set(0.004, 0, 0.012); g.add(ms);
     return g;
   }
-  /* Petit lapin en céramique */
+  /* Petit lapin : formes douces fondues ensemble, pelage suggéré (poils fins et reflet velouté), oreilles roses */
+  const furTex = canvasTex(128, 128, (g, w, h) => {
+    g.fillStyle = "#e4ded4"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 2600; i++) {
+      const x = rz(i) * w, y = rz(i + 0.5) * h, a = 1.3 + (rz(i + 0.2) - 0.5) * 0.8, l = 2 + rz(i + 0.7) * 4;
+      g.strokeStyle = i % 3 ? "rgba(255,255,255,.35)" : "rgba(120,105,90,.22)"; g.lineWidth = 0.7; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke();
+    }
+  }, [3, 3]);
+  const furMat = new T.MeshPhysicalMaterial({ map: furTex, bumpMap: furTex, bumpScale: 0.8, roughness: 0.95, vertexColors: true, sheen: 1, sheenRoughness: 0.5, sheenColor: new T.Color("#fff3e4") });
+  let rabbitGeo = null;
   function rabbit(parent, x, y, z, s) {
     const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); g.rotation.y = -0.5; parent.add(g);
-    const m = mat("#f1ece3", { roughness: 0.35 }), pink = mat("#e8b4b0", { roughness: 0.5 }), eye = mat("#2a201c", { roughness: 0.3 });
-    ball(0.05, m, 0, 0.045, -0.01, g).scale.set(1, 0.9, 1.25);
-    ball(0.034, m, 0, 0.1, 0.045, g);
-    ball(0.016, m, 0, 0.05, -0.075, g);
-    [-1, 1].forEach((k) => {
-      const ear = ball(0.012, m, k * 0.014, 0.15, 0.035, g); ear.scale.set(1, 3.6, 0.6); ear.rotation.z = -k * 0.18;
-      const inner = ball(0.007, pink, k * 0.014, 0.15, 0.042, g); inner.scale.set(1, 3.6, 0.4); inner.rotation.z = -k * 0.18;
-      ball(0.005, eye, k * 0.016, 0.108, 0.073, g);
-      ball(0.014, m, k * 0.03, 0.012, 0.035, g).scale.set(1, 0.6, 1.6);
-    });
-    ball(0.005, pink, 0, 0.098, 0.079, g);
+    if (!rabbitGeo) {
+      const B = "#f1ebe1", pink = "#e7b3ac", parts = [];
+      const add = (m, c) => parts.push({ geo: unitBall, m, c: c || B, vc: (p) => 0.78 + Math.min(1, p.y / 0.08) * 0.22 });
+      add(tm(0, 0.047, -0.012, -0.15, 0, 0, 0.05, 0.046, 0.062));          // corps
+      add(tm(0, 0.062, 0.028, 0, 0, 0, 0.033, 0.04, 0.03));                 // poitrail
+      add(tm(0, 0.104, 0.046, 0.15, 0, 0, 0.033, 0.031, 0.036));            // tête
+      add(tm(0, 0.094, 0.077, 0, 0, 0, 0.012, 0.01, 0.01));                 // museau
+      add(tm(0, 0.099, 0.0855, 0, 0, 0, 0.004, 0.003, 0.003), "#d9948e");   // nez
+      add(tm(0, 0.04, -0.076, 0, 0, 0, 0.016, 0.016, 0.014), "#fbf8f2");    // queue
+      [-1, 1].forEach((k) => {
+        add(tm(k * 0.03, 0.033, -0.028, 0, 0, 0, 0.03, 0.033, 0.04));       // cuisses
+        add(tm(k * 0.016, 0.095, 0.062, 0, 0, 0, 0.017, 0.015, 0.017));     // joues
+        add(tm(k * 0.015, 0.01, 0.055, 0, 0, 0, 0.011, 0.01, 0.018));       // pattes avant
+        add(tm(k * 0.034, 0.008, 0.014, 0, k * 0.2, 0, 0.012, 0.008, 0.03)); // pattes arrière
+        const ear = tm(k * 0.013, 0.158, 0.03, -0.3, 0, -k * 0.22, 0.011, 0.042, 0.005);
+        add(ear); add(ear.clone().multiply(tm(0, -0.06, 0.72, 0, 0, 0, 0.62, 0.8, 0.5)), pink);
+      });
+      rabbitGeo = [bake(parts), bake([-1, 1].map((k) => ({ geo: unitBall, m: tm(k * 0.019, 0.109, 0.073, 0, 0, 0, 0.0055) })))];
+    }
+    g.add(new T.Mesh(rabbitGeo[0], furMat), new T.Mesh(rabbitGeo[1], mat("#1b1412", { roughness: 0.12 })));
     return g;
   }
-  /* Lanterne en métal noir avec une bougie */
+  /* Lanterne en métal noir avec une bougie : socle à gradins, montants, vitres avec reflet, toit en pointe, anneau */
+  let lanternGeo = null;
+  const lanternGlass = new T.MeshStandardMaterial({ color: "#fff8ea", transparent: true, opacity: 0.14, roughness: 0.05, depthWrite: false, side: T.DoubleSide });
   function lantern(parent, x, y, z, s) {
     const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); parent.add(g);
-    const metal = mat("#2a2622", { metalness: 0.6, roughness: 0.5 });
-    box(0.13, 0.015, 0.13, metal, 0, 0.0075, 0, g);
-    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => box(0.01, 0.19, 0.01, metal, a * 0.058, 0.11, b * 0.058, g));
-    box(0.13, 0.012, 0.13, metal, 0, 0.21, 0, g);
-    const roof = new T.Mesh(new T.ConeGeometry(0.095, 0.07, 4), metal); roof.rotation.y = Math.PI / 4; roof.position.y = 0.25; g.add(roof);
-    const ring = new T.Mesh(new T.TorusGeometry(0.02, 0.004, 6, 16), metal); ring.position.y = 0.3; g.add(ring);
-    box(0.11, 0.18, 0.11, new T.MeshStandardMaterial({ color: "#fff6e0", transparent: true, opacity: 0.16, roughness: 0.1, depthWrite: false }), 0, 0.11, 0, g);
-    candle(g, 0, 0.015, 0, 0.75);
+    if (!lanternGeo) {
+      const B = (x0, y0, z0, sx, sy, sz) => ({ geo: unitBox, m: tm(x0, y0, z0, 0, 0, 0, sx, sy, sz) }), parts = [B(0, 0.0075, 0, 0.13, 0.015, 0.13), B(0, 0.019, 0, 0.118, 0.008, 0.118), B(0, 0.212, 0, 0.13, 0.012, 0.13), B(0, 0.222, 0, 0.116, 0.008, 0.116)];
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => parts.push(B(a * 0.056, 0.115, b * 0.056, 0.011, 0.19, 0.011)));
+      [0, 1].forEach((k) => parts.push(B(0, 0.12, (k ? 1 : -1) * 0.056, 0.112, 0.005, 0.005), B((k ? 1 : -1) * 0.056, 0.12, 0, 0.005, 0.005, 0.112))); // barreaux au milieu
+      parts.push({ geo: new T.ConeGeometry(0.094, 0.062, 4, 1), m: tm(0, 0.257, 0, 0, Math.PI / 4, 0) });
+      parts.push({ geo: new T.CylinderGeometry(0.014, 0.019, 0.016, 12), m: tm(0, 0.29, 0) });
+      parts.push({ geo: unitBall, m: tm(0, 0.301, 0, 0, 0, 0, 0.009) });
+      parts.push({ geo: new T.TorusGeometry(0.021, 0.0035, 6, 20), m: tm(0, 0.329, 0) });
+      const glass = [];
+      for (let i = 0; i < 4; i++) { const a = i * QUARTER; glass.push({ geo: new T.PlaneGeometry(0.102, 0.18), m: tm(Math.sin(a) * 0.053, 0.115, Math.cos(a) * 0.053, 0, a, 0) }); }
+      lanternGeo = [bake(parts), bake(glass)];
+    }
+    g.add(new T.Mesh(lanternGeo[0], new T.MeshStandardMaterial({ color: "#2b2724", metalness: 0.5, roughness: 0.45, bumpMap: grainTex, bumpScale: 0.6 })));
+    g.add(new T.Mesh(lanternGeo[1], lanternGlass), new T.Mesh(lanternGeo[1], glassGlare));
+    candle(g, 0, 0.023, 0, 0.75);
     return g;
   }
-  /* Mousse posée sur le dessus du meuble, qui déborde un peu */
-  const mossMats = ["#6b8f2e", "#82a83a", "#55762a"].map((c) => new T.MeshStandardMaterial({ color: c, roughness: 1, map: canvasTex(32, 32, (g, w, h) => { g.fillStyle = "#c8c8c8"; g.fillRect(0, 0, w, h); for (let i = 0; i < 160; i++) { g.fillStyle = i % 2 ? "#fff" : "#777"; g.fillRect((i * 13.7) % w, (i * 7.3) % h, 1, 1); } }) }));
-  const mossGeo = new T.SphereGeometry(1, 10, 6);
+  /* Mousse posée sur le dessus du meuble : coussin touffu et irrégulier, avec des pans qui pendent devant */
+  const mossTex = canvasTex(64, 64, (g, w, h) => {
+    g.fillStyle = "#cfcfc4"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 900; i++) { g.fillStyle = i % 3 ? "rgba(255,255,230,.45)" : "rgba(40,50,20,.45)"; g.fillRect(rz(i) * w, rz(i + 0.5) * h, 1, 1 + (i % 2)); }
+  }, [1, 1]);
+  const mossMats = [new T.MeshStandardMaterial({ vertexColors: true, roughness: 1, map: mossTex, bumpMap: mossTex, bumpScale: 2.5 })];
+  const smooth = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  function mossPatch(W, D, hang, seed, obst) {
+    const HX = hang ? 0.05 : 0, nx = Math.max(8, Math.round(W / 0.02)), nz = Math.max(6, Math.round((D + HX) / 0.02));
+    const geo = new T.PlaneGeometry(1, 1, nx, nz); geo.rotateX(-Math.PI / 2);
+    const P = geo.attributes.position, U = geo.attributes.uv, col = new Float32Array(P.count * 3);
+    const dark = new T.Color("#3f5a1c"), light = new T.Color("#97b543"), dry = new T.Color("#a49a4c"), c = new T.Color();
+    for (let i = 0; i < P.count; i++) {
+      const x = P.getX(i) * W, v = P.getZ(i) + 0.5, zz = -D / 2 + v * (D + HX);
+      const n = vnoise(x * 30 + seed, zz * 30) * 0.6 + vnoise(x * 75, zz * 75 + seed) * 0.4;
+      const e = Math.min(x + W / 2, W / 2 - x, zz + D / 2, hang ? 1 : D / 2 - zz) - vnoise(x * 9 + seed, zz * 9) * Math.min(0.045, D * 0.3);
+      let m = smooth(0, 0.03, e) * smooth(0.05, 0.22, vnoise(x * 5 + seed * 3, zz * 5 + 1.7));
+      for (const [ox, oz, r] of obst) m *= 0.25 + 0.75 * smooth(r * 0.8, r * 1.35, Math.hypot(x - ox, zz - oz)); // plus mince sous les pots
+      const front = hang ? 0.6 + 0.4 * smooth(-0.05, D / 2, zz) : 1; // plus épais vers le bord avant
+      let h = m * front * (0.005 + 0.03 * Math.pow(n, 1.4)), yy = m > 0.03 ? h : -0.006, z2 = zz;
+      if (hang && zz > D / 2) { // devant le bord : la mousse retombe par endroits
+        const d = (zz - D / 2) / HX, L = smooth(0.38, 0.52, vnoise(x * 7 + seed, 7.3)) * (0.45 + 0.55 * vnoise(x * 15, 2.1));
+        if (L > 0.05 && d < L && m > 0.03) { z2 = D / 2 + 0.012 + 0.012 * n * (1 - d); yy = 0.012 * n - d * 0.08; h = 0.014; }
+        else { z2 = D / 2 - 0.006; yy = -0.006; }
+      }
+      P.setXYZ(i, x, yy, z2); U.setXY(i, x / 0.07, zz / 0.07);
+      c.copy(dark).lerp(light, Math.min(1, n * 1.1)); if (vnoise(x * 4 + 9, zz * 4) > 0.68) c.lerp(dry, 0.5);
+      c.multiplyScalar(0.5 + 0.5 * Math.min(1, h / 0.02));
+      col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+    }
+    geo.setAttribute("color", new T.BufferAttribute(col, 3));
+    geo.computeVertexNormals();
+    return geo;
+  }
   function moss(parent, W, y, z) {
-    for (let x = -W / 2 + 0.02, i = 0; x < W / 2; x += 0.045, i++) for (let k = 0; k < 2; k++) {
-      const b = new T.Mesh(mossGeo, mossMats[(i + k) % 3]); const r = 0.05 + ((i + k) % 3) * 0.015;
-      b.scale.set(r * 1.2, r * 0.55, r); b.position.set(x + k * 0.02, y + 0.008, z + (k ? 0.09 : -0.04) + ((i * 7) % 5) * 0.012); parent.add(b);
-    }
-    for (let x = -W / 2 + 0.1, i = 0; x < W / 2; x += 0.23, i++) { // petits bouts qui pendent devant
-      const b = new T.Mesh(mossGeo, mossMats[i % 3]); b.scale.set(0.03, 0.04, 0.012); b.position.set(x, y - 0.02, z + DEPTH / 2 + 0.03); parent.add(b);
-    }
+    // les objets déjà posés sur le dessus : la mousse s'amincit sous eux
+    const obst = parent.children.filter((o) => o.isGroup && Math.abs(o.position.y - y - 0.01) < 0.02).map((o) => [o.position.x, o.position.z - z, 0.08 * o.scale.x]);
+    const m = new T.Mesh(mossPatch(W, 0.43, true, Math.round(W * 10), obst), mossMats[0]); m.position.set(0, y + 0.01, z); parent.add(m);
   }
 
   /* ---------- Couverture d'un livre posé de face : vraie image si le site la prête, sinon dessinée ---------- */
