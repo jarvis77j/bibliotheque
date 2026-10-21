@@ -1102,6 +1102,8 @@
       const v = new T.Vector3(); m.getWorldPosition(v); v.project(camera);
       return { yaw, targetYaw, x: (v.x + 1) / 2 * width, y: (1 - v.y) / 2 * height, id: m.userData.id };
     }
-    return { setBooks, setThemes, setFloor, face, step, resize, currentKey, canvas, debug, shelve, setHour: (h) => { fixedHour = h; setHour(h); } };
+    // pour les tests : coût du dessin (appels et triangles de la dernière image)
+    const stats = () => ({ appels: renderer.info.render.calls, triangles: renderer.info.render.triangles, textures: renderer.info.memory.textures, geometries: renderer.info.memory.geometries });
+    return { stats, setBooks, setThemes, setFloor, face, step, resize, currentKey, canvas, debug, shelve, setHour: (h) => { fixedHour = h; setHour(h); } };
   };
 })();
