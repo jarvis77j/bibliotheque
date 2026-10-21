@@ -89,5 +89,6 @@ L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robo
 - Un livre qu'on ajoute glisse dans son rayon, avec un petit bruit ; ouvrir une fiche fait un bruit de page. Les sons se coupent dans ⋯ (Sons).
 - La lumière de la pièce suit l'heure : matin doré, journée claire, soirée chaude, nuit tamisée.
 - Sorties : dans une semaine ou un mois, une rangée de jours permet de n'afficher qu'un jour.
-- En bas des sorties : « Jour suivant » et « Revenir en haut » ; on glisse à gauche ou à droite pour changer de jour.
+- Sorties : la rangée des jours reste collée en haut ; toucher un jour fait descendre jusqu'à lui, et le jour affiché s'allume en défilant. En bas, un bouton pour remonter.
+- Le robot complète la liste du libraire avec les sorties annoncées sur Google Livres jusqu'à 6 mois (toutes les 4 heures).
 - Les lianes partent de vrais pots, passent sur le bord du meuble puis retombent ; grandes plantes avec tiges courbes et vraies feuilles découpées.

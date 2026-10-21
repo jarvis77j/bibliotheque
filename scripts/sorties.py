@@ -5,7 +5,7 @@ et les écrit dans data/sorties.json, lu par l'onglet « Sorties » de l'app.
 Lancé par GitHub Actions plusieurs fois par jour. Respecte le robots.txt du site
 (pages /dossiers/ et /livre/ autorisées, 5 secondes entre deux pages).
 Les fiches déjà connues ne sont pas retéléchargées."""
-import html, json, os, re, sys, time, urllib.request
+import html, json, os, re, sys, time, urllib.parse, urllib.request
 from datetime import date, datetime, timedelta
 
 BASE = "https://www.leslibraires.fr"
@@ -100,6 +100,64 @@ def kind_of(book, hint):
         if any(w in r for w in words): return k
     return hint or ""
 
+# ---------- Google Livres : sorties annoncées plus loin (le libraire ne liste qu'environ un mois) ----------
+GKEY = "AIzaSyDOeFi3IlADcw-C6MdXdJpR9yzDAvEy5DA"  # clé de l'app, limitée à jarvis77j.github.io
+GQUERIES = [
+    ('subject:"romance"', "romance"), ('subject:"fantasy"', "fantasy"), ('subject:"science fiction"', "fantasy"),
+    ('subject:"thriller"', "policier"), ('subject:"mystery"', "policier"), ('subject:"young adult"', "ya"),
+    ('subject:"fiction"', "roman"), ("roman", "roman"), ("tome", ""), ("dark romance", "romance"), ("romantasy", "fantasy"),
+    ("manga", "bd"), ("bande dessinée", "bd"),
+    ('inpublisher:"Hugo"', "romance"), ('inpublisher:"Bragelonne"', "fantasy"), ('inpublisher:"Albin Michel"', "roman"),
+    ('inpublisher:"Michel Lafon"', ""), ('inpublisher:"Gallimard"', "roman"), ('inpublisher:"Robert Laffont"', "roman"),
+    ('inpublisher:"Pocket"', ""), ('inpublisher:"J\'ai lu"', ""), ('inpublisher:"Glénat"', "bd"), ('inpublisher:"Pika"', "bd"),
+    ('inpublisher:"Kana"', "bd"), ('inpublisher:"Milady"', "fantasy"), ('inpublisher:"Chatterley"', "romance"),
+    ('inpublisher:"Calmann-Lévy"', "roman"), ('inpublisher:"Fayard"', "roman"), ('inpublisher:"De Saxus"', "fantasy"),
+    ('inpublisher:"Nathan"', "ya"), ('inpublisher:"Hachette"', ""), ('inpublisher:"Le Livre de Poche"', ""),
+]
+GKINDS = [(("romance", "love"), "romance"), (("fantasy", "science fiction", "dragons"), "fantasy"), (("thriller", "mystery", "crime", "detective"), "policier"),
+          (("young adult",), "ya"), (("comics", "graphic novels", "manga"), "bd"), (("juvenile",), "jeunesse"), (("fiction",), "roman")]
+
+def gget(q, start):
+    url = ("https://www.googleapis.com/books/v1/volumes?" + urllib.parse.urlencode(
+        {"q": q, "orderBy": "newest", "langRestrict": "fr", "printType": "books", "maxResults": 40, "startIndex": start, "key": GKEY}))
+    req = urllib.request.Request(url, headers={"Referer": "https://jarvis77j.github.io/bibliotheque/", "User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.load(r).get("items", [])
+    except Exception as e:
+        print("  google", q, e, file=sys.stderr); return None
+
+def google_upcoming(lo, hi, stats):
+    out, errors = {}, 0
+    for q, hint in GQUERIES:
+        for start in (0, 40, 80):
+            items = gget(q, start); time.sleep(1)
+            if items is None: errors += 1; break
+            if not items: break
+            newer = 0
+            for it in items:
+                v = it.get("volumeInfo", {})
+                d = v.get("publishedDate", "")
+                if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", d) or v.get("language") not in (None, "fr"): continue
+                if d >= lo: newer += 1
+                if not (lo <= d <= hi) or not v.get("title"): continue
+                isbn = next((x["identifier"] for x in v.get("industryIdentifiers", []) if x.get("type") == "ISBN_13"), "")
+                links = v.get("imageLinks", {})
+                cover = (links.get("thumbnail") or links.get("smallThumbnail") or "").replace("http:", "https:").replace("&edge=curl", "")
+                cats = " ".join(v.get("categories", [])).lower()
+                kind = next((k for words, k in GKINDS if any(w in cats for w in words)), hint)
+                title = v["title"] + (" - " + v["subtitle"] if v.get("subtitle") and len(v["subtitle"]) < 40 else "")
+                out["gb:" + it["id"]] = {
+                    "id": "gb:" + it["id"], "title": clean_title(title), "authors": v.get("authors", [])[:3], "publisher": v.get("publisher", ""),
+                    "date": d, "isbn": isbn, "pages": v.get("pageCount", 0), "format": "", "cover": cover,
+                    "description": html.unescape(re.sub(r"<[^>]+>", "", v.get("description", "")))[:1500], "rayons": v.get("categories", [])[:3],
+                    "url": v.get("infoLink", ""), "kind": kind, "source": "google",
+                    "mature": v.get("maturityRating") == "MATURE",
+                }
+            if not newer: break  # la suite de la liste est plus ancienne
+    stats["google"] = {"trouves": len(out), "erreurs": errors}
+    return out
+
 def main():
     try:
         old = {b["id"]: b for b in json.load(open(OUT, encoding="utf-8"))["books"]}
@@ -144,10 +202,20 @@ def main():
         b["title"] = clean_title(b["title"])
         b["kind"] = kind_of(b, hint)
         if b["title"] and b["date"]: books[bid] = b
+    # Google Livres toutes les 4 heures (quota limité) ; entre-temps on garde la dernière récolte
+    lo, hi = (date.today() - timedelta(days=45)).isoformat(), (date.today() + timedelta(days=186)).isoformat()
+    if datetime.utcnow().hour % 4 == 0 or os.environ.get("GOOGLE") == "1" or not any(k.startswith("gb:") for k in old):
+        gb = google_upcoming(date.today().isoformat(), hi, stats)
+        if gb: old = {k: v for k, v in old.items() if not k.startswith("gb:")}
+        isbns = {b.get("isbn") for b in books.values() if b.get("isbn")}
+        for bid, b in gb.items():
+            if b["isbn"] and b["isbn"] in isbns: continue
+            books[bid] = b
     # on garde aussi les fiches déjà connues qui ne sont plus listées mais restent dans la fenêtre
     for bid, b in old.items():
-        b["title"] = clean_title(b["title"]); books.setdefault(bid, b)
-    lo, hi = (date.today() - timedelta(days=45)).isoformat(), (date.today() + timedelta(days=186)).isoformat()
+        b["title"] = clean_title(b["title"])
+        if b.get("isbn") and any(x.get("isbn") == b["isbn"] for x in books.values()): continue
+        books.setdefault(bid, b)
     stats["uniques"] = len(stats.get("uniques", ()))
     stats.update(listes=len(todo), lues=new, en_attente=skipped, plus_loin=max((b["date"] for b in books.values()), default=""))
     keep = sorted((b for b in books.values() if lo <= b["date"] <= hi), key=lambda b: (b["date"], b["title"]))

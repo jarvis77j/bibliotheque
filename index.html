@@ -267,8 +267,7 @@
   .rel { padding: 12px 16px 40px; max-width: 640px; margin: 0 auto; }
   .rel-end { display: flex; flex-direction: column; gap: 8px; margin: 18px 0 8px; }
   .rel-end button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 20px; padding: 11px 14px; font: inherit; font-size: 15px; cursor: pointer; }
-  .rel-end #relNext { background: var(--ink); color: var(--card); border-color: var(--ink); text-transform: none; }
-  .rel-daypick { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 2px 0 12px; padding-bottom: 2px; }
+  .rel-daypick { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 2px -16px 12px; padding: 8px 16px; position: sticky; z-index: 4; background: var(--bg); border-bottom: 1px solid var(--line); }
   .rel-daypick button { flex: 0 0 auto; min-width: 46px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 12px; padding: 5px 4px; display: flex; flex-direction: column; align-items: center; gap: 1px; cursor: pointer; font: inherit; }
   .rel-daypick button span { font-size: 11px; color: var(--muted); text-transform: capitalize; }
   .rel-daypick button b { font-size: 16px; }
@@ -769,7 +768,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 17 h</p>
+    <p class="version">Version du 21 octobre, 18 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1808,7 +1807,7 @@ async function siteReleases() {
   if (!res.ok) throw new Error("sorties " + res.status);
   const d = await res.json();
   relUpdated = d.updated || "";
-  return (d.books || []).map((b) => ({ ...b, categories: b.rayons || [], source: "leslibraires.fr" }));
+  return (d.books || []).map((b) => ({ ...b, categories: b.rayons || [], source: b.source === "google" ? "Google Livres" : "leslibraires.fr" }));
 }
 async function loadReleases(force) {
   const slot = today() + "-" + Math.floor(new Date().getHours() / 4);
@@ -1838,7 +1837,7 @@ async function loadReleases(force) {
       seen.add(k); out.push(r);
     }
   }
-  const google = out.filter((b) => b.source !== "leslibraires.fr");
+  const google = out.filter((b) => b.source !== "leslibraires.fr" && b.source !== "Google Livres");
   try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ slot, site, google, updated: relUpdated })); } catch {}
   return mergeReleases(site, google);
 }
@@ -1874,7 +1873,7 @@ async function renderReleases() {
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
     <p class="rel-note">Sorties relevées toutes les heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
-  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relDay = ""; relDayScroll = 0; relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
+  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
   $("#relWeeks").scrollLeft = relScroll;
   el.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => { relKind = b.dataset.k; renderReleases(); }));
   $("#relRefresh").onclick = () => { relForce = true; renderReleases(); };
@@ -1892,26 +1891,20 @@ async function renderReleases() {
   const inRange = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind));
   // choix du jour : une pastille par jour de la période, avec le nombre de sorties
   const perDay = {}; inRange.forEach((b) => (perDay[b.date] = (perDay[b.date] || 0) + 1));
-  if (relDay && (relDay < isoDay(start) || relDay > isoDay(end))) relDay = "";
-  let strip = `<button data-day="" class="${relDay ? "" : "on"}"><b>Tout</b><small>${inRange.length}</small></button>`;
+  // rangée des jours, toujours visible en haut : toucher un jour fait descendre jusqu'à lui
+  let strip = "";
   for (let d = new Date(start); d <= end; d = new Date(d.getTime() + 864e5)) {
     const k = isoDay(d), n = perDay[k] || 0;
-    strip += `<button data-day="${k}" class="${k === relDay ? "on" : ""}" ${n ? "" : "disabled"}><span>${d.toLocaleDateString("fr-FR", { weekday: "short" }).replace(".", "")}</span><b>${d.getDate()}</b><small>${n || "·"}</small></button>`;
+    strip += `<button data-day="${k}" ${n ? "" : "disabled"}><span>${d.toLocaleDateString("fr-FR", { weekday: "short" }).replace(".", "")}</span><b>${d.getDate()}</b><small>${n || "·"}</small></button>`;
   }
-  const list = relDay ? inRange.filter((b) => b.date === relDay) : inRange;
+  const list = inRange;
   const stripHtml = `<div class="rel-daypick" id="relDays">${strip}</div>`;
-  const bindDays = () => {
-    const sc = $("#relDays"); if (!sc) return;
-    sc.scrollLeft = relDayScroll;
-    if (relDay && !relDayScroll) { const on = sc.querySelector(".on"); if (on) sc.scrollLeft = on.offsetLeft - sc.clientWidth / 2 + on.clientWidth / 2; }
-    sc.querySelectorAll("[data-day]").forEach((b) => (b.onclick = () => { relDay = b.dataset.day; relDayScroll = sc.scrollLeft; renderReleases(); }));
-  };
-  if (!list.length) { box.innerHTML = stripHtml + `<div class="ex-loading">Aucune sortie trouvée pour ${typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind ? " dans ce genre" : ""}.</div>`; bindDays(); return; }
+  if (!list.length) { box.innerHTML = stripHtml + `<div class="ex-loading">Aucune sortie trouvée pour ${typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind ? " dans ce genre" : ""}.</div>`; return; }
   const days = [...new Set(list.map((b) => b.date))];
   box.innerHTML = stripHtml + days.map((d) => {
     const items = list.filter((b) => b.date === d);
     const label = new Date(d + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
-    return `<h3 class="rel-day">${label}<small>${items.length} sortie${items.length > 1 ? "s" : ""}</small></h3>` + items.map((b) => {
+    return `<h3 class="rel-day" id="jour-${d}">${label}<small>${items.length} sortie${items.length > 1 ? "s" : ""}</small></h3>` + items.map((b) => {
       const n = all.indexOf(b), dist = distributorOf(b.publisher), owned = isOwned(b, keys);
       return `<div class="rel-card" data-n="${n}">
         <div class="ex-cover" data-open>${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
@@ -1923,32 +1916,40 @@ async function renderReleases() {
           ${b.description ? `<div class="rel-desc">${esc(b.description)}</div>` : `<div class="rel-meta" style="margin:6px 0">Pas encore de résumé.</div>`}
           <div class="rel-acts">
             <button data-add ${owned ? "disabled" : ""}>${owned ? "✓ Dans ma bibliothèque" : "🔖 À lire"}</button>
-            ${b.url ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">Fiche libraire</a>` : ""}
+            ${b.url ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">${b.source === "Google Livres" ? "Fiche Google Livres" : "Fiche libraire"}</a>` : ""}
             <a href="https://www.babelio.com/resrecherche.php?Recherche=${encodeURIComponent(b.title)}" target="_blank" rel="noopener">Avis Babelio</a>
           </div>
         </div>
       </div>`;
     }).join("");
   }).join("");
-  bindDays();
-  // en bas : remonter, ou passer au jour suivant ; et glisser sur les côtés pour changer de jour
-  const dayKeys = Object.keys(perDay).sort();
-  const goDay = (n) => {
-    const i = relDay ? dayKeys.indexOf(relDay) : (n > 0 ? -1 : dayKeys.length);
-    const k = dayKeys[i + n]; if (!k) { toast(n > 0 ? "C'est le dernier jour avec des sorties" : "C'est le premier jour avec des sorties"); return; }
-    relDay = k; relDayScroll = 0; renderReleases();
-    const top = $("#relDays"); if (top) window.scrollTo({ top: Math.max(0, top.getBoundingClientRect().top + window.scrollY - 90), behavior: "smooth" });
-  };
-  const next = relDay ? dayKeys[dayKeys.indexOf(relDay) + 1] : "";
-  box.insertAdjacentHTML("beforeend", `<div class="rel-end">${next ? `<button id="relNext">Jour suivant · ${new Date(next + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric" })} ›</button>` : ""}<button id="relTop">↑ Revenir en haut</button></div>`);
+  box.insertAdjacentHTML("beforeend", `<div class="rel-end"><button id="relTop">↑ Revenir en haut</button></div>`);
   $("#relTop").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
-  if ($("#relNext")) $("#relNext").onclick = () => goDay(1);
-  let sx = 0, sy = 0;
-  box.ontouchstart = (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; };
-  box.ontouchend = (e) => {
-    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-    if (Math.abs(dx) > 70 && Math.abs(dy) < 50 && !e.target.closest("#relDays")) goDay(dx < 0 ? 1 : -1);
+  const sc = $("#relDays"), head = document.querySelector("header");
+  // la rangée se colle sous l'en-tête s'il reste visible, sinon tout en haut de l'écran
+  const headH = () => (head ? Math.max(0, Math.round(head.getBoundingClientRect().bottom)) : 0);
+  const topGap = () => headH() + sc.offsetHeight + 8;
+  sc.querySelectorAll("[data-day]").forEach((btn) => (btn.onclick = () => {
+    const h = document.getElementById("jour-" + btn.dataset.day); if (!h) return;
+    window.scrollTo({ top: h.getBoundingClientRect().top + window.scrollY - topGap(), behavior: "smooth" });
+  }));
+  // en descendant, le jour affiché s'allume dans la rangée du haut
+  const heads = [...box.querySelectorAll(".rel-day")];
+  let lastOn = "";
+  const mark = () => {
+    if (!document.body.contains(sc)) { window.removeEventListener("scroll", mark); return; }
+    sc.style.top = headH() + "px";
+    const lim = topGap() + 4;
+    let cur = heads[0];
+    for (const h of heads) { if (h.getBoundingClientRect().top <= lim) cur = h; else break; }
+    const k = cur.id.slice(5);
+    if (k === lastOn) return; lastOn = k;
+    sc.querySelectorAll(".on").forEach((x) => x.classList.remove("on"));
+    const on = sc.querySelector(`[data-day="${k}"]`);
+    if (on) { on.classList.add("on"); sc.scrollTo({ left: on.offsetLeft - sc.clientWidth / 2 + on.clientWidth / 2, behavior: "smooth" }); }
   };
+  if (window._relMark) window.removeEventListener("scroll", window._relMark);
+  window._relMark = mark; window.addEventListener("scroll", mark, { passive: true }); mark();
   box.querySelectorAll(".rel-card").forEach((c) => {
     const b = all[c.dataset.n];
     c.querySelectorAll("[data-open]").forEach((x) => (x.onclick = () => openPreview(b)));
