@@ -79,3 +79,12 @@ Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à cha
 ## Sorties sur 6 mois et 3D plus réaliste (21 octobre)
 
 L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robot va chercher les précommandes jusqu'à 6 mois). La 3D a de vraies feuilles dessinées (pothos, sansevieria, monstera), du bois veiné, des tranches de livres arrondies avec grain et usure, des pages visibles, des ombres douces et l'ombre au fond de chaque case.
+
+## Matières, déco et lumière (21 octobre)
+- Bois des meubles, parquet et murs en briques faits à partir de vraies photos (libres, venant des exemples de three.js), teintées avec la couleur choisie dans « Décorer ».
+- Deux nouveaux motifs de mur : Briques et Briques peintes.
+- Quelques livres sont posés de face avec leur vraie couverture (un coup de cœur en priorité).
+- Nouvelle déco à activer dans « Décorer » : suspensions en macramé, fleurs séchées encadrées, champignons, petit lapin, lanterne, mousse sur le meuble. L'ambiance Jungle les met d'office.
+- Un livre qu'on ajoute glisse dans son rayon, avec un petit bruit ; ouvrir une fiche fait un bruit de page. Les sons se coupent dans ⋯ (Sons).
+- La lumière de la pièce suit l'heure : matin doré, journée claire, soirée chaude, nuit tamisée.
+- Sorties : dans une semaine ou un mois, une rangée de jours permet de n'afficher qu'un jour.

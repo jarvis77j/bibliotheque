@@ -265,6 +265,14 @@
   /* Explorer : le catalogue */
   .explore { padding: 16px 0 40px; }
   .rel { padding: 12px 16px 40px; max-width: 640px; margin: 0 auto; }
+  .rel-daypick { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 2px 0 12px; padding-bottom: 2px; }
+  .rel-daypick button { flex: 0 0 auto; min-width: 46px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 12px; padding: 5px 4px; display: flex; flex-direction: column; align-items: center; gap: 1px; cursor: pointer; font: inherit; }
+  .rel-daypick button span { font-size: 11px; color: var(--muted); text-transform: capitalize; }
+  .rel-daypick button b { font-size: 16px; }
+  .rel-daypick button small { font-size: 11px; color: var(--accent); }
+  .rel-daypick button:disabled { opacity: .35; cursor: default; }
+  .rel-daypick button.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
+  .rel-daypick button.on span, .rel-daypick button.on small { color: var(--card); }
   .rel-weeks { display: flex; gap: 8px; margin-bottom: 10px; overflow-x: auto; scrollbar-width: none; }
   .rel-weeks button, .rel-kinds button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 18px; padding: 7px 12px; font-size: 14px; cursor: pointer; white-space: nowrap; }
   .rel-weeks button.on, .rel-kinds button.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
@@ -750,13 +758,15 @@
     <button id="decorBtn">🎨 Décorer ma bibliothèque (meubles, murs, déco)</button>
     <p class="sw-title">Mode</p>
     <div class="swatches" id="modeSw"></div>
+    <p class="sw-title">Sons (page qu'on tourne, livre qu'on range)</p>
+    <div class="swatches" id="soundSw"></div>
     <button id="exportBtn">Sauvegarder ma bibliothèque (fichier)</button>
     <button id="snapBtn">Copies automatiques (14 derniers jours)</button>
     <div id="snapList" class="snap-list" hidden></div>
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 13 h 30</p>
+    <p class="version">Version du 21 octobre, 15 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -993,10 +1003,10 @@ const DECO_OPTS = {
   styles: [["classique", "Classique"], ["elegant", "Élégant (doré)"], ["moderne", "Moderne"]],
   woods: ["#efe8dc", "#c9a26f", "#a8743f", "#7a4a2a", "#4a2f1d", "#2a1c13", "#1f1a17", "#8fa58a", "#26342b", "#2c3e57", "#e3b8b0"],
   walls: ["#d8b38a", "#e7c2b4", "#f3d9de", "#e2dcf2", "#d6e8e1", "#b4c1a0", "#7f8f78", "#46613f", "#2f3b5a", "#7a3a3c", "#3d3a3a", "#f1ece2"],
-  patterns: [["uni", "Uni"], ["stripes", "Rayures"], ["dots", "Pois"], ["panel", "Lambris"], ["damask", "Damas"], ["leaves", "Feuilles"]],
+  patterns: [["uni", "Uni"], ["stripes", "Rayures"], ["dots", "Pois"], ["panel", "Lambris"], ["damask", "Damas"], ["leaves", "Feuilles"], ["briques", "Briques"], ["briques-peintes", "Briques peintes"]],
   floors: [["", "Miel"], ["#c9a57a", "Clair"], ["#5a3a24", "Foncé"], ["#2e2420", "Ébène"], ["#b9b2a6", "Gris"]],
   chairs: ["#b5553a", "#c9962e", "#8fa58a", "#2f6b55", "#6b3a22", "#3b4a6b", "#e7a3b1", "#d9cfb2"],
-  deco: [["plantes", "🪴 Plantes"], ["lianes", "🌿 Lianes"], ["grandes", "🌴 Grandes plantes"], ["bougies", "🕯 Bougies"], ["cadres", "🖼 Cadres"], ["piles", "📚 Piles de livres"], ["guirlande", "✨ Guirlande"], ["fauteuil", "🛋 Fauteuil"], ["lampe", "💡 Lampe"]],
+  deco: [["plantes", "🪴 Plantes"], ["lianes", "🌿 Lianes"], ["grandes", "🌴 Grandes plantes"], ["bougies", "🕯 Bougies"], ["cadres", "🖼 Cadres"], ["piles", "📚 Piles de livres"], ["guirlande", "✨ Guirlande"], ["suspensions", "🧺 Suspensions"], ["fleurs", "💐 Fleurs séchées"], ["champignons", "🍄 Champignons"], ["lapin", "🐇 Petit lapin"], ["lanterne", "🏮 Lanterne"], ["mousse", "🌱 Mousse"], ["fauteuil", "🛋 Fauteuil"], ["lampe", "💡 Lampe"]],
 };
 function roomThemes() {
   const amb = (AMBIANCES[settings.ambiance] || {}).themes || {}, dec = settings.decor || {};
@@ -1008,7 +1018,9 @@ let decorKey = "lu";
 function decoState(k) {
   const th = roomThemes()[k];
   const lights = th.lights ?? k === "fav";
-  return { plantes: true, bougies: true, cadres: true, piles: true, fauteuil: true, lampe: true, lianes: !!th.jungle, grandes: !!th.jungle, guirlande: !!lights, ...th.deco };
+  const j = !!th.jungle;
+  return { plantes: true, bougies: true, cadres: true, piles: true, fauteuil: true, lampe: true, lianes: j, grandes: j, guirlande: !!lights,
+    suspensions: j, mousse: j, champignons: j, lanterne: j, lapin: false, fleurs: false, ...th.deco };
 }
 function setDecor(k, patch) {
   settings.decor = settings.decor || {};
@@ -1078,6 +1090,8 @@ function renderColorPickers() {
   const mode = settings.mode || "auto";
   $("#modeSw").innerHTML = [["auto","Comme le téléphone"],["clair","Clair"],["sombre","Sombre"]].map(([k, l]) => `<button class="pill ${k === mode ? "on" : ""}" data-m="${k}">${l}</button>`).join("");
   $("#accentSw").onclick = (e) => { const c = e.target.closest("[data-c]"); if (!c) return; settings.accent = c.dataset.c; saveSettings(); applyColors(); renderColorPickers(); };
+  $("#soundSw").innerHTML = [["oui", "Avec le son"], ["non", "Sans le son"]].map(([k, l]) => `<button class="pill ${(settings.sons === false ? "non" : "oui") === k ? "on" : ""}" data-s="${k}">${l}</button>`).join("");
+  $("#soundSw").onclick = (e) => { const b = e.target.closest("[data-s]"); if (!b) return; settings.sons = b.dataset.s === "oui"; saveSettings(); renderColorPickers(); sound("page"); };
   $("#modeSw").onclick = (e) => { const m = e.target.closest("[data-m]"); if (!m) return; settings.mode = m.dataset.m; saveSettings(); applyColors(); renderColorPickers(); };
   $("#ambSw").onclick = (e) => {
     const a = e.target.closest("[data-a]"); if (!a || a.dataset.a === (settings.ambiance || "classique")) return;
@@ -1640,6 +1654,7 @@ function render3D() {
     const amb = AMBIANCES[settings.ambiance] || {};
     room3d = window.createRoom3D(r3dEl, {
       colorOf, textOn, themes: roomThemes(), floor: settings.floor, sceneColor: amb.scene, night: amb.night,
+      hour: new URLSearchParams(location.search).has("heure") ? +new URLSearchParams(location.search).get("heure") : undefined,
       onTap: (id) => openDetail(id),
       onTapEmpty: () => openGrid(),
       onFace: (k) => {
@@ -1776,7 +1791,7 @@ function distributorOf(publisher) {
 }
 const REL_KINDS = [["", "Tout"], ["roman", "Romans"], ["romance", "Romance"], ["fantasy", "Fantasy & SF"], ["policier", "Polar & thriller"], ["ya", "Young adult"], ["bd", "BD & manga"], ["jeunesse", "Jeunesse"]];
 const REL_QUERIES = ['subject:"fiction"', 'subject:"romance"', 'subject:"fantasy"', 'subject:"thriller"', 'subject:"young adult"', "roman", "manga", "bande dessinée tome"];
-let relWeek = 0, relKind = "";
+let relWeek = 0, relKind = "", relDay = "";
 const RELEASE_KEY = STORE_KEY + ".sorties2";
 const isoDay = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
 function weekStart(offset) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * offset); return d; }
@@ -1836,7 +1851,7 @@ function sinceText(iso) {
   const m = Math.max(0, Math.round((Date.now() - new Date(iso.replace("Z", ":00Z")).getTime()) / 6e4));
   return m < 2 ? "à l'instant" : m < 60 ? `il y a ${m} min` : m < 48 * 60 ? `il y a ${Math.round(m / 60)} h` : `il y a ${Math.round(m / 1440)} jours`;
 }
-let relForce = false, relScroll = 0;
+let relForce = false, relScroll = 0, relDayScroll = 0;
 async function renderReleases() {
   const el = $("#shelves");
   // semaines proches, puis les 6 prochains mois
@@ -1854,7 +1869,7 @@ async function renderReleases() {
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
     <p class="rel-note">Sorties relevées toutes les heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
-  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
+  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relDay = ""; relDayScroll = 0; relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
   $("#relWeeks").scrollLeft = relScroll;
   el.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => { relKind = b.dataset.k; renderReleases(); }));
   $("#relRefresh").onclick = () => { relForce = true; renderReleases(); };
@@ -1869,10 +1884,26 @@ async function renderReleases() {
   if (typeof relWeek === "string") { const [y, m] = relWeek.slice(1).split("-").map(Number); start = new Date(y, m - 1, 1, 12); end = new Date(y, m, 0, 12); }
   else { start = weekStart(relWeek); end = new Date(start.getTime() + 6 * 864e5); }
   const keys = ownedKeys();
-  const list = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind));
-  if (!list.length) { box.innerHTML = `<div class="ex-loading">Aucune sortie trouvée pour ${typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind ? " dans ce genre" : ""}.</div>`; return; }
+  const inRange = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind));
+  // choix du jour : une pastille par jour de la période, avec le nombre de sorties
+  const perDay = {}; inRange.forEach((b) => (perDay[b.date] = (perDay[b.date] || 0) + 1));
+  if (relDay && (relDay < isoDay(start) || relDay > isoDay(end))) relDay = "";
+  let strip = `<button data-day="" class="${relDay ? "" : "on"}"><b>Tout</b><small>${inRange.length}</small></button>`;
+  for (let d = new Date(start); d <= end; d = new Date(d.getTime() + 864e5)) {
+    const k = isoDay(d), n = perDay[k] || 0;
+    strip += `<button data-day="${k}" class="${k === relDay ? "on" : ""}" ${n ? "" : "disabled"}><span>${d.toLocaleDateString("fr-FR", { weekday: "short" }).replace(".", "")}</span><b>${d.getDate()}</b><small>${n || "·"}</small></button>`;
+  }
+  const list = relDay ? inRange.filter((b) => b.date === relDay) : inRange;
+  const stripHtml = `<div class="rel-daypick" id="relDays">${strip}</div>`;
+  const bindDays = () => {
+    const sc = $("#relDays"); if (!sc) return;
+    sc.scrollLeft = relDayScroll;
+    if (relDay && !relDayScroll) { const on = sc.querySelector(".on"); if (on) sc.scrollLeft = on.offsetLeft - sc.clientWidth / 2 + on.clientWidth / 2; }
+    sc.querySelectorAll("[data-day]").forEach((b) => (b.onclick = () => { relDay = b.dataset.day; relDayScroll = sc.scrollLeft; renderReleases(); }));
+  };
+  if (!list.length) { box.innerHTML = stripHtml + `<div class="ex-loading">Aucune sortie trouvée pour ${typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind ? " dans ce genre" : ""}.</div>`; bindDays(); return; }
   const days = [...new Set(list.map((b) => b.date))];
-  box.innerHTML = days.map((d) => {
+  box.innerHTML = stripHtml + days.map((d) => {
     const items = list.filter((b) => b.date === d);
     const label = new Date(d + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
     return `<h3 class="rel-day">${label}<small>${items.length} sortie${items.length > 1 ? "s" : ""}</small></h3>` + items.map((b) => {
@@ -1894,6 +1925,7 @@ async function renderReleases() {
       </div>`;
     }).join("");
   }).join("");
+  bindDays();
   box.querySelectorAll(".rel-card").forEach((c) => {
     const b = all[c.dataset.n];
     c.querySelectorAll("[data-open]").forEach((x) => (x.onclick = () => openPreview(b)));
@@ -2186,6 +2218,16 @@ function chooseShelf(title, tags) {
     };
   });
 }
+/* Le livre ajouté glisse dans son rayon quand on revient à la bibliothèque */
+let justAdded = null;
+function playShelve() {
+  const j = justAdded; justAdded = null;
+  if (!j || Date.now() - j.t > 10 * 60 * 1000 || !room3d || !room3d.shelve || SPECIAL.includes(currentShelf)) return;
+  currentShelf = j.shelf;
+  room3d.shelve(j.id);
+  render();
+  setTimeout(() => sound("pose"), 900);
+}
 async function addBook(b, btn, chosenStatus) {
   if (books.some((x) => x.id === b.id)) { toast("Déjà dans ta bibliothèque"); return; }
   const g0 = guessGenreFull(b) || searchGenre;
@@ -2209,7 +2251,9 @@ async function addBook(b, btn, chosenStatus) {
   book.color = (await dominantColor(book.cover)) || colorOf(book);
   books.push(book);
   save();
+  justAdded = { id: book.id, shelf: fav ? "fav" : status, t: Date.now() };
   render();
+  if (!$("#searchSheet").classList.contains("open")) playShelve();
   if (btn) { btn.textContent = "Ajouté"; btn.classList.add("done"); }
   toast("« " + book.title + " » rangé dans " + (fav ? "Coups de cœur" : SHELVES.find((x) => x.key === status).label));
 }
@@ -2271,6 +2315,7 @@ $("#manualForm").onsubmit = async (e) => {
   save(); render();
   $("#manualSheet").classList.remove("open");
   $("#searchSheet").classList.remove("open");
+  justAdded = { id: book.id, shelf: book.fav ? "fav" : status, t: Date.now() }; playShelve();
   toast("« " + title + " » ajouté");
 };
 
@@ -2447,9 +2492,36 @@ function seriesChips(b) {
   return `<div class="series-chips">${vols.map((x) => `<button ${x.id === b.id ? `class="me"` : `data-id="${esc(x.id)}"`}>${x.tome ? "Tome " + x.tome : esc(x.title.slice(0, 18))} · ${label[x.status] || ""}</button>`).join("")}</div>
     ${next && b.status === "lu" ? `<div class="sub">Prochain à lire dans la série : ${next.tome ? "tome " + next.tome : esc(next.title)}</div>` : ""}`;
 }
+/* ---------- Petits bruits : page qu'on tourne, livre qu'on pose (fabriqués sur place, rien à télécharger) ---------- */
+let audioCtx = null;
+function sound(kind) {
+  if (settings.sons === false) return;
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    const ctx = audioCtx, now = ctx.currentTime, page = kind === "page";
+    const dur = page ? 0.32 : 0.16, n = Math.floor(ctx.sampleRate * dur);
+    const buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < n; i++) {
+      const t = i / n;
+      d[i] = (Math.random() * 2 - 1) * (page ? Math.pow(Math.sin(Math.PI * Math.min(1, t * 1.6)), 2) * (0.55 + 0.45 * Math.sin(t * 60)) * (1 - t * 0.6) : Math.exp(-t * 14));
+    }
+    const src = ctx.createBufferSource(); src.buffer = buf;
+    const f = ctx.createBiquadFilter(); f.type = page ? "bandpass" : "lowpass"; f.Q.value = page ? 0.8 : 0.5;
+    f.frequency.setValueAtTime(page ? 1400 : 900, now);
+    if (page) f.frequency.exponentialRampToValueAtTime(4200, now + dur);
+    const gain = ctx.createGain(); gain.gain.value = page ? 0.5 : 0.7;
+    src.connect(f).connect(gain).connect(ctx.destination); src.start(now);
+    if (!page) { // petit « toc » du livre sur le bois
+      const o = ctx.createOscillator(), og = ctx.createGain(); o.frequency.setValueAtTime(170, now); o.frequency.exponentialRampToValueAtTime(70, now + 0.12);
+      og.gain.setValueAtTime(0.35, now); og.gain.exponentialRampToValueAtTime(0.001, now + 0.15); o.connect(og).connect(ctx.destination); o.start(now); o.stop(now + 0.16);
+    }
+  } catch {}
+}
 function openDetail(id) {
   const b = books.find((x) => x.id === id);
   if (!b) return;
+  sound("page");
   if (shareView) {
     openPreview(b);
     if (!b.description && !b.triedEnrich) { b.triedEnrich = true; enrichFromGoogle(b).then((ok) => ok && $("#detailSheet").classList.contains("open") && openPreview(b)); }
@@ -2906,7 +2978,7 @@ $("#importStop").onclick = () => { importStop = true; $("#importText").textConte
 /* ---------- Navigation ---------- */
 $("#searchBtn").onclick = openSearch;
 $("#menuBtn").onclick = () => { renderColorPickers(); $("#menuSheet").classList.add("open"); };
-document.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => b.closest(".sheet").classList.remove("open")));
+document.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => { const sh = b.closest(".sheet"); sh.classList.remove("open"); if (sh.id === "searchSheet") playShelve(); }));
 $("#filter").addEventListener("input", renderShelves);
 $("#sort").addEventListener("change", renderShelves);
 $("#genreFilter").addEventListener("change", renderShelves);

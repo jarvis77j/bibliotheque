@@ -22,7 +22,8 @@
   const BASE = JSON.parse(JSON.stringify(THEMES));
   /* Déco de chaque meuble : ce qui est affiché par défaut */
   const decoOf = (th) => ({ plantes: true, bougies: true, cadres: true, piles: true, fauteuil: true, lampe: true,
-    lianes: !!th.jungle, grandes: !!th.jungle, guirlande: !!th.lights, ...(th.deco || {}) });
+    lianes: !!th.jungle, grandes: !!th.jungle, guirlande: !!th.lights,
+    suspensions: !!th.jungle, mousse: !!th.jungle, champignons: !!th.jungle, lanterne: !!th.jungle, lapin: false, fleurs: false, ...(th.deco || {}) });
   function applyThemes(over) {
     for (const k in BASE) {
       THEMES[k] = { ...BASE[k], ...((over || {})[k] || {}) };
@@ -46,6 +47,9 @@
     return "#" + [f(n >> 16), f((n >> 8) & 255), f(n & 255)].map((v) => v.toString(16).padStart(2, "0")).join("");
   }
   function wallTexture(th) {
+    // murs en briques : la photo telle quelle, ou peinte de la couleur du mur
+    if (th.pattern === "briques" && PHOTOS.briques) return canvasTex(512, 512, (g, w, h) => g.drawImage(PHOTOS.briques, 0, 0, w, h), [4.6, 2.2]);
+    if (th.pattern === "briques-peintes" && PHOTOS["briques-gris"]) return canvasTex(512, 512, (g, w, h) => tinted(g, PHOTOS["briques-gris"], th.wall, w, h), [4.6, 2.2]);
     return canvasTex(256, 256, (g, w, h) => {
       const grad = g.createLinearGradient(0, 0, 0, h); grad.addColorStop(0, th.wall); grad.addColorStop(1, th.wall2);
       g.fillStyle = grad; g.fillRect(0, 0, w, h);
@@ -66,14 +70,31 @@
       if (th.pattern === "damask") { g.fillStyle = "#ffd9a0"; g.globalAlpha = 0.12; for (let y = 32; y < h; y += 64) for (let x = (y / 64) % 2 ? 0 : 32; x < w + 1; x += 64) { g.beginPath(); g.ellipse(x, y, 10, 18, 0, 0, 7); g.fill(); g.beginPath(); g.ellipse(x, y, 18, 6, 0, 0, 7); g.fill(); } }
     }, [6, 3]);
   }
-  /* Bois : veines fines et ondulées, quelques nœuds, légères différences de teinte */
+  /* ---------- Photos de matières libres de droits (dossier textures/) ----------
+     Bois et parquet viennent des exemples de three.js (licence MIT), en niveaux de gris :
+     on les teinte avec la couleur choisie, donc une seule photo sert pour tous les bois. */
+  const PHOTO_DIR = ((document.currentScript && document.currentScript.src) || "").replace(/[^/]*$/, "") + "textures/";
+  const PHOTOS = {}, photoWaiters = [];
   const woodCache = new Map();
+  ["bois", "parquet", "briques", "briques-gris"].forEach((n) => {
+    const im = new Image();
+    im.onload = () => { PHOTOS[n] = im; woodCache.clear(); photoWaiters.forEach((f) => f(n)); };
+    im.src = PHOTO_DIR + n + ".jpg";
+  });
+  // la photo grise (moyenne à 50 %) mélangée en « incrustation » garde la couleur et ajoute le grain
+  function tinted(g, img, base, w, h) {
+    g.fillStyle = base; g.fillRect(0, 0, w, h);
+    g.globalCompositeOperation = "overlay"; g.drawImage(img, 0, 0, w, h);
+    g.globalCompositeOperation = "source-over";
+  }
+  /* Bois : photo de planche teintée, ou à défaut veines dessinées */
   function woodTexture(base, rep) {
     const key = base + (rep || [1, 1]).join("x");
     if (woodCache.has(key)) return woodCache.get(key);
     let seed = parseInt(base.slice(1), 16) % 997;
     const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     const t = canvasTex(512, 512, (g, w, h) => {
+      if (PHOTOS.bois) { tinted(g, PHOTOS.bois, base, w, h); return; }
       g.fillStyle = base; g.fillRect(0, 0, w, h);
       for (let i = 0; i < 6; i++) { g.fillStyle = rnd() > 0.5 ? "rgba(255,255,255,.04)" : "rgba(0,0,0,.05)"; g.fillRect(0, rnd() * h, w, 20 + rnd() * 60); }
       for (let i = 0; i < 170; i++) {
@@ -91,7 +112,9 @@
     woodCache.set(key, t);
     return t;
   }
-  const floorTex = (base) => canvasTex(512, 512, (g, w, h) => {
+  const floorTex = (base) => PHOTOS.parquet ? canvasTex(1024, 512, (g, w, h) => {
+    tinted(g, PHOTOS.parquet, base || "#9a6840", w, h);
+  }, [4, 8]) : canvasTex(512, 512, (g, w, h) => {
     const plank = 64;
     for (let y = 0; y < h; y += plank) {
       const off = (y / plank) % 2 ? 160 : 0;
@@ -158,6 +181,7 @@
   }
 
   /* ---------- Matériaux partagés ---------- */
+  const woodMat = (c) => new T.MeshStandardMaterial({ map: woodTexture(c, [1, 1]), roughness: 0.6 });
   const matCache = new Map();
   function mat(color, opts) {
     const key = color + JSON.stringify(opts || {});
@@ -339,6 +363,161 @@
     return g;
   }
 
+  /* ---------- Déco des photos de Julie : suspensions, fleurs séchées, champignons, lapin, lanterne, mousse ---------- */
+  function rod(a, b, r, m, parent) {
+    const d = new T.Vector3().subVectors(b, a), len = d.length();
+    const o = new T.Mesh(new T.CylinderGeometry(r, r, len, 5), m);
+    o.position.copy(a).addScaledVector(d, 0.5); o.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), d.normalize()); parent.add(o); return o;
+  }
+  const weave = canvasTex(64, 64, (g, w, h) => {
+    g.fillStyle = "#b8925e"; g.fillRect(0, 0, w, h);
+    for (let y = 0; y < h; y += 8) for (let x = (y / 8) % 2 ? 0 : 8; x < w; x += 16) { g.fillStyle = "rgba(255,240,200,.25)"; g.fillRect(x, y + 1, 8, 6); g.fillStyle = "rgba(60,35,10,.3)"; g.fillRect(x + 8, y, 1, 8); }
+  }, [4, 2]);
+  function leafBall(g, y, n, r0) {
+    for (let i = 0; i < n; i++) {
+      const l = new T.Mesh(leafPlane, LEAVES.heart[i % 4]); const a = i * 2.39, r = r0 + (i % 5) * 0.018;
+      l.position.set(Math.cos(a) * r, y + (i % 4) * 0.02, Math.sin(a) * r); l.scale.setScalar(0.9 + (i % 3) * 0.2);
+      l.rotation.set(-0.9 + (i % 4) * 0.35, -a + Math.PI / 2, 0, "YXZ"); g.add(l);
+    }
+  }
+  /* Suspension en macramé avec un pothos qui retombe, accrochée au plafond */
+  function hangingBasket(parent, x, y, z) {
+    const g = new T.Group(); g.position.set(x, y, z); parent.add(g);
+    const bowl = new T.Mesh(new T.SphereGeometry(0.13, 20, 10, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new T.MeshStandardMaterial({ map: weave, roughness: 1, side: T.DoubleSide }));
+    g.add(bowl);
+    const rim = new T.Mesh(new T.TorusGeometry(0.13, 0.012, 6, 24), mat("#a07a48", { roughness: 1 })); rim.rotation.x = Math.PI / 2; g.add(rim);
+    cyl(0.12, 0.12, 0.01, mat("#3a2a1c"), 0, -0.01, 0, g, 18);
+    const rope = mat("#e6d6b8", { roughness: 1 }), knot = new T.Vector3(0, 0.55, 0);
+    for (let i = 0; i < 4; i++) { const a = i * QUARTER + 0.4; rod(new T.Vector3(Math.cos(a) * 0.13, -0.02, Math.sin(a) * 0.13), knot, 0.004, rope, g); }
+    rod(knot, new T.Vector3(0, 3.6 - y, 0), 0.005, rope, g);
+    ball(0.018, rope, 0, 0.55, 0, g);
+    leafBall(g, 0.01, 24, 0.02);
+    vines(g, [[-0.09, 0.02, 0.06, 0.55, 1], [0.08, 0.02, 0.02, 0.8, 2], [0.0, 0.02, 0.1, 0.4, 3], [-0.03, 0.02, -0.08, 0.6, 4]]);
+    return g;
+  }
+  /* Cadre avec des fleurs séchées pressées */
+  const FLOWER_COLORS = ["#c98f8a", "#d6b36a", "#9c8ab8", "#e3d2b5", "#b06d5a", "#8fa07a"];
+  function driedTex(seed) {
+    return canvasTex(128, 160, (g, w, h) => {
+      g.fillStyle = "#f2eadb"; g.fillRect(0, 0, w, h);
+      for (let i = 0; i < 300; i++) { g.fillStyle = "rgba(120,90,50,.04)"; g.fillRect((i * 37.3) % w, (i * 71.1) % h, 2, 2); }
+      const n = 3 + (seed % 2);
+      for (let k = 0; k < n; k++) {
+        const bx = w / 2 + (k - (n - 1) / 2) * 16, top = 30 + ((k * 23 + seed * 7) % 30), c = FLOWER_COLORS[(k + seed) % FLOWER_COLORS.length];
+        g.strokeStyle = "#7d8460"; g.lineWidth = 1.6; g.beginPath(); g.moveTo(w / 2, h - 24); g.quadraticCurveTo(bx, h - 70, bx + (k - 1) * 6, top); g.stroke();
+        for (let j = 0; j < 9; j++) { g.fillStyle = c; g.globalAlpha = 0.85; g.beginPath(); g.ellipse(bx + (k - 1) * 6 + Math.sin(j * 2.1) * 7, top + j * 4 - 6, 3.2, 2.2, j, 0, 7); g.fill(); }
+        g.globalAlpha = 1; g.fillStyle = "#8a9468";
+        for (let j = 0; j < 3; j++) { g.beginPath(); g.ellipse(bx + (j % 2 ? 6 : -6), h - 60 - j * 14, 5, 2, j % 2 ? -0.6 : 0.6, 0, 7); g.fill(); }
+      }
+      g.strokeStyle = "#c9b48c"; g.lineWidth = 2; g.beginPath(); g.moveTo(w / 2 - 8, h - 26); g.lineTo(w / 2 + 8, h - 22); g.stroke();
+    });
+  }
+  function driedFrame(parent, x, y, z, seed) {
+    const g = new T.Group(); g.position.set(x, y, z); parent.add(g);
+    const fr = woodMat("#b88a58");
+    box(0.26, 0.025, 0.025, fr, 0, 0.155, 0, g); box(0.26, 0.025, 0.025, fr, 0, -0.155, 0, g);
+    box(0.025, 0.335, 0.025, fr, -0.1175, 0, 0, g); box(0.025, 0.335, 0.025, fr, 0.1175, 0, 0, g);
+    box(0.21, 0.285, 0.004, new T.MeshStandardMaterial({ map: driedTex(seed), roughness: 0.9 }), 0, 0, -0.004, g);
+    return g;
+  }
+  /* Champignons (amanites rouges à pois blancs et petits bruns) */
+  const capRed = new T.MeshStandardMaterial({ roughness: 0.5, map: canvasTex(64, 32, (g, w, h) => {
+    g.fillStyle = "#b8322a"; g.fillRect(0, 0, w, h); g.fillStyle = "#f6efe0";
+    for (let i = 0; i < 14; i++) { g.beginPath(); g.arc((i * 23) % w, 4 + ((i * 7) % 20), 1.6 + (i % 3) * 0.6, 0, 7); g.fill(); }
+  }) });
+  const capGeo = new T.SphereGeometry(1, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2);
+  function mushrooms(parent, x, y, z, s) {
+    const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); parent.add(g);
+    const stem = mat("#efe6d4", { roughness: 0.6 }), brown = mat("#8a5a3a", { roughness: 0.6 });
+    [[0, 0, 0.07, 0.03, capRed], [0.045, 0.02, 0.045, 0.022, brown], [-0.04, 0.015, 0.035, 0.018, capRed]].forEach(([dx, dz, h, r, m]) => {
+      cyl(r * 0.35, r * 0.45, h, stem, dx, h / 2, dz, g, 10);
+      const c = new T.Mesh(capGeo, m); c.scale.set(r, r * 0.7, r); c.position.set(dx, h - 0.002, dz); g.add(c);
+    });
+    // un peu de mousse au pied
+    const ms = mat("#5d7a34", { roughness: 1 });
+    for (let i = 0; i < 4; i++) { const b = ball(0.03, ms, Math.cos(i * 1.7) * 0.04, 0, Math.sin(i * 1.7) * 0.03, g); b.scale.set(1, 0.3, 1); }
+    return g;
+  }
+  /* Petit lapin en céramique */
+  function rabbit(parent, x, y, z, s) {
+    const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); g.rotation.y = -0.5; parent.add(g);
+    const m = mat("#f1ece3", { roughness: 0.35 }), pink = mat("#e8b4b0", { roughness: 0.5 }), eye = mat("#2a201c", { roughness: 0.3 });
+    ball(0.05, m, 0, 0.045, -0.01, g).scale.set(1, 0.9, 1.25);
+    ball(0.034, m, 0, 0.1, 0.045, g);
+    ball(0.016, m, 0, 0.05, -0.075, g);
+    [-1, 1].forEach((k) => {
+      const ear = ball(0.012, m, k * 0.014, 0.15, 0.035, g); ear.scale.set(1, 3.6, 0.6); ear.rotation.z = -k * 0.18;
+      const inner = ball(0.007, pink, k * 0.014, 0.15, 0.042, g); inner.scale.set(1, 3.6, 0.4); inner.rotation.z = -k * 0.18;
+      ball(0.005, eye, k * 0.016, 0.108, 0.073, g);
+      ball(0.014, m, k * 0.03, 0.012, 0.035, g).scale.set(1, 0.6, 1.6);
+    });
+    ball(0.005, pink, 0, 0.098, 0.079, g);
+    return g;
+  }
+  /* Lanterne en métal noir avec une bougie */
+  function lantern(parent, x, y, z, s) {
+    const g = new T.Group(); g.position.set(x, y, z); g.scale.setScalar(s || 1); parent.add(g);
+    const metal = mat("#2a2622", { metalness: 0.6, roughness: 0.5 });
+    box(0.13, 0.015, 0.13, metal, 0, 0.0075, 0, g);
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => box(0.01, 0.19, 0.01, metal, a * 0.058, 0.11, b * 0.058, g));
+    box(0.13, 0.012, 0.13, metal, 0, 0.21, 0, g);
+    const roof = new T.Mesh(new T.ConeGeometry(0.095, 0.07, 4), metal); roof.rotation.y = Math.PI / 4; roof.position.y = 0.25; g.add(roof);
+    const ring = new T.Mesh(new T.TorusGeometry(0.02, 0.004, 6, 16), metal); ring.position.y = 0.3; g.add(ring);
+    box(0.11, 0.18, 0.11, new T.MeshStandardMaterial({ color: "#fff6e0", transparent: true, opacity: 0.16, roughness: 0.1, depthWrite: false }), 0, 0.11, 0, g);
+    candle(g, 0, 0.015, 0, 0.75);
+    return g;
+  }
+  /* Mousse posée sur le dessus du meuble, qui déborde un peu */
+  const mossMats = ["#6b8f2e", "#82a83a", "#55762a"].map((c) => new T.MeshStandardMaterial({ color: c, roughness: 1, map: canvasTex(32, 32, (g, w, h) => { g.fillStyle = "#c8c8c8"; g.fillRect(0, 0, w, h); for (let i = 0; i < 160; i++) { g.fillStyle = i % 2 ? "#fff" : "#777"; g.fillRect((i * 13.7) % w, (i * 7.3) % h, 1, 1); } }) }));
+  const mossGeo = new T.SphereGeometry(1, 10, 6);
+  function moss(parent, W, y, z) {
+    for (let x = -W / 2 + 0.02, i = 0; x < W / 2; x += 0.045, i++) for (let k = 0; k < 2; k++) {
+      const b = new T.Mesh(mossGeo, mossMats[(i + k) % 3]); const r = 0.05 + ((i + k) % 3) * 0.015;
+      b.scale.set(r * 1.2, r * 0.55, r); b.position.set(x + k * 0.02, y + 0.008, z + (k ? 0.09 : -0.04) + ((i * 7) % 5) * 0.012); parent.add(b);
+    }
+    for (let x = -W / 2 + 0.1, i = 0; x < W / 2; x += 0.23, i++) { // petits bouts qui pendent devant
+      const b = new T.Mesh(mossGeo, mossMats[i % 3]); b.scale.set(0.03, 0.04, 0.012); b.position.set(x, y - 0.02, z + DEPTH / 2 + 0.03); parent.add(b);
+    }
+  }
+
+  /* ---------- Couverture d'un livre posé de face : vraie image si le site la prête, sinon dessinée ---------- */
+  const coverCache = new Map();
+  function coverMaterial(b, color, ink, onReady) {
+    let c = coverCache.get(b.id);
+    if (!c) {
+      const drawn = canvasTex(160, 240, (g, w, h) => {
+        g.fillStyle = color; g.fillRect(0, 0, w, h);
+        g.fillStyle = ink; g.globalAlpha = 0.5; g.fillRect(12, 14, w - 24, 2); g.fillRect(12, h - 16, w - 24, 2); g.globalAlpha = 1;
+        g.textAlign = "center"; g.fillStyle = ink;
+        const words = b.title.split(/\s+/), lines = [""];
+        g.font = "bold 20px Georgia, serif";
+        for (const wd of words) { const t = (lines[lines.length - 1] + " " + wd).trim(); if (g.measureText(t).width > w - 26 && lines[lines.length - 1]) lines.push(wd); else lines[lines.length - 1] = t; }
+        lines.slice(0, 5).forEach((l, i) => g.fillText(l, w / 2, 70 + i * 24));
+        if (b.authors && b.authors[0]) { g.font = "14px Georgia, serif"; g.globalAlpha = 0.85; g.fillText(b.authors[0].slice(0, 24), w / 2, h - 34); }
+      });
+      c = { mat: new T.MeshStandardMaterial({ map: drawn, roughness: 0.5 }), waiting: new Set() };
+      coverCache.set(b.id, c);
+      let url = b.cover || "";
+      if (/books\.google/.test(url)) url = url.replace(/&zoom=\d/, "") + "&fife=w400";
+      const urls = [url, b.isbn ? "https://covers.openlibrary.org/b/isbn/" + b.isbn + "-L.jpg?default=false" : ""].filter(Boolean);
+      const tryNext = (i) => {
+        if (i >= urls.length) return;
+        const im = new Image(); im.crossOrigin = "anonymous";
+        im.onload = () => {
+          if (im.naturalWidth < 40) return tryNext(i + 1);
+          const t = new T.Texture(im); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; t.needsUpdate = true;
+          c.mat.map = t; c.mat.needsUpdate = true; c.ready = true;
+          c.waiting.forEach((f) => f()); c.waiting.clear();
+        };
+        im.onerror = () => tryNext(i + 1);
+        im.src = urls[i];
+      };
+      tryNext(0);
+    }
+    if (!c.ready && onReady) c.waiting.add(onReady);
+    return c.mat;
+  }
+
   /* ---------- Rangement des livres ---------- */
   const hash = (s) => { let h = 2166136261; for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
   const thickness = (b) => Math.max(0.03, Math.min(0.08, (b.pages || 250) / 8000 + 0.014));
@@ -422,11 +601,47 @@
     if (key === "alire") for (let i = 0; i < 3; i++) box(0.12, 0.016, 0.02, mat("#c9a227", { metalness: 0.7, roughness: 0.3 }), -W / 3 + (i * W) / 3, base / 2, DEPTH / 2 + 0.01, g);
 
     // livres
-    const decorKinds = (th.jungle ? ["plant", "plant", "candle", "plant", "stack"] : ["plant", "candle", "frame", "stack"])
-      .filter((k) => deco[{ plant: "plantes", candle: "bougies", frame: "cadres", stack: "piles" }[k]]);
+    const decorKinds = (th.jungle ? ["plant", "mushroom", "plant", "candle", "rabbit", "plant", "stack"] : ["plant", "candle", "rabbit", "frame", "mushroom", "stack"])
+      .filter((k) => deco[{ plant: "plantes", candle: "bougies", frame: "cadres", stack: "piles", mushroom: "champignons", rabbit: "lapin" }[k]]);
+    let faces = 0;
+    // rayons vides : on y pose de face un ou deux livres pris dans le rayon le plus rempli
+    const onEmpty = new Map();
+    rows.forEach((row, r) => {
+      if (row.length || onEmpty.size >= 2) return;
+      const full = rows.reduce((a, b) => (b.filter((u) => !u.box).length > a.filter((u) => !u.box).length ? b : a), []);
+      const cands = full.filter((u) => !u.box);
+      if (cands.length < 2) return;
+      const u = cands.find((x) => x.books[0].fav && x.books[0].cover) || cands.find((x) => x.books[0].cover) || cands[cands.length - 1];
+      full.splice(full.indexOf(u), 1); onEmpty.set(r, u);
+    });
+    const faceOut = (b, cx, y0) => {
+      const t = thickness(b), fw = 0.17, fh = 0.25;
+      const color = helpers.colorOf(b), ink = helpers.textOn(color), side = mat(color);
+      const fg = new T.Group(); fg.position.set(cx, y0, -DEPTH / 2 + 0.09); fg.rotation.set(-0.13, (hash(b.id) % 2 ? 0.06 : -0.06), 0); g.add(fg);
+      const m = box(fw, fh, t, [side, pagesMat, pagesMat, pagesMat, coverMaterial(b, color, ink, helpers.onTex), side], 0, fh / 2, 0, fg);
+      m.userData.id = b.id; helpers.pick.push(m);
+      animate(fg, b.id);
+    };
+    const animate = (obj, id) => {
+      const t0 = helpers.animIn && helpers.animIn.get(id);
+      if (t0 === undefined) return;
+      helpers.anims.push({ obj, to: obj.position.clone(), t0 });
+    };
     rows.forEach((row, r) => {
       const y0 = base + (rows.length - 1 - r) * SHELF_H + 0.014; // on range depuis le rayon du haut
-      let x = -W / 2 + 0.04;
+      let x = -W / 2 + 0.04, right = W / 2 - 0.04;
+      // un livre posé de face au bout du rayon, s'il reste de la place : un coup de cœur de préférence
+      const used = row.reduce((s, u) => s + u.w, 0);
+      if (onEmpty.has(r)) { faceOut(onEmpty.get(r).books[0], x + 0.12, y0); x += 0.3; faces++; }
+      else if (faces < 2 && W - 0.08 - used > 0.3 && (r + key.length) % 2 === 0) {
+        const cands = row.filter((u) => !u.box);
+        const pickU = cands.find((u) => u.books[0].fav && u.books[0].cover) || cands.find((u) => u.books[0].cover) || cands[cands.length - 1];
+        if (pickU) {
+          row = row.filter((u) => u !== pickU); faces++;
+          faceOut(pickU.books[0], right - 0.095, y0);
+          right -= 0.21;
+        }
+      }
       const placeBook = (b, boxH) => {
         const t = thickness(b);
         const h = boxH || 0.25 + (hash(b.id) % 50) / 1000;
@@ -435,6 +650,7 @@
         const m = box(t, h, BOOK_D, [side, side, pagesMat, pagesMat, spine, side], x + t / 2, y0 + h / 2, DEPTH / 2 - BOOK_D / 2 - 0.012, g);
         m.userData.id = b.id;
         helpers.pick.push(m);
+        animate(m, b.id);
         if (b.status === "encours") box(0.012, 0.06, 0.002, mat("#a8432f"), x + t / 2, y0 + h + 0.02, DEPTH / 2 - 0.02, g); // marque-page
         x += t + 0.004;
       };
@@ -455,16 +671,18 @@
         u.books.forEach((b) => placeBook(b, bh - 0.004));
         x = x0 + u.w;
       });
-      const free = W / 2 - 0.04 - x;
+      const free = right - x;
       const kind = decorKinds.length ? decorKinds[(r + key.length) % decorKinds.length] : "";
       const z = 0.02;
       if (free > 0.3) {
-        const dx = W / 2 - 0.18;
+        const dx = right - 0.14;
         if (kind === "plant") plant(g, dx, y0, z, 0.9);
         if (kind === "candle") candle(g, dx, y0, z, 1.1);
         if (kind === "frame") frame(g, dx, y0, z);
         if (kind === "stack") bookStack(g, dx - 0.02, y0, z);
-        if (!row.length && free > 0.9 && kind) { (r % 2 && deco.bougies ? candle : deco.plantes ? plant : candle)(g, -W / 2 + 0.3, y0, z, 1); }
+        if (kind === "mushroom") mushrooms(g, dx, y0, z + 0.03, 1.1);
+        if (kind === "rabbit") rabbit(g, dx, y0, z + 0.03, 1.2);
+        if (!row.length && !onEmpty.has(r) && free > 0.9 && kind) { (r % 2 && deco.bougies ? candle : deco.plantes ? plant : candle)(g, -W / 2 + 0.3, y0, z, 1); }
       }
     });
     // dessus du meuble
@@ -488,6 +706,19 @@
     }
     if (deco.grandes) { bigPlant(g, W / 2 + 0.45, 0.25, 1.1); bigPlant(g, -W / 2 - 0.28, 0.2, 0.8); }
     if (deco.guirlande) fairyLights(g, W + 0.3, H + 0.55, DEPTH / 2 + 0.05);
+    if (deco.mousse) moss(g, W + 0.12, topY - 0.01, 0);
+    if (deco.champignons) mushrooms(g, W / 2 - 0.5, topY, 0.03, 1.3);
+    if (deco.lapin) rabbit(g, -W / 2 + 0.52, topY, 0.03, 1.4);
+    if (deco.lanterne) lantern(g, -W / 2 - 0.1, 0, DEPTH / 2 + 0.42, 1.7);
+    if (deco.suspensions) {
+      const hy = Math.min(2.75, Math.max(1.3, H * 0.72));
+      hangingBasket(g, -W / 2 - 0.12, hy, DEPTH / 2 + 0.32);
+      hangingBasket(g, W / 2 + 0.14, hy + 0.2, DEPTH / 2 + 0.4);
+    }
+    if (deco.fleurs) {
+      const wz = -(ROOM - R) + DEPTH / 2 + 0.015;
+      driedFrame(g, -W / 2 - 0.42, 1.62, wz, 1); driedFrame(g, -W / 2 - 0.42, 1.22, wz, 2); driedFrame(g, W / 2 + 0.44, 1.5, wz, 3);
+    }
     // mobilier à côté du meuble
     if (deco.fauteuil) armchair(g, th.chair, -W / 2 - 0.85, 0.95, 0.55, th.plaid);
     if (deco.lampe) sideTable(g, W / 2 + 0.55, 0.55);
@@ -522,9 +753,38 @@
     scene.fog = new T.Fog(sceneColor, 9, 16);
     const camera = new T.PerspectiveCamera(50, 1, 0.05, 40);
 
-    scene.add(new T.AmbientLight(night ? "#c9c4e8" : "#ffe2c4", night ? 0.6 : 0.8));
-    scene.add(new T.HemisphereLight(night ? "#d8d4f0" : "#fff1dc", "#5a3a24", night ? 0.55 : 0.8));
-    const ceilingLight = new T.PointLight("#ffd9a8", night ? 9 : 8, 12, 1.3); ceilingLight.position.set(0, 2.75, 0); scene.add(ceilingLight);
+    const ambient = new T.AmbientLight("#ffe2c4", 0.8); scene.add(ambient);
+    const hemi = new T.HemisphereLight("#fff1dc", "#5a3a24", 0.8); scene.add(hemi);
+    const ceilingLight = new T.PointLight("#ffd9a8", 8, 12, 1.3); ceilingLight.position.set(0, 2.75, 0); scene.add(ceilingLight);
+    // lumière du jour qui entre de biais (plus chaude le matin et le soir, absente la nuit)
+    const sun = new T.DirectionalLight("#fff4e6", 0); sun.position.set(3, 3.2, 2); scene.add(sun);
+    /* La lumière suit l'heure : matin doré, journée claire, soirée chaude, nuit tamisée */
+    const LIGHT_KEYS = [ // heure, ambiante, intensité, ciel, intensité, plafond, soleil, intensité, exposition
+      [0, "#b9bde6", 0.45, "#c9c8ec", 0.35, 8.5, "#8090c0", 0, 0.95],
+      [6, "#c9c4e0", 0.5, "#d8d4f0", 0.45, 8, "#ffb070", 0, 0.98],
+      [8, "#ffe6c8", 0.75, "#fff0dc", 0.75, 5.5, "#ffc98a", 1.1, 1.05],
+      [12, "#fff3e6", 0.9, "#fffaf0", 0.95, 4.5, "#fff4e6", 1.4, 1.1],
+      [16, "#ffeedd", 0.85, "#fff4e4", 0.85, 5, "#ffe2b8", 1.2, 1.08],
+      [19, "#ffd0a4", 0.6, "#ffe0bc", 0.55, 8, "#ff9a5a", 0.5, 1.02],
+      [22, "#c4bfe4", 0.48, "#d0cceb", 0.4, 8.5, "#8090c0", 0, 0.96],
+      [24, "#b9bde6", 0.45, "#c9c8ec", 0.35, 8.5, "#8090c0", 0, 0.95],
+    ];
+    const ca = new T.Color(), cb = new T.Color();
+    function setHour(h) {
+      if (night) h = 23; // ambiance « Soirée » : toujours le soir
+      let i = 0; while (i < LIGHT_KEYS.length - 2 && LIGHT_KEYS[i + 1][0] <= h) i++;
+      const A = LIGHT_KEYS[i], B = LIGHT_KEYS[i + 1], t = Math.max(0, Math.min(1, (h - A[0]) / (B[0] - A[0])));
+      const lerp = (k) => A[k] + (B[k] - A[k]) * t, col = (k) => ca.set(A[k]).lerp(cb.set(B[k]), t);
+      ambient.color.copy(col(1)); ambient.intensity = lerp(2);
+      hemi.color.copy(col(3)); hemi.intensity = lerp(4);
+      ceilingLight.intensity = lerp(5);
+      sun.color.copy(col(6)); sun.intensity = lerp(7);
+      renderer.toneMappingExposure = lerp(8);
+      kick();
+    }
+    const nowHour = () => { const d = new Date(); return d.getHours() + d.getMinutes() / 60; };
+    let fixedHour = opts.hour;
+    setInterval(() => { if (fixedHour === undefined) setHour(nowHour()); }, 5 * 60 * 1000);
     ceilingLight.castShadow = true;
     ceilingLight.shadow.mapSize.set(1024, 1024);
     ceilingLight.shadow.radius = 4; ceilingLight.shadow.bias = -0.004; ceilingLight.shadow.normalBias = 0.02;
@@ -558,23 +818,31 @@
     let yaw = 0, targetYaw = 0, zoom = 1, targetZoom = 1, panX = 0, panY = 0, targetPanX = 0, targetPanY = 0;
     let width = 1, height = 1, needs = true, raf = 0;
 
-    let lastMap = {};
+    let lastMap = {}, curOver = opts.themes, curFloor = opts.floor;
     /* Changer la déco sans recharger : murs repeints, meubles reconstruits */
-    function setFloor(c) { const m = floor.material; if (m.map) m.map.dispose(); m.map = floorTex(c); m.needsUpdate = true; kick(); }
+    function setFloor(c) { curFloor = c; const m = floor.material; if (m.map) m.map.dispose(); m.map = floorTex(c); m.needsUpdate = true; kick(); }
     function setThemes(over) {
+      curOver = over;
       applyThemes(over);
       KEYS.forEach((k) => { const m = walls[k].material; if (m.map) m.map.dispose(); m.map = wallTexture(THEMES[k]); m.needsUpdate = true; });
       setBooks(lastMap);
     }
+    // les photos de matières arrivent après le premier dessin : on repeint quand elles sont là
+    let photoTimer = 0;
+    photoWaiters.push(() => { clearTimeout(photoTimer); photoTimer = setTimeout(() => { setFloor(curFloor); setThemes(curOver); }, 60); });
+    /* Livre qu'on vient de ranger : il glisse à sa place */
+    const animIn = new Map(); let anims = [];
+    const ANIM_MS = 1100;
+    function shelve(id) { animIn.set(id, performance.now() + 120); setTimeout(() => animIn.delete(id), ANIM_MS + 400); }
     function setBooks(map) {
-      lastMap = map;
+      lastMap = map; anims = [];
       Object.values(cases).forEach((c) => {
         scene.remove(c.group);
         c.group.traverse((o) => { if (o.geometry) o.geometry.dispose(); });
       });
       cases = {}; pick = [];
       KEYS.forEach((k, i) => {
-        const c = buildCase(k, map[k] || [], { pick, colorOf: opts.colorOf, textOn: opts.textOn, narrow: width / height < 0.8 });
+        const c = buildCase(k, map[k] || [], { pick, colorOf: opts.colorOf, textOn: opts.textOn, narrow: width / height < 0.8, animIn, anims, onTex: () => { renderer.shadowMap.needsUpdate = true; kick(); } });
         const a = i * QUARTER;
         c.group.position.copy(dir(a).multiplyScalar(R + DEPTH / 2));
         c.group.rotation.y = -a;
@@ -582,8 +850,15 @@
         scene.add(c.group);
         cases[k] = c;
       });
+      anims.forEach(stepAnim);
       renderer.shadowMap.needsUpdate = true;
       kick();
+    }
+    // départ : un peu devant et au-dessus, puis le livre recule doucement dans le rayon
+    function stepAnim(a) {
+      const p = Math.max(0, Math.min(1, (performance.now() - a.t0) / ANIM_MS)), e = 1 - Math.pow(1 - p, 3);
+      a.obj.position.set(a.to.x, a.to.y + Math.sin(Math.PI * Math.min(1, e * 1.1)) * 0.08 + (1 - e) * 0.05, a.to.z + (1 - e) * 0.7);
+      return p < 1;
     }
     function fitDistance(c) {
       const vf = (camera.fov * Math.PI) / 180;
@@ -611,7 +886,9 @@
       yaw += (targetYaw - yaw) * ease;
       zoom += (targetZoom - zoom) * ease;
       panX += (targetPanX - panX) * ease; panY += (targetPanY - panY) * ease;
-      const moving = Math.abs(targetYaw - yaw) > 0.0005 || Math.abs(targetZoom - zoom) > 0.0005 || Math.abs(targetPanX - panX) > 0.0005 || Math.abs(targetPanY - panY) > 0.0005;
+      let animating = false;
+      if (anims.length) { anims = anims.filter((a) => { const on = stepAnim(a); animating = animating || on; return on; }); if (!anims.length) renderer.shadowMap.needsUpdate = true; }
+      const moving = animating || Math.abs(targetYaw - yaw) > 0.0005 || Math.abs(targetZoom - zoom) > 0.0005 || Math.abs(targetPanX - panX) > 0.0005 || Math.abs(targetPanY - panY) > 0.0005;
       if (!moving) { yaw = targetYaw; zoom = targetZoom; panX = targetPanX; panY = targetPanY; }
       placeCamera();
       renderer.render(scene, camera);
@@ -724,12 +1001,13 @@
     }
 
     resize();
+    setHour(fixedHour !== undefined ? fixedHour : nowHour());
     /* Pour les tests : position à l'écran d'un livre et état de la caméra */
     function debug(i) {
       const m = pick[i]; if (!m) return { yaw, targetYaw };
       const v = new T.Vector3(); m.getWorldPosition(v); v.project(camera);
       return { yaw, targetYaw, x: (v.x + 1) / 2 * width, y: (1 - v.y) / 2 * height, id: m.userData.id };
     }
-    return { setBooks, setThemes, setFloor, face, step, resize, currentKey, canvas, debug };
+    return { setBooks, setThemes, setFloor, face, step, resize, currentKey, canvas, debug, shelve, setHour: (h) => { fixedHour = h; setHour(h); } };
   };
 })();

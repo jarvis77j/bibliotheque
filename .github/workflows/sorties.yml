@@ -18,9 +18,17 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: python3 scripts/sorties.py
       - run: |
           git add data/sorties.json
           if git diff --cached --quiet; then echo "rien de neuf"; exit 0; fi
           git -c user.name="robot-sorties" -c user.email="robot@users.noreply.github.com" commit -qm "Sorties mises à jour"
-          git pull -q --rebase origin main && git push -q origin main
+          # si l'app a été mise à jour pendant la collecte, on se replace dessus puis on réessaie
+          for i in 1 2 3 4; do
+            git pull -q --rebase -X theirs origin main && git push -q origin main && exit 0
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 10))
+          done
+          exit 1
