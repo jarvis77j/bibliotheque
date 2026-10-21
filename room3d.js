@@ -14,7 +14,7 @@
 
   const THEMES = {
     lu:      { wall: "#d8b38a", wall2: "#c79b70", pattern: "stripes", wood: "#7a4a2a", back: "#3a2213", chair: "#b5553a", rows: 4 },
-    encours: { wall: "#b4c1a0", wall2: "#98a884", pattern: "panel",   wood: "#c9a26f", back: "#6f5233", chair: "#c9962e", rows: 3, plaid: true },
+    encours: { wall: "#b4c1a0", wall2: "#98a884", pattern: "panel",   wood: "#bba383", back: "#8c7253", chair: "#c9962e", rows: 3, plaid: true },
     alire:   { wall: "#e7c2b4", wall2: "#d3a596", pattern: "dots",    wood: "#efe8dc", back: "#d9ccb6", chair: "#8fa58a", rows: 4 },
     fav:     { wall: "#7a3a3c", wall2: "#5a2628", pattern: "damask",  wood: "#26342b", back: "#141e18", chair: "#2f6b55", rows: 3, gold: true, lights: true },
   };
