@@ -786,7 +786,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 22 octobre, 18 h</p>
+    <p class="version">Version du 22 octobre, 19 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -2007,7 +2007,9 @@ async function loadReleases(force) {
   const seen = new Set(), out = [];
   for (const b of site) { const k = editionKey(b); if (!seen.has(k)) { seen.add(k); if (b.isbn) seen.add("isbn:" + b.isbn); out.push(b); } }
   // Google Livres en complément : surtout pour les sorties de ses auteurs préférés
-  const queries = site.length ? authors : [...REL_QUERIES, ...authors];
+  // maisons qui ferment leur site aux robots : demandées à Google depuis le téléphone (gardé un jour en mémoire)
+  const pubs = ["Gallimard", "Folio", "Pocket", "Robert Laffont", "Flammarion", "J'ai lu", "Actes Sud", "Milady"].map((p) => "inpublisher:" + JSON.stringify(p));
+  const queries = site.length ? [...authors, ...pubs] : [...REL_QUERIES, ...authors, ...pubs];
   for (let i = 0; i < queries.length; i += 2) {
     const res = await Promise.all(queries.slice(i, i + 2).map((q) => googleFetch(q, "newest").catch(() => [])));
     for (const r of res.flat()) {

@@ -129,7 +129,7 @@ GPUBS = [("Gallimard", "roman"), ("Folio", ""), ("Gallimard Jeunesse", "jeunesse
 
 def gget(q, start):
     url = ("https://www.googleapis.com/books/v1/volumes?" + urllib.parse.urlencode(
-        {"q": q, "orderBy": "newest", "langRestrict": "fr", "printType": "books", "maxResults": 40, "startIndex": start, "key": GKEY}))
+        {"q": q, "orderBy": "newest", "langRestrict": "fr", "printType": "books", "maxResults": 40, "startIndex": start, "country": "FR", "key": GKEY}))
     req = urllib.request.Request(url, headers={"Referer": "https://jarvis77j.github.io/bibliotheque/", "User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
@@ -233,7 +233,9 @@ def main():
     # Google par éditeur : une fois par jour (environ 70 recherches sur les 1 000 du quota partagé)
     g_at = prev_stats.get("google_editeurs_at", "")
     g_stale = not g_at or datetime.utcnow() - datetime.strptime(g_at, "%Y-%m-%dT%H:%MZ") > timedelta(hours=22)
-    if os.environ.get("GOOGLE_EDITEURS") == "1" or (g_stale and datetime.utcnow().hour in (5, 11, 17)):
+    # Hors service : depuis les serveurs de GitHub (États-Unis), Google ne renvoie rien pour ces éditeurs ;
+    # c'est l'app qui les demande, depuis le téléphone en France. Relançable à la main avec GOOGLE_EDITEURS=1.
+    if os.environ.get("GOOGLE_EDITEURS") == "1":
         gq = [('inpublisher:"%s"' % p, k) for p, k in GPUBS]
         ge = google_upcoming(lo, hi, stats, gq, "google_editeurs")
         if ge and stats["google_editeurs"]["erreurs"] < 5:
