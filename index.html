@@ -278,6 +278,9 @@
   .rel-weeks { display: flex; gap: 8px; margin-bottom: 10px; overflow-x: auto; scrollbar-width: none; }
   .rel-weeks button, .rel-kinds button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 18px; padding: 7px 12px; font-size: 14px; cursor: pointer; white-space: nowrap; }
   .rel-weeks button.on, .rel-kinds button.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
+  .rel-search { width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink); font-size: 16px; margin-bottom: 8px; }
+  .badge-new { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 2px; border-radius: 9px; background: #d64545; color: #fff; font-size: 12px; line-height: 18px; text-align: center; }
+  .tag.new-tome { background: #d64545; color: #fff; }
   .rel-kinds { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-bottom: 6px; padding-bottom: 4px; }
   .rel-day { font-family: Georgia, serif; font-size: 19px; margin: 22px 0 10px; text-transform: capitalize; }
   .rel-day small { font-family: -apple-system, sans-serif; font-size: 13px; color: var(--muted); text-transform: none; margin-left: 6px; }
@@ -783,7 +786,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 22 octobre, 11 h</p>
+    <p class="version">Version du 22 octobre, 18 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1942,7 +1945,28 @@ function distributorOf(publisher) {
 }
 const REL_KINDS = [["", "Tout"], ["roman", "Romans"], ["romance", "Romance"], ["fantasy", "Fantasy & SF"], ["policier", "Polar & thriller"], ["ya", "Young adult"], ["bd", "BD & manga"], ["jeunesse", "Jeunesse"]];
 const REL_QUERIES = ['subject:"fiction"', 'subject:"romance"', 'subject:"fantasy"', 'subject:"thriller"', 'subject:"young adult"', "roman", "manga", "bande dessinée tome"];
-let relWeek = 0, relKind = "", relDay = "";
+let relWeek = 0, relKind = "", relDay = "", relMine = false, relText = "";
+/* Nouveaux tomes : sorties d'une série qu'elle a commencée, dont elle n'a pas encore ce tome */
+function newTomes(all) {
+  const mine = new Map();
+  books.forEach((b) => { const s = seriesName(b); if (s && (b.tome || guessSeries(b.title).tome)) mine.set(plain(s), s); });
+  if (!mine.size) return [];
+  const from = isoDay(new Date(Date.now() - 14 * 864e5));
+  return (all || []).filter((r) => {
+    if (r.date < from) return false;
+    const g = guessSeries(r.title); if (!g.tome) return false;
+    const name = mine.get(plain(seriesName({ title: r.title })));
+    return name && !hasTome(name, g.tome);
+  });
+}
+const tomeKey = (r) => plain(seriesName({ title: r.title })) + "#" + guessSeries(r.title).tome;
+// pastille sur le bouton Sorties : nouveaux tomes pas encore vus
+function updateTomeBadge(all) {
+  const btn = document.querySelector('#quick [data-key="sorties"]'); if (!btn) return;
+  const seen = new Set(settings.tomesVus || []);
+  const n = new Set(newTomes(all).map(tomeKey).filter((k) => !seen.has(k))).size;
+  btn.innerHTML = "🗓 Sorties" + (n ? ` <b class="badge-new">${n}</b>` : "");
+}
 const RELEASE_KEY = STORE_KEY + ".sorties2";
 const isoDay = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
 function weekStart(offset) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * offset); return d; }
@@ -1951,7 +1975,7 @@ function weekStart(offset) { const d = new Date(); d.setHours(12, 0, 0, 0); d.se
 let relUpdated = "", relFetchedAt = 0, relSite = null;
 /* La liste du robot est relue à chaque ouverture de l'onglet (elle change toutes les heures) */
 async function siteReleases() {
-  const res = await fetch("data/sorties.json?t=" + Date.now(), { cache: "no-store" });
+  const res = await fetch("data/sorties.json", { cache: "no-cache" }); // revalidé : retéléchargé seulement s'il a changé
   if (!res.ok) throw new Error("sorties " + res.status);
   const d = await res.json();
   relUpdated = d.updated || "";
@@ -2029,16 +2053,21 @@ async function renderReleases() {
     weeks.push(["m" + d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0"), l.charAt(0).toUpperCase() + l.slice(1)]);
   }
   el.innerHTML = `<div class="rel">
-    <div class="rel-weeks" id="relWeeks">${weeks.map(([k, l]) => `<button data-w="${k}" class="${k === String(relWeek) ? "on" : ""}">${l}</button>`).join("")}</div>
-    <div class="rel-kinds">${REL_KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === relKind ? "on" : ""}">${l}</button>`).join("")}</div>
+    <div class="rel-weeks" id="relWeeks">${weeks.map(([k, l]) => `<button data-w="${k}" class="${k === String(relWeek) && !relMine ? "on" : ""}">${l}</button>`).join("")}</div>
+    <div class="rel-kinds"><button data-mine class="${relMine ? "on" : ""}">⭐ Pour moi</button>${REL_KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === relKind ? "on" : ""}">${l}</button>`).join("")}</div>
+    <input id="relText" class="rel-search" type="search" placeholder="Filtrer : éditeur, auteur, série…" value="${esc(relText)}" autocomplete="off">
     <div class="rel-sync"><span id="relSync">Synchronisation…</span><button id="relRefresh">↻ Actualiser</button></div>
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
-    <p class="rel-note">Sorties relevées sur leslibraires.fr (librairies indépendantes, toutes les heures) et chaque jour sur les sites des éditeurs (Hachette et ses maisons, Glénat, Seuil), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
+    <p class="rel-note">Sorties relevées sur leslibraires.fr (librairies indépendantes, toutes les heures) et chaque jour chez les éditeurs (Hachette, Glénat, Seuil, Delcourt, Dargaud, Michel Lafon, J'ai lu, Albin Michel…) et sur les plannings Nautiljon, Manga-news et BDGest, complétées par Google Livres. « Pour moi » montre les nouveaux tomes de tes séries et les livres de tes auteurs. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
-  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
+  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relMine = false; relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
   if (relScroll < 0) { const on = $("#relWeeks .on"); relScroll = on ? Math.max(0, on.offsetLeft - 16) : 0; }
   $("#relWeeks").scrollLeft = relScroll;
   el.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => { relKind = b.dataset.k; renderReleases(); }));
+  el.querySelector("[data-mine]").onclick = () => { relMine = !relMine; renderReleases(); };
+  const rt = $("#relText");
+  if (window._relTyping) { rt.focus(); rt.setSelectionRange(rt.value.length, rt.value.length); }
+  rt.oninput = () => { clearTimeout(window._relT); window._relT = setTimeout(() => { relText = rt.value; window._relTyping = true; renderReleases().finally(() => { window._relTyping = false; }); }, 250); };
   $("#relRefresh").onclick = () => { relForce = true; renderReleases(); };
   let all;
   try { all = await loadReleases(relForce); } catch { all = null; }
@@ -2050,19 +2079,29 @@ async function renderReleases() {
   let start, end;
   if (typeof relWeek === "string") { const [y, m] = relWeek.slice(1).split("-").map(Number); start = new Date(y, m - 1, 1, 12); end = new Date(y, m, 0, 12); }
   else { start = weekStart(relWeek); end = new Date(start.getTime() + 6 * 864e5); }
+  // « Pour moi » : tout ce qui la concerne, des deux dernières semaines jusqu'à 6 mois
+  if (relMine) { start = new Date(Date.now() - 14 * 864e5); end = new Date(Date.now() + 186 * 864e5); }
   const keys = ownedKeys();
-  const inRange = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind));
+  const fresh = newTomes(all), freshSet = new Set(fresh);
+  updateTomeBadge(all);
+  if (relMine) { settings.tomesVus = [...new Set([...(settings.tomesVus || []), ...fresh.map(tomeKey)])].slice(-500); saveSettings(); updateTomeBadge(all); }
+  const myAuthors = new Set(books.flatMap((b) => (b.authors || []).map(plain)));
+  const words = plain(relText).split(" ").filter(Boolean);
+  const inRange = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind)
+    && (!relMine || freshSet.has(b) || b.authors.some((a) => myAuthors.has(plain(a))))
+    && (!words.length || ((h) => words.every((w) => h.includes(w)))(plain([b.title, b.publisher, ...(b.authors || [])].join(" ")))));
   // choix du jour : une pastille par jour de la période, avec le nombre de sorties
   const perDay = {}; inRange.forEach((b) => (perDay[b.date] = (perDay[b.date] || 0) + 1));
   // rangée des jours, toujours visible en haut : toucher un jour fait descendre jusqu'à lui
   let strip = "";
   for (let d = new Date(start); d <= end; d = new Date(d.getTime() + 864e5)) {
     const k = isoDay(d), n = perDay[k] || 0;
-    strip += `<button data-day="${k}" ${n ? "" : "disabled"}><span>${d.toLocaleDateString("fr-FR", { weekday: "short" }).replace(".", "")}</span><b>${d.getDate()}</b><small>${n || "·"}</small></button>`;
+    if (relMine && !n) continue;
+    strip += `<button data-day="${k}" ${n ? "" : "disabled"}><span>${d.toLocaleDateString("fr-FR", relMine ? { month: "short" } : { weekday: "short" }).replace(".", "")}</span><b>${d.getDate()}</b><small>${n || "·"}</small></button>`;
   }
   const list = inRange;
   const stripHtml = `<div class="rel-daypick" id="relDays">${strip}</div>`;
-  if (!list.length) { box.innerHTML = stripHtml + `<div class="ex-loading">Aucune sortie trouvée pour ${typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind ? " dans ce genre" : ""}.</div>`; return; }
+  if (!list.length) { box.innerHTML = stripHtml + `<div class="ex-loading">Aucune sortie trouvée pour ${typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind || relMine || words.length ? " avec ces filtres" : ""}.${relMine ? "<br>« Pour moi » montre les nouveaux tomes de tes séries et les livres de tes auteurs." : ""}</div>`; return; }
   const days = [...new Set(list.map((b) => b.date))];
   box.innerHTML = stripHtml + days.map((d) => {
     const items = list.filter((b) => b.date === d);
@@ -2075,6 +2114,7 @@ async function renderReleases() {
           <h4 data-open>${esc(b.title)}</h4>
           <div class="rel-meta">${authorLinks(b)}${b.publisher ? "<br>" + esc(b.publisher) : ""}${b.publisher ? ` · <button class="distrib" data-pub="${esc(b.publisher)}">${dist ? "Distribution : " + esc(dist) : "Distributeur ?"}</button>` : ""}
             ${b.avg ? `<br>${"★".repeat(Math.round(b.avg))}${"☆".repeat(5 - Math.round(b.avg))} ${String(b.avg).replace(".", ",")} (${b.ratings} avis)` : ""}</div>
+          ${freshSet.has(b) ? `<div class="rel-meta"><span class="tag new-tome">🆕 Nouveau tome de ta série</span></div>` : ""}
           ${(() => { const a = guessAge(b); return a.age != null ? `<div class="rel-meta"><span class="tag">${esc(ageLabel(a))}</span></div>` : ""; })()}
           ${b.description ? `<div class="rel-desc">${esc(b.description)}</div>` : `<div class="rel-meta" style="margin:6px 0">Pas encore de résumé.</div>`}
           <div class="rel-acts">
@@ -3393,6 +3433,8 @@ $("#shareMine").onclick = () => { location.href = location.href.split("#")[0]; }
   } else { load(); try { checkBadges(); } catch {} }
   render();
   if (!shareView) checkBackup();
+  // pastille « nouveaux tomes » sur Sorties, un peu après l'ouverture pour ne pas ralentir l'affichage
+  if (!shareView) setTimeout(() => { try { const c = JSON.parse(localStorage.getItem(RELEASE_KEY)); if (c && c.site) updateTomeBadge(c.site); } catch {} }, 1500);
 })();
 window.addEventListener("hashchange", () => { if (/^#partage=/.test(location.hash) || shareView) location.reload(); });
 </script>

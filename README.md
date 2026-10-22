@@ -129,3 +129,9 @@ L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robo
 - Les lianes partent de vrais pots, passent sur le bord du meuble puis retombent ; grandes plantes avec tiges courbes et vraies feuilles découpées.
 - Recherche : les livres récents passent devant (date de première parution), le titre exact reste en tête ; une recherche par auteur va du plus récent au plus ancien. La clé Google est intégrée, rien à saisir.
 - Sorties : les deux mois passés sont aussi proposés (le robot garde les sorties depuis le 1er du mois d'il y a deux mois).
+
+## Sorties : filtres et nouveaux tomes (22 octobre)
+- « ⭐ Pour moi » : les nouveaux tomes de ses séries et les livres de ses auteurs, des 2 dernières semaines jusqu'à 6 mois.
+- Champ « Filtrer » : éditeur, auteur ou série.
+- Pastille rouge sur 🗓 Sorties : nombre de nouveaux tomes pas encore vus ; la fiche porte « 🆕 Nouveau tome de ta série ».
+- La liste du robot n'est retéléchargée que si elle a changé (plus rapide, moins de données).
