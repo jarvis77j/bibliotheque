@@ -783,7 +783,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 22 octobre, 8 h</p>
+    <p class="version">Version du 22 octobre, 9 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1121,7 +1121,11 @@ function renderColorPickers() {
 function save() {
   if (shareView) return; // bibliothèque d'une autre personne : on ne touche à rien
   try { localStorage.setItem(STORE_KEY, JSON.stringify(books)); }
-  catch { toast("Impossible d'enregistrer sur cet appareil"); }
+  catch {
+    // mémoire pleine : on libère d'abord la copie hors ligne des Sorties (elle se recharge toute seule)
+    try { localStorage.removeItem(RELEASE_KEY); localStorage.setItem(STORE_KEY, JSON.stringify(books)); }
+    catch { toast("Impossible d'enregistrer sur cet appareil"); }
+  }
   try { checkBadges(); } catch {}
 }
 
@@ -1962,9 +1966,9 @@ async function loadReleases(force) {
   if (!force && relSite && Date.now() - relFetchedAt < 60e3 && cache && cache.slot === slot && cache.google) return mergeReleases(relSite, cache.google);
   let site = await siteReleases().catch((e) => { console.warn(e); return null; });
   if (site) { relSite = site; relFetchedAt = Date.now(); }
-  else { site = (cache && cache.site) || []; relUpdated = (cache && cache.updated) || ""; } // hors ligne : la dernière liste connue
+  else { site = ((cache && cache.site) || []).map((b) => ({ ...b, site: true })); relUpdated = (cache && cache.updated) || ""; } // hors ligne : la dernière liste connue
   if (!force && cache && cache.slot === slot && cache.google) {
-    try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ ...cache, site: site.map(({ description, ...b }) => b), updated: relUpdated })); } catch {}
+    try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ ...cache, site: site.map(({ description, rayons, pages, format, ...b }) => b), updated: relUpdated })); } catch {}
     return mergeReleases(site, cache.google);
   }
   const from = isoDay(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)), to = isoDay(new Date(Date.now() + 186 * 864e5));
@@ -1984,7 +1988,7 @@ async function loadReleases(force) {
   }
   const google = out.filter((b) => !b.site);
   // copie hors ligne sans les résumés, pour ne pas remplir la mémoire du navigateur (plus de 2 000 livres)
-  const light = site.map(({ description, ...b }) => b);
+  const light = site.map(({ description, rayons, pages, format, ...b }) => b);
   try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ slot, site: light, google, updated: relUpdated })); } catch {}
   return mergeReleases(site, google);
 }
@@ -2109,7 +2113,7 @@ async function renderReleases() {
     c.querySelectorAll("[data-open]").forEach((x) => (x.onclick = () => openPreview(b)));
     const d = c.querySelector(".rel-desc"); if (d) d.onclick = () => d.classList.toggle("open");
     const add = c.querySelector("[data-add]");
-    if (add) add.onclick = async () => { const { avg, kind, rayons, url, format, ...x } = b; await addBook(x, null, "alire"); renderReleases(); };
+    if (add) add.onclick = async () => { const { avg, kind, rayons, url, format, site, ...x } = b; await addBook(x, null, "alire"); renderReleases(); };
   });
   box.querySelectorAll(".distrib").forEach((x) => (x.onclick = () => {
     const pub = x.dataset.pub, cur = distributorOf(pub);

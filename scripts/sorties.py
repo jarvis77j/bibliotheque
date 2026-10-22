@@ -162,9 +162,11 @@ def google_upcoming(lo, hi, stats):
 
 def main():
     try:
-        old = {b["id"]: b for b in json.load(open(OUT, encoding="utf-8"))["books"]}
+        prev = json.load(open(OUT, encoding="utf-8"))
+        old = {b["id"]: b for b in prev["books"]}
+        ed_at = prev.get("stats", {}).get("editeurs_at", "")
     except Exception:
-        old = {}
+        old, ed_at = {}, ""
     todo = {}  # chemin -> genre suggéré
     stats = {"precommandes": [], "nouveautes": [], "rayons": {}}
     # précommandes : on va loin pour voir les sorties des 6 prochains mois
@@ -223,14 +225,18 @@ def main():
             books[bid] = b
     # Sites des éditeurs (Hachette et ses maisons, Glénat, Seuil) : environ 1 000 sorties par mois, datées au jour.
     # Une fois par jour (environ 8 minutes de lecture polie) ; entre-temps on garde la dernière récolte.
-    if datetime.utcnow().hour == 4 or os.environ.get("EDITEURS") == "1" or (datetime.utcnow().hour % 3 == 1 and not any(k.startswith("ed:") for k in old)):
+    stale = not ed_at or datetime.utcnow() - datetime.strptime(ed_at, "%Y-%m-%dT%H:%MZ") > timedelta(hours=20)
+    if os.environ.get("EDITEURS") == "1" or (stale and datetime.utcnow().hour in (4, 5, 7, 10, 13, 16, 19, 22)):
         try:
             sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
             import editeurs
             ed, stats["editeurs"] = editeurs.collect(lo, hi)
+            if any(isinstance(v, dict) and v.get("livres") for v in stats["editeurs"].values()):
+                ed_at = datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ")
+            ok = {s for s, v in stats["editeurs"].items() if isinstance(v, dict) and v.get("livres") and not v.get("erreurs")}
+            old = {k: v for k, v in old.items() if not (k.startswith("ed:") and v.get("source", "").split(":")[-1] in ok)}
             if ed:
-                old = {k: v for k, v in old.items() if not k.startswith("ed:")}
-                by_isbn = {b["isbn"]: b for b in books.values() if b.get("isbn")}
+                by_isbn = {b["isbn"]: b for b in [*old.values(), *books.values()] if b.get("isbn") and not b["id"].startswith("ed:")}
                 for isbn, b in ed.items():
                     same = by_isbn.get(isbn)
                     if same:  # déjà chez le libraire : on complète seulement la couverture
@@ -246,6 +252,7 @@ def main():
         if b.get("isbn") and any(x.get("isbn") == b["isbn"] for x in books.values()): continue
         books.setdefault(bid, b)
     stats["uniques"] = len(stats.get("uniques", ()))
+    if ed_at: stats["editeurs_at"] = ed_at
     stats.update(listes=len(todo), lues=new, en_attente=skipped, plus_loin=max((b["date"] for b in books.values()), default=""))
     keep = sorted((b for b in books.values() if lo <= b["date"] <= hi), key=lambda b: (b["date"], b["title"]))
     os.makedirs(os.path.dirname(OUT), exist_ok=True)

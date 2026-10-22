@@ -19,7 +19,7 @@ Usage :
 
 Bibliothèque standard uniquement. User-Agent honnête, une requête à la fois, délai entre deux pages.
 """
-import argparse, difflib, html, json, os, re, sys, time, unicodedata, urllib.request
+import argparse, difflib, gzip, html, json, os, re, sys, time, unicodedata, urllib.request
 from datetime import date, datetime, timedelta, timezone
 from html.parser import HTMLParser
 
@@ -49,7 +49,7 @@ KINDS = [(("manga", "pika", "mangetsu", "nobi nobi", "kana", "glénat manga", "s
          (("jeunesse", "petite enfance", "albums", "deux coqs d'or", "gautier languereau", "hachette enfants"), "jeunesse"),
          (("roman", "littérature", "nouvelles", "le livre de poche", "grasset", "stock", "calmann", "lattès", "fayard"), "roman")]
 STATUS = {"a paraitre", "nouveaute", "nouveau", "precommande", "en precommande", "prochainement", "exclusivite", "a la une"}
-NOT_TEXT = {"couverture de produit indisponible", "remove_red_eye_outlined", "visuel non disponible"}
+NOT_TEXT = {"couverture de produit indisponible", "remove_red_eye_outlined", "visuel non disponible", "headphones"}
 
 
 def norm(s):
@@ -97,6 +97,44 @@ def cover_map(page):
         for m in r.finditer(page): out.setdefault(m.group(1), m.group(0))
     return out
 
+# Hachette : le JSON de la page donne pour chaque EAN le type de produit et le rayon (fil d'Ariane)
+SKIP_TYPES = ("Fichier audio", "Fichier (ebook", "Jeux, articles de papeterie", "Calendrier", "Contenant")
+SKIP_RAYONS = {"loisirs", "cuisine", "sante bien etre", "guides", "famille", "jeux et jouets", "scolaire et parascolaire",
+               "informatique et management", "medecine", "vins et spiritueux", "bricolage", "coloriage", "gastronomie",
+               "auto moto", "vie pratique et loisirs", "cuisine et vins", "sante bien etre et sports", "tourisme et voyages"}
+RAYON_KINDS = [(("mangas", "bd mangas", "ito", "bande dessinee", "bandes dessinees", "comics"), "bd"),
+               (("litterature sentimentale", "romance", "new romance", "yra"), "romance"),
+               (("fantasy", "science fiction", "fantastique", "fantasy et science fiction"), "fantasy"),
+               (("thriller", "polar", "policier", "fayard noir", "policiers"), "policier"),
+               (("ados",), "ya"),
+               (("eveil 0 3 ans", "albums et illustres 3 6 ans", "premieres lectures 6 9 ans", "premieres encyclopedies",
+                 "petite enfance", "jeunesse"), "jeunesse"),
+               (("romans francophones", "romans etrangers", "romans et nouvelles de genre", "oeuvres classiques"), "roman")]
+NOT_ROMAN = {"essais", "actualites", "biographies memoires", "histoire et actualites", "savoirs", "arts", "beaux livres"}
+
+def _unesc(s):
+    try: return json.loads('"' + s.replace('\\\\', '\\') + '"')
+    except Exception: return s
+
+def hachette_meta(page):
+    """{ean: (type de produit, [rayons du fil d'Ariane])} lus dans le JSON embarqué des pages Hachette."""
+    out, parts = {}, re.split(r'\\"ean\\":\\"(97[89]\d{10})\\"', page)
+    for i in range(1, len(parts), 2):
+        ean, chunk = parts[i], parts[i + 1][:6000]
+        if ean in out: continue
+        t = re.search(r'\\"type_de_produit\\":\\"((?:[^"\\]|\\\\u[0-9a-f]{4})*)\\"', chunk)
+        bc = re.search(r'\\"breadcrumb\\":\[(.*?)\]', chunk)
+        crumbs = [_unesc(n) for n in re.findall(r'\\"name\\":\\"((?:[^"\\]|\\\\u[0-9a-f]{4}|\\\\/)*)\\"', bc.group(1))] if bc else []
+        out[ean] = (_unesc(t.group(1)) if t else "", crumbs)
+    return out
+
+def rayon_kind(crumbs):
+    ns = [norm(c) for c in crumbs]
+    if any(n in NOT_ROMAN for n in ns[:1]): return None  # rayon connu, mais pas un roman : pas de genre forcé
+    for words, k in RAYON_KINDS:
+        if any(n in words for n in ns): return k
+    return ""
+
 # maisons hors du public de l'app (scolaire, universitaire, professionnel)
 SKIP_PUBS = {"dunod", "hachette education", "armand colin", "hachette fle", "hatier", "foucher", "ediser", "istra"}
 
@@ -113,25 +151,32 @@ def parse_list(page, base, product_re, source):
             href_stack.append(path)
             if prod.match(path.split("?")[0]):
                 ean = EAN_RE.search(path).group(1)
-                if not cur or cur["isbn"] != ean:
-                    if any(c["isbn"] == ean for c in cards):  # lien répété plus bas (ex. bloc « à la une ») : on ignore
-                        cur = {"isbn": ean, "dup": True, "texts": [], "imgs": [], "path": path}
-                    else:
-                        cur = {"isbn": ean, "path": path, "texts": [], "imgs": [], "links": []}
-                        cards.append(cur)
+                if not cur or cur["isbn"] != ean:  # chaque apparition est une carte ; on garde la première lisible
+                    cur = {"isbn": ean, "path": path, "texts": [], "imgs": []}
+                    cards.append(cur)
         elif e[0] == "/a":
             if href_stack: href_stack.pop()
-        elif cur is None or cur.get("dup"):
+        elif cur is None:
             continue
         elif e[0] == "img":
             cur["imgs"].append((e[1], e[2]))
         elif e[0] == "t":
             in_link = href_stack[-1] if href_stack else ""
             cur["texts"].append((e[1], e[2], in_link))
-    out, covers = [], cover_map(page)
+    out, covers, seen = [], cover_map(page), set()
+    meta = hachette_meta(page) if source == "hachette" else {}
     for c in cards:
         b = card_to_book(c, base, source)
-        if not b or norm(b["publisher"]) in SKIP_PUBS: continue
+        if not b or b["isbn"] in seen or norm(b["publisher"]) in SKIP_PUBS: continue
+        seen.add(b["isbn"])
+        typ, crumbs = meta.get(b["isbn"], ("", []))
+        if typ.startswith(SKIP_TYPES) or any(norm(r) in SKIP_RAYONS for r in crumbs): continue
+        if typ: b["format"] = typ
+        if crumbs:
+            b["rayons"] = crumbs[:3]
+            k = rayon_kind(crumbs)
+            if k is None: b["kind"] = "" if b["kind"] == "roman" else b["kind"]
+            elif k: b["kind"] = k
         if not b["cover"] or "placeholder" in b["cover"]: b["cover"] = covers.get(b["isbn"], "")
         out.append(b)
     return out
@@ -144,7 +189,7 @@ def card_to_book(c, base, source):
         d = iso(t)
         if d: di = i; break
     if not d: return None
-    if any(norm(t) == "a la une" for t, _, _ in texts): return None  # bloc mis en avant, hors liste datée
+    if any(norm(t) == "a la une" for t, _, _ in texts[:di]): return None  # bloc mis en avant, hors liste datée
     slug = norm(re.sub(r"[-/]97[89]\d{10}.*$", "", c["path"]).rsplit("/", 1)[-1].replace("-", " "))
     before = texts[:di]
     # titre : un intertitre s'il y en a un, sinon le texte qui ressemble le plus au slug de l'URL
@@ -198,33 +243,39 @@ class Fetcher:
         wait = self.delay - (time.time() - self.last)
         if wait > 0: time.sleep(wait)
         self.last = time.time(); self.n += 1
-        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "fr-FR,fr"})
-        try:
-            with urllib.request.urlopen(req, timeout=30) as r:
-                data = r.read(); self.bytes += len(data)
-                return data.decode("utf-8", "replace")
-        except Exception as e:
-            self.errors += 1
-            print(f"  échec {url} : {e}", file=sys.stderr)
-            return ""
+        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "fr-FR,fr", "Accept-Encoding": "gzip"})
+        for essai in (1, 2):  # une seconde chance après une petite pause
+            try:
+                with urllib.request.urlopen(req, timeout=30) as r:
+                    data = r.read(); self.bytes += len(data)
+                    if r.headers.get("Content-Encoding") == "gzip": data = gzip.decompress(data)
+                    return data.decode("utf-8", "replace")
+            except Exception as e:
+                if essai == 1 and not (getattr(e, "code", 0) in (403, 404, 410)):
+                    time.sleep(10); continue
+                self.errors += 1
+                print(f"  échec {url} : {e}", file=sys.stderr)
+                return ""
 
 
-def crawl(source, fetch, lo, hi, max_pages=150):
+def crawl(source, fetch, lo, hi, max_pages=100, deadline=None):
     base, lists, product_re = SOURCES[source]
     books, pages = {}, 0
     for tpl, order in lists:
         seen_prev = None
         for n in range(1, max_pages + 1):
+            if deadline and time.time() > deadline: break  # garde-fou : le robot ne doit pas tourner des heures
             path = FIRST_PAGE.get(tpl, tpl.format(n=n)) if n == 1 else tpl.format(n=n)
             page = fetch.get(base + path, f"{source}-{re.sub(r'[^a-z]+', '', tpl.replace('{n}', ''))}-{n}")
             pages += 1
             got = parse_list(page, base, product_re, source) if page else []
             keys = {b["isbn"] for b in got}
             if not got or keys == seen_prev: break  # fin de liste (ou le site renvoie la même page)
+            pinned = keys & (seen_prev or set())  # fiches épinglées répétées sur chaque page : ne comptent pas pour la date
             seen_prev = keys
             for b in got:
                 if lo <= b["date"] <= hi: books.setdefault(b["isbn"], b)
-            ds = sorted(b["date"] for b in got)
+            ds = sorted(b["date"] for b in got if b["isbn"] not in pinned) or sorted(b["date"] for b in got)
             if order == "desc" and ds[-1] < lo: break   # on est passé sous la fenêtre
             if order == "asc" and ds[0] > hi: break     # au-delà de l'horizon
     return books, pages
@@ -247,12 +298,13 @@ def details(fetch, books, n):
 def collect(lo, hi, delay=3.0, only="hachette,glenat,seuil"):
     """Pour sorties.py : renvoie ({isbn: livre}, stats)."""
     fetch, allb, stats = Fetcher(delay), {}, {}
+    deadline = time.time() + 15 * 60
     for s in only.split(","):
-        t0 = time.time()
-        try: got, pages = crawl(s, fetch, lo, hi)
+        t0, e0 = time.time(), fetch.errors
+        try: got, pages = crawl(s, fetch, lo, hi, deadline=deadline)
         except Exception as e:
             stats[s] = "erreur : " + str(e); continue
-        stats[s] = {"pages": pages, "livres": len(got), "secondes": round(time.time() - t0)}
+        stats[s] = {"pages": pages, "livres": len(got), "secondes": round(time.time() - t0), "erreurs": fetch.errors - e0}
         for k, b in got.items(): allb.setdefault(k, b)
     stats["erreurs"] = fetch.errors
     return allb, stats
