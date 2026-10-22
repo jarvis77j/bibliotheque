@@ -234,12 +234,33 @@ def card_to_book(c, base, source):
 class Fetcher:
     def __init__(self, delay, fixtures=None):
         self.delay, self.fixtures, self.last, self.n, self.bytes, self.errors = delay, fixtures, 0.0, 0, 0, 0
+        self.robots = {}
+
+    def allowed(self, url):
+        """Respecte robots.txt du site (lu une fois). Site sans robots.txt (404) : permis ; illisible : refusé."""
+        if self.fixtures: return True
+        import urllib.robotparser
+        root = "/".join(url.split("/")[:3])
+        if root not in self.robots:
+            rp = urllib.robotparser.RobotFileParser()
+            try:
+                req = urllib.request.Request(root + "/robots.txt", headers={"User-Agent": UA})
+                with urllib.request.urlopen(req, timeout=20) as r:
+                    rp.parse(r.read().decode("utf-8", "replace").splitlines())
+            except urllib.error.HTTPError as e:
+                rp.parse([] if e.code in (404, 410) else ["User-agent: *", "Disallow: /"])
+            except Exception:
+                rp.parse(["User-agent: *", "Disallow: /"])
+            self.robots[root] = rp
+        return self.robots[root].can_fetch(UA, url)
 
     def get(self, url, key):
         if self.fixtures:
             f = os.path.join(self.fixtures, key + ".html")
             self.n += 1
             return open(f, encoding="utf-8").read() if os.path.exists(f) else ""
+        if not self.allowed(url):
+            print(f"  interdit par robots.txt : {url}", file=sys.stderr); return ""
         wait = self.delay - (time.time() - self.last)
         if wait > 0: time.sleep(wait)
         self.last = time.time(); self.n += 1
