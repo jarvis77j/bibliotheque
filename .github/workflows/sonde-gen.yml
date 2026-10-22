@@ -1,0 +1,16 @@
+name: sonde-gen
+on:
+  push:
+    branches: ["sonde-*"]
+    paths: ["sonde/urls.txt"]
+permissions:
+  contents: write
+jobs:
+  sonde:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 sonde/sonde.py
+      - run: |
+          git config user.name "robot-sonde"; git config user.email "actions@github.com"
+          git add sonde/out && git commit -m "Sonde : résultat" && git push
