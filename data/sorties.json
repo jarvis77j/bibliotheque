@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-22T16:18Z",
+"updated": "2026-10-22T16:49Z",
 "stats": {
 "precommandes": [
 12,
@@ -30,24 +30,10 @@
 "fantasy": "/dossiers/nouveautes-25-821434/",
 "policier": "/dossiers/nouveautes-25-821433/",
 "ya": "/dossiers/nouveautes-25-746338/",
-"bd": "/dossiers/nouveautes-25-113870/",
+"bd": "introuvable",
 "roman": "/dossiers/nouveautes-25-113534/"
 },
 "uniques": 64,
-"google_editeurs": {
-"trouves": 0,
-"erreurs": 1,
-"vus": 74,
-"plus_loin": "2017-07-05",
-"exemples": [
-"1970 The National Union Catalog, Pr",
-"1970 The National Union Catalog, Pr",
-"2017-07-05 The Subversive Poetics of Alfr",
-"2017-07-05 The Subversive Poetics of Alfr",
-"1980 The National Union Catalog, Pr",
-"1993 Mises"
-]
-},
 "editeurs": {
 "hachette": {
 "pages": 129,
@@ -64,30 +50,30 @@
 "seuil": {
 "pages": 10,
 "livres": 109,
-"secondes": 32,
+"secondes": 57,
 "erreurs": 0
 },
 "nautiljon": {
 "pages": 9,
 "livres": 1663,
-"secondes": 27,
+"secondes": 24,
 "erreurs": 0
 },
 "manganews": {
 "pages": 94,
-"livres": 282,
-"completes": 1418,
+"livres": 279,
+"completes": 1421,
 "ecartes": 11,
 "lus": 1711,
-"secondes": 327,
+"secondes": 290,
 "erreurs": 0
 },
 "bdgest": {
 "pages": 16,
-"livres": 580,
+"livres": 551,
 "secondes": 46,
 "erreurs": 0,
-"rapproches": 115
+"rapproches": 142
 },
 "dargaud": {
 "pages": 6,
@@ -108,9 +94,9 @@
 "erreurs": 0
 },
 "lombard": {
-"pages": 1,
-"livres": 0,
-"secondes": 1,
+"pages": 2,
+"livres": 37,
+"secondes": 5,
 "erreurs": 0
 },
 "kana": {
@@ -138,11 +124,11 @@
 "erreurs": 0
 },
 "bedetheque": {
-"pages": 40,
+"pages": 15,
 "livres": 0,
-"secondes": 118,
+"secondes": 43,
 "erreurs": 0,
-"isbn_trouves": 40
+"isbn_trouves": 15
 },
 "michellafon": {
 "pages": 38,
@@ -153,7 +139,7 @@
 "jailu": {
 "pages": 1,
 "livres": 76,
-"secondes": 3,
+"secondes": 4,
 "erreurs": 0
 },
 "bragelonne": {
@@ -163,43 +149,43 @@
 "erreurs": 1
 },
 "albinmichel": {
-"pages": 11,
+"pages": 2,
 "livres": 47,
-"secondes": 33,
+"secondes": 6,
 "erreurs": 0
 },
 "hugo": {
 "pages": 24,
 "livres": 17,
-"secondes": 72,
+"secondes": 73,
 "erreurs": 0
 },
 "points": {
-"pages": 18,
+"pages": 7,
 "livres": 35,
-"secondes": 57,
+"secondes": 21,
 "erreurs": 0
 },
 "bayard": {
-"pages": 35,
-"livres": 40,
-"secondes": 105,
+"pages": 23,
+"livres": 56,
+"secondes": 69,
 "erreurs": 0
 },
 "milan": {
-"pages": 30,
-"livres": 25,
-"secondes": 92,
+"pages": 22,
+"livres": 42,
+"secondes": 68,
 "erreurs": 0
 },
 "erreurs": 1
 },
-"editeurs_at": "2026-10-22T16:18Z",
-"listes": 378,
+"editeurs_at": "2026-10-22T16:49Z",
+"listes": 324,
 "lues": 0,
 "en_attente": 0,
 "plus_loin": "2027-04-23",
-"doublons": 116
+"doublons": 96
 },
 "books": [
 {
@@ -29401,6 +29387,28 @@
 "source": "editeur:bdgest"
 },
 {
+"id": "ed:9791036397516",
+"title": "24 histoires pour attendre Noël avec Petit Ours Brun – Dès 2 ans",
+"authors": [
+"Marie Aubinais",
+"Hélène Serre-De Talhouet"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036397516",
+"pages": 56,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036397516/9791036397516.jpg",
+"description": "Pour la première fois, Petit Ours Brun se pare de rouge et de doré pour accompagner les enfants jour après jour jusqu’à Noël ! Ce recueil inédit rassemble 24 histoires exclusives, à lire chaque soir de l’Avent, pour installer la magie de Noël et offrir un moment de lecture rassurant avant le coucher.",
+"rayons": [
+"Albums Petit Ours Brun",
+"Les trésors de Petit Ours Brun"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/105801-24-histoires-pour-attendre-noel-avec-petit-ours-brun-des-2-ans/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
 "id": "ll:26611149",
 "title": "Diana, ma soeur",
 "authors": [
@@ -29423,6 +29431,195 @@
 "kind": "roman"
 },
 {
+"id": "ed:9782408068271",
+"title": "Expédition sauvetage",
+"authors": [
+"Claire Frossard"
+],
+"publisher": "Milan",
+"date": "2026-09-22",
+"isbn": "9782408068271",
+"pages": 80,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408068271/9782408068271.jpg",
+"description": "Pas de repos pour les braves : les dragons de compagnie sont en danger, une fois encore. Marjane et ses amis sont sur le qui-vive. Ils réussissent à s’inscrire dans un camp de vacances, tout près du campement d’un étrange groupuscule. Ces militants anti-dragons inondent le Web de propagande alarmiste et menacent réellement l’existence paisible des dragons… Les enfants sont décidés à enquêter et à riposter tant sur Internet que sur le terrain. En avant, l’aventure !",
+"rayons": [
+"Romans 8 - 10 ans",
+"Roman Milan"
+],
+"url": "https://www.editionsmilan.com/livres/102043-expedition-sauvetage/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9791036388156",
+"title": "L'académie des sorcières rebelles",
+"authors": [
+"Dominique Valente"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036388156",
+"pages": 384,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036388156/9791036388156.jpg",
+"description": "Eglantine Bury ne parvient pas à faire appel à sa magie. Le problème, c’est que si elle ne la retrouve pas, sa famille et leur maison vont tomber aux mains de l’affreux oncle Lichen. À l’autre bout du pays, la princesse Victoria est elle aussi en danger : elle a perdu le contrôle de ses pouvoirs magiques, qui se mettent à semer la zizanie au palais. Églantine et Victoria font alors appel à Miss Heggoty, une sorcière tombée en disgrâce qui donne des cours de magie par correspondance. Ses cours de sorcellerie sont difficiles et ses sorts puissants, mais suffiront-ils à déjouer les dangers qui guettent les deux apprenties sorcières ?",
+"rayons": [
+"Fantastique / fantasy",
+"L'académie des sorcières rebelles"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/99816-lacademie-des-sorcieres-rebelles/",
+"kind": "fantasy",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9791036392719",
+"title": "L'incroyable aventure de Vasco de Gama, à la découverte de la route des épices",
+"authors": [
+"Nathalie LE CLEI"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036392719",
+"pages": 48,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036392719/9791036392719.jpg",
+"description": "1497, Lisbonne. Le jeune capitaine Vasco de Gama reçoit une mission qui fera basculer le destin du Portugal : découvrir enfin la route maritime des Indes, contourner l’Afrique et atteindre les richesses de l’Orient. Animé par sa foi, son ambition et sa maîtrise de la navigation, il brave les tempêtes, les maladies, les complots et les rivages inconnus. Mais l’aventure n’est pas qu’éclat et gloire : méfiance des souverains locaux, tensions diplomatiques, affrontements, pertes humaines… Vasco doit s’imposer coûte que coûte. De son premier exploit à sa disgrâce, puis à son retour triomphal comme vice‑roi, le récit plonge le lecteur dans la vie d’un homme complexe, symbole de l’expansion portugaise. Une mini‑biographie passionnante, suivie de 6 pages documentaires pour comprendre la route des Indes, les enjeux géopolitiques et la portée historique de ses voyages.",
+"rayons": [
+"Découverte",
+"Les romans Doc Aventure"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/102301-lincroyable-aventure-de-vasco-de-gama-a-la-decouverte-de-la-route-des-epices/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9791036392696",
+"title": "L'incroyable destin de Mary Anning, pionnière de la paléontologie",
+"authors": [
+"Sophie CRÉPON"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036392696",
+"pages": 48,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036392696/9791036392696.jpg",
+"description": "Dans l’Angleterre du XIXᵉ siècle, Mary Anning, fille d’un ébéniste pauvre, arpente les falaises de Lyme Regis à la recherche de fossiles. À 11 ans, sa découverte d’un premier grand spécimen bouleverse son existence. Malgré les dangers et le manque de reconnaissance, Mary explore sans relâche le littoral. Elle mettra au jour des créatures extraordinaires : ichtyosaure, plésiosaure, ptérosaure… Elle développe des méthodes précises, apprend le français et s’instruit sur le sujet en autodidacte, mais pourtant elle reste longtemps ignorée des savants car elle est une femme issue d’un milieu modeste. Les pages documentaires prolongent le roman par une présentation claire et illustrée : naissance de la paléontologie, reptiles marins, dinosaures, figures scientifiques, femmes oubliées des sciences, et une exploration du Mésozoïque.",
+"rayons": [
+"Découverte",
+"Les romans doc Science"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/102302-lincroyable-destin-de-mary-anning-pionniere-de-la-paleontologie/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9791036391835",
+"title": "L'incroyable histoire du basket américain",
+"authors": [
+"Adrien BAIL"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036391835",
+"pages": 48,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036391835/9791036391835.jpg",
+"description": "",
+"rayons": [
+"Découverte",
+"Les romans doc Sport"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/101841-lincroyable-histoire-du-basket-americain/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9791036381515",
+"title": "La véritable histoire de Nariok, enfant de la préhistoire qui découvrit le feu",
+"authors": [
+"Baptiste MASSA"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036381515",
+"pages": 48,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036381515/9791036381515.jpg",
+"description": "Il y a 1,5 million d’années, le jeune Nariok rêve de devenir chasseur pour nourrir son clan. Mais lors de sa première expédition, tout bascule : blessé et séparé de sa tribu, il doit survivre seul au cœur de la savane. Entre prédateurs, faim et blessure, l’adolescent s’accroche… jusqu’au moment où un phénomène mystérieux surgit : un « animal brillant » qui dévore herbes et arbres. Fasciné autant qu’effrayé, Nariok parvient à en capturer un « petit ». Sans le savoir, il vient de rapporter à son clan ce qui transformera à jamais la vie humaine : le feu. Un roman d’aventure palpitant, suivi de pages documentaires claires et précises pour découvrir les origines de l’humanité, la domestication du feu et la vie préhistorique.",
+"rayons": [
+"Histoire",
+"Les romans doc Histoire"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/96702-la-veritable-histoire-de-nariok-enfant-de-la-prehistoire-qui-decouvrit-le-feu/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9782408062736",
+"title": "Le club des dragons - Disparitions mystères",
+"authors": [
+"Claire Frossard"
+],
+"publisher": "Milan",
+"date": "2026-09-22",
+"isbn": "9782408062736",
+"pages": 80,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408062736/9782408062736.jpg",
+"description": "Marjane, comme chacun de ses amis du quartier, possède un petit dragon de compagnie. Ces animaux adorables, qui volètent joyeusement au-dessus de leurs têtes, se nomment Mignonne, Inferno, Châtaigne ou Croc-Croc. Ils sont toujours avec eux, quand ils se promènent dans le lotissement ou font du vélo dans la forêt. Le matin, sur le chemin de l’école, ils accompagnent les enfants jusqu’à la grille, mais savent qu’ils n’ont pas le droit d’entrer et retournent vers leurs maisons. Un jour, des dragonnets commencent à disparaître. Marjane et ses copains sont désespérés. Ils décident alors de former une confrérie qu’ils appellent fièrement le « Club des dragons ». Ensemble, ils lancent une enquête. Et c’est ainsi qu’ils vont découvrir que des employés d’une mystérieuse firme viennent secrètement enlever les dragons des enfants. On comprend peu à peu que même si les dragonnets sont des êtres vivants, ils ont été créés par une entreprise de biotechnologie avancée. Après des jours et des jours de recherches et d’investigations, Marjane et ses amis retrouvent une partie des animaux et réussissent à les libérer. Certains indices font alors penser que la société cherche à récupérer tous les dragonnets qu’elle a vendus, car il y aurait un souci dans leur programme : ils auraient, semble-t-il, commencé à grandir au-delà de la limite fixée par la firme…! Les « Roman Milan 7+ », des premiers romans pour les 7-9 ans prêts à plonger dans des histoires plus riches ! Des textes aux genres variés, ",
+"rayons": [
+"Romans 8 - 10 ans",
+"Roman Milan"
+],
+"url": "https://www.editionsmilan.com/livres/98023-le-club-des-dragons-disparitions-mysteres/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9791036381522",
+"title": "Le courageux combat de Raoni Metuktire, une vie pour l'Amazonie",
+"authors": [
+"Emmanuelle Grundmann"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036381522",
+"pages": 48,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036381522/9791036381522.jpg",
+"description": "Raoni grandit au cœur de la forêt, entre rites d’initiation, chasse et apprentissages. Une promesse faite à son père le pousse à comprendre le monde des “Kuben” (les Blancs) et à protéger son peuple. Lorsque les tronçonneuses et la route transamazonienne éventrent la canopée, Raoni se dresse contre la destruction : négociations, exils, alliances — et bientôt sa parole portée au‑delà de l’Amazonie. Le roman retrace son chemin : de l’enfant kayapo à la figure internationale, puis la relève de ce combat avec les jeunes générations et les défenseurs de la forêt. En fin d’ouvrage, un cahier documentaire éclaire les enjeux écologiques et humains de l’Amazonie, propose des cartes, des repères historiques et des pistes d’action concrètes.",
+"rayons": [
+"Histoire",
+"Les romans doc engagés"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/96703-le-courageux-combat-de-raoni-metuktire-une-vie-pour-lamazonie/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9791027614288",
+"title": "Le tracteur",
+"authors": [
+"Raphaële Glaux"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791027614288",
+"pages": 10,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791027614288/9791027614288.jpg",
+"description": "Un documentaire animé pour tous les enfants qui rêvent de monter dans un tracteur ! Nouveauté dans la collection Petit Tourbidoc : des premiers livres documentaires conçus pour les 1-3 ans avec des animations à manipuler, un fil narratif et des infos doc. 6 animations à activer pour regarder le moteur, tourner le volant, lever le bras du tracteur, remplacer la charrue par le semoir… Une fabrication solide, adaptée aux mains des jeunes enfants. Un premier documentaire animé à la ferme pour découvrir le quotidien de Léonie, agricultrice, et son tracteur. Les illustrations précises et tendres de Thierry Bedouet (« Nino Dino », « L’Encyclo visuelle ») au service de deux thématiques passion des enfants : la ferme et les engins.",
+"rayons": [
+"Découverte",
+"Petit Tourbidoc"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/101062-le-tracteur/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
 "id": "ll:26455700",
 "title": "Les Evadées - Partie 1",
 "authors": [
@@ -29443,6 +29640,135 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26455700-les-evadees-partie-1-marc-levy-robert-laffont-versilio",
 "kind": "roman"
+},
+{
+"id": "ed:9791027614394",
+"title": "Les véhicules",
+"authors": [
+"Anne-Sophie Baumann"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791027614394",
+"pages": 14,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791027614394/9791027614394.jpg",
+"description": "Un documentaire animé pour tout savoir sur les véhicules qui roulent, qui flottent et qui volent ! Nouveauté dans la collection Tourbidoc Junior : une collection documentaire ludique avec 40 flaps, des quiz et des cherche-et-trouve pour les 4-6 ans. Un documentaire animé avec plus de 40 flaps pour vider la poubelle dans le camion-benne, regarder à l’intérieur d’un camping-car, remonter le filet d’un chalutier…, des cherche-et-trouve sur chaque page et des quiz à la fin. Les illustrations précises de Camille Ferrari nous embarquent en ville, sur les routes, dans les airs, sur la mer et sur les rails, dans des décors immersifs et remplis de détails ! Une thématique incontournable pour la tranche d’âge traitée par Anne-Sophie Baumann, spécialiste des Véhicules qui a écrit de nombreux livres sur le sujet, notamment « Engins et Machines » : XXX exemplaires vendus.",
+"rayons": [
+"Découverte",
+"Tourbidoc Junior"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/101063-les-vehicules/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9791036391668",
+"title": "Ma première bibliothèque Petit Ours Brun",
+"authors": [
+"Marie Aubinais",
+"Hélène Serre-De Talhouet"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036391668",
+"pages": 0,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036391668/9791036391668.jpg",
+"description": "Ma première bibliothèque Petit Ours Brun, un joli coffret coloré, composé de 6 petits livres cartonnés : – Petit Ours Brun monte à poney – Petit Ours Brun joue au foot – Petit Ours Brun aime son papa – Petit Ours Brun joue avec son chat – Petit Ours Brun prend son bain – Petit Ours Brun range ses jouets",
+"rayons": [
+"Tout-carton",
+"Mon petit cartonné Petit Ours Brun"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/101626-ma-premiere-bibliotheque-petit-ours-brun/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9782408051396",
+"title": "Mille ans de contes - Princesses et chevaliers",
+"authors": [
+"Marie-Agnès Gaudrat"
+],
+"publisher": "Milan",
+"date": "2026-09-22",
+"isbn": "9782408051396",
+"pages": 216,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408051396/9782408051396.jpg",
+"description": "Nouveauté dans la collection historique et patrimoniale des éditions Milan. « Merlin et sa prison d’or », « Charlemagne et le cadeau du calife », « Yvan Tsarevitch et la Baba Yaga », « La Reine des abeilles », « Le Cygne et ses frères », « Odin et son cheval Sleipnir », « Le Vaillant Petit Tailleur », « Hua Mula, la femme samouraï »… ce sont en tout 35 légendes et contes médiévaux du monde entier, peuplés de princesses, de rois et reines, de chevaliers, de dieux, de trolls, de fées et de dragons ; des histoires de chevalerie, d’amour, de batailles et de châteaux, à travers lesquelles l’enfant voyagera, s’amusera ou s’émouvra. Grâce à l’index thématique, l’enfant pourra choisir un conte en fonction de son âge, des lieux, des personnages ou encore du temps de lecture désiré. Le format cartonné et solide permet de lire et relire à loisir des contes du monde entier, et donne à ce livre l’esprit des beaux ouvrages.",
+"rayons": [
+"Contes 3 - 7 ans",
+"Mille ans de contes"
+],
+"url": "https://www.editionsmilan.com/livres/82682-mille-ans-de-contes-princesses-et-chevaliers/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9791036369872",
+"title": "Petit Ours Brun écoute la musique - Livre sonore - Dès 1 an",
+"authors": [
+"Marie Aubinais"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036369872",
+"pages": 14,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036369872/9791036369872.jpg",
+"description": "Avec ce joli livre sonore, les petits pourront entendre et découvrir des instruments de musique. Un album qui donne envie d’applaudir et danser en compagnie de Petit Ours Brun ! Piano, guitare électrique, clarinette, batucada, tambourin… des instruments variés que le tout-petit aura plaisir à reconnaître et à écouter, tout en apprenant leur nom !",
+"rayons": [
+"Livres sonores",
+"Petit Ours Brun livres sonores"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/9608-petit-ours-brun-ecoute-la-musique-livre-sonore-des-1-an/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9791036391828",
+"title": "Roman Doc Art - Claude Monet, le maître de l'impressionnisme",
+"authors": [
+"Estelle VIDARD"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036391828",
+"pages": 56,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036391828/9791036391828.jpg",
+"description": "La vie de Monet, riche, longue, passionnante, est racontée dans ce livre à travers 5 chapitres : – De son enfance en Normandie jusqu’à son départ à Paris – Sa vie de jeune artiste et ses rencontres avec ceux qui deviendront célèbres avec lui au sein du mouvement des Impressionnistes – Les premières expositions loin du Salon académique, et l’accueil moqueur des critiques d’art – Les difficultés familiales et financières, puis le début du succès – La découverte de Giverny et la reconnaissance de son talent 5 pages doc complètent ce roman: – Paris à l’époque de Monet – Monet est ses amis – Qu’est-ce que l’impressionnisme? – Monet et Giverny – Les Nymphéas, l’oeuvre ultime de Monet",
+"rayons": [
+"Découverte",
+"Les romans doc Artistes"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/61144-roman-doc-art-claude-monet-le-maitre-de-limpressionnisme/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9791036391699",
+"title": "Une année complètement givrée",
+"authors": [
+"Sibylline",
+"Frédéric Bagères",
+"Marie Voyelle"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-22",
+"isbn": "9791036391699",
+"pages": 80,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036391699/9791036391699.jpg",
+"description": "Pour oublier sa rupture avec Osiris et faire le point sur ses envies, Athéna a décidé de parcourir le monde. Son premier stop, c’est Asgard, où elle va retrouver Thor et Hermès. Elle y fait rapidement connaissance avec Hel, sa nouvelle colocataire, dont la froideur initiale n’a d’égal que la solide loyauté. Finalement, les contrées nordiques recèlent tant de charmes qu’Athéna y restera peut-être un peu plus longtemps que prévu ! Ça sera l’occasion de nouer de nouvelles amitiés, mais aussi de découvrir de nouvelles croyances et cultures, de pratiquer de nouveaux sports, d’apprendre de nouvelles matières, de se débattre avec de nouveaux méchants… et, surtout, de repartir sur de nouvelles bases ! Ce neuvième tome entraîne Athéna, jeune apprentie déesse alors un peu perdue dans ces sentiments, dans un Panthéon moins familier des lecteurs occidentaux, et pourtant d’une immense richesse. Créatures et divinités méconnues, guerriers effrayants, arbres centenaires… après tout, quoi de mieux que quelques gros dragons pour soigner un chagrin d’amour ?",
+"rayons": [
+"BD Kids",
+"Athéna"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/101023-une-annee-completement-givree/",
+"kind": "bd",
+"source": "editeur:bayard"
 },
 {
 "id": "ed:bdgest:541713",
@@ -33918,6 +34244,27 @@
 "source": "editeur:bayard"
 },
 {
+"id": "ed:9791036396823",
+"title": "Alerte aux chiens",
+"authors": [
+"R.L STINE"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-29",
+"isbn": "9791036396823",
+"pages": 160,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036396823/9791036396823.jpg",
+"description": "Larry vient de trouver dans une vieille benne à ordures un flacon de Bronze+. Avec ses amis, il décide de s’en appliquer. Quelques jours plus tard, il découvre avec horreur des touffes de poils noirs et drus sur ses mains et son front. Larry est paniqué. La lotion est-elle seule responsable de cette chevelure envahissante ?",
+"rayons": [
+"Frissons",
+"Chair de poule"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/105181-alerte-aux-chiens/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
 "id": "ed:9791036393112",
 "title": "Brasaskoven T02 : Mer de glace et terre d'ombres",
 "authors": [
@@ -33939,6 +34286,69 @@
 "source": "editeur:bayard"
 },
 {
+"id": "ed:9791036396816",
+"title": "Comment tuer un monstre",
+"authors": [
+"R.L STINE"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-29",
+"isbn": "9791036396816",
+"pages": 144,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036396816/9791036396816.jpg",
+"description": "Barbara et son demi-frère Colin passent les vacances chez leurs grands-parents qui vivent dans un immense manoir à trois étages, isolé, lugubre et délavé, perdu au milieu des marais. Il s’y passe des choses étranges. Barbara entend des râles et des grognements sourds s’échapper d’une pièce du troisième étage, au fond du couloir, fermée à clef… Pourquoi leurs grands-parents leur interdisent-ils d’y entrer ? Barbara et Colin l’apprendront bien assez tôt… à leurs dépens.",
+"rayons": [
+"Frissons",
+"Chair de poule"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/15018-comment-tuer-un-monstre/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9782408064570",
+"title": "Dans la forêt des géants",
+"authors": [
+"Meg Fleming"
+],
+"publisher": "Milan",
+"date": "2026-09-29",
+"isbn": "9782408064570",
+"pages": 32,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408064570/9782408064570.jpg",
+"description": "Au fil des pages, le livre nous propose de suivre un groupe d’enfants sur un sentier forestier parmi des séquoias géants. À chaque pas, la nature se dévoile : le ruisseau qui serpente, les fougères qui saluent les promeneurs, les immenses arbres qui s’élancent vers le ciel. Les jeunes explorateurs observent un rouge-gorge, suivent le vol de graines portées par le vent, découvrent la lumière qui joue entre les branches et illumine chaque détail, s’arrêtent sur la lenteur d’une limace… Un album sensible qui, à travers ses illustrations à la fois douces et lumineuses, célèbre la richesse d’une forêt, l’enchantement d’une promenade.",
+"rayons": [
+"Albums 3 - 7 ans",
+"Albums 3 - 5 ans"
+],
+"url": "https://www.editionsmilan.com/livres/100641-dans-la-foret-des-geants/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9791036396830",
+"title": "La rue maudite",
+"authors": [
+"R.L STINE"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-29",
+"isbn": "9791036396830",
+"pages": 160,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036396830/9791036396830.jpg",
+"description": "Irène et son ami Martin sont passionnés par les films d’horreur. Surtout ceux de la série des » Dents qui claquent « . Imaginez leur joie quand le père d’Irène leur propose de tester le parc d’attractions reprenant les thèmes de ces films ! La visite commence plutôt bien pour les deux amis. Mais soudain, les attractions deviennent dangereuses… trop dangereuses.",
+"rayons": [
+"Frissons",
+"Chair de poule"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/105183-la-rue-maudite/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
 "id": "ed:bdgest:545278",
 "title": "Les empereurs Gaulois - Tome 2 - Victorinus",
 "authors": [
@@ -33956,6 +34366,48 @@
 "url": "https://www.bedetheque.com/BD-Empereurs-Gaulois-Tome-2-Victorinus-545278.html",
 "kind": "bd",
 "source": "editeur:bdgest"
+},
+{
+"id": "ed:9791036384707",
+"title": "Lou et l'île maudite",
+"authors": [
+"Évelyne BRISOU-PELLEN"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-09-29",
+"isbn": "9791036384707",
+"pages": 464,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036384707/9791036384707.jpg",
+"description": "Fuyant un étrange vaisseau, Lou échoue sur la plage du Manoir. Quand elle reprend ses esprits, elle se rend compte qu’elle a un bébé dans ses bras ! Ce n’est pas le sien (elle n’a que douze ans !) et elle jure qu’elle le ne connaît pas. Pourtant, dès qu’elle s’éloigne, le petit – qu’Hoël et Miracle appellent Marco – pousse des hurlements qui provoquent de terribles tremblements de terre. Le Manoir est en grand danger. Pour protéger les pensionnaires, Liam et Cléa vont devoir découvrir pourquoi Lou et Marco sont là et quel lien mystérieux les unit.",
+"rayons": [
+"Frissons",
+"Le manoir"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/11499-lou-et-lile-maudite/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
+"id": "ed:9782408068387",
+"title": "Noël",
+"authors": [
+"Stéphanie Ledu"
+],
+"publisher": "Milan",
+"date": "2026-09-29",
+"isbn": "9782408068387",
+"pages": 16,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408068387/9782408068387.jpg",
+"description": "Une nouvelle édition entièrement refaite, texte, illustration et couverture. Noël : une mine d’informations pour apprendre le vocabulaire du thème et découvrir l’histoire de cette fête et les activités du père Noël. Un « Mes docs à coller » qui permet de préparer Noël sous une forme interactive et ludique pour valoriser la participation de l’enfant. Calendrier de l’avent, travail des lutins du père Noël, préparatifs de la fête et soirée de réveillon… Entre informations, imaginaire et traditions… pour patienter avant le grand soir !",
+"rayons": [
+"Livres à coller, à colorier",
+"Mes docs à coller"
+],
+"url": "https://www.editionsmilan.com/livres/11171-noel/",
+"kind": "jeunesse",
+"source": "editeur:milan"
 },
 {
 "id": "ed:9782036093676",
@@ -39630,6 +40082,27 @@
 "source": "editeur:bayard"
 },
 {
+"id": "ed:9782408068165",
+"title": "Coup de froid pour cœur chaud",
+"authors": [
+"Nathalie Somers"
+],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408068165",
+"pages": 256,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408068165/9782408068165.jpg",
+"description": "Alfred et Brune, 15 ans, se connaissent depuis toujours et passent toutes leurs vacances ensemble. Leurs mères, amies inséparables, sont persuadées que leur amitié d’enfance n’a pas pris une ride. Erreur ! Au fil des années, Alfred et Brune sont devenus experts en réparties piquantes et n’aiment rien tant que s’affronter dans des défis plus ou moins absurdes. Mais, peu à peu, d’autres sentiments pourraient bien naître… Sauf qu’aucun des deux n’est prêt à le reconnaître ! Épisode 1_Vacances d’été au bord du lac d’Annecy. Où deux triangles amoureux tout en quiproquos mettent la jalousie d’Alfred et Brune à rude épreuve. Épisode 2_Vacances de la Toussaint dans la forêt de Brocéliande. Où Alfred et Brune oscillent entre tentatives de rapprochement et opposition farouche. Si la partie d’escape game leur offre un parfait terrain de jeux pour tester leur rivalité, la préparation d’une comédie musicale, où Brune doit incarner Juliette, sème le trouble. Quand Alfred doit l’aider à répéter la fameuse scène du balcon… tout s’embrouille dans la tête de l’apprenti Roméo ! Épisode 3_Vacances de Noël en Laponie. Où Alfred arrive avec un plan imparable : rester indifférent face à Brune, puis briller et lui déclarer son amour. Eh oui, en se confiant à son ami Adam, il a enfin pris conscience de ses vrais sentiments pour Brune. Reste à savoir si c’est réciproque… Sortie à la patinoire, batailles de boules de neige et concours photo vont lui en faire voir de toutes les couleurs, jusqu’au grand ",
+"rayons": [
+"Romans 8 - 10 ans",
+"Littérature 9-12 ans"
+],
+"url": "https://www.editionsmilan.com/livres/102048-coup-de-froid-pour-coeur-chaud/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
 "id": "ed:9791036394720",
 "title": "Frissons garantis !",
 "authors": [
@@ -39671,6 +40144,48 @@
 "url": "https://tout.bayard-jeunesse.com/livres/97484-graine-de-monstre/",
 "kind": "jeunesse",
 "source": "editeur:bayard"
+},
+{
+"id": "ed:9782408066284",
+"title": "Joyeux Noël ! Une aventure à déplier",
+"authors": [
+"Christopher Franceschelli"
+],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408066284",
+"pages": 56,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408066284/9782408066284.jpg",
+"description": "« Joyeux Noël ! Une aventure à déplier » entraîne deux enfants dans un voyage nocturne initié par une invitation inattendue : celle du père Noël lui-même. Le livre s’ouvre sur un décor de ville enneigée avant de mener progressivement les personnages – et le lecteur – à travers une succession de lieux emblématiques : rues silencieuses, forêt givrée, vagues déchaînées, banquise scintillante, puis l’atelier du père Noël. Les illustrations d’Allison Black, colorées et très lisibles, déploient une galerie de scènes expressives : l’accueil chaleureux du père et de la mère Noël, la cuisine, l’atelier animé où les enfants dévalent un toboggan en sucre d’orge, la salle d’emballage, le dortoir, et enfin l’étable résonnant d’une petite clochette. La fabrication renforce l’immersion : les pages à trous ouvrent des fenêtres sur la scène suivante, tandis que les grands rabats permettent de dévoiler des décors plus vastes (atelier, paysages, intérieur de l’atelier, etc.). Ces manipulations soutiennent l’attention des enfants et stimulent l’observation. L’ouvrage est un cartonné solide, pensé pour être manipulé et déplié de nombreuses fois. Grâce à son format et à sa fabrication, il convient aux mains des tout-petits.",
+"rayons": [
+"Livres animés",
+"Albums animés éveil"
+],
+"url": "https://www.editionsmilan.com/livres/102541-joyeux-noel-une-aventure-a-deplier/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9782408065843",
+"title": "La Bougie interdite",
+"authors": [
+"NICOLAS LAFITTE"
+],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408065843",
+"pages": 448,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408065843/9782408065843.jpg",
+"description": "Ashton, jeune sorcier pratiquant la céromancie – la magie des bougies –, n’est plus que l’ombre de lui-même depuis le décès de Rune, son meilleur ami et prince cadet du royaume d’Odenor, deux ans plus tôt. Banni du château, isolé, le céromancien sombre. Quand, dans le plus grand des secrets, on lui ordonne l’impensable, l’âme d’Ashton s’enflamme à nouveau. Il devra créer une Bougie de Résurrection, artéfact de magie noire formellement interdit, et ramener Rune du côté des vivants. Mais il n’a que 10 jours, jusqu’à Limehain, où le voile entre les vivants et les morts est le plus fin, pour la fabriquer. Qu’importent les risques, Ashton se lance à corps perdu dans cette mission avec Saoirse, une mystérieuse chevaleresse, sur les talons. Un périple qui lui apportera peut-être enfin des réponses sur sa marque de céromancien qui ne ressemble à aucune autre. Mais ce voyage semble mener Ashton et Saoirse sur des chemins dangereux où ils pourraient bien se perdre…",
+"rayons": [
+"Romans ados",
+"Littérature 13+"
+],
+"url": "https://www.editionsmilan.com/livres/102071-la-bougie-interdite/",
+"kind": "ya",
+"source": "editeur:milan"
 },
 {
 "id": "ed:9791036382406",
@@ -39735,6 +40250,25 @@
 "source": "editeur:milan"
 },
 {
+"id": "ed:9782408057923",
+"title": "La patouille de la sorcière - Choisis tes ingrédients et crée ta soupe magique !",
+"authors": [],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408057923",
+"pages": 34,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408057923/9782408057923.jpg",
+"description": "« Plonge dans ce livre animé drôle et surprenant où la magie mijote à gros bouillons ! » Avec Petite Sorcière et Minou, les enfants, dès 3 ans, jouent aux chefs étoilés d’une cuisine pas comme les autres : celle des soupes de sorcières ! Une marmite qui fume, des ingrédients farfelus, des réactions chimiques en cascade… et surtout une mission captivante : c’est l’enfant qui choisit la suite de l’histoire. Chaussettes puantes, bonbon piquant, pomme pourrie ou vilain crapaud ? Chaque onglet offre un ingrédient à jeter dans la marmite. Il ne reste plus qu’à touiller… et à déguster ! Tristan Mory nous propose un album interactif, sur le principe de jeu « dont tu es le héros », pensé pour éveiller la curiosité, stimuler l’imagination et offrir aux tout-petits, dès 3 ans, un rôle actif dans la lecture. Drôle et surprenant, ce livre‑jeu transforme chaque lecture en expérience unique et pleine de rires.",
+"rayons": [
+"Livres animés",
+"Albums animés éveil"
+],
+"url": "https://www.editionsmilan.com/livres/94681-la-patouille-de-la-sorciere-choisis-tes-ingredients-et-cree-ta-soupe-magique/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
 "id": "ed:9782408067878",
 "title": "Le grand livre animé du corps humain",
 "authors": [
@@ -39752,6 +40286,27 @@
 "Le grand livre animé"
 ],
 "url": "https://www.editionsmilan.com/livres/57526-le-grand-livre-anime-du-corps-humain/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9782408064662",
+"title": "Le merveilleux Noël de Petit Hérisson - tout-carton",
+"authors": [
+"M. Christina Butler"
+],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408064662",
+"pages": 32,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408064662/9782408064662.jpg",
+"description": "« Tout est prêt pour mon réveillon ! se réjouit Petit Hérisson. Ça va être un Noël inoubliable ! » Il sort de chez lui, pressé de profiter de cette belle journée et de la passer avec ses amis… Mais ils semblent tous très occupés et Petit Hérisson s’inquiète… Heureusement, tous ses amis seront prêts à temps pour fêter ensemble un merveilleux Noël.",
+"rayons": [
+"Albums 3 - 7 ans",
+"Petit Hérisson"
+],
+"url": "https://www.editionsmilan.com/livres/90647-le-merveilleux-noel-de-petit-herisson-tout-carton/",
 "kind": "jeunesse",
 "source": "editeur:milan"
 },
@@ -39840,6 +40395,62 @@
 "source": "editeur:bayard"
 },
 {
+"id": "ed:9782408068424",
+"title": "L’enfant, la baleine et la tempête tout-carton",
+"authors": [],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408068424",
+"pages": 32,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408068424/9782408068424.jpg",
+"description": "C’est l’automne sur l’île de Noé, et sa grand-mère vient lui rendre visite. Un soir de tempête, Noé n’arrive pas à dormir. Sa grand-mère décide alors de lui raconter une histoire. C’est l’histoire d’une petite fille qui habitait sur une île, elle aussi, et qui était amie avec une baleine. La baleine revenait chaque été, mais un jour elle ne revint pas… Passage au format tout-carton de ce classique du fonds.",
+"rayons": [
+"Albums 3 - 7 ans",
+"Albums petite enfance"
+],
+"url": "https://www.editionsmilan.com/livres/102584-lenfant-la-baleine-et-la-tempete-tout-carton/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9782408065904",
+"title": "Mes comptines à toucher pour écouter - Bonne nuit ! 6 sons à écouter - 6 matières à toucher",
+"authors": [],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408065904",
+"pages": 10,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408065904/9782408065904.jpg",
+"description": "Une nouvelle collection pour une nouvelle façon d’écouter ses comptines favorites : pour déclencher ses comptines, le tout-petit devra caresser les matières intégrées aux illustrations. Cette nouvelle collection permet d’associer trois sens : le toucher, la vue et l’ouïe. Cette lecture sensorielle est particulièrement appréciée des enfants en bas âge, dont le toucher est l’un des premiers sens développés. Cette manière de déclencher les comptines permet au tout-petit de perfectionner sa motricité fine. « Bonne nuit », « Meunier, tu dors », « Dodo, l’enfant do », « Au clair de la lune », « Passe la dormette » et « Brille brille, petite étoile », ces six comptines prennent vie sous le pinceau de Lucie Brunellière. Des illustrations tout en douceur pour apaiser les tout-petits. Avec des piles longue durée.",
+"rayons": [
+"Livres à écouter, à chanter"
+],
+"url": "https://www.editionsmilan.com/livres/99801-mes-comptines-a-toucher-pour-ecouter-bonne-nuit-6-sons-a-ecouter-6-matieres-a-toucher/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9782408067540",
+"title": "Mes premières histoires racontées - La moufle - Dès 1 an",
+"authors": [],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408067540",
+"pages": 10,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408067540/9782408067540.jpg",
+"description": "Par une nuit d’hiver glaciale, une petite souris transie de froid découvre une moufle abandonnée dans la neige et s’y installe pour se réchauffer. Très vite, un lapin, puis un renard, puis un ours entrent à leur tour dans ce refuge minuscule. Malgré le manque de place, chacun est accueilli… jusqu’à ce que la moufle, trop pleine, éclate soudain en mille morceaux. Mais l’histoire se termine en douceur : l’ours rassemble tous ses nouveaux amis contre lui pour les réchauffer. Un conte chaleureux sur la solidarité, revisité dans un livre sonore où chaque page tournée déclenche la narration. Cette toute nouvelle collection sonore réinvente la lecture pour les tout-petits : dès que l’on tourne la page, l’histoire se déclenche automatiquement, transformant le simple geste de lire en un moment magique. Une expérience sensorielle qui émerveille les bébés et enchante les parents.",
+"rayons": [
+"Livres à écouter, à chanter",
+"Mes premières histoires racontées"
+],
+"url": "https://www.editionsmilan.com/livres/102701-mes-premieres-histoires-racontees-la-moufle-des-1-an/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
 "id": "ed:9782408063399",
 "title": "Mon imagier de l’éveil à toucher",
 "authors": [],
@@ -39855,6 +40466,25 @@
 "Mes imagiers à toucher"
 ],
 "url": "https://www.editionsmilan.com/livres/21778-mon-imagier-de-leveil-a-toucher/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9782408064778",
+"title": "Mon plus beau recueil de comptines - Dès 1 an",
+"authors": [],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408064778",
+"pages": 40,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408064778/9782408064778.jpg",
+"description": "Ce livre sonore grand format, à la fabrication soignée, rassemble 20 comptines parmi les plus célèbres de l’enfance. Les comptines pour bébé jouent un rôle essentiel dans le développement global de l’enfant. Au‑delà de leur dimension ludique, elles constituent un véritable outil d’éveil : elles stimulent la sensibilité musicale du bébé, soutiennent l’acquisition du langage et renforcent le lien affectif entre le tout‑petit et ses parents. Grâce au boîtier sonore fixé sur le livre, la lecture de l’illustration et l’écoute des sons sont simultanées. Un concept simple et ludique qui constitue un premier pas vers l’autonomie de lecture. Le recueil est illustré par un collectif de 4 illustratrices : Lucile Ahrweiller, Lucie Brunellière, Ninie et Alexandra Pichard, offrant des illustrations aux styles variés, et adaptées à la tranche d’âge. Les 20 comptines du recueil : « Oh, l’escargot ! » « Le Bon Roi Dagobert » « Meunier, tu dors » « Nous n’irons plus au bois » « Pirouette cacahouète » « Alouette, gentille alouette » « Une araignée sur le plancher » « Les petits poissons dans l’eau » « Dans la ferme de Mathurin » « Pomme de reinette et pomme d’api » « Quand trois poules vont au champ » « Frère Jacques » « Il court, il court, le furet » « Une souris verte » « L’as-tu vu ? » « Dans la forêt lointaine » « J’aime la galette » « Savez-vous planter les choux ? » « Am stram gram » « Au feu, les pompiers »",
+"rayons": [
+"Livres à écouter, à chanter",
+"Mon grand livre sonore"
+],
+"url": "https://www.editionsmilan.com/livres/99815-mon-plus-beau-recueil-de-comptines-des-1-an/",
 "kind": "jeunesse",
 "source": "editeur:milan"
 },
@@ -39941,6 +40571,27 @@
 "source": "editeur:bayard"
 },
 {
+"id": "ed:9782408061531",
+"title": "Toiles d’araignées : techniques secrètes",
+"authors": [
+"Jan Beccaloni"
+],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408061531",
+"pages": 48,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408061531/9782408061531.jpg",
+"description": "Le livre nous invite d’abord à réfléchir à l’importance des araignées, sans lesquelles le monde serait envahi d’insectes, et nous propose de poser un autre regard sur ces animaux souvent mal considérés. Puis, planche après planche, sont présentées des espèces différentes avec chacune leurs techniques de tissage et leurs atouts : les toiles circulaires, les toiles-dentelles, les toiles enchevêtrées, les toiles en entonnoir, les toiles-trappes… Pour finir, l’autrice dresse un portrait de l’araignée : qu’est-ce qui la définit et explique comment elle produit le fil de soie. Le livre se termine par un petit guide d’identification des principales espèces.",
+"rayons": [
+"Dès 7 ans",
+"Documentaires nature"
+],
+"url": "https://www.editionsmilan.com/livres/98544-toiles-daraignees-techniques-secretes/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
 "id": "ed:9791036390005",
 "title": "Tout là-haut",
 "authors": [
@@ -39960,6 +40611,46 @@
 "url": "https://tout.bayard-jeunesse.com/livres/100722-tout-la-haut/",
 "kind": "jeunesse",
 "source": "editeur:bayard"
+},
+{
+"id": "ed:9782408061517",
+"title": "Un cœur d’ours",
+"authors": [
+"Louise Greig"
+],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408061517",
+"pages": 32,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408061517/9782408061517.jpg",
+"description": "Ours garde dans son cœur tout ce qu’il aime : des saumons, des myrtilles, son arbre préféré… jusqu’au jour où il rencontre un lion solitaire qui cherche une place où être aimé. Malheureusement, il n’y a plus de place dans le cœur d’Ours ! Ours se tourne vers des amis, mais il n’y a personne dont le cœur puisse accueillir le lion. Il décide de vider son propre cœur pour lui laisser un espace. Cette générosité rend Ours plus heureux et plus courageux que jamais. Alors, lorsqu’une lionne apparaît à la recherche de son lion, Ours comprend qu’il doit laisser le félin partir. Le chagrin l’envahit soudain… jusqu’à ce qu’il découvre qu’un cœur qui a aimé un lion est vaste et peut accueillir à nouveau tout ce qui le fait vibrer.",
+"rayons": [
+"Albums 3 - 7 ans",
+"Albums 3 - 5 ans"
+],
+"url": "https://www.editionsmilan.com/livres/98664-un-coeur-dours/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
+"id": "ed:9782408067892",
+"title": "Une journée avec Petit Fantôme",
+"authors": [],
+"publisher": "Milan",
+"date": "2026-10-06",
+"isbn": "9782408067892",
+"pages": 10,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408067892/9782408067892.jpg",
+"description": "« Bravo ! Tu viens d’adopter un petit fantôme. Maintenant, il faut t’en occuper ! » Grâce à une pièce amovible représentant le fantôme, l’enfant peut l’intégrer dans chaque scène : le cacher dans une armoire, l’installer à table pour un repas, le cacher dans un livre ou encore le mettre au lit… Ce livre animé développe la motricité fine (manipulation de la pièce), le vocabulaire et la créativité. Il aborde des thèmes rassurants autour de la routine quotidienne (manger, jouer, dormir) dans un univers fantastique et ludique. Les illustrations de Sarah Ward sont colorées et pleines de détails amusants, favorisant l’observation et l’imagination.",
+"rayons": [
+"Livres animés",
+"Albums animés éveil"
+],
+"url": "https://www.editionsmilan.com/livres/104901-une-journee-avec-petit-fantome/",
+"kind": "jeunesse",
+"source": "editeur:milan"
 },
 {
 "id": "ed:manganews:vaan-et-le-royaume-de-la-faille",
@@ -55213,12 +55904,12 @@
 "isbn": "9782808211604",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545260.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808211604/couv/M325x429/le-lien-le-lien.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Lien-Filippi-Yvan-Le-lien-545260.html",
+"url": "https://www.lelombard.com/bd/le-lien/le-lien",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782488807012",
@@ -55251,12 +55942,12 @@
 "isbn": "9782808219211",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545470.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808219211/couv/M325x429/le-territoire-le-territoire.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Territoire-Pruett-Xavier-Le-Territoire-545470.html",
+"url": "https://www.lelombard.com/bd/le-territoire/le-territoire",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9791041430567",
@@ -60707,12 +61398,12 @@
 "isbn": "9782808216760",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543990.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808216760/couv/M325x429/alpha-cameleon.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Alpha-Tome-21-Cameleon-543990.html",
+"url": "https://www.lelombard.com/bd/alpha/cameleon",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782808703093",
@@ -61247,25 +61938,6 @@
 "kind": "bd"
 },
 {
-"id": "ed:9782808220804",
-"title": "Mille ans",
-"authors": [
-"Duval",
-"Bajram"
-],
-"publisher": "Le Lombard",
-"date": "2026-10-23",
-"isbn": "9782808220804",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543584.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Mille-ans-543584.html",
-"kind": "bd",
-"source": "editeur:bdgest"
-},
-{
 "id": "ed:manganews:pet-remastered-edition-vol-3",
 "title": "PET - Remastered Edition - Tome 3",
 "authors": [
@@ -61287,7 +61959,7 @@
 },
 {
 "id": "ed:9782808703949",
-"title": "Reine des bandits - Tome 1",
+"title": "Reine des bandits",
 "authors": [
 "Chie Inudoh"
 ],
@@ -61299,7 +61971,8 @@
 "cover": "https://www.nautiljon.com/images/manga_volumes/12/25/reine_des_bandits_11039652.webp",
 "description": "Maya est la fille d’un chef de police qui a grandi dans la haute société indienne. Kareena est une voleuse issue d’un milieu pauvre. En 1983, dans la vallée de Chambal, aux confins de l’Inde, Maya, agent sous couverture, infiltre...",
 "rayons": [
-"Manga"
+"Manga",
+"One-shot"
 ],
 "url": "https://www.nautiljon.com/mangas/reine+des+bandits/volume-1,1039652.html",
 "kind": "bd",
@@ -66204,7 +66877,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545674.jpg",
-"description": "12 histoires inédites d’Ariol au Japon, pays du soleil levant… et du poisson cru ! Depuis le départ en avion, source de mille petites aventures, jusqu’au retour en France, ce nouvel album fait le récit des vacances d’Ariol et de ses parents au Japon. On y découvre les incroyables distributeurs de boissons, les salles de pachinko (des sortes de machines à sous)… et une peluche géante, un magnifique ryokan où l’on peut prendre des bains d’eau chaude au pied de sa chambre, un sanctuaire envahi de grenouilles… Dépaysement garanti ! Ariol en aura, des choses à raconter à ses copains !",
+"description": "",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Ariol-2e-Serie-Tome-22-Au-pays-du-poisson-cru-545674.html",
 "kind": "bd",
@@ -70785,12 +71458,12 @@
 "isbn": "9782808217958",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545743.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808217958/couv/M325x429/schtroumpfs-les-lombard-le-schtroumpf-qui-plantait-de-la-salsepareille.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Schtroumpfs-Tome-44-Le-schtroumpf-qui-plantait-la-salsepareille-545743.html",
+"url": "https://www.lelombard.com/bd/schtroumpfs-les-lombard/le-schtroumpf-qui-plantait-de-la-salsepareille",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782808517805",
@@ -71193,12 +71866,12 @@
 "isbn": "9782808218092",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545744.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808218092/couv/M325x429/sherlock-holmes-contre-arsene-lupin-la-revolution-da-vinci.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Sherlock-Holmes-contre-Arsene-Lupin-Tome-2-La-revolution-de-Vinci-545744.html",
+"url": "https://www.lelombard.com/bd/sherlock-holmes-contre-arsene-lupin/la-revolution-da-vinci",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782808703512",
@@ -74763,25 +75436,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782808201292",
-"title": "Resurrection Hill",
-"authors": [
-"Charyn",
-"Boucq"
-],
-"publisher": "Le Lombard",
-"date": "2026-11-13",
-"isbn": "9782808201292",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545540.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Resurrection-Hill-545540.html",
-"kind": "bd",
-"source": "editeur:bdgest"
-},
-{
 "id": "ed:9782808219174",
 "title": "Resurrection Hill",
 "authors": [
@@ -74797,6 +75451,22 @@
 "description": "",
 "rayons": [],
 "url": "https://www.lelombard.com/bd/resurrection-hill/resurrection-hill-edition-noir-blanc",
+"kind": "bd",
+"source": "editeur:lombard"
+},
+{
+"id": "ed:9782808201292",
+"title": "Resurrection Hill",
+"authors": [],
+"publisher": "Le Lombard",
+"date": "2026-11-13",
+"isbn": "9782808201292",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782808201292/couv/M325x429/resurrection-hill-resurrection-hill.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.lelombard.com/bd/resurrection-hill/resurrection-hill",
 "kind": "bd",
 "source": "editeur:lombard"
 },
@@ -74872,12 +75542,12 @@
 "isbn": "9782808218535",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545541.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808218535/couv/M325x429/thorgal-yggdrasil.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Thorgal-Tome-44-Yggdrasil-545541.html",
+"url": "https://www.lelombard.com/bd/thorgal/yggdrasil",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782808220491",
@@ -75183,7 +75853,7 @@
 "source": "editeur:casterman"
 },
 {
-"id": "ed:bdgest:545581",
+"id": "ed:9782731634808",
 "title": "Carthago Intégrale - Tome 3 - Intégrale des tomes 11 à 16",
 "authors": [
 "Bec",
@@ -75191,7 +75861,7 @@
 ],
 "publisher": "Les Humanoïdes Associés",
 "date": "2026-11-18",
-"isbn": "",
+"isbn": "9782731634808",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545581.jpg",
@@ -75412,14 +76082,14 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:545184",
+"id": "ed:9791070260630",
 "title": "Fine Print - Tome 3",
 "authors": [
 "Šejić"
 ],
 "publisher": "Panini Comics",
 "date": "2026-11-18",
-"isbn": "",
+"isbn": "9791070260630",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545184.jpg",
@@ -75761,7 +76431,7 @@
 "source": "editeur:glenat"
 },
 {
-"id": "ed:bdgest:545202",
+"id": "ed:9782754848886",
 "title": "La voix au bout des doigts - Les aventures de l'écriture",
 "authors": [
 "Calvet",
@@ -75769,7 +76439,7 @@
 ],
 "publisher": "Futuropolis",
 "date": "2026-11-18",
-"isbn": "",
+"isbn": "9782754848886",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545202.jpg",
@@ -75925,7 +76595,7 @@
 "source": "editeur:casterman"
 },
 {
-"id": "ed:bdgest:545569",
+"id": "ed:9782382333709",
 "title": "Le grimoire d'Elfie - Tome 7 - La rivière aux étoiles",
 "authors": [
 "Scotch Arleston",
@@ -75933,7 +76603,7 @@
 ],
 "publisher": "Drakoo",
 "date": "2026-11-18",
-"isbn": "",
+"isbn": "9782382333709",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545569.jpg",
@@ -77612,14 +78282,14 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:546026",
+"id": "ed:9782844149947",
 "title": "L'asile du Havre - Soupault Breton Artaud",
 "authors": [
 "David B."
 ],
 "publisher": "L'Association",
 "date": "2026-11-20",
-"isbn": "",
+"isbn": "9782844149947",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546026.jpg",
@@ -77726,14 +78396,14 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:546029",
+"id": "ed:9782390410478",
 "title": "Macherot - Une vie en dessins",
 "authors": [
 "Macherot"
 ],
 "publisher": "Dupuis - Champaka",
 "date": "2026-11-20",
-"isbn": "",
+"isbn": "9782390410478",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546029.jpg",
@@ -77778,6 +78448,22 @@
 "url": "https://www.nautiljon.com/mangas/mermaid+prince+(ogeretsu+tanaka)/volume-2,1029594.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782808220804",
+"title": "Mille Ans",
+"authors": [],
+"publisher": "Le Lombard",
+"date": "2026-11-20",
+"isbn": "9782808220804",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782808220804/couv/M325x429/mille-ans-mille-ans.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.lelombard.com/bd/pour-mille-ans/mille-ans-1",
+"kind": "bd",
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782505144236",
@@ -77878,25 +78564,6 @@
 "source": "editeur:dargaud"
 },
 {
-"id": "ed:bdgest:545139",
-"title": "Renaissance Intégrale - Intégrale Cycle 1",
-"authors": [
-"Duval",
-"Emem"
-],
-"publisher": "Dargaud",
-"date": "2026-11-20",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545139.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Renaissance-Duval-Emem-INT01-Integrale-Cycle-1-545139.html",
-"kind": "bd",
-"source": "editeur:bdgest"
-},
-{
 "id": "ed:9782380601824",
 "title": "Rose Bertin, la couturière fatale - Tome 6",
 "authors": [
@@ -77917,7 +78584,7 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:546025",
+"id": "ed:9791026856580",
 "title": "Saga Intégrale - Tome 3 - Volume 3",
 "authors": [
 "Vaughan",
@@ -77925,7 +78592,7 @@
 ],
 "publisher": "Urban Comics",
 "date": "2026-11-20",
-"isbn": "",
+"isbn": "9791026856580",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546025.jpg",
@@ -77994,25 +78661,6 @@
 "source": "editeur:dargaud"
 },
 {
-"id": "ed:bdgest:546034",
-"title": "W.E.S.T INTa2026",
-"authors": [
-"Dorison",
-"Rossi"
-],
-"publisher": "Dargaud",
-"date": "2026-11-20",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546034.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-WEST-INTa2026-546034.html",
-"kind": "bd",
-"source": "editeur:bdgest"
-},
-{
 "id": "ed:9782808707367",
 "title": "Witches and Cigarettes - Tome 1",
 "authors": [
@@ -78033,7 +78681,7 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:545179",
+"id": "ed:9791026857495",
 "title": "Wonder Woman - Hors-la-loi - Tome 5",
 "authors": [
 "King",
@@ -78041,7 +78689,7 @@
 ],
 "publisher": "Urban Comics",
 "date": "2026-11-20",
-"isbn": "",
+"isbn": "9791026857495",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545179.jpg",
@@ -78534,7 +79182,7 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:545700",
+"id": "ed:9791026857679",
 "title": "Exquisite Corpses Intégrale - Intégrale saison 1",
 "authors": [
 "Tynion IV",
@@ -78542,7 +79190,7 @@
 ],
 "publisher": "Urban Comics",
 "date": "2026-11-27",
-"isbn": "",
+"isbn": "9791026857679",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545700.jpg",
@@ -78825,7 +79473,7 @@
 "source": "editeur:seuil"
 },
 {
-"id": "ed:bdgest:545697",
+"id": "ed:9782205214376",
 "title": "Les mondes d'Arven - Tome 4 - Le monstre des eaux chaudes",
 "authors": [
 "Bertorello",
@@ -78833,7 +79481,7 @@
 ],
 "publisher": "Dargaud",
 "date": "2026-11-27",
-"isbn": "",
+"isbn": "9782205214376",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545697.jpg",
@@ -79243,7 +79891,7 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:546019",
+"id": "ed:9791026857556",
 "title": "Wynd 02 - Le trône des cieux",
 "authors": [
 "Tynion IV",
@@ -79251,7 +79899,7 @@
 ],
 "publisher": "Urban Comics",
 "date": "2026-11-27",
-"isbn": "",
+"isbn": "9791026857556",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546019.jpg",
@@ -79262,14 +79910,14 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:546021",
+"id": "ed:9782365779180",
 "title": "Zawa",
 "authors": [
 "Dialynas"
 ],
 "publisher": "Urban Comics",
 "date": "2026-11-27",
-"isbn": "",
+"isbn": "9782365779180",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546021.jpg",
@@ -83104,24 +83752,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9791039149655",
-"title": "La Belle et le Badass - Tome 6",
-"authors": [],
-"publisher": "Panini",
-"date": "2026-12-09",
-"isbn": "9791039149655",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/95/la_belle_et_le_badass_61037559.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/la+belle+et+le+badass/volume-6,1037559.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:9791070250259",
 "title": "Le Secret d'Aiko - Tome 10",
 "authors": [
@@ -83138,24 +83768,6 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/le+secret+d-aiko/volume-10,1038529.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
-"id": "ed:9791039149662",
-"title": "Lycoris Recoil - Tome 8",
-"authors": [],
-"publisher": "Panini",
-"date": "2026-12-09",
-"isbn": "9791039149662",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/32/lycoris_recoil_81030623.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/lycoris+recoil/volume-8,1030623.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -83196,24 +83808,6 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/sword+of+the+demon+hunter/volume-10,1033006.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
-"id": "ed:9791070250310",
-"title": "The Shiunji Family Children - Tome 9",
-"authors": [],
-"publisher": "Panini",
-"date": "2026-12-09",
-"isbn": "9791070250310",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/98/the_shiunji_family_children_91031889.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/the+shiunji+family+children/volume-9,1031889.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -85326,24 +85920,24 @@
 "source": "editeur:casterman"
 },
 {
-"id": "ed:manganews:belle-et-le-badass-la-vol-6",
+"id": "ed:9791039149655",
 "title": "La Belle et le Badass - Tome 6",
 "authors": [
 "Sawako Arashida"
 ],
 "publisher": "Panini",
 "date": "2027-01-06",
-"isbn": "",
+"isbn": "9791039149655",
 "pages": 0,
 "format": "",
-"cover": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/95/la_belle_et_le_badass_61037559.webp",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.manga-news.com/index.php/manga/Belle-et-le-Badass-La/vol-6",
+"url": "https://www.nautiljon.com/mangas/la+belle+et+le+badass/volume-6,1037559.html",
 "kind": "bd",
-"source": "editeur:manganews"
+"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9782226511591",
@@ -90349,24 +90943,24 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:manganews:lycoris-recoil-vol-8",
+"id": "ed:9791039149662",
 "title": "Lycoris Recoil - Tome 8",
 "authors": [
 "Spider Lily"
 ],
 "publisher": "Panini",
 "date": "2027-01-27",
-"isbn": "",
+"isbn": "9791039149662",
 "pages": 0,
 "format": "",
-"cover": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/32/lycoris_recoil_81030623.webp",
 "description": "Chisato, qui vient à peine de découvrir la promesse échangée par Mika et Yoshimatsu, reçoit une vidéo montrant ce dernier prisonnier. Au même moment, à la tour Enkûboku, Majima pirate les ondes dans le but de révéler au monde...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.manga-news.com/index.php/manga/Lycoris-Recoil/vol-8",
+"url": "https://www.nautiljon.com/mangas/lycoris+recoil/volume-8,1030623.html",
 "kind": "bd",
-"source": "editeur:manganews"
+"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9782344067123",
@@ -90489,24 +91083,24 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:manganews:the-shiunji-family-children-vol-9",
+"id": "ed:9791070250310",
 "title": "The Shiunji Family Children - Tome 9",
 "authors": [
 "Reiji Miyajima"
 ],
 "publisher": "Panini",
 "date": "2027-01-27",
-"isbn": "",
+"isbn": "9791070250310",
 "pages": 0,
 "format": "",
-"cover": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/98/the_shiunji_family_children_91031889.webp",
 "description": "Désormais confronté aux sentiments de ses cinq soeurs, Arata peine à trouver comment leur répondre en tant que frère. La famille décide alors de partir en voyage aux sources chaudes...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.manga-news.com/index.php/manga/The-Shiunji-Family-Children/vol-9",
+"url": "https://www.nautiljon.com/mangas/the+shiunji+family+children/volume-9,1031889.html",
 "kind": "bd",
-"source": "editeur:manganews"
+"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9782820353344",
