@@ -24,6 +24,7 @@ jobs:
         env:
           # après une modification du robot, on relit aussi tout de suite les sites des éditeurs
           EDITEURS: ${{ github.event_name != 'schedule' && '1' || '' }}
+          GOOGLE_EDITEURS: ${{ github.event_name != 'schedule' && '1' || '' }}
       - run: |
           git config user.name "robot-sorties"; git config user.email "robot@users.noreply.github.com"
           git add data/sorties.json data/bd-isbn.json 2>/dev/null || git add data/sorties.json

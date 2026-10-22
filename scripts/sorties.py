@@ -117,6 +117,16 @@ GQUERIES = [
 GKINDS = [(("romance", "love"), "romance"), (("fantasy", "science fiction", "dragons"), "fantasy"), (("thriller", "mystery", "crime", "detective"), "policier"),
           (("young adult",), "ya"), (("comics", "graphic novels", "manga"), "bd"), (("juvenile",), "jeunesse"), (("fiction",), "roman")]
 
+NOT_BOOK_RE = re.compile(r"vivre ?cards?|puzzle \d+ pi[eè]ces|calendrier mural|calendrier \d{4}|^agenda\b|\bagenda\b.*\b20\d\d\b|^peluches?\b|jeux? de soci[ée]t[ée]"
+                         r"|^kit\b|^tarot\b|- tarot$|marque.pages? stickers|coffret avec (lampe|accessoires)|\bposters?\b|\bgoodies\b|\bt-shirt\b|\bmugs?\b", re.I)
+
+# Maisons qui ferment leur site aux robots : on demande leurs sorties à Google Livres, une fois par jour
+GPUBS = [("Gallimard", "roman"), ("Folio", ""), ("Gallimard Jeunesse", "jeunesse"), ("Denoël", "roman"), ("Mercure de France", "roman"),
+         ("Flammarion", "roman"), ("J'ai lu", ""), ("Pocket", ""), ("Robert Laffont", "roman"), ("Plon", "roman"), ("Julliard", "roman"),
+         ("Belfond", "roman"), ("Fleuve", ""), ("10/18", ""), ("Presses de la Cité", "roman"), ("Actes Sud", "roman"),
+         ("Milady", "fantasy"), ("Kurokawa", "bd"), ("Nathan", "jeunesse"), ("L'École des loisirs", "jeunesse"), ("Casterman", ""),
+         ("Rue de Sèvres", "bd"), ("Harlequin", "romance"), ("HarperCollins", "")]
+
 def gget(q, start):
     url = ("https://www.googleapis.com/books/v1/volumes?" + urllib.parse.urlencode(
         {"q": q, "orderBy": "newest", "langRestrict": "fr", "printType": "books", "maxResults": 40, "startIndex": start, "key": GKEY}))
@@ -127,9 +137,10 @@ def gget(q, start):
     except Exception as e:
         print("  google", q, e, file=sys.stderr); return None
 
-def google_upcoming(lo, hi, stats):
+def google_upcoming(lo, hi, stats, queries=None, key="google"):
     out, errors, seen_items, max_d, sample = {}, 0, 0, "", []
-    for q, hint in GQUERIES:
+    for q, hint in (queries or GQUERIES):
+        want = q.split('"')[1].lower() if queries and '"' in q else ""  # éditeur demandé : Google en renvoie parfois d'autres
         for start in (0, 40, 80):
             items = gget(q, start); time.sleep(1)
             if items is None: errors += 1; break
@@ -143,6 +154,7 @@ def google_upcoming(lo, hi, stats):
                 if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", d) or v.get("language") not in (None, "fr"): continue
                 if d >= lo: newer += 1
                 if not (lo <= d <= hi) or not v.get("title"): continue
+                if want and want.split()[0] not in (v.get("publisher") or "").lower(): continue
                 isbn = next((x["identifier"] for x in v.get("industryIdentifiers", []) if x.get("type") == "ISBN_13"), "")
                 links = v.get("imageLinks", {})
                 cover = (links.get("thumbnail") or links.get("smallThumbnail") or "").replace("http:", "https:").replace("&edge=curl", "")
@@ -157,7 +169,7 @@ def google_upcoming(lo, hi, stats):
                     "mature": v.get("maturityRating") == "MATURE",
                 }
             if not newer: break  # la suite de la liste est plus ancienne
-    stats["google"] = {"trouves": len(out), "erreurs": errors, "vus": seen_items, "plus_loin": max_d, "exemples": sample}
+    stats[key] = {"trouves": len(out), "erreurs": errors, "vus": seen_items, "plus_loin": max_d, "exemples": sample}
     return out
 
 def main():
@@ -165,9 +177,10 @@ def main():
     try:
         prev = json.load(open(OUT, encoding="utf-8"))
         old = {b["id"]: b for b in prev["books"]}
-        ed_at = prev.get("stats", {}).get("editeurs_at", "")
+        prev_stats = prev.get("stats", {})
+        ed_at = prev_stats.get("editeurs_at", "")
     except Exception:
-        old, ed_at = {}, ""
+        old, ed_at, prev_stats = {}, "", {}
     todo = {}  # chemin -> genre suggéré
     stats = {"precommandes": [], "nouveautes": [], "rayons": {}}
     # précommandes : on va loin pour voir les sorties des 6 prochains mois
@@ -217,6 +230,21 @@ def main():
     t = date.today(); m2 = (t.month - 3) % 12 + 1
     # on garde depuis le 1er du mois d'il y a deux mois (août quand on est en octobre)
     lo, hi = date(t.year - (1 if t.month <= 2 else 0), m2, 1).isoformat(), (date.today() + timedelta(days=186)).isoformat()
+    # Google par éditeur : une fois par jour (environ 70 recherches sur les 1 000 du quota partagé)
+    g_at = prev_stats.get("google_editeurs_at", "")
+    g_stale = not g_at or datetime.utcnow() - datetime.strptime(g_at, "%Y-%m-%dT%H:%MZ") > timedelta(hours=22)
+    if os.environ.get("GOOGLE_EDITEURS") == "1" or (g_stale and datetime.utcnow().hour in (5, 11, 17)):
+        gq = [('inpublisher:"%s"' % p, k) for p, k in GPUBS]
+        ge = google_upcoming(lo, hi, stats, gq, "google_editeurs")
+        if ge and stats["google_editeurs"]["erreurs"] < 5:
+            old = {k: v for k, v in old.items() if not k.startswith("ge:")}
+            g_at = datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ")
+        isbns = {b.get("isbn") for b in books.values() if b.get("isbn")}
+        for b in ge.values():
+            if b["isbn"] and b["isbn"] in isbns: continue
+            b["id"] = "ge:" + b["id"][3:]; b["source"] = "google"
+            books[b["id"]] = b
+    if g_at: stats["google_editeurs_at"] = g_at
     if os.environ.get("GOOGLE") == "1":
         gb = google_upcoming(date.today().isoformat(), hi, stats)
         if gb: old = {k: v for k, v in old.items() if not k.startswith("gb:")}
@@ -258,7 +286,8 @@ def main():
     stats["uniques"] = len(stats.get("uniques", ()))
     if ed_at: stats["editeurs_at"] = ed_at
     stats.update(listes=len(todo), lues=new, en_attente=skipped, plus_loin=max((b["date"] for b in books.values()), default=""))
-    keep = [b for b in books.values() if lo <= b["date"] <= hi]
+    # pas les objets vendus en librairie qui ne sont pas des livres (cartes, puzzles, peluches, calendriers…)
+    keep = [b for b in books.values() if lo <= b["date"] <= hi and not NOT_BOOK_RE.search(b["title"])]
     try:  # même livre vu sur deux sites sans ISBN commun (manga, BD) : une seule fiche
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         import editeurs
