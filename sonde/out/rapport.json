@@ -1,8 +1,194 @@
 {
- "exemple": {
-  "url": "https://www.bragelonne.fr/a-paraitre/?page=1",
+ "flam-home": {
+  "url": "https://editions.flammarion.com/",
+  "robots_ok": false,
+  "len": 0,
+  "erreur": false
+ },
+ "flam-fiche": {
+  "url": "https://editions.flammarion.com/index.php//les-mille-et-une-tables-de-peri-cochin/9782080165138",
+  "robots_ok": false,
+  "len": 0,
+  "erreur": false
+ },
+ "jailu-home": {
+  "url": "https://www.jailu.com/",
   "robots_ok": true,
-  "len": 111358,
+  "len": 298836,
+  "erreur": false
+ },
+ "flamjeun-home": {
+  "url": "https://www.flammarion-jeunesse.fr/",
+  "robots_ok": true,
+  "len": 274593,
+  "erreur": false
+ },
+ "am-litt": {
+  "url": "https://www.albin-michel.fr/litterature",
+  "robots_ok": true,
+  "len": 292322,
+  "erreur": false
+ },
+ "am-jeun": {
+  "url": "https://www.albin-michel.fr/jeunesse",
+  "robots_ok": true,
+  "len": 213848,
+  "erreur": false
+ },
+ "am-tous": {
+  "url": "https://www.albin-michel.fr/tous-les-livres",
+  "robots_ok": true,
+  "len": 289681,
+  "erreur": false
+ },
+ "am-fiche": {
+  "url": "https://www.albin-michel.fr/hamish-macbeth-31-coeur-dartichaut-9782226511379",
+  "robots_ok": true,
+  "len": 299442,
+  "erreur": false
+ },
+ "am-fiche2": {
+  "url": "https://www.albin-michel.fr/la-vraie-nature-des-hommes-9782226512666",
+  "robots_ok": true,
+  "len": 119997,
+  "erreur": false
+ },
+ "ml-2": {
+  "url": "https://www.michel-lafon.fr/nos-livres?3049e819_page=2",
+  "robots_ok": true,
+  "len": 114627,
+  "erreur": false
+ },
+ "ml-38": {
+  "url": "https://www.michel-lafon.fr/nos-livres?3049e819_page=38",
+  "robots_ok": true,
+  "len": 90018,
+  "erreur": false
+ },
+ "ml-39": {
+  "url": "https://www.michel-lafon.fr/nos-livres?3049e819_page=39",
+  "robots_ok": true,
+  "len": 56880,
+  "erreur": false
+ },
+ "ml-fiche": {
+  "url": "https://www.michel-lafon.fr/books/le-medium-22407519",
+  "robots_ok": true,
+  "len": 39742,
+  "erreur": false
+ },
+ "brag-3": {
+  "url": "https://www.bragelonne.fr/a-paraitre/?page=3",
+  "robots_ok": true,
+  "len": 0,
+  "erreur": true
+ },
+ "brag-nouv": {
+  "url": "https://www.bragelonne.fr/nouveautes/",
+  "robots_ok": true,
+  "len": 0,
+  "erreur": true
+ },
+ "brag-cat": {
+  "url": "https://www.bragelonne.fr/catalogue/",
+  "robots_ok": true,
+  "len": 194078,
+  "erreur": false
+ },
+ "hugo-2": {
+  "url": "https://www.hugopublishing.fr/a-paraitre/?paged=2",
+  "robots_ok": true,
+  "len": 110329,
+  "erreur": false
+ },
+ "hugo-3": {
+  "url": "https://www.hugopublishing.fr/a-paraitre/?paged=3",
+  "robots_ok": true,
+  "len": 92280,
+  "erreur": false
+ },
+ "hugo-4": {
+  "url": "https://www.hugopublishing.fr/a-paraitre/?paged=4",
+  "robots_ok": true,
+  "len": 89328,
+  "erreur": false
+ },
+ "hugo-nouv": {
+  "url": "https://www.hugopublishing.fr/nouveautes/",
+  "robots_ok": true,
+  "len": 111585,
+  "erreur": false
+ },
+ "hugo-fiche": {
+  "url": "https://www.hugopublishing.fr/produits/injuste/",
+  "robots_ok": true,
+  "len": 87016,
+  "erreur": false
+ },
+ "hugo-json": {
+  "url": "https://www.hugopublishing.fr/wp-json/wp/v2/types",
+  "robots_ok": true,
+  "len": 9043,
+  "erreur": false
+ },
+ "points-ap": {
+  "url": "https://www.editionspoints.com/catalogue/a-paraitre?p=1",
+  "robots_ok": true,
+  "len": 0,
+  "erreur": true
+ },
+ "points-nv": {
+  "url": "https://www.editionspoints.com/catalogue/nouveautes?p=1",
+  "robots_ok": true,
+  "len": 0,
+  "erreur": true
+ },
+ "points-fiche": {
+  "url": "https://www.editionspoints.com/ouvrage/fox-joyce-carol-oates/9791041426690",
+  "robots_ok": true,
+  "len": 82793,
+  "erreur": false
+ },
+ "bayard-nouv": {
+  "url": "https://www.bayard-editions.com/livres/nouveautes/",
+  "robots_ok": true,
+  "len": 392369,
+  "erreur": false
+ },
+ "bayard-fiche": {
+  "url": "https://www.bayard-editions.com/livres/100841-les-secrets-que-nous-murmurons-aux-ombres/",
+  "robots_ok": true,
+  "len": 367237,
+  "erreur": false
+ },
+ "milan-nouv": {
+  "url": "https://www.editionsmilan.com/livres/nouveautes/",
+  "robots_ok": true,
+  "len": 168859,
+  "erreur": false
+ },
+ "milan-fiche": {
+  "url": "https://www.editionsmilan.com/livres/99281-thirst/",
+  "robots_ok": true,
+  "len": 128585,
+  "erreur": false
+ },
+ "hc-nouv": {
+  "url": "https://www.harpercollins.fr/collections/nouveautes/",
+  "robots_ok": true,
+  "len": 250929,
+  "erreur": false
+ },
+ "hc-alg0": {
+  "url": "https://0IZ6GTNJFS-dsn.algolia.net/1/indexes/dev_dataedge_harpercollins.fr_onSaleDate_asc?query=&filters=pubDateTimestamp+%3E%3D+1785542400+AND+pubDateTimestamp+%3C%3D+1809043200&hitsPerPage=100&page=0&x-algolia-application-id=0IZ6GTNJFS&x-algolia-api-key=dbbf2c3d4bc506b0c30683e4defc129f",
+  "robots_ok": true,
+  "len": 313236,
+  "erreur": false
+ },
+ "hc-alg1": {
+  "url": "https://0IZ6GTNJFS-dsn.algolia.net/1/indexes/dev_dataedge_harpercollins.fr_onSaleDate_asc?query=&filters=pubDateTimestamp+%3E%3D+1785542400+AND+pubDateTimestamp+%3C%3D+1809043200&hitsPerPage=100&page=1&x-algolia-application-id=0IZ6GTNJFS&x-algolia-api-key=dbbf2c3d4bc506b0c30683e4defc129f",
+  "robots_ok": true,
+  "len": 613,
   "erreur": false
  }
 }
