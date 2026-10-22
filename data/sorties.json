@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-22T09:16Z",
+"updated": "2026-10-22T10:13Z",
 "stats": {
 "precommandes": [
 12,
@@ -34,160 +34,12 @@
 "roman": "/dossiers/nouveautes-25-113534/"
 },
 "uniques": 64,
-"editeurs": {
-"hachette": {
-"pages": 129,
-"livres": 1423,
-"secondes": 385,
-"erreurs": 0
-},
-"glenat": {
-"pages": 22,
-"livres": 299,
-"secondes": 66,
-"erreurs": 0
-},
-"seuil": {
-"pages": 10,
-"livres": 109,
-"secondes": 71,
-"erreurs": 0
-},
-"nautiljon": {
-"pages": 9,
-"livres": 1608,
-"secondes": 24,
-"erreurs": 0
-},
-"manganews": {
-"pages": 94,
-"livres": 295,
-"completes": 1405,
-"ecartes": 11,
-"lus": 1711,
-"secondes": 333,
-"erreurs": 0
-},
-"bdgest": {
-"pages": 16,
-"livres": 552,
-"secondes": 45,
-"erreurs": 0,
-"rapproches": 143
-},
-"dargaud": {
-"pages": 6,
-"livres": 47,
-"secondes": 18,
-"erreurs": 0
-},
-"delcourt": {
-"pages": 11,
-"livres": 111,
-"secondes": 36,
-"erreurs": 0
-},
-"soleil": {
-"pages": 5,
-"livres": 44,
-"secondes": 16,
-"erreurs": 0
-},
-"lombard": {
-"pages": 2,
-"livres": 37,
-"secondes": 5,
-"erreurs": 0
-},
-"kana": {
-"pages": 8,
-"livres": 110,
-"secondes": 24,
-"erreurs": 0
-},
-"casterman": {
-"pages": 1,
-"livres": 32,
-"secondes": 13,
-"erreurs": 0
-},
-"ruedesevres": {
-"pages": 1,
-"livres": 13,
-"secondes": 1,
-"erreurs": 0
-},
-"dupuis": {
-"pages": 1,
-"livres": 14,
-"secondes": 4,
-"erreurs": 0
-},
-"bedetheque": {
-"pages": 40,
-"livres": 0,
-"secondes": 118,
-"erreurs": 0,
-"isbn_trouves": 40
-},
-"michellafon": {
-"pages": 39,
-"livres": 63,
-"secondes": 117,
-"erreurs": 0
-},
-"jailu": {
-"pages": 1,
-"livres": 76,
-"secondes": 15,
-"erreurs": 0
-},
-"bragelonne": {
-"pages": 3,
-"livres": 29,
-"secondes": 8,
-"erreurs": 1
-},
-"albinmichel": {
-"pages": 42,
-"livres": 40,
-"secondes": 126,
-"erreurs": 0
-},
-"hugo": {
-"pages": 42,
-"livres": 18,
-"secondes": 126,
-"erreurs": 0
-},
-"points": {
-"pages": 26,
-"livres": 25,
-"secondes": 78,
-"erreurs": 0
-},
-"bayard": {
-"pages": 17,
-"livres": 11,
-"secondes": 51,
-"erreurs": 0,
-"incomplet": true
-},
-"milan": {
-"pages": 0,
-"livres": 0,
-"secondes": 0,
-"erreurs": 0,
-"note": "échéance atteinte"
-},
-"erreurs": 1
-},
 "editeurs_at": "2026-10-22T09:16Z",
 "listes": 378,
-"lues": 9,
+"lues": 0,
 "en_attente": 0,
 "plus_loin": "2027-04-23",
-"doublons": 101
+"doublons": 0
 },
 "books": [
 {
@@ -2814,7 +2666,7 @@
 },
 {
 "id": "ed:bdgest:542642",
-"title": "1944 - Tome 6 - Point final",
+"title": "Tome 6 - Point final",
 "authors": [
 "Vergne"
 ],
@@ -8175,7 +8027,7 @@
 },
 {
 "id": "ed:9782387032560",
-"title": "14-14",
+"title": "14",
 "authors": [
 "Paul Beorn",
 "Silène Edgar"
@@ -14244,7 +14096,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "1,2,3, te voilà !",
+"title": "2,3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -17374,24 +17226,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782382883488",
-"title": "100 - Tome 3",
-"authors": [],
-"publisher": "Kbooks",
-"date": "2026-09-03",
-"isbn": "9782382883488",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:bdgest:544056",
 "title": "Cassidy - Tome 7 - Un pacte Criminel",
 "authors": [
@@ -18182,6 +18016,24 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/taro+miyao+adopte+un+chat+-!/volume-3,1015167.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782382883488",
+"title": "Tome 3",
+"authors": [],
+"publisher": "Kbooks",
+"date": "2026-09-03",
+"isbn": "9782382883488",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -31995,7 +31847,7 @@
 },
 {
 "id": "ed:bdgest:545606",
-"title": "14-14",
+"title": "14",
 "authors": [
 "L'Hermenier",
 "Hamo"
@@ -63944,7 +63796,7 @@
 },
 {
 "id": "ed:9782492463501",
-"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
+"title": "2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -71174,27 +71026,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782344072455",
-"title": "1629, ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
-"authors": [
-"Xavier Dorison",
-"Thimothée Montaigne"
-],
-"publisher": "Glénat",
-"date": "2026-11-12",
-"isbn": "9782344072455",
-"pages": 0,
-"format": "",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
-"description": "",
-"rayons": [
-"BD Aventure, western et polar"
-],
-"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
-"kind": "bd",
-"source": "editeur:glenat"
-},
-{
 "id": "ed:9782709677486",
 "title": "23e minuit",
 "authors": [
@@ -73932,6 +73763,27 @@
 "url": "https://www.nautiljon.com/mangas/yoridori+bitch/volume-1,1030035.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782344072455",
+"title": "ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
+"authors": [
+"Xavier Dorison",
+"Thimothée Montaigne"
+],
+"publisher": "Glénat",
+"date": "2026-11-12",
+"isbn": "9782344072455",
+"pages": 0,
+"format": "",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
+"description": "",
+"rayons": [
+"BD Aventure, western et polar"
+],
+"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
+"kind": "bd",
+"source": "editeur:glenat"
 },
 {
 "id": "ed:9791043311192",
