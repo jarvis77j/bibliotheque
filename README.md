@@ -80,6 +80,12 @@ Le robot relit leslibraires.fr toutes les heures. L'app recharge sa liste à cha
 
 L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robot va chercher les précommandes jusqu'à 6 mois). La 3D a de vraies feuilles dessinées (pothos, sansevieria, monstera), du bois veiné, des tranches de livres arrondies avec grain et usure, des pages visibles, des ombres douces et l'ombre au fond de chaque case.
 
+## Sorties : sites des éditeurs (22 octobre)
+- Le robot lit chaque jour (vers 4 h UTC) les listes « nouveautés » et « à paraître » de hachette.fr (toutes les maisons Hachette Livre : Livre de Poche, Pika, Grasset, Fayard, Stock, Calmann-Lévy, Lattès, BMR, Larousse, Marabout…), glenat.com et seuil.com : environ 1 000 livres de plus par mois, datés au jour, avec couverture. Pages publiques autorisées par leurs robots.txt, 3 secondes entre deux pages (script scripts/editeurs.py).
+- Les maisons scolaires et universitaires (Dunod, Hachette Éducation, Armand Colin, Hatier…) sont écartées.
+- Un livre déjà connu chez leslibraires.fr garde sa fiche ; l'éditeur complète seulement la couverture.
+- Pistes étudiées et écartées : la BnF (pas de livres à paraître, dates de parution à l'année), Editis et Madrigall (sites fermés aux robots), Booknode/Babelio/Fnac/Decitre (interdits aux robots).
+
 ## Recherche plus complète (21 octobre, soir, après l'audit)
 - La BnF est toujours interrogée en même temps que Google : les livres que seule la BnF connaît s'ajoutent à la fin des résultats quelques secondes après, et ses résumés complètent les fiches Google.
 - La BnF est lue en UNIMARC : nom de série et numéro de tome, langue, résumé ; doublons retirés ; nouvel essai si elle répond mal ; si rien n'est trouvé, nouvel essai en enlevant un mot (faute de frappe).

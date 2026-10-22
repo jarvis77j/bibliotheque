@@ -221,6 +221,25 @@ def main():
         for bid, b in gb.items():
             if b["isbn"] and b["isbn"] in isbns: continue
             books[bid] = b
+    # Sites des éditeurs (Hachette et ses maisons, Glénat, Seuil) : environ 1 000 sorties par mois, datées au jour.
+    # Une fois par jour (environ 8 minutes de lecture polie) ; entre-temps on garde la dernière récolte.
+    if datetime.utcnow().hour == 4 or os.environ.get("EDITEURS") == "1" or (datetime.utcnow().hour % 3 == 1 and not any(k.startswith("ed:") for k in old)):
+        try:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            import editeurs
+            ed, stats["editeurs"] = editeurs.collect(lo, hi)
+            if ed:
+                old = {k: v for k, v in old.items() if not k.startswith("ed:")}
+                by_isbn = {b["isbn"]: b for b in books.values() if b.get("isbn")}
+                for isbn, b in ed.items():
+                    same = by_isbn.get(isbn)
+                    if same:  # déjà chez le libraire : on complète seulement la couverture
+                        if not same.get("cover") and b.get("cover"): same["cover"] = b["cover"]
+                        continue
+                    books[b["id"]] = b
+        except Exception as e:
+            stats["editeurs"] = "erreur : " + str(e)
+            print("  éditeurs :", e, file=sys.stderr)
     # on garde aussi les fiches déjà connues qui ne sont plus listées mais restent dans la fenêtre
     for bid, b in old.items():
         b["title"] = clean_title(b["title"])

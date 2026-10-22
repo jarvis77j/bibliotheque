@@ -783,7 +783,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 21 octobre, 23 h</p>
+    <p class="version">Version du 22 octobre, 8 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1942,7 +1942,8 @@ let relWeek = 0, relKind = "", relDay = "";
 const RELEASE_KEY = STORE_KEY + ".sorties2";
 const isoDay = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
 function weekStart(offset) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * offset); return d; }
-/* Sorties relevées toutes les heures sur leslibraires.fr par le robot du site (data/sorties.json) */
+/* Sorties relevées par le robot du site (data/sorties.json) : leslibraires.fr toutes les heures,
+   et chaque jour les sites des éditeurs (Hachette et ses maisons, Glénat, Seuil) */
 let relUpdated = "", relFetchedAt = 0, relSite = null;
 /* La liste du robot est relue à chaque ouverture de l'onglet (elle change toutes les heures) */
 async function siteReleases() {
@@ -1950,7 +1951,8 @@ async function siteReleases() {
   if (!res.ok) throw new Error("sorties " + res.status);
   const d = await res.json();
   relUpdated = d.updated || "";
-  return (d.books || []).map((b) => ({ ...b, categories: b.rayons || [], source: b.source === "google" ? "Google Livres" : "leslibraires.fr" }));
+  const label = (s) => s === "google" ? "Google Livres" : String(s || "").startsWith("editeur") ? "éditeur" : "leslibraires.fr";
+  return (d.books || []).map((b) => ({ ...b, categories: b.rayons || [], source: label(b.source), site: true }));
 }
 async function loadReleases(force) {
   const slot = today() + "-" + Math.floor(new Date().getHours() / 4);
@@ -1962,7 +1964,7 @@ async function loadReleases(force) {
   if (site) { relSite = site; relFetchedAt = Date.now(); }
   else { site = (cache && cache.site) || []; relUpdated = (cache && cache.updated) || ""; } // hors ligne : la dernière liste connue
   if (!force && cache && cache.slot === slot && cache.google) {
-    try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ ...cache, site, updated: relUpdated })); } catch {}
+    try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ ...cache, site: site.map(({ description, ...b }) => b), updated: relUpdated })); } catch {}
     return mergeReleases(site, cache.google);
   }
   const from = isoDay(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)), to = isoDay(new Date(Date.now() + 186 * 864e5));
@@ -1980,8 +1982,10 @@ async function loadReleases(force) {
       seen.add(k); out.push(r);
     }
   }
-  const google = out.filter((b) => b.source !== "leslibraires.fr" && b.source !== "Google Livres");
-  try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ slot, site, google, updated: relUpdated })); } catch {}
+  const google = out.filter((b) => !b.site);
+  // copie hors ligne sans les résumés, pour ne pas remplir la mémoire du navigateur (plus de 2 000 livres)
+  const light = site.map(({ description, ...b }) => b);
+  try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ slot, site: light, google, updated: relUpdated })); } catch {}
   return mergeReleases(site, google);
 }
 function mergeReleases(site, google) {
@@ -2020,7 +2024,7 @@ async function renderReleases() {
     <div class="rel-kinds">${REL_KINDS.map(([k, l]) => `<button data-k="${k}" class="${k === relKind ? "on" : ""}">${l}</button>`).join("")}</div>
     <div class="rel-sync"><span id="relSync">Synchronisation…</span><button id="relRefresh">↻ Actualiser</button></div>
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
-    <p class="rel-note">Sorties relevées toutes les heures sur leslibraires.fr (librairies indépendantes), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
+    <p class="rel-note">Sorties relevées sur leslibraires.fr (librairies indépendantes, toutes les heures) et chaque jour sur les sites des éditeurs (Hachette et ses maisons, Glénat, Seuil), complétées par Google Livres. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
   el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
   if (relScroll < 0) { const on = $("#relWeeks .on"); relScroll = on ? Math.max(0, on.offsetLeft - 16) : 0; }
@@ -2066,7 +2070,7 @@ async function renderReleases() {
           ${b.description ? `<div class="rel-desc">${esc(b.description)}</div>` : `<div class="rel-meta" style="margin:6px 0">Pas encore de résumé.</div>`}
           <div class="rel-acts">
             <button data-add ${owned ? "disabled" : ""}>${owned ? "✓ Dans ma bibliothèque" : "🔖 À lire"}</button>
-            ${b.url ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">${b.source === "Google Livres" ? "Fiche Google Livres" : "Fiche libraire"}</a>` : ""}
+            ${b.url ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">${b.source === "Google Livres" ? "Fiche Google Livres" : b.source === "éditeur" ? "Fiche de l'éditeur" : "Fiche libraire"}</a>` : ""}
             <a href="https://www.babelio.com/resrecherche.php?Recherche=${encodeURIComponent(b.title)}" target="_blank" rel="noopener">Avis Babelio</a>
           </div>
         </div>
