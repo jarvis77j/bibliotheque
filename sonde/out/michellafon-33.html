@@ -1,0 +1,817 @@
+<!DOCTYPE html><!-- Last Published: Mon Oct 19 2026 16:14:34 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="www.michel-lafon.fr" data-wf-page="6a60c0369879c07f71433351" data-wf-site="6a60c0369879c07f7143335a" lang="fr"><head><meta charset="utf-8"/><link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/><title>Nos livres</title><meta content="Nos livres" property="og:title"/><meta content="Nos livres" name="twitter:title"/><meta content="width=device-width, initial-scale=1" name="viewport"/><link href="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/css/michel-lafon.webflow.shared.e9d96f313.css" rel="stylesheet" type="text/css" integrity="sha384-6dlvMTkkOI8IdKWyOJK0Oil4NKy/rfbuRk81I0wmhgLmXuy6obEP+fIj09adiLax" crossorigin="anonymous"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/><script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script><script type="text/javascript">WebFont.load({  google: {    families: ["EB Garamond:400","Inter:400,500"]  }});</script><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="https://cdn.prod.website-files.com/6a1f8776e287ba585715fbec/6a1f87b517fdab22bee0beb6_Michel_Lafon_favicon.png" rel="icon" type="image/png" sizes="32x32" media="(prefers-color-scheme: light)"/><link href="https://cdn.prod.website-files.com/6a1f8776e287ba585715fbec/6a1f87c0385676723f89a732_Michel_Lafon_favicon_dark.png" rel="icon" type="image/png" sizes="32x32" media="(prefers-color-scheme: dark)"/><link href="https://cdn.prod.website-files.com/6a1f8776e287ba585715fbec/6a1f87b581d7752a2e2d231b_Michel_Lafon_favicon.png" rel="icon" type="image/png" sizes="48x48"/><link href="https://cdn.prod.website-files.com/6a1f8776e287ba585715fbec/6a1f87b5b426814bbe8e343e_Michel_Lafon_favicon.png" rel="apple-touch-icon" sizes="180x180"/><link href="https://cdn.prod.website-files.com/6a1f8776e287ba585715fbec/6a1f87b506031b9551bca653_Michel_Lafon_favicon.png" rel="icon" type="image/png" sizes="192x192"/><link href="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/6a60c0369879c07f714333da_Michel_Lafon_favicon.png" rel="icon" type="image/png" sizes="512x512"/><script>(function(w,i,g){w[g]=w[g]||[];if(typeof w[g].push=='function')w[g].push.apply(w[g],Array.isArray(i)?i:[i]);})(window,['G-YZD3R0ENHK'],'google_tags_first_party');</script><script async="" src="/haqt6iy0yx2eNmE2MGMwMzY5ODc5YzA3ZjcxNDMzMzVh/2EJDDxp-0RMtV6sUcHkErWi4NvU"></script><script type="text/javascript">window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('set', 'developer_id.dZGVlNj', true);gtag('set', 'developer_id.dYWYxNW', true);gtag('js', new Date());gtag('config', 'G-YZD3R0ENHK');</script><style>
+    /* Initial reveal state */
+    .book_item {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+
+    .book_item .book-item_cover {
+      opacity: 0;
+      transform: translateY(1rem) scale(0.9);
+    }
+
+    /* Revealed state */
+    .book_item.is-inview {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .book_item.is-inview .book-item_cover {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+    }
+
+    /* Desktop hover effects */
+    @media (min-width: 992px) and (hover: hover) and (pointer: fine) {
+
+      .book_details,
+      .book_filter {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .book_details {
+        transform: translateY(100%);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      .book_item:hover .book_details,
+      .books-carrousel_item:hover .book_details {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .book_item:hover .book_filter,
+      .books-carrousel_item:hover .book_filter {
+        opacity: 1;
+      }
+
+      .book_item.is-inview:hover .book-item_cover {
+        transform: translateY(0) rotate(1deg) scale(1.05);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .book_item,
+      .book_item .book-item_cover {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+</style><!-- [Attributes by Finsweet] CMS Filter -->
+<script async src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js"></script>
+
+<!-- [Attributes by Finsweet] CMS Sort -->
+<script async src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmssort@1/cmssort.js"></script>
+
+<!-- [Attributes by Finsweet] CMS Load -->
+<script async src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsload@1/cmsload.js"></script></head><body><div class="global-styles w-embed"><style>
+  
+  html { font-size: 1rem; }
+  @media screen and (max-width:1920px) { html { font-size: 1rem; } }
+  @media screen and (max-width:1440px) { html { font-size: calc(0.31250000000000006rem + 0.6249999999999999vw); } }
+  @media screen and (max-width:767px) { html { font-size: calc(0.6880197505197505rem + 0.4158004158004158vw); } }
+  @media screen and (max-width:479px) { html { font-size: calc(0.8122384937238494rem + 0.41841004184100417vw); } }
+  
+/* Make text look crisper and more legible in all browsers */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus state style for keyboard navigation for the focusable elements */
+*[tabindex]:focus-visible,
+  input[type="file"]:focus-visible {
+   outline: 0.125rem solid #4d65ff;
+   outline-offset: 0.125rem;
+}
+
+/* Set color style to inherit */
+.inherit-color * {
+    color: inherit;
+}
+
+/* Get rid of top margin on first element in any rich text element */
+.w-richtext > :not(div):first-child, .w-richtext > div:first-child > :first-child {
+  margin-top: 0 !important;
+}
+
+/* Get rid of bottom margin on last element in any rich text element */
+.w-richtext>:last-child, .w-richtext ol li:last-child, .w-richtext ul li:last-child {
+	margin-bottom: 0 !important;
+}
+
+
+/* Make sure containers never lose their center alignment */
+.container-medium,.container-small, .container-large {
+	margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+/* 
+Make the following elements inherit typography styles from the parent and not have hardcoded values. 
+Important: You will not be able to style for example "All Links" in Designer with this CSS applied.
+Uncomment this CSS to use it in the project. Leave this message for future hand-off.
+*/
+/*
+a,
+.w-input,
+.w-select,
+.w-tab-link,
+.w-nav-link,
+.w-dropdown-btn,
+.w-dropdown-toggle,
+.w-dropdown-link {
+  color: inherit;
+  text-decoration: inherit;
+  font-size: inherit;
+}
+*/
+
+/* Apply "..." after 3 lines of text */
+.text-style-3lines {
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+/* Apply "..." after 2 lines of text */
+.text-style-2lines {
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+/* These classes are never overwritten */
+.hide {
+  display: none !important;
+}
+
+@media screen and (max-width: 991px) {
+    .hide, .hide-tablet {
+        display: none !important;
+    }
+}
+  @media screen and (max-width: 767px) {
+    .hide-mobile-landscape{
+      display: none !important;
+    }
+}
+  @media screen and (max-width: 479px) {
+    .hide-mobile{
+      display: none !important;
+    }
+}
+ 
+.margin-0 {
+  margin: 0rem !important;
+}
+  
+.padding-0 {
+  padding: 0rem !important;
+}
+
+.spacing-clean {
+padding: 0rem !important;
+margin: 0rem !important;
+}
+
+.margin-top {
+  margin-right: 0rem !important;
+  margin-bottom: 0rem !important;
+  margin-left: 0rem !important;
+}
+
+.padding-top {
+  padding-right: 0rem !important;
+  padding-bottom: 0rem !important;
+  padding-left: 0rem !important;
+}
+  
+.margin-right {
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+  margin-left: 0rem !important;
+}
+
+.padding-right {
+  padding-top: 0rem !important;
+  padding-bottom: 0rem !important;
+  padding-left: 0rem !important;
+}
+
+.margin-bottom {
+  margin-top: 0rem !important;
+  margin-right: 0rem !important;
+  margin-left: 0rem !important;
+}
+
+.padding-bottom {
+  padding-top: 0rem !important;
+  padding-right: 0rem !important;
+  padding-left: 0rem !important;
+}
+
+.margin-left {
+  margin-top: 0rem !important;
+  margin-right: 0rem !important;
+  margin-bottom: 0rem !important;
+}
+  
+.padding-left {
+  padding-top: 0rem !important;
+  padding-right: 0rem !important;
+  padding-bottom: 0rem !important;
+}
+  
+.margin-horizontal {
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+}
+
+.padding-horizontal {
+  padding-top: 0rem !important;
+  padding-bottom: 0rem !important;
+}
+
+.margin-vertical {
+  margin-right: 0rem !important;
+  margin-left: 0rem !important;
+}
+  
+.padding-vertical {
+  padding-right: 0rem !important;
+  padding-left: 0rem !important;
+}
+
+</style></div><div data-animation="default" class="navbar w-nav" data-easing2="ease" fs-scrolldisable-element="smart-nav" data-easing="ease" data-collapse="medium" data-w-id="5d06374b-899e-880e-c79d-74fe97aa5947" role="banner" data-duration="400"><div class="padding-global"><div class="navbar_container"><a href="/" class="navbar_logo-link w-nav-brand"><img loading="lazy" src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/6aa307d85501aef827fb087a_Michel_Lafon_logo_black1.svg" alt="" class="navbar_logo"/></a><nav role="navigation" id="w-node-_5d06374b-899e-880e-c79d-74fe97aa594c-97aa5947" class="navbar_menu w-nav-menu"><div class="navbar_menu-left"><a href="/nos-livres" aria-current="page" class="navbar_link w-nav-link w--current">Nos livres</a><a href="/les-auteurs" class="navbar_link w-nav-link">Les auteur-ices</a><a href="/la-maison" class="navbar_link w-nav-link">La maison</a><a href="/contact" class="navbar_link w-nav-link">Contact</a></div><div class="navbar_menu-right"><form action="/search" class="search mobile w-form"><input class="search-input w-input" autofocus="true" maxlength="256" name="query" placeholder="Que recherchez-vous ?" type="search" id="search" required=""/><input type="submit" class="search-button mobile w-button" value="Rechercher"/></form></div></nav><div class="navbar_menu-button w-nav-button"><div class="menu-icon"><div class="menu-icon1_line-top"></div><div class="menu-icon1_line-middle"><div class="menu-icon1_line-middle-inner"></div></div><div class="menu-icon1_line-bottom"></div></div></div></div></div></div><div id="luxy" class="page-wrapper overflow-visible"><main class="main-wrapper"><header data-w-id="7a63c919-e400-266a-d42c-97d811d9093a" style="opacity:0" class="section_header in-page"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/6ac3b5f61ed168075dd98a01_LAFON%20SITE_Bannie%CC%80re%20Livres_2120%20x%20300%20px.jpeg" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/6ac3b5f61ed168075dd98a01_LAFON%20SITE_Bannie%CC%80re%20Livres_2120%20x%20300%20px-p-500.jpeg 500w, https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/6ac3b5f61ed168075dd98a01_LAFON%20SITE_Bannie%CC%80re%20Livres_2120%20x%20300%20px-p-800.jpeg 800w, https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/6ac3b5f61ed168075dd98a01_LAFON%20SITE_Bannie%CC%80re%20Livres_2120%20x%20300%20px-p-1080.jpeg 1080w, https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/6ac3b5f61ed168075dd98a01_LAFON%20SITE_Bannie%CC%80re%20Livres_2120%20x%20300%20px.jpeg 1280w" alt="" class="header-image"/><div class="filter"><div class="padding-global"><div class="container-large"><div class="padding-section-medium"><div class="header_content"><h1 class="hide">Michel Lafon</h1><h1 data-a-split="line">Nos livres</h1></div></div></div></div></div></header><section class="section_all-books"><div data-animation="default" class="nav_filtres w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" style="-webkit-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 2rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" data-w-id="173bf729-75d3-4366-3d75-bee32c0bc91c" role="banner" data-duration="400"><div class="padding-global"><div class="container-large"><div class="padding-section-xsmall"><nav role="navigation" class="book_filters-wrapper w-nav-menu"><div id="w-node-_0baa8ca3-b52e-6b0c-31b4-e300dad4bec8-71433351" class="filters--wrapper"><div class="text-size-tiny text-weight-medium">Filtrer par</div><div class="filters-form w-form"><form id="wf-form-Livres-search" name="wf-form-Livres-search" data-name="Livres search" method="get" fs-cmsfilter-element="filters" class="filters-grid w-node-b4fe69ee-c9a0-ce88-b10b-f6773111e586-71433351" data-wf-page-id="6a60c0369879c07f71433351" data-wf-element-id="b4fe69ee-c9a0-ce88-b10b-f6773111e586" data-turnstile-sitekey="0x4AAAAAAAQTptj2So4dx43e"><input class="search-input catalog-filter w-node-d1c2b64d-607d-f681-2534-3bf04111f3c0-71433351 w-input" maxlength="256" name="field" fs-cmsfilter-field="author, title" data-name="Field" placeholder="Auteur, titre" type="text" id="field" required=""/><div data-hover="false" data-delay="0" class="dropdown w-dropdown"><div class="dropdown-toggle w-dropdown-toggle"><div class="w-icon-dropdown-toggle"></div><div fs-cmsfilter-element="tag-text">Catégorie</div></div><nav class="dropdown-nav w-dropdown-list"><div class="w-dyn-list"><div role="list" class="category-filter_list w-dyn-items"><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Almanach</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">BD</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Cahier d&#x27;activités / jeux / agenda</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Calendrier</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Cuisine</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Jeunesse</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Livre illustré</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Manga</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Non fiction</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Roman</span></label></div><div role="listitem" class="category-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox category-filter_checkbox"/><span fs-cmsfilter-field="category" class="w-form-label" for="checkbox-2">Webtoon</span></label></div></div></div></nav></div><div data-hover="false" data-delay="0" class="dropdown subcategory-dropdown w-dropdown"><div class="dropdown-toggle w-dropdown-toggle"><div class="w-icon-dropdown-toggle"></div><div>Sous-catégorie</div></div><nav class="dropdown-nav w-dropdown-list"><div class="w-dyn-list"><div role="list" class="subcategory-filter_list w-dyn-items"><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Albums</span></label><div class="subcategory-parent">Jeunesse</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Arts et culture</span></label><div class="subcategory-parent">Livre illustré</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Biographie / témoignage</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Business / management</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Développement personnel</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Document</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Documentaires</span></label><div class="subcategory-parent">Jeunesse</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Ésotérisme</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Essai</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Histoire</span></label><div class="subcategory-parent">Livre illustré</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Histoire</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Humour</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Humour</span></label><div class="subcategory-parent">Roman</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Nature</span></label><div class="subcategory-parent">Livre illustré</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Policier thriller</span></label><div class="subcategory-parent">Roman</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Pratique</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Romances</span></label><div class="subcategory-parent">Roman</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Romans 13+</span></label><div class="subcategory-parent">Jeunesse</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Romans 7-9 ans - Chifoumi</span></label><div class="subcategory-parent">Jeunesse</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Romans 8-12 ans - Le Club</span></label><div class="subcategory-parent">Jeunesse</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Romans contemporains</span></label><div class="subcategory-parent">Roman</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Romans historiques</span></label><div class="subcategory-parent">Roman</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Santé / vie de famille</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Sciences</span></label><div class="subcategory-parent">Livre illustré</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">SF fantasy</span></label><div class="subcategory-parent">Roman</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Spiritualité / religion</span></label><div class="subcategory-parent">Non fiction</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Sport</span></label><div class="subcategory-parent">Livre illustré</div></div><div role="listitem" class="subcategory-filter_item w-dyn-item"><label class="w-checkbox dropdown-radio"><input type="checkbox" id="checkbox-2" name="checkbox-2" data-name="Checkbox 2" class="w-checkbox-input dropdown_checkbox subcategory-filter_checkbox"/><span fs-cmsfilter-field="sub-category" class="subcategory-name w-form-label" for="checkbox-2">Tourisme / voyages</span></label><div class="subcategory-parent">Livre illustré</div></div></div></div></nav></div><input type="submit" data-wait="Please wait..." class="hide w-button" value="Submit"/></form><div class="w-form-done"><div>Thank you! Your submission has been received!</div></div><div class="w-form-fail"><div>Oops! Something went wrong while submitting the form.</div></div></div></div><div class="sort--wrapper"><div class="text-size-tiny text-weight-medium">Trier par</div><div data-hover="false" data-delay="0" fs-cmssort-element="trigger" class="dropdown w-dropdown"><div class="dropdown-toggle w-dropdown-toggle"><div class="w-icon-dropdown-toggle"></div><div fs-cmssort-element="dropdown-label">Sélectionner</div></div><nav class="dropdown-nav w-dropdown-list"><a fs-cmssort-field="title-asc" href="#" class="dropdown-link w-dropdown-link">Titre (A → Z)</a><a fs-cmssort-field="title-desc" href="#" class="dropdown-link w-dropdown-link">Titre (Z → A)</a><a fs-cmssort-field="date-asc" fs-cmssort-type="date" href="#" class="dropdown-link w-dropdown-link">Date de parution (ancien → récent)</a><a fs-cmssort-field="date-desc" fs-cmssort-type="date" href="#" class="dropdown-link w-dropdown-link">Date de parution (récent → ancien)</a></nav></div></div><div id="w-node-_964bfb27-14e8-5ef4-a431-6774fda5d427-71433351" class="filter-results_wrapper"><div class="results-count"><div fs-cmsfilter-element="results-count">0</div><div>résulats</div><div>/</div><div fs-cmsfilter-element="items-count">0</div></div><div class="tags-wrapper"><div fs-cmsfilter-element="tag-template" class="filter-tag"><div fs-cmsfilter-element="tag-text">tag</div><svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 12 12" fill="none" stroke="#6F6F6F" stroke-linecap="round" stroke-linejoin="round" id="X--Streamline-Lucide" height="12" width="12" fs-cmsfilter-element="tag-remove"><desc>X Streamline Icon: https://streamlinehq.com</desc><path d="M8.25 2.75 2.75 8.25" stroke-width="1"></path><path d="m2.75 2.75 5.5 5.5" stroke-width="1"></path></svg></div></div></div></nav><div class="filters-menu-btn w-nav-button"><div class="icon-container"><div>Filtres</div><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/6a74a7c4e62e3398426fc5b3_Slider%20Horizontal%20Alternative%20Icon%20from%20Streamline%20Ultimate%20Regular%20set.png" loading="lazy" alt="Slider Horizontal Alternative Icon from Ultimate Regular set by streamlinehq.com" class="book_filter-menu-icon"/></div></div></div></div></div></div><div class="padding-global"><div class="container-large"><div class="padding-section-large padding-top-xs"><div class="section-content-layout"><div id="catalogue-top" class="catalogue-scroll-anchor"></div><div class="w-dyn-list"><div fs-cmsload-showquery="true" fs-cmsfilter-element="list" fs-cmssort-element="list" fs-cmsload-element="list" fs-cmsload-mode="pagination" fs-cmsfilter-showquery="true" role="list" class="books_list w-dyn-items"><div role="listitem" class="book_item w-dyn-item"><a href="/books/phoneplay-les-origines-du-jeu-49959580" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17e965f240f72a068c10_6aac0e16243815b43e94cf6d_9782749959580WEB.jpeg" loading="lazy" alt="Phoneplay - Les origines du jeu" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Phoneplay - Les origines du jeu</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 13+</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Morgane Bicail</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">November 14, 2024</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/phoneplay-tome-1-22402583" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aa15681e112fcbe18a67534_6a60c0369879c07f714339fb_9791022402583WEB.jpeg" loading="lazy" alt="PhonePlay - tome 1" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">PhonePlay - tome 1</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 13+</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Morgane Bicail</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">November 9, 2017</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/phoneplay-tome-2-49937458" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17a3c35d572447d88ea4_6aabfeb33b3a2646e283d0f8_9782749937458WEB.jpeg" loading="lazy" alt="Phoneplay - tome 2" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Phoneplay - tome 2</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 13+</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Morgane Bicail</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">October 24, 2019</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/phoneplay-tome-2-22404853" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aa156879b9c3063ffd53f4a_6a60c0369879c07f71433a6c_9791022404853WEB.jpeg" loading="lazy" alt="PhonePlay - tome 2" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">PhonePlay - tome 2</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 13+</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Morgane Bicail</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">April 8, 2021</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/piece-a-piece-49951836" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17d2a18023dc53fa1c8c_6aac0937b6d794e533b01ce9_9782749951836WEB.jpeg" loading="lazy" alt="Pièce à pièce" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Pièce à pièce</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Biographie / témoignage</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">David Aguilar</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Ferran Aguilar</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Nathalie Nédélec-Courtès</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">October 13, 2022</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/piet-lecureuil-et-le-royaume-de-la-foret-49938707" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17a6c35d572447d890e9_6aabff8757d383abf336f574_9782749938707WEB.jpeg" loading="lazy" alt="Piet l&#x27;écureuil et le royaume de la forêt" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Piet l&#x27;écureuil et le royaume de la forêt</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Albums</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Peter Wohlleben</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Stefanie Reich</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Marie-Céline Trivier-Georg</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">November 15, 2018</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/plaidoyer-pour-la-bonne-gouvernance-et-le-developpement-49937427" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17a3c35d572447d88e93_6aabfeaf03bf1e0fa6414d3b_9782749937427WEB.jpeg" loading="lazy" alt="Plaidoyer pour la bonne gouvernance et le développement" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Plaidoyer pour la bonne gouvernance et le développement</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Biographie / témoignage</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Matata Ponyo Mapon</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Serge Michailof</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">August 28, 2018</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/planete-sapin-mission-noel-49951904" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17d2a18023dc53fa1c9f_6aac0946854f79e7aecb043a_9782749951904WEB.jpeg" loading="lazy" alt="Planète sapin - Mission Noël" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Planète sapin - Mission Noël</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 8-12 ans - Le Club</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Claire Castillon</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Florent Chavouet</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">November 17, 2022</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/plonge-tome-1-49942667" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17b4cc436a8dfdbe3638_6aac02934260a2b8aea6c7c7_9782749942667WEB.jpeg" loading="lazy" alt="Plonge ! - Tome 1" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Plonge ! - Tome 1</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 8-12 ans - Le Club</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Florent Manaudou</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Olivia de Dieuleveult</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Fabrice Colin</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Olivier Villepreux</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">June 25, 2020</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/plonge-tome-2-49942674" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17b4cc436a8dfdbe363b_6aac02974b360e4839bc6af7_9782749942674WEB.jpeg" loading="lazy" alt="Plonge ! - Tome 2" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Plonge ! - Tome 2</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 8-12 ans - Le Club</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Florent Manaudou</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Olivia de Dieuleveult</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Fabrice Colin</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">October 8, 2020</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/plonge-tome-3-en-route-vers-londres-49942681" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17b4cc436a8dfdbe3651_6aac029aa57a1af8171c5ab3_9782749942681WEB.jpeg" loading="lazy" alt="Plonge ! - Tome 3 En route vers Londres" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Plonge ! - Tome 3 En route vers Londres</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 8-12 ans - Le Club</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Florent Manaudou</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Olivia de Dieuleveult</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Fabrice Colin</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Isabel Escalante</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">May 12, 2021</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/plonge-tome-4-le-retour-du-heros-49942698" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17b4cc436a8dfdbe364a_6aac029ea9d50620a8dac03c_9782749942698WEB.jpeg" loading="lazy" alt="Plonge ! - Tome 4 Le retour du héros" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Plonge ! - Tome 4 Le retour du héros</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 8-12 ans - Le Club</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Florent Manaudou</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Olivia de Dieuleveult</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Fabrice Colin</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Isabel Escalante</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">October 28, 2021</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/plus-jamais-sans-toi-louna-49934938" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac179d65f240f72a0662b9_6aabfd3157d383abf3361a9c_9782749934938WEB.jpeg" loading="lazy" alt="Plus jamais sans toi, Louna" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Plus jamais sans toi, Louna</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Biographie / témoignage</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Sabrina Bombarde</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Yoan Bombarde</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Isabelle Dumas-Pelletier</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">January 25, 2018</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/plus-on-est-de-fous-49946207" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17bf5b63d0dbbbed7c20_6aac051b4260a2b8aea81d39_9782749946207WEB.jpeg" loading="lazy" alt="Plus on est de fous..." class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Plus on est de fous...</h2><div fs-cmsfilter-field="category" class="book-item_category">Roman</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme w-dyn-bind-empty"></div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Zoe Brisby</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">April 8, 2021</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/popeye-un-homme-a-la-mer-49936451" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac179f65f240f72a066425_6aabfe2957d383abf3366333_9782749936451WEB.jpeg" loading="lazy" alt="Popeye - Un homme à la mer" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Popeye - Un homme à la mer</h2><div fs-cmsfilter-field="category" class="book-item_category">BD</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme w-dyn-bind-empty"></div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Ozanam</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Marcello Lelis</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">February 28, 2019</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/populaire-22401920" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aa15681e112fcbe18a674f9_6a60c0369879c07f714339e6_9791022401920WEB.jpeg" loading="lazy" alt="Populaire" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Populaire</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 13+</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Wagenen Maya Van</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Cyril Laumonier</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">May 12, 2016</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/possession-22401050" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aa15680e112fcbe18a6743c_6a60c0369879c07f714339c3_9791022401050WEB.jpeg" loading="lazy" alt="Possession" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Possession</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 13+</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Elana Johnson</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Sylvie Cohen</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">April 9, 2015</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/poster-girl-49939544" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17ae3785ceb95be57640_6aac0055f83fb1111b98ed02_9782749939544WEB.jpeg" loading="lazy" alt="Poster girl" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Poster girl</h2><div fs-cmsfilter-field="category" class="book-item_category">Roman</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">SF fantasy</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Veronica Roth</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Alice Delarbre</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">November 3, 2022</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/pourquoi-les-juifs-49942469" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17b3cc436a8dfdbe35ec_6aac025626d0a903ba3d484f_9782749942469WEB.jpeg" loading="lazy" alt="Pourquoi les Juifs ?" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Pourquoi les Juifs ?</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Document</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Marek Halter</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">January 16, 2020</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/pourquoi-trump-ne-mange-pas-de-tofu-49964744" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17fccc436a8dfdbe5eeb_6aac12275b63d0dbbbead707_9782749964744WEB.jpeg" loading="lazy" alt="Pourquoi Trump ne mange pas de Tofu" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Pourquoi Trump ne mange pas de Tofu</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Document</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Suzanne Zaccour</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">March 5, 2026</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/precipice-49952376" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17d6a18023dc53fa1fa3_6aac097b38003d11238e7ca9_9782749952376WEB.jpeg" loading="lazy" alt="Précipice" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Précipice</h2><div fs-cmsfilter-field="category" class="book-item_category">Roman</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Policier thriller</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Céline Denjean</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">February 23, 2023</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/prendre-son-envol-49939988" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17ae3785ceb95be57673_6aac008fa9d50620a8d9b748_9782749939988WEB.jpeg" loading="lazy" alt="Prendre son envol" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Prendre son envol</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Business / management</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Mélinda Gates</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Valentine Vignault</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">May 23, 2019</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/prenez-le-pouvoir-toutes-les-strategies-pour-agir-comme-un-negociateur-delite-49957487" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17e299e27a074e86a6e3_6aac0c837eb67a33797157bb_9782749957487WEB.jpeg" loading="lazy" alt="Prenez le pouvoir - Toutes les stratégies pour agir comme un négociateur d&#x27;élite" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Prenez le pouvoir - Toutes les stratégies pour agir comme un négociateur d&#x27;élite</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Biographie / témoignage</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Laurent Maury</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">September 26, 2024</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/prenez-votre-argent-en-main-mieux-gerer-et-investir-votre-argent-pour-atteindre-lindependance-financ-49959627" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17e965f240f72a068c2b_6aac0e25670ffaec84281478_9782749959627WEB.jpeg" loading="lazy" alt="Prenez votre argent en main - Mieux gérer et investir votre argent pour atteindre l&#x27;indépendance financière" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Prenez votre argent en main - Mieux gérer et investir votre argent pour atteindre l&#x27;indépendance financière</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Business / management</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Matthias Baccino</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">November 14, 2024</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/prenez-votre-envol-liberez-votre-creativite-et-revelez-votre-potentiel-49946054" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17bf5b63d0dbbbed7c05_6aac050fb257ddfdefeb421f_9782749946054WEB.jpeg" loading="lazy" alt="Prenez votre envol - Libérez votre créativité et révélez votre potentiel" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Prenez votre envol - Libérez votre créativité et révélez votre potentiel</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Biographie / témoignage</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Daniel Lamarre</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Paul Keegan</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">September 28, 2023</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/prisonnier-du-desert-711-jours-aux-mains-dal-qaida-49959351" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17e865f240f72a068bb4_6aac0de026d0a903ba3ee321_9782749959351WEB.jpeg" loading="lazy" alt="Prisonnier du désert - 711 jours aux mains d&#x27;Al-Qaïda" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Prisonnier du désert - 711 jours aux mains d&#x27;Al-Qaïda</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Biographie / témoignage</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Olivier Dubois</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">January 30, 2025</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/prodigieuses-histoires-de-filles-pas-comme-les-autres-49948539" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17c9663047952698fb32_6aac06cb35fb996883604a16_9782749948539WEB.jpeg" loading="lazy" alt="Prodigieuses - Histoires de filles pas comme les autres" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Prodigieuses - Histoires de filles pas comme les autres</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Documentaires</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Anne-Fleur Multon</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Diglee</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">September 29, 2022</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/pudlo-paris-2018-49934877" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac179d65f240f72a0662a0_6aabfd1c76cffee18d8ab698_9782749934877WEB.jpeg" loading="lazy" alt="Pudlo Paris 2018" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Pudlo Paris 2018</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Pratique</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Gilles Pudlowski</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">May 3, 2018</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/pudlo-paris-2020-49940472" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17af3785ceb95be576e6_6aac00d756ac77c53fd0466b_9782749940472WEB.jpeg" loading="lazy" alt="Pudlo Paris 2020" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Pudlo Paris 2020</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Pratique</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Gilles Pudlowski</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">October 24, 2019</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/qatar-papers-49936369" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac179e65f240f72a0663ed_6aabfe0776cffee18d8b3d70_9782749936369WEB.jpeg" loading="lazy" alt="Qatar papers" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Qatar papers</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Biographie / témoignage</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Christian Chesnot</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Georges Malbrunot</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">April 4, 2019</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/quartier-libre-49938974" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17a7c35d572447d891ce_6aabffbd38003d11238bd409_9782749938974WEB.jpeg" loading="lazy" alt="Quartier libre" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Quartier libre</h2><div fs-cmsfilter-field="category" class="book-item_category">Roman</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme w-dyn-bind-empty"></div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Vincent Lahouze</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">October 15, 2020</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/quatre-aveux-pour-un-seul-crime-49940908" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17af3785ceb95be5771e_6aac012e7acc9e0694d13d26_9782749940908WEB.jpeg" loading="lazy" alt="Quatre aveux pour un seul crime" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Quatre aveux pour un seul crime</h2><div fs-cmsfilter-field="category" class="book-item_category">Roman</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Policier thriller</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Gina Lamanna</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Éric Betsch</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">February 6, 2020</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/que-la-fete-sacheve-49960708" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17ea65f240f72a068dc4_6aac0f116f40e4745b0f08ec_9782749960708WEB.jpeg" loading="lazy" alt="Que la fête s&#x27;achève !" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Que la fête s&#x27;achève !</h2><div fs-cmsfilter-field="category" class="book-item_category">Roman</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans historiques</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">François-Henri Soulié</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">May 7, 2026</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/quest-ce-quon-mange-ce-soir-lalmanach-marmiton-2025-49958866" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17e499e27a074e86a8a9_6aac0d7df423825e06c1a6a1_9782749958866WEB.jpeg" loading="lazy" alt="Qu&#x27;est-ce qu&#x27;on mange ce soir ? - L&#x27;almanach Marmiton 2025" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Qu&#x27;est-ce qu&#x27;on mange ce soir ? - L&#x27;almanach Marmiton 2025</h2><div fs-cmsfilter-field="category" class="book-item_category">Almanach</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme w-dyn-bind-empty"></div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Marmiton</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">September 5, 2024</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/questions-de-laicite-49937137" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17a3c35d572447d88e5d_6aabfea0a0868a2a0366f1b8_9782749937137WEB.jpeg" loading="lazy" alt="Questions de Laïcité" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Questions de Laïcité</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Documentaires</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">sans frontière Bibliothéque</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">September 20, 2018</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/que-vous-est-il-arrive-49947372" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17c35b63d0dbbbed7e21_6aac05fb4260a2b8aea87e65_9782749947372WEB.jpeg" loading="lazy" alt="Que vous est-il arrivé ?" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Que vous est-il arrivé ?</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Biographie / témoignage</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Oprah Winfrey</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Bruce Perry</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">August 26, 2021</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/qui-a-tue-jane-larkin-49922232" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac179599e27a074e86756d_6aabfb56e497a17799a9d0f4_9782749922232WEB.jpeg" loading="lazy" alt="Qui a tué Jane Larkin ?" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Qui a tué Jane Larkin ?</h2><div fs-cmsfilter-field="category" class="book-item_category">Roman</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Policier thriller</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">William Landay</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Marie Tillol</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">November 2, 2023</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/qui-decide-nous-49960692" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17ea65f240f72a068dbc_6aac0f0db76f44e0fafdc180_9782749960692WEB.jpeg" loading="lazy" alt="Qui décide ? Nous !" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Qui décide ? Nous !</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Business / management</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">qui le patron C&#x27;est</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">October 15, 2024</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/qui-est-le-coupable-laffaire-louise-20-000-suspects-10-indices-1-seul-coupable-livre-jeu-nouveaute-2-49966847" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17ff0da1ad491990c61f_6aac12c42108beac36466373_9782749966847WEB.jpeg" loading="lazy" alt="Qui est le coupable ? - L&#x27;Affaire Louise - 20 000 suspects, 10 indices, 1 seul coupable. Livre-Jeu - Nouveauté 2026" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Qui est le coupable ? - L&#x27;Affaire Louise - 20 000 suspects, 10 indices, 1 seul coupable. Livre-Jeu - Nouveauté 2026</h2><div fs-cmsfilter-field="category" class="book-item_category">Cahier d&#x27;activités / jeux / agenda</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme w-dyn-bind-empty"></div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Elina Rostan</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">July 15, 2026</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/qui-est-le-coupable-special-halloween-49967134" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6ab633b37cfc728aac5e7dd0_9782749967134WEB.jpg" loading="lazy" alt="" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Qui est le coupable ? Spécial Halloween</h2><div fs-cmsfilter-field="category" class="book-item_category">Cahier d&#x27;activités / jeux / agenda</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme w-dyn-bind-empty"></div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Elina Rostan</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">September 24, 2026</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/qui-est-le-coupable-special-noel-49967417" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6ad24babdaf7ccbc440e3085_9782749967417WEB.jpg" loading="lazy" alt="" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Qui est le coupable ? - Spécial Noël</h2><div fs-cmsfilter-field="category" class="book-item_category">Cahier d&#x27;activités / jeux / agenda</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme w-dyn-bind-empty"></div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Elina Rostan</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">November 19, 2026</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/qui-vous-ment-49963921" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17facc436a8dfdbe5e2b_6aac11b765f240f72a043500_9782749963921WEB.jpeg" loading="lazy" alt="Qui vous ment ?" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Qui vous ment ?</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Document</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Alexis Laipsker</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">February 5, 2026</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/ready-player-one-49935355" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac179d65f240f72a066303_6aabfd46afe4c5dce777007e_9782749935355WEB.jpeg" loading="lazy" alt="Ready Player One" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Ready Player One</h2><div fs-cmsfilter-field="category" class="book-item_category">Roman</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme w-dyn-bind-empty"></div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Ernest Cline</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Arnaud Regnauld</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">March 15, 2018</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/ready-player-two-tome-2-49939391" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17ad3785ceb95be575fb_6aac0027f83fb1111b98d873_9782749939391WEB.jpeg" loading="lazy" alt="Ready player two - Tome 2" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Ready player two - Tome 2</h2><div fs-cmsfilter-field="category" class="book-item_category">Roman</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">SF fantasy</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Ernest Cline</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Arnaud Regnauld</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">June 10, 2021</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/realiser-limpossible-49948546" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17c9663047952698fb2b_6aac06cfb96fde5829f5a44c_9782749948546WEB.jpeg" loading="lazy" alt="Réaliser l&#x27;impossible" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Réaliser l&#x27;impossible</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Santé / vie de famille</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Albert Bourla</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Sébastien Baert</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">April 7, 2022</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/rebond-sentrainer-a-revivre-49943992" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17b8663047952698f19a_6aac038fb257ddfdefea676e_9782749943992WEB.jpeg" loading="lazy" alt="Rebond - s&#x27;entrainer à revivre" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Rebond - s&#x27;entrainer à revivre</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Document</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Pierre Dantin</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Patrice Viens</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Gilles Rof</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Claude Onesta</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">September 16, 2021</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/red-flags-green-flags-49962108" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17f1c35d572447d8be70_6aac10544260a2b8aeab2f8f_9782749962108WEB.jpeg" loading="lazy" alt="Red flags, Green flags" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Red flags, Green flags</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Développement personnel</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Ali Fenwick</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Ali Fenwick</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Léa François</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">May 28, 2026</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/release-me-edition-collector-49961606" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17f0c35d572447d8bd63_6aac0fefcd9f793c09d913f2_9782749961606WEB.jpeg" loading="lazy" alt="Release me - Edition collector" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Release me - Edition collector</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 13+</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Tahereh Mafi</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Manon Malais</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">May 13, 2026</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/release-me-tome-2-49961613" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6ab633924676aa29ab8b1523_9782749961613WEB.jpg" loading="lazy" alt="" class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Release me - Saison 3 - Tome 2</h2><div fs-cmsfilter-field="category" class="book-item_category">Jeunesse</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Romans 13+</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Tahereh Mafi</h4></div><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Manon Malais</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">September 24, 2026</div></div></div></div><div role="listitem" class="book_item w-dyn-item"><a href="/books/reste-la-justice-49936000" class="book_item-card w-inline-block"><img src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac179e65f240f72a066385_6aabfda6158166ebb6c5a1b6_9782749936000WEB.jpeg" loading="lazy" alt="Reste la justice..." class="book-item_cover"/><div class="book_filter"></div></a><div class="book_details"><h2 fs-cmsfilter-field="title" class="book-item_title">Reste la justice...</h2><div fs-cmsfilter-field="category" class="book-item_category">Non fiction</div><div fs-cmsfilter-field="sub-category" class="book-item_subtheme">Biographie / témoignage</div><div class="book-details_bottom"><div class="w-dyn-list"><div role="list" class="w-dyn-items"><div role="listitem" class="w-dyn-item"><h4 fs-cmsfilter-field="author" class="book-item_author">Philippe Courroye</h4></div></div></div><div fs-cmssort-type="date" fs-cmssort-field="date" class="book-item_date text-size-tiny">March 29, 2018</div></div></div></div></div><div role="navigation" aria-label="List" class="w-pagination-wrapper pagination"><a href="?3049e819_page=32" aria-label="Previous Page" class="w-pagination-previous paginate-button"><svg class="w-pagination-previous-icon icon-1x1-small" height="12px" width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" transform="translate(0, 1)"><path fill="none" stroke="currentColor" fill-rule="evenodd" d="M8 10L4 6l4-4"></path></svg><div class="w-inline-block">Précédent</div></a><a href="?3049e819_page=34" aria-label="Next Page" class="w-pagination-next paginate-button"><div class="w-inline-block">Suivant</div><svg class="w-pagination-next-icon icon-1x1-small" height="12px" width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" transform="translate(0, 1)"><path fill="none" stroke="currentColor" fill-rule="evenodd" d="M4 2l4 4-4 4"></path></svg></a><link rel="prerender" href="?3049e819_page=34"/><div aria-label="Page 33 of 38" role="heading" class="w-page-count results-count">33 / 38</div></div></div><div fs-cmsfilter-element="empty" class="filter__no-results"><div>Aucun livre trouvé.</div></div></div></div></div></div></section></main><footer data-w-id="cc9a7e2e-1ff6-528e-ab68-5cc3f2ce2fa4" class="footer"><div class="padding-global"><div class="container-large"><div class="padding-section-large"><div class="section-content-layout"><div class="w-layout-grid footer_top-wrapper"><div class="footer_left-wrapper"><div class="text-bloc"><div class="heading-style-h4">Recevoir notre newsletter</div><div>Inscrivez-vous à notre newsletter pour recevoir nos dernières nouveautés et événements littéraires.</div><div class="footer1_form-block w-form"><form id="wf-form-Newsletter-Form" name="wf-form-Newsletter-Form" data-name="Newsletter Form" method="get" class="footer_form" data-wf-page-id="6a60c0369879c07f71433351" data-wf-element-id="cc9a7e2e-1ff6-528e-ab68-5cc3f2ce2fb3" data-turnstile-sitekey="0x4AAAAAAAQTptj2So4dx43e"><div class="form_line mobile"><input class="form_input-3 w-input" maxlength="256" name="Email" data-name="Email" placeholder="Votre adresse email" type="email" id="Email" required=""/><input type="submit" data-wait="Envoi en cours..." class="button w-button" value="S’inscrire"/></div><label class="w-checkbox checkbox-field"><div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div><input type="checkbox" name="checkbox" id="checkbox" data-name="Checkbox" required="" style="opacity:0;position:absolute;z-index:-1"/><span class="text-size-tiny w-form-label" for="checkbox">En vous inscrivant, vous acceptez nos mentions légales et acceptez de recevoir nos actualités dans votre boîte de réception.</span></label></form><div class="form_message-success-wrapper w-form-done"><div class="form_message-success-2"><div>Thank you! Your submission has been received!</div></div></div><div class="form_message-error-wrapper w-form-fail"><div class="form_message-error-3"><div>Oops! Something went wrong while submitting the form.</div></div></div></div></div></div><div class="w-layout-grid footer_menu-wrapper"><div class="footer1_link-column"><div class="margin-bottom margin-xsmall"><div class="heading-style-h4">Catalogue</div></div><div class="footer_link-list"><a href="/nos-livres" aria-current="page" class="footer_link w--current">Nos livres</a><a href="/les-auteurs" class="footer_link">Nos autrices &amp; auteurs</a></div></div><div class="footer1_link-column"><div class="margin-bottom margin-xsmall"><div class="heading-style-h4">À propos</div></div><div class="footer_link-list"><a href="/la-maison" class="footer_link">Qui sommes-nous ?</a><a href="/contact" class="footer_link">Nous contacter</a></div></div><div class="footer1_link-column"><div class="margin-bottom margin-xsmall"><div class="heading-style-h4">Réseaux sociaux</div></div><div class="footer_link-list"><a href="https://www.instagram.com/editionsmichellafon/?hl=fr" target="_blank" class="footer_social-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="CurrentColor"/>
+</svg></div><div>editionsmichellafon</div></a><a href="https://www.instagram.com/michellafon_jeunesse/" target="_blank" class="footer_social-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="CurrentColor"/>
+</svg></div><div>michellafon_jeunesse</div></a><a href="https://www.instagram.com/kazoku_sikku/" target="_blank" class="footer_social-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16 3H8C5.23858 3 3 5.23858 3 8V16C3 18.7614 5.23858 21 8 21H16C18.7614 21 21 18.7614 21 16V8C21 5.23858 18.7614 3 16 3ZM19.25 16C19.2445 17.7926 17.7926 19.2445 16 19.25H8C6.20735 19.2445 4.75549 17.7926 4.75 16V8C4.75549 6.20735 6.20735 4.75549 8 4.75H16C17.7926 4.75549 19.2445 6.20735 19.25 8V16ZM16.75 8.25C17.3023 8.25 17.75 7.80228 17.75 7.25C17.75 6.69772 17.3023 6.25 16.75 6.25C16.1977 6.25 15.75 6.69772 15.75 7.25C15.75 7.80228 16.1977 8.25 16.75 8.25ZM12 7.5C9.51472 7.5 7.5 9.51472 7.5 12C7.5 14.4853 9.51472 16.5 12 16.5C14.4853 16.5 16.5 14.4853 16.5 12C16.5027 10.8057 16.0294 9.65957 15.1849 8.81508C14.3404 7.97059 13.1943 7.49734 12 7.5ZM9.25 12C9.25 13.5188 10.4812 14.75 12 14.75C13.5188 14.75 14.75 13.5188 14.75 12C14.75 10.4812 13.5188 9.25 12 9.25C10.4812 9.25 9.25 10.4812 9.25 12Z" fill="CurrentColor"/>
+</svg></div><div>kazoku_sikku</div></a><a href="https://www.facebook.com/editionsMichelLafon/" target="_blank" class="footer_social-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22 12.0611C22 6.50451 17.5229 2 12 2C6.47715 2 2 6.50451 2 12.0611C2 17.0828 5.65684 21.2452 10.4375 22V14.9694H7.89844V12.0611H10.4375V9.84452C10.4375 7.32296 11.9305 5.93012 14.2146 5.93012C15.3088 5.93012 16.4531 6.12663 16.4531 6.12663V8.60261H15.1922C13.95 8.60261 13.5625 9.37822 13.5625 10.1739V12.0611H16.3359L15.8926 14.9694H13.5625V22C18.3432 21.2452 22 17.083 22 12.0611Z" fill="CurrentColor"/>
+</svg></div><div>editionsmichellafon</div></a><a href="https://www.linkedin.com/company/michel-lafon-publishing-sa/" target="_blank" class="footer_social-link w-inline-block"><div class="icon-embed-xsmall w-embed"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 3C3.67157 3 3 3.67157 3 4.5V19.5C3 20.3284 3.67157 21 4.5 21H19.5C20.3284 21 21 20.3284 21 19.5V4.5C21 3.67157 20.3284 3 19.5 3H4.5ZM8.52076 7.00272C8.52639 7.95897 7.81061 8.54819 6.96123 8.54397C6.16107 8.53975 5.46357 7.90272 5.46779 7.00413C5.47201 6.15897 6.13998 5.47975 7.00764 5.49944C7.88795 5.51913 8.52639 6.1646 8.52076 7.00272ZM12.2797 9.76176H9.75971H9.7583V18.3216H12.4217V18.1219C12.4217 17.742 12.4214 17.362 12.4211 16.9819V16.9818V16.9816V16.9815V16.9812C12.4203 15.9674 12.4194 14.9532 12.4246 13.9397C12.426 13.6936 12.4372 13.4377 12.5005 13.2028C12.7381 12.3253 13.5271 11.7586 14.4074 11.8979C14.9727 11.9864 15.3467 12.3141 15.5042 12.8471C15.6013 13.1803 15.6449 13.5389 15.6491 13.8863C15.6605 14.9339 15.6589 15.9815 15.6573 17.0292V17.0294C15.6567 17.3992 15.6561 17.769 15.6561 18.1388V18.3202H18.328V18.1149C18.328 17.6629 18.3278 17.211 18.3275 16.7591V16.759V16.7588C18.327 15.6293 18.3264 14.5001 18.3294 13.3702C18.3308 12.8597 18.276 12.3563 18.1508 11.8627C17.9638 11.1286 17.5771 10.5211 16.9485 10.0824C16.5027 9.77019 16.0133 9.5691 15.4663 9.5466C15.404 9.54401 15.3412 9.54062 15.2781 9.53721L15.2781 9.53721L15.2781 9.53721C14.9984 9.52209 14.7141 9.50673 14.4467 9.56066C13.6817 9.71394 13.0096 10.0641 12.5019 10.6814C12.4429 10.7522 12.3852 10.8241 12.2991 10.9314L12.2991 10.9315L12.2797 10.9557V9.76176ZM5.68164 18.3244H8.33242V9.76733H5.68164V18.3244Z" fill="CurrentColor"/>
+</svg></div><div>Michel Lafon Publishing</div></a></div></div></div></div><div class="divider"></div><div class="footer_bottom-wrapper"><img loading="lazy" src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/6aa307d85501aef827fb087a_Michel_Lafon_logo_black1.svg" alt="" class="footer1_logo"/><div class="footer_credit-text">© Michel Lafon, tous droits réservés, 2026</div><div class="w-layout-grid footer1_legal-list"><a href="/mentions-legales" class="footer_legal-link">Mentions légales</a></div></div></div></div></div></div></footer></div><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6a60c0369879c07f7143335a" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/js/webflow.schunk.36b8fb49256177c8.js" type="text/javascript" integrity="sha384-4abIlA5/v7XaW1HMXKBgnUuhnjBYJ/Z9C1OSg4OhmVw9O3QeHJ/qJqFBERCDPv7G" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/js/webflow.schunk.4a6285097e111dee.js" type="text/javascript" integrity="sha384-a+JagFfWz3u0nR3U/0OKTbytJyAZIvcW+xBME4QatmmNnnumf7kRdYlFvP8D9gbT" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/6a60c0369879c07f7143335a/js/webflow.c60dbdbf.c222d120aa2994d8.js" type="text/javascript" integrity="sha384-vtaXaFQuPHzuxyVuEgMumJfxZrdMIJXTjkyeGcjizLV/x2d8iIwedsArS7rjQgtl" crossorigin="anonymous"></script><!-- Smooth scroll -->
+<script src="https://min30327.github.io/luxy.js/dist/js/luxy.js"></script>
+<script charset="utf-8">
+  var isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
+  if (!isMobile) {
+    luxy.init({
+      wrapper: '#luxy',
+      wrapperSpeed: 0.065,
+    });
+  }
+</script>
+<!-- End smooth scroll -->
+
+<!-- Format date -->
+<script>
+  (function () {
+    function formatBookDates(root = document) {
+      const dates = root.querySelectorAll('.book-item_date:not([data-date-formatted="true"])');
+
+      dates.forEach(function (el) {
+        const raw = el.textContent.trim();
+        const date = new Date(raw);
+
+        if (isNaN(date.getTime())) return;
+
+        el.textContent = date
+          .toLocaleDateString('fr-FR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })
+          .replace(/(\s)(\p{L})/u, function (_, space, letter) {
+            return space + letter.toUpperCase();
+          });
+
+        /*
+         * Empêche de reformater plusieurs fois
+         * le même élément.
+         */
+        el.setAttribute('data-date-formatted', 'true');
+      });
+    }
+
+    /*
+     * Formatage initial :
+     * - pages CMS individuelles
+     * - première page du catalogue
+     */
+    document.addEventListener('DOMContentLoaded', function () {
+      formatBookDates();
+    });
+
+    /*
+     * Formatage des éléments chargés ensuite
+     * par Finsweet CMS Load.
+     */
+    window.fsAttributes = window.fsAttributes || [];
+
+    window.fsAttributes.push([
+      'cmsload',
+      function (listInstances) {
+        if (!listInstances || !listInstances.length) {
+          return;
+        }
+
+        listInstances.forEach(function (listInstance) {
+          listInstance.on('renderitems', function () {
+            formatBookDates();
+          });
+        });
+      },
+    ]);
+  })();
+</script>
+<!-- End Format date -->
+
+<!-- Format book prices -->
+<script>
+  (function () {
+    function formatBookPrices(root = document) {
+      root.querySelectorAll('.book-item_price:not([data-price-formatted="true"])').forEach(function (el) {
+        const raw = el.textContent
+          .trim()
+          .replace(',', '.')
+          .replace(/[^\d.-]/g, '');
+
+        const price = parseFloat(raw);
+
+        if (isNaN(price)) return;
+
+        el.textContent = price.toLocaleString('fr-FR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+
+        el.setAttribute('data-price-formatted', 'true');
+      });
+    }
+
+    /* Chargement initial */
+    document.addEventListener('DOMContentLoaded', function () {
+      formatBookPrices();
+    });
+
+    /*
+     * Nouveaux items chargés par Finsweet CMS Load
+     * dans le catalogue.
+     */
+    window.fsAttributes = window.fsAttributes || [];
+
+    window.fsAttributes.push([
+      'cmsload',
+      function (listInstances) {
+        if (!listInstances || !listInstances.length) return;
+
+        listInstances.forEach(function (listInstance) {
+          listInstance.on('renderitems', function () {
+            formatBookPrices();
+          });
+        });
+      },
+    ]);
+  })();
+</script>
+<!-- End Format book prices -->
+
+<!-- Text split for reveal animations -->
+<script src="https://unpkg.com/split-type"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const elements = document.querySelectorAll('[data-a-split="line"]');
+
+  elements.forEach(function (element) {
+
+    const split = new SplitType(element, {
+      types: "lines"
+    });
+
+    split.lines.forEach(function (line) {
+
+      const mask = document.createElement("div");
+      mask.classList.add("line-mask");
+
+      /* Keep original line spacing untouched */
+      mask.style.overflow = "clip";
+      mask.style.overflowClipMargin = "0.15em";
+
+      line.parentNode.insertBefore(mask, line);
+      mask.appendChild(line);
+
+    });
+
+    gsap.set(split.lines, {
+      yPercent: 110
+    });
+
+    gsap.to(split.lines, {
+      yPercent: 0,
+      duration: 0.6,
+      ease: "power3.out",
+      stagger: 0.05
+    });
+
+  });
+
+});
+</script>
+<!-- End Text split for reveal animations -->
+
+<!-- Book card scroll reveal animations -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const observer = new IntersectionObserver(
+      function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add('is-inview');
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.15,
+      },
+    );
+
+    function observeBookItems(root = document) {
+      root.querySelectorAll('.book_item:not([data-reveal-observed])').forEach(function (item) {
+        item.setAttribute('data-reveal-observed', 'true');
+        observer.observe(item);
+      });
+    }
+
+    /* Initial books */
+    observeBookItems();
+
+    /* Books dynamically rendered by Finsweet CMS Load */
+    window.fsAttributes = window.fsAttributes || [];
+
+    window.fsAttributes.push([
+      'cmsload',
+      function (listInstances) {
+        if (!listInstances || !listInstances.length) return;
+
+        listInstances.forEach(function (listInstance) {
+          listInstance.on('renderitems', function () {
+            requestAnimationFrame(function () {
+              observeBookItems();
+            });
+          });
+        });
+      },
+    ]);
+  });
+</script>
+<!-- End Book card scroll reveal animations --><style>
+  .subcategory-parent {
+    display: none;
+  }
+
+  .subcategory-filter_item[aria-hidden="true"] {
+    display: none;
+  }
+
+  .subcategory-dropdown.is-disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .subcategory-dropdown.is-disabled .w-dropdown-toggle,
+  .subcategory-dropdown.is-disabled .dropdown-toggle {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const categoryList = document.querySelector(
+    ".category-filter_list"
+  );
+
+  const subcategoryList = document.querySelector(
+    ".subcategory-filter_list"
+  );
+
+  const subcategoryDropdown = document.querySelector(
+    ".subcategory-dropdown"
+  );
+
+  if (!categoryList || !subcategoryList) {
+    console.warn(
+      "Filtres dépendants : liste des catégories ou des sous-catégories introuvable."
+    );
+    return;
+  }
+
+  const categoryItems = Array.from(
+    categoryList.querySelectorAll(".category-filter_item")
+  );
+
+  const subcategoryItems = Array.from(
+    subcategoryList.querySelectorAll(".subcategory-filter_item")
+  );
+
+  function normalize(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\u00a0/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
+
+  function getCheckboxLabel(item) {
+    const label = item.querySelector(
+      ".w-form-label, .dropdown-radio label"
+    );
+
+    return normalize(
+      label ? label.textContent : ""
+    );
+  }
+
+  function getSelectedCategories() {
+    return categoryItems
+      .filter(function (item) {
+        const checkbox = item.querySelector(
+          '.category-filter_checkbox, input[type="checkbox"]'
+        );
+
+        return checkbox && checkbox.checked;
+      })
+      .map(getCheckboxLabel)
+      .filter(Boolean);
+  }
+
+  function notifyCheckboxChange(checkbox) {
+    checkbox.dispatchEvent(
+      new Event("input", {
+        bubbles: true
+      })
+    );
+
+    checkbox.dispatchEvent(
+      new Event("change", {
+        bubbles: true
+      })
+    );
+  }
+
+  function closeSubcategoryDropdown() {
+    if (!subcategoryDropdown) return;
+
+    const toggle = subcategoryDropdown.querySelector(
+      ".w-dropdown-toggle, .dropdown-toggle"
+    );
+
+    const menu = subcategoryDropdown.querySelector(
+      ".w-dropdown-list, .dropdown-nav"
+    );
+
+    subcategoryDropdown.classList.remove("w--open");
+
+    if (toggle) {
+      toggle.classList.remove("w--open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
+    if (menu) {
+      menu.classList.remove("w--open");
+    }
+  }
+
+  function updateSubcategoryDropdownState(
+    hasCategorySelection
+  ) {
+    if (!subcategoryDropdown) return;
+
+    const toggle = subcategoryDropdown.querySelector(
+      ".w-dropdown-toggle, .dropdown-toggle"
+    );
+
+    subcategoryDropdown.classList.toggle(
+      "is-disabled",
+      !hasCategorySelection
+    );
+
+    subcategoryDropdown.setAttribute(
+      "aria-disabled",
+      String(!hasCategorySelection)
+    );
+
+    if (toggle) {
+      toggle.setAttribute(
+        "aria-disabled",
+        String(!hasCategorySelection)
+      );
+
+      toggle.setAttribute(
+        "tabindex",
+        hasCategorySelection ? "0" : "-1"
+      );
+    }
+
+    if (!hasCategorySelection) {
+      closeSubcategoryDropdown();
+    }
+  }
+
+  function updateSubcategories() {
+    const selectedCategories =
+      getSelectedCategories();
+
+    const hasCategorySelection =
+      selectedCategories.length > 0;
+
+    updateSubcategoryDropdownState(
+      hasCategorySelection
+    );
+
+    subcategoryItems.forEach(function (item) {
+      const parentElement = item.querySelector(
+        ".subcategory-parent"
+      );
+
+      const checkbox = item.querySelector(
+        '.subcategory-filter_checkbox, input[type="checkbox"]'
+      );
+
+      const parentCategory = normalize(
+        parentElement
+          ? parentElement.textContent
+          : ""
+      );
+
+      /*
+       * Sans catégorie sélectionnée :
+       * toutes les sous-catégories restent dans le DOM,
+       * mais le dropdown est désactivé.
+       *
+       * Avec une catégorie sélectionnée :
+       * seules les sous-catégories correspondantes apparaissent.
+       */
+      const shouldShow =
+        !hasCategorySelection ||
+        selectedCategories.includes(parentCategory);
+
+      item.style.display = shouldShow
+        ? ""
+        : "none";
+
+      item.setAttribute(
+        "aria-hidden",
+        String(!shouldShow)
+      );
+
+      /*
+       * Décoche automatiquement une sous-catégorie
+       * devenue incompatible avec les catégories actives.
+       */
+      if (
+        !shouldShow &&
+        checkbox &&
+        checkbox.checked
+      ) {
+        checkbox.checked = false;
+        notifyCheckboxChange(checkbox);
+      }
+    });
+  }
+
+  /*
+   * Écoute les changements sur les catégories.
+   */
+  categoryList.addEventListener(
+    "change",
+    function (event) {
+      if (
+        event.target.matches(
+          '.category-filter_checkbox, input[type="checkbox"]'
+        )
+      ) {
+        updateSubcategories();
+      }
+    }
+  );
+
+  /*
+   * Empêche aussi l'ouverture par clic si le dropdown
+   * est désactivé.
+   */
+  if (subcategoryDropdown) {
+    subcategoryDropdown.addEventListener(
+      "click",
+      function (event) {
+        if (
+          subcategoryDropdown.classList.contains(
+            "is-disabled"
+          )
+        ) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        }
+      },
+      true
+    );
+  }
+
+  /*
+   * État initial :
+   * aucune catégorie sélectionnée,
+   * dropdown sous-catégorie désactivé.
+   */
+  updateSubcategories();
+});
+</script>
+
+
+
+<style>
+  #catalogue-top {
+    scroll-margin-top: 120px;
+  }
+</style>
+
+<script>
+window.fsAttributes = window.fsAttributes || [];
+
+window.fsAttributes.push([
+  "cmsload",
+  function (listInstances) {
+    const listInstance = listInstances[0];
+    const catalogueTop = document.getElementById("catalogue-top");
+
+    if (!listInstance || !catalogueTop) return;
+
+    let paginationTriggered = false;
+
+    /*
+     * Détecte uniquement un clic sur Précédent / Suivant.
+     * On ne bloque surtout pas le clic :
+     * Finsweet continue de gérer la pagination et les filtres.
+     */
+    document.addEventListener("click", function (event) {
+      const paginationButton = event.target.closest(
+        ".w-pagination-previous, .w-pagination-next"
+      );
+
+      if (!paginationButton) return;
+
+      paginationTriggered = true;
+    });
+
+    /*
+     * Finsweet déclenche renderitems une fois les nouveaux
+     * éléments effectivement rendus dans la Collection List.
+     */
+    listInstance.on("renderitems", function () {
+      if (!paginationTriggered) return;
+
+      paginationTriggered = false;
+
+      /*
+       * Attend la fin du rendu navigateur avant de scroller.
+       */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          const offset = 120;
+
+          const targetPosition =
+            catalogueTop.getBoundingClientRect().top +
+            window.scrollY -
+            offset;
+
+          window.scrollTo({
+            top: Math.max(0, targetPosition),
+            behavior: "smooth"
+          });
+        });
+      });
+    });
+  }
+]);
+</script></body></html>
