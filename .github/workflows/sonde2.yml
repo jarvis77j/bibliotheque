@@ -1,0 +1,16 @@
+name: sonde-2
+on:
+  push:
+    branches: [sonde-2]
+    paths: [".github/workflows/sonde2.yml", "sonde2/sonde.py"]
+permissions:
+  contents: write
+jobs:
+  sonde:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 sonde2/sonde.py
+      - run: |
+          git config user.name "robot-sonde"; git config user.email "actions@github.com"
+          git add sonde2 && git commit -m "Sonde 2 : résultat" && git push
