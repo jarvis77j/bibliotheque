@@ -1,20 +1,37 @@
 {
- "g1": {
-  "url": "https://www.googleapis.com/books/v1/volumes?q=inpublisher:%22Gallimard%22&orderBy=newest&langRestrict=fr&printType=books&maxResults=40",
-  "robots_ok": true,
-  "len": 0,
-  "erreur": true
+ "k1": {
+  "st": 503,
+  "total": null,
+  "n": 0,
+  "ex": [],
+  "err": "Service temporarily unavailable."
  },
- "g2": {
-  "url": "https://www.googleapis.com/books/v1/volumes?q=inpublisher:%22Gallimard%22&orderBy=newest&langRestrict=fr&printType=books&maxResults=40&country=FR",
-  "robots_ok": true,
-  "len": 0,
-  "erreur": true
+ "k2": {
+  "st": 503,
+  "total": null,
+  "n": 0,
+  "ex": [],
+  "err": "Service temporarily unavailable."
  },
- "g3": {
-  "url": "https://www.googleapis.com/books/v1/volumes?q=inpublisher:Pocket&orderBy=newest&langRestrict=fr&printType=books&maxResults=40&country=FR",
-  "robots_ok": true,
-  "len": 0,
-  "erreur": true
+ "k3": {
+  "st": 503,
+  "total": null,
+  "n": 0,
+  "ex": [],
+  "err": "Service temporarily unavailable."
+ },
+ "k4": {
+  "st": 503,
+  "total": null,
+  "n": 0,
+  "ex": [],
+  "err": "Service temporarily unavailable."
+ },
+ "k5": {
+  "st": 503,
+  "total": null,
+  "n": 0,
+  "ex": [],
+  "err": "Service temporarily unavailable."
  }
 }
