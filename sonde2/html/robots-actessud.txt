@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Erreur 403</title>
+    <style media="screen">
+      body {
+        height: 100vh;
+        font-family: sans-serif;
+      }
+      .d-flex {
+        display: flex;
+      }
+      .align-items-center {
+        align-items: center;
+      }
+      .justify-content-center {
+        justify-content: center;
+      }
+      .fs-1 {
+        font-size: 3rem;
+      }
+      .fw-bold {
+        font-weight: bold;
+      }
+      .color-primary {
+        color: #0e3044;
+      }
+      .color-secondary {
+        color: #77e9e1;
+      }
+      .text-center {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="d-flex align-items-center justify-content-center">
+    <div class="text-center">
+      <div class="fs-1 fw-bold color-primary">Erreur 403</div>
+      <div class="">
+        L'accès à ce document est interdit
+      </div>
+    </div>
+  </body>
+</html>

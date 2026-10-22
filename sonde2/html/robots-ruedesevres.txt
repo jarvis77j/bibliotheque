@@ -1,0 +1,28 @@
+User-agent : *
+Disallow : /connexion
+Disallow : /register
+Disallow : /oubli
+Disallow : /mentions-legales
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+Sitemap : https://www.editions-ruedesevres.fr/sitemap.xml

@@ -1,0 +1,71 @@
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: barkrowler
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+Disallow: /m/
+Disallow: /mobile/
+
+Disallow: /Catalogue/*(age)*
+Disallow: /Catalogue/*(genre)*
+Disallow: /Catalogue/*(auteur)*
+Disallow: /Catalogue/*(collection)*
+Disallow: /Catalogue/*(theme)*
+Disallow: /Catalogue/*(parution)*
+Disallow: /Catalogue/*(domaine)*
+Disallow: /Catalogue/*(sous-domaine)*
+Disallow: /Catalogue/*(numerique)*
+Disallow: /Catalogue/*(serie)*
+
+Allow : /css/
+Allow : /js/
+
+Disallow: /*(tri)*
+
+Sitemap: https://editions.flammarion.com/sitemap.xml
+Sitemap: https://www.jailu.com/sitemap.xml
+Sitemap: https://www.autrement.com/sitemap.xml
+Sitemap: https://www.editions-pygmalion.fr/sitemap.xml
+Sitemap: https://www.flammarion-jeunesse.fr/sitemap.xml
+Sitemap: https://www.arthaud.fr/sitemap.xml
+Sitemap: https://www.editionslatableronde.fr/sitemap.xml
+Sitemap: https://www.mercuredefrance.fr/sitemap.xml
+
+Disallow : /Catalogue/*(recherche)*
+Disallow : /Enseignants/S-identifier
+Disallow : /Enseignants/S-inscrire
+Disallow : /Enseignants/Mes-identifiants
+Disallow : /Enseignants/Mes-coordonnees
+Disallow : /Enseignants/S-identifier
+Disallow : /Enseignants/S-inscrire
+Disallow : /Enseignants/Mes-identifiants
+Disallow : /Enseignants/Mes-coordonnees
+
+Noindex : /Catalogue/*(recherche)*
+Noindex : /Enseignants/S-identifier
+Noindex : /Enseignants/S-inscrire
+Noindex : /Enseignants/Mes-identifiants
+Noindex : /Enseignants/Mes-coordonnees
+Noindex : /Enseignants/S-identifier
+Noindex : /Enseignants/S-inscrire
+Noindex : /Enseignants/Mes-identifiants
+Noindex : /Enseignants/Mes-coordonnees

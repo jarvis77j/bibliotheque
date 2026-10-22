@@ -1,0 +1,250 @@
+
+
+# ==============================================================================
+# 1. BOTS SEO TIERS 
+# ==============================================================================
+User-agent: barkrowler
+User-agent: MJ12bot
+User-agent: PiplBot
+User-agent: SemrushBot-BA
+User-agent: SemrushBot-OCOB
+User-agent: SemrushBot-SI
+User-agent: SemrushBot-SWA
+User-agent: SplitSignalBot
+User-agent: Yandex
+Disallow: /
+
+# ==============================================================================
+# 1 bis. BOTS IA / ENTRAINEMENT
+# ------------------------------------------------------------------------------
+# Blocages presents dans le robots.txt en place avant le 28/08/2026 et absents
+# du fichier transmis par Synerweb. Reintegres sur decision Delcourt : le
+# catalogue reste ferme aux crawlers d'entrainement.
+# Non repris volontairement :
+#   - "GPTBot/1.2" : jeton invalide (la version ne fait pas partie du product
+#     token), la ligne ne matchait rien ; "GPTBot" couvre le crawler.
+#   - "Google"     : jeton inexistant (le crawler est "Googlebot"), groupe mort.
+# ==============================================================================
+User-agent: GPTBot
+User-agent: anthropic-ai
+User-agent: Claude-Web
+User-agent: CCBot
+User-agent: Google-Extended
+Disallow: /
+
+# ==============================================================================
+# 2. GOOGLEBOT & BINGBOT 
+# ==============================================================================
+User-agent: Googlebot
+User-agent: Bingbot
+
+# --- Exception Recherche (Crawl autorisé -> Meta Noindex pris en compte) ---
+Allow: /recherche?
+
+# --- Exceptions Filtres (mots_cles et collection autorisés) ---
+Allow: /*?f[0]=mots_cles:*
+Allow: /*?f%5B0%5D=mots_cles%3A*
+Allow: /*?f[0]=collection:*
+Allow: /*?f%5B0%5D=collection%3A*
+
+# CSS, JS, Images
+Allow: /core/*.css$
+Allow: /core/*.css?
+Allow: /core/*.js$
+Allow: /core/*.js?
+Allow: /core/*.gif
+Allow: /core/*.jpg
+Allow: /core/*.jpeg
+Allow: /core/*.png
+Allow: /core/*.svg
+Allow: /profiles/*.css$
+Allow: /profiles/*.css?
+Allow: /profiles/*.js$
+Allow: /profiles/*.js?
+Allow: /profiles/*.gif
+Allow: /profiles/*.jpg
+Allow: /profiles/*.jpeg
+Allow: /profiles/*.png
+Allow: /profiles/*.svg
+# Directories
+Disallow: /core/
+Disallow: /profiles/
+# Files
+Disallow: /README.txt
+Disallow: /web.config
+# Paths (clean URLs)
+Disallow: /admin/
+Disallow: /comment/reply/
+Disallow: /filter/tips
+Disallow: /node/add/
+Disallow: /search/
+Disallow: /user/register/
+Disallow: /user/password/
+Disallow: /user/login/
+Disallow: /user/logout/
+# Paths (no clean URLs)
+Disallow: /index.php/admin/
+Disallow: /index.php/comment/reply/
+Disallow: /index.php/filter/tips
+Disallow: /index.php/node/add/
+Disallow: /index.php/search/
+Disallow: /index.php/user/password/
+Disallow: /index.php/user/register/
+Disallow: /index.php/user/login/
+Disallow: /index.php/user/logout/
+Disallow: /popup-public-averti
+Disallow: /recherche.html*
+
+# Blocage toutes URL contenant f%5B0%5D soit /*?f[0]=*
+Disallow: *f[0]=
+Disallow: *f%5B0%5D=
+
+# Blocage des facettes sur les filtres mots_cles et collection
+Disallow: /*?f[0]=mots_cles:*&*
+Disallow: /*?f%5B0%5D=mots_cles%3A*&*
+Disallow: /*?f[0]=collection:*&*
+Disallow: /*?f%5B0%5D=collection%3A*&*
+
+# Blocage tri nom ascendant - descendant
+Disallow: /*?sort_bef_combine=title_ASC*
+Disallow: /*?sort_bef_combine=title_DESC*
+
+# Blocage tri date ascendant - descendant
+Disallow: /*?sort_bef_combine=field_date_ASC*
+Disallow: /*?sort_bef_combine=field_date_DESC*
+
+# Formulaire de contact
+Disallow: /contact-0
+Disallow: /contact
+Disallow: /contact-confirmation
+
+# Espace librairie
+Disallow: /espace-librairie/*
+Disallow: /produit/*
+
+# Espace Cession
+Disallow: /espace-cession/*
+
+# Espace presse
+Disallow: /espace-presse/*
+
+# preview
+Disallow: /*/preview/*
+Disallow: /*?tag=All*
+Disallow: /pink-diary-integrale-t01-t02
+Disallow: /auteurs/3983
+Disallow: /auteurs/3667
+Disallow: /catalogue/3667*
+Disallow: /catalogue/377*
+Disallow: /auteurs/377*
+Disallow: /user/register
+Disallow: /user/editorial-0
+Disallow: /votre-espace-professionnel-sera-bientot-disponible
+
+# ==============================================================================
+# 3. AUTRES BOTS & CRAWLERS GENERIQUES
+# ==============================================================================
+User-agent: *
+
+# --- Recherche totalement bloquée au crawl pour le reste du web ---
+Disallow: /recherche?
+
+# --- Exceptions Filtres (mots_cles et collection autorisés) ---
+Allow: /*?f[0]=mots_cles:*
+Allow: /*?f%5B0%5D=mots_cles%3A*
+Allow: /*?f[0]=collection:*
+Allow: /*?f%5B0%5D=collection%3A*
+
+# CSS, JS, Images
+Allow: /core/*.css$
+Allow: /core/*.css?
+Allow: /core/*.js$
+Allow: /core/*.js?
+Allow: /core/*.gif
+Allow: /core/*.jpg
+Allow: /core/*.jpeg
+Allow: /core/*.png
+Allow: /core/*.svg
+Allow: /profiles/*.css$
+Allow: /profiles/*.css?
+Allow: /profiles/*.js$
+Allow: /profiles/*.js?
+Allow: /profiles/*.gif
+Allow: /profiles/*.jpg
+Allow: /profiles/*.jpeg
+Allow: /profiles/*.png
+Allow: /profiles/*.svg
+# Directories
+Disallow: /core/
+Disallow: /profiles/
+# Files
+Disallow: /README.txt
+Disallow: /web.config
+# Paths (clean URLs)
+Disallow: /admin/
+Disallow: /comment/reply/
+Disallow: /filter/tips
+Disallow: /node/add/
+Disallow: /search/
+Disallow: /user/register/
+Disallow: /user/password/
+Disallow: /user/login/
+Disallow: /user/logout/
+# Paths (no clean URLs)
+Disallow: /index.php/admin/
+Disallow: /index.php/comment/reply/
+Disallow: /index.php/filter/tips
+Disallow: /index.php/node/add/
+Disallow: /index.php/search/
+Disallow: /index.php/user/password/
+Disallow: /index.php/user/register/
+Disallow: /index.php/user/login/
+Disallow: /index.php/user/logout/
+Disallow: /popup-public-averti
+Disallow: /recherche.html*
+
+# Blocage toutes URL contenant f%5B0%5D soit /*?f[0]=*
+Disallow: *f[0]=
+Disallow: *f%5B0%5D=
+
+# Blocage des facettes sur les filtres mots_cles et collection
+Disallow: /*?f[0]=mots_cles:*&*
+Disallow: /*?f%5B0%5D=mots_cles%3A*&*
+Disallow: /*?f[0]=collection:*&*
+Disallow: /*?f%5B0%5D=collection%3A*&*
+
+# Blocage tri nom ascendant - descendant
+Disallow: /*?sort_bef_combine=title_ASC*
+Disallow: /*?sort_bef_combine=title_DESC*
+
+# Blocage tri date ascendant - descendant
+Disallow: /*?sort_bef_combine=field_date_ASC*
+Disallow: /*?sort_bef_combine=field_date_DESC*
+
+# Formulaire de contact
+Disallow: /contact-0
+Disallow: /contact
+Disallow: /contact-confirmation
+
+# Espace librairie
+Disallow: /espace-librairie/*
+Disallow: /produit/*
+
+# Espace Cession
+Disallow: /espace-cession/*
+
+# Espace presse
+Disallow: /espace-presse/*
+
+# preview
+Disallow: /*/preview/*
+Disallow: /*?tag=All*
+Disallow: /pink-diary-integrale-t01-t02
+Disallow: /auteurs/3983
+Disallow: /auteurs/3667
+Disallow: /catalogue/3667*
+Disallow: /catalogue/377*
+Disallow: /auteurs/377*
+Disallow: /user/register
+Disallow: /user/editorial-0
+Disallow: /votre-espace-professionnel-sera-bientot-disponible

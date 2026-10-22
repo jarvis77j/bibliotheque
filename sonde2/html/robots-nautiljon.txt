@@ -1,0 +1,504 @@
+# As a condition of accessing this website, you agree to abide by the following
+# content signals:
+
+# (a)  If a Content-Signal = yes, you may collect content for the corresponding
+#      use.
+# (b)  If a Content-Signal = no, you may not collect content for the
+#      corresponding use.
+# (c)  If the website operator does not include a Content-Signal for a
+#      corresponding use, the website operator neither grants nor restricts
+#      permission via Content-Signal with respect to the corresponding use.
+
+# The content signals and their meanings are:
+
+# search:   building a search index and providing search results (e.g., returning
+#           hyperlinks and short excerpts from your website's contents). Search does not
+#           include providing AI-generated search summaries.
+# ai-input: inputting content into one or more AI models (e.g., retrieval
+#           augmented generation, grounding, or other real-time taking of content for
+#           generative AI search answers).
+# ai-train: training or fine-tuning AI models.
+# use:      how AI systems may consume the content (immediate, reference, or full).
+
+# ANY RESTRICTIONS EXPRESSED VIA CONTENT SIGNALS ARE EXPRESS RESERVATIONS OF
+# RIGHTS UNDER ARTICLE 4 OF THE EUROPEAN UNION DIRECTIVE 2019/790 ON COPYRIGHT
+# AND RELATED RIGHTS IN THE DIGITAL SINGLE MARKET.
+
+# BEGIN Cloudflare Managed content
+
+
+User-agent: *
+Content-Signal: search=yes,ai-train=no,use=reference
+Allow: /
+
+# Training crawlers
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: omgili
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: MistralAI-Training
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: GoogleOther
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: AwarioSmartBot
+User-agent: AwarioRssBot
+Disallow: /
+
+User-agent: Google-CloudVertexBot
+Disallow: /
+
+User-agent: QualifiedBot
+Disallow: /
+
+User-agent: Cotoyogi
+Disallow: /
+
+User-agent: ICC-Crawler
+Disallow: /
+
+User-agent: atlassian-bot
+Disallow: /
+
+User-agent: FishBot
+Disallow: /
+
+User-agent: BorderxBot
+Disallow: /
+
+User-agent: NavuBot
+Disallow: /
+
+User-agent: SemrushBot-SWA
+Disallow: /
+
+User-agent: WARDBot
+Disallow: /
+
+User-agent: magpie-crawler
+Disallow: /
+
+User-agent: KimiBot
+Disallow: /
+
+User-agent: CitibotSiteCrawler
+Disallow: /
+
+# END Cloudflare Managed Content
+
+User-agent: RSiteAuditor
+User-agent: Amzn-SearchBot
+User-agent: Applebot-Extended
+User-agent: FacebookBot
+User-agent: meta-externalagent
+User-agent: meta-webindexer
+User-agent: Yandex
+User-agent: IbouBot
+User-agent: IbouBot
+User-agent: 008
+User-agent: ADmantX
+User-agent: AhrefsBot
+User-agent: Alexibot
+User-agent: ApocalXExplorerBot
+User-agent: asterias
+User-agent: BackDoorBot/1.0
+User-agent: BizInformation
+User-agent: Black Hole
+User-agent: BLEXBot
+User-agent: BlowFish/1.0
+User-agent: BotALot
+User-agent: BuiltBotTough
+User-agent: Bullseye/1.0
+User-agent: BunnySlippers
+User-agent: CCBot
+User-agent: Cegbfeieh
+User-agent: CheeseBot
+User-agent: CherryPicker
+User-agent: CherryPickerElite/1.0
+User-agent: CherryPickerSE/1.0
+User-agent: CopyRightCheck
+User-agent: cosmos
+User-agent: Crescent
+User-agent: Crescent Internet ToolPak HTTP OLE Control v.1.0
+User-agent: DISCo Pump 3.1
+User-agent: DittoSpyder
+User-agent: dotbot
+User-agent: EmailCollector
+User-agent: EmailSiphon
+User-agent: EmailWolf
+User-agent: EroCrawler
+User-agent: ExtractorPro
+User-agent: Flamingo_SearchEngine
+User-agent: Foobot
+User-agent: Harvest/1.5
+User-agent: hloader
+User-agent: httplib
+User-agent: HTTrack
+User-agent: HTTrack 3.0
+User-agent: humanlinks
+User-agent: Igentia
+User-agent: InfoNaviRobot
+User-agent: JennyBot
+User-agent: Kenjin Spider
+User-agent: LexiBot
+User-agent: libWeb/clsHTTP
+User-agent: LinkextractorPro
+User-agent: LinkScan/8.1a Unix
+User-agent: LinkWalker
+User-agent: lwp-trivial
+User-agent: lwp-trivial/1.34
+User-agent: Mata Hari
+User-agent: Microsoft URL Control - 5.01.4511
+User-agent: Microsoft URL Control - 6.00.8169
+User-agent: MIIxpc
+User-agent: MIIxpc/4.2
+User-agent: Mister PiX
+User-Agent: MJ12bot
+User-agent: MLBot
+User-agent: moget
+User-agent: moget/2.1
+User-agent: MS Search 4.0 Robot
+User-agent: MS Search 5.0 Robot
+User-agent: Naverbot
+User-agent: NetAnts
+User-agent: NetAttache
+User-agent: NetAttache Light 1.1
+User-agent: NetMechanic
+User-agent: NICErsPRO
+User-agent: Offline Explorer
+User-agent: Openfind
+User-agent: Openfind data gathere
+User-agent: ProPowerBot/2.14
+User-agent: ProWebWalker
+User-agent: psbot
+User-agent: QuepasaCreep
+User-agent: QueryN Metasearch
+User-agent: RepoMonkey
+User-agent: RepoMonkey Bait & Tackle/v1.01
+User-agent: RMA
+User-agent: SeznamBot
+User-agent: SightupBot
+User-agent: SightupBot
+User-agent: SiteBot
+User-agent: SiteSnagger
+User-agent: Sogou web spider
+User-agent: sosospider
+User-agent: SpankBot
+User-agent: spanner
+User-agent: Speedy
+User-agent: Speedy
+User-agent: suggybot
+User-agent: SuperBot
+User-agent: SuperBot/2.6
+User-agent: suzuran
+User-agent: Szukacz/1.4
+User-agent: Teleport
+User-agent: Telesoft
+User-agent: The Intraformant
+User-agent: TheNomad
+User-agent: TightTwatBot
+User-agent: Titan
+User-agent: toCrawl/UrlDispatcher
+User-agent: True_Robot
+User-agent: True_Robot/1.0
+User-agent: turingos
+User-agent: TurnitinBot
+User-agent: UrlPouls
+User-agent: URLy Warning
+User-agent: VCI
+User-agent: VCI WebViewer VCI WebViewer Win32
+User-agent: Web Image Collector
+User-agent: WebAuto
+User-agent: WebBandit
+User-agent: WebBandit/3.50
+User-agent: WebCopier
+User-agent: webcopy
+User-agent: WebEnhancer
+User-agent: weborama-fetcher
+User-agent: WebmasterWorldForumBot
+User-agent: webmirror
+User-agent: WebReaper
+User-agent: WebSauger
+User-agent: website extractor
+User-agent: Website Quester
+User-agent: Webster Pro
+User-agent: WebStripper
+User-agent: WebStripper/2.02
+User-agent: WebZip
+User-agent: WebZip/4.0
+User-agent: Wget
+User-agent: Wget/1.5.3
+User-agent: Wget/1.6
+User-agent: WikioFeedBot
+User-agent: wikiwix-bot-3.0
+User-agent: WinHTTrack
+User-agent: WWW-Collector-E
+User-agent: Xenu's
+User-agent: Xenu's Link Sleuth 1.1c
+User-agent: YRSPider
+User-agent: Zeus
+User-agent: .ai 
+User-agent: Agentic
+User-agent: AI Article Writer
+User-agent: AI Content Detector
+User-agent: AI Dungeon
+User-agent: AI Search Engine
+User-agent: AI SEO Crawler
+User-agent: AI Writer
+User-agent: AI21 Labs
+User-agent: AI2Bot
+User-agent: AIBot
+User-agent: AIMatrix
+User-agent: AISearchBot
+User-agent: AI Training
+User-agent: AITraining
+User-agent: Alexa
+User-agent: Alpha AI
+User-agent: AlphaAI
+User-agent: Amazon Bedrock
+User-agent: Amazon-Kendra
+User-agent: Amazon Lex
+User-agent: Amazon Comprehend
+User-agent: Amazon Sagemaker
+User-agent: Amazon Silk
+User-agent: Amazon Textract
+User-agent: AmazonBot
+User-agent: Amelia
+User-agent: AndersPinkBot
+User-agent: Anthropic
+User-agent: AnyPicker
+User-agent: Anyword
+User-agent: Aria Browse
+User-agent: Articoolo
+User-agent: Automated Writer
+User-agent: AwarioRssBot
+User-agent: AwarioSmartBot
+User-agent: Azure
+User-agent: BardBot
+User-agent: Brave Leo
+User-agent: ByteDance
+User-agent: Bytespider
+User-agent: CatBoost
+User-agent: CC-Crawler
+User-agent: CCBot
+User-agent: ChatGLM
+User-agent: Chinchilla
+User-agent: Claude
+User-agent: ClearScope
+User-agent: Cohere
+User-agent: Common Crawl
+User-agent: CommonCrawl
+User-agent: Content Harmony
+User-agent: Content King
+User-agent: Content Optimizer
+User-agent: Content Samurai
+User-agent: ContentAtScale
+User-agent: ContentBot
+User-agent: Contentedge
+User-agent: Conversion AI
+User-agent: Copilot
+User-agent: CopyAI
+User-agent: Copymatic
+User-agent: Copyscape
+User-agent: Cotoyogi
+User-agent: CrawlQ AI
+User-agent: Crawlspace
+User-agent: Crew AI
+User-agent: CrewAI
+User-agent: DALL-E
+User-agent: DataForSeoBot
+User-agent: DataProvider
+User-agent: DeepAI
+User-agent: DeepL
+User-agent: DeepMind
+User-agent: DeepSeek
+User-agent: Diffbot
+User-agent: Doubao AI
+User-agent: DuckAssistBot
+User-agent: Falcon
+User-agent: Firecrawl
+User-agent: Flyriver
+User-agent: Frase AI
+User-agent: FriendlyCrawler
+User-agent: Gemini
+User-agent: Gemma
+User-agent: GenAI
+User-agent: Genspark
+User-agent: GLM
+User-agent: Goose
+User-agent: GPT
+User-agent: Grammarly
+User-agent: Grendizer
+User-agent: Grok
+User-agent: GT Bot
+User-agent: GTBot
+User-agent: Hemingway Editor
+User-agent: Hugging Face
+User-agent: Hypotenuse AI
+User-agent: iaskspider
+User-agent: ICC-Crawler
+User-agent: ImageGen
+User-agent: ImagesiftBot
+User-agent: img2dataset
+User-agent: INK Editor
+User-agent: INKforall
+User-agent: IntelliSeek
+User-agent: Inferkit
+User-agent: ISSCyberRiskCrawler
+User-agent: JasperAI
+User-agent: Kafkai
+User-agent: Kangaroo
+User-agent: Keyword Density AI
+User-agent: Knowledge
+User-agent: KomoBot
+User-agent: LLaMA
+User-agent: LLMs
+User-agent: magpie-crawler
+User-agent: MarketMuse
+User-agent: Meltwater
+User-agent: Meta AI
+User-agent: Meta-AI
+User-agent: Meta-External
+User-agent: MetaAI
+User-agent: MetaTagBot
+User-agent: Mistral
+User-agent: Narrative
+User-agent: NeevaBot
+User-agent: Neural Text
+User-agent: NeuralSEO
+User-agent: Nova Act
+User-agent: OAI-SearchBot
+User-agent: Omgili
+User-agent: Open AI
+User-agent: OpenAI
+User-agent: OpenBot
+User-agent: OpenText AI
+User-agent: Operator
+User-agent: Outwrite
+User-agent: Page Analyzer AI
+User-agent: PanguBot
+User-agent: Paperlibot
+User-agent: Paraphraser.io
+User-agent: Perplexity
+User-agent: PetalBot
+User-agent: Phindbot
+User-agent: PiplBot
+User-agent: ProWritingAid
+User-agent: QuillBot
+User-agent: RobotSpider
+User-agent: Rytr
+User-agent: SaplingAI
+User-agent: Scalenut
+User-agent: Scraper
+User-agent: Scrapy
+User-agent: ScriptBook
+User-agent: SEO Content Machine
+User-agent: SEO Robot
+User-agent: Sentibot
+User-agent: Sidetrade
+User-agent: Simplified AI
+User-agent: Sitefinity
+User-agent: Skydancer
+User-agent: SlickWrite
+User-agent: Sonic
+User-agent: Spin Rewriter
+User-agent: Spinbot
+User-agent: Stability
+User-agent: StableDiffusionBot
+User-agent: Sudowrite
+User-agent: Super Agent
+User-agent: Surfer AI
+User-agent: Text Blaze
+User-agent: TextCortex
+User-agent: The Knowledge AI
+User-agent: Timpibot
+User-agent: Vidnami AI
+User-agent: Webzio
+User-agent: Whisper
+User-agent: WordAI
+User-agent: Wordtune
+User-agent: WormsGTP
+User-agent: WPBot
+User-agent: Writecream
+User-agent: WriterZen
+User-agent: Writescope
+User-agent: Writesonic
+User-agent: xAI
+User-agent: xBot
+User-agent: YouBot
+User-agent: Zero GTP
+User-agent: Zerochat
+User-agent: Zhipu
+User-agent: Zimm
+Disallow: /
+User-agent: Mediapartners-Google*
+Disallow:
+
+User-agent: *
+Disallow: /erreur.php
+Disallow: /inc/ajax/
+Disallow: /mangas/catalogue-
+Disallow: /people/nationalites/
+Disallow: /people/genres/
+Disallow: /animes/genres/
+Disallow: /mangas/genres/
+Disallow: /asian_movies/genres/
+Disallow: /dramas/genres/
+Disallow: /people/themes/
+Disallow: /animes/themes/
+Disallow: /mangas/themes/
+Disallow: /asian_movies/themes/
+Disallow: /dramas/themes/
+Disallow: /erreur.php
+Disallow: /animes/fansub/
+Disallow: /images/galerie/temp/
+Disallow: /voyage/
+Disallow: /drama1/
+Disallow: /site/amazon.php
+Disallow: /site/acheter.php
+Disallow: /site/redirect.php
+Disallow: /watashi/
+Disallow: /decouverte/*like=
+Disallow: /persos/?

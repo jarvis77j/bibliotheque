@@ -1,0 +1,428 @@
+{
+ "gallimard": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.gallimard.fr/",
+    "allowed": true,
+    "status": 200,
+    "len": 5421,
+    "challenge": false
+   },
+   {
+    "url": "https://www.gallimard.fr/A-paraitre",
+    "allowed": true,
+    "status": 200,
+    "len": 5421,
+    "challenge": false
+   }
+  ]
+ },
+ "flammarion": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://editions.flammarion.com/index.php/Catalogue/(parution)/a-paraitre",
+    "allowed": true,
+    "status": 200,
+    "len": 335096,
+    "challenge": false
+   }
+  ]
+ },
+ "jailu": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.jailu.com/",
+    "allowed": true,
+    "status": -1,
+    "len": 45,
+    "challenge": false
+   }
+  ]
+ },
+ "casterman": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.casterman.com/",
+    "allowed": true,
+    "status": 200,
+    "len": 145324,
+    "challenge": false
+   }
+  ]
+ },
+ "lisez": {
+  "robots": 202,
+  "pages": [
+   {
+    "url": "https://www.lisez.com/a-paraitre",
+    "allowed": false
+   },
+   {
+    "url": "https://www.lisez.com/nouveautes",
+    "allowed": false
+   }
+  ]
+ },
+ "pocket": {
+  "robots": 202,
+  "pages": [
+   {
+    "url": "https://www.pocket.fr/",
+    "allowed": false
+   }
+  ]
+ },
+ "harpercollins": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.harpercollins.fr/collections/a-paraitre",
+    "allowed": true,
+    "status": 200,
+    "len": 250930,
+    "challenge": true
+   },
+   {
+    "url": "https://www.harpercollins.fr/collections/a-paraitre?page=2",
+    "allowed": true,
+    "status": 200,
+    "len": 250930,
+    "challenge": true
+   }
+  ]
+ },
+ "actessud": {
+  "robots": 403,
+  "pages": [
+   {
+    "url": "https://actes-sud.fr/catalogue?page=1",
+    "allowed": false
+   },
+   {
+    "url": "https://actes-sud.fr/",
+    "allowed": false
+   }
+  ]
+ },
+ "edl": {
+  "robots": 403,
+  "pages": [
+   {
+    "url": "https://www.ecoledesloisirs.fr/catalogue/nouveautes/Nov/2026",
+    "allowed": false
+   },
+   {
+    "url": "https://www.ecoledesloisirs.fr/catalogue/nouveautes/Oct/2026?page=1",
+    "allowed": false
+   }
+  ]
+ },
+ "albinmichel": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.albin-michel.fr/a-paraitre",
+    "allowed": true,
+    "status": 200,
+    "len": 224071,
+    "challenge": false
+   },
+   {
+    "url": "https://www.albin-michel.fr/nouveautes",
+    "allowed": true,
+    "status": 200,
+    "len": 289617,
+    "challenge": false
+   }
+  ]
+ },
+ "michellafon": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.michel-lafon.fr/nos-livres?3049e819_page=1",
+    "allowed": true,
+    "status": 200,
+    "len": 114648,
+    "challenge": false
+   },
+   {
+    "url": "https://www.michel-lafon.fr/",
+    "allowed": true,
+    "status": 200,
+    "len": 68511,
+    "challenge": false
+   }
+  ]
+ },
+ "bragelonne": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.bragelonne.fr/a-paraitre/?page=1",
+    "allowed": true,
+    "status": 200,
+    "len": 111358,
+    "challenge": false
+   },
+   {
+    "url": "https://www.bragelonne.fr/a-paraitre/?page=2",
+    "allowed": true,
+    "status": 200,
+    "len": 53443,
+    "challenge": false
+   }
+  ]
+ },
+ "hugo": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.hugopublishing.fr/a-paraitre/?paged=1",
+    "allowed": true,
+    "status": 200,
+    "len": 109575,
+    "challenge": true
+   }
+  ]
+ },
+ "points": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.editionspoints.com/nouveautes",
+    "allowed": true,
+    "status": 200,
+    "len": 75168,
+    "challenge": true
+   }
+  ]
+ },
+ "manganews": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.manga-news.com/index.php/planning?p_year=2026&p_month=11&p_editor=",
+    "allowed": true,
+    "status": 200,
+    "len": 241636,
+    "challenge": true
+   },
+   {
+    "url": "https://www.manga-news.com/index.php/planning?p_year=2027&p_month=3&p_editor=&page=2",
+    "allowed": true,
+    "status": 200,
+    "len": 220265,
+    "challenge": true
+   }
+  ]
+ },
+ "bdgest": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.bdgest.com/sorties_bd",
+    "allowed": true,
+    "status": 200,
+    "len": 293585,
+    "challenge": false
+   },
+   {
+    "url": "https://www.bdgest.com/sorties_manga",
+    "allowed": true,
+    "status": 200,
+    "len": 313372,
+    "challenge": false
+   },
+   {
+    "url": "https://www.bdgest.com/sorties_comics",
+    "allowed": true,
+    "status": 200,
+    "len": 161279,
+    "challenge": false
+   },
+   {
+    "url": "https://www.bdgest.com/sorties_bd?DL=12%2F2026",
+    "allowed": true,
+    "status": 200,
+    "len": 98189,
+    "challenge": false
+   }
+  ]
+ },
+ "bedetheque": {
+  "robots": 200,
+  "pages": []
+ },
+ "dargaud": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.dargaud.com/bd-a-paraitre",
+    "allowed": true,
+    "status": 200,
+    "len": 50066,
+    "challenge": false
+   },
+   {
+    "url": "https://www.dargaud.com/bd-a-paraitre/12-2026",
+    "allowed": true,
+    "status": 200,
+    "len": 41777,
+    "challenge": false
+   }
+  ]
+ },
+ "kana": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.kana.fr/planning/?month_nb=12&year_nb=2026",
+    "allowed": true,
+    "status": 200,
+    "len": 41564,
+    "challenge": false
+   }
+  ]
+ },
+ "delcourt": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.editions-delcourt.fr/bd/a-paraitre-bandes-dessinees",
+    "allowed": true,
+    "status": 200,
+    "len": 845897,
+    "challenge": true
+   },
+   {
+    "url": "https://www.editions-delcourt.fr/mangas/a-paraitre-mangas",
+    "allowed": true,
+    "status": 200,
+    "len": 851885,
+    "challenge": true
+   }
+  ]
+ },
+ "soleil": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.editions-soleil.fr/bd/a-paraitre-bandes-dessinees",
+    "allowed": true,
+    "status": 200,
+    "len": 835908,
+    "challenge": true
+   }
+  ]
+ },
+ "dupuis": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.dupuis.com/catalogue/FR/parutions.html",
+    "allowed": true,
+    "status": 200,
+    "len": 165102,
+    "challenge": false
+   }
+  ]
+ },
+ "lombard": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.lelombard.com/bd/nouveautes",
+    "allowed": true,
+    "status": 200,
+    "len": 123484,
+    "challenge": true
+   }
+  ]
+ },
+ "fleurus": {
+  "robots": -1,
+  "pages": [
+   {
+    "url": "https://www.fleuruseditions.com/nouveautes-fleurus.html",
+    "allowed": false
+   }
+  ]
+ },
+ "ruedesevres": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.editions-ruedesevres.fr/",
+    "allowed": true,
+    "status": 200,
+    "len": 45477,
+    "challenge": false
+   }
+  ]
+ },
+ "bayard": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.bayard-editions.com/",
+    "allowed": true,
+    "status": 200,
+    "len": 394042,
+    "challenge": false
+   }
+  ]
+ },
+ "milan": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.editionsmilan.com/",
+    "allowed": true,
+    "status": 200,
+    "len": 407928,
+    "challenge": false
+   }
+  ]
+ },
+ "nautiljon": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.nautiljon.com/planning/manga/",
+    "allowed": true,
+    "status": 200,
+    "len": 1096984,
+    "challenge": false
+   }
+  ]
+ },
+ "kioon": {
+  "robots": 404,
+  "pages": [
+   {
+    "url": "https://ki-oon.com/planning",
+    "allowed": true,
+    "status": 200,
+    "len": 39350,
+    "challenge": false
+   }
+  ]
+ },
+ "rageot": {
+  "robots": 200,
+  "pages": [
+   {
+    "url": "https://www.rageot.fr/a-paraitre/",
+    "allowed": true,
+    "status": 200,
+    "len": 603016,
+    "challenge": true
+   }
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Vérification en cours</title>
+  <script id="anubis_version" type="application/json">"v1.27.0"
+</script><script id="anubis_challenge" type="application/json">{"rules":{"algorithm":"fast","difficulty":5},"challenge":{"issuedAt":"2026-10-22T09:51:17.827295807+02:00","metadata":{"User-Agent":"Mozilla/5.0 (compatible; MaBibliothequeBot/1.0; +https://jarvis77j.github.io/bibliotheque/)","X-Real-Ip":"20.169.94.67"},"id":"01a16297-cc43-73fe-8115-f8ce4ad44632","method":"fast","randomData":"5c320e9a3b9e69f625cabd46d072133547f82c6b411e42bd13319c5b70ca272e69f86cad98c5cfa4822fd4d3953e4433d251b3c1aa9f7cacf0df4b8802bd149c","policyRuleHash":"ac980f49c4d35fab","difficulty":5,"spent":false}}
+</script><script id="anubis_base_prefix" type="application/json">""
+</script><script id="anubis_public_url" type="application/json">""
+</script>
+  <link rel="stylesheet" href="/.within.website/x/cmd/anubis/static/css/custom.css">
+</head>
+<body>
+
+  <div class="bs-page">
+    <main class="bs-card">
+      <div class="bs-logo" style="background-image:url('/.within.website/x/cmd/anubis/static/img/logo.svg')" aria-hidden="true"></div>
+
+      <div class="bs-kicker">Vérification en cours…</div>
+
+      <p class="bs-text">
+        Nous vérifions que cette connexion ne provient pas d’un robot.<br>
+        Cette vérification peut prendre quelques secondes avant que vous accédiez au site.
+      </p>
+
+      <section class="bs-body">
+        <div class="bs-spinner" aria-hidden="true"></div>
+        <p class="bs-loader-label">Vérification en cours…</p>
+        <div class="bs-anubis-body">
+          <div class="centered-div"><p id="status">Chargement...</p><p id="anubis-script-error" style="display:none;">Anubis n&#39;a pas réussi à charger son code JavaScript. Le serveur est peut-être surchargé. Veuillez recharger la page pour réessayer.</p><script id="anubis-main" defer type="module" src="/.within.website/x/cmd/anubis/static/js/main.mjs?cacheBuster=v1.27.0"></script><script>/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this page.
+
+Copyright (c) 2026 Xe Iaso <xe.iaso@techaro.lol>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@licend  The above is the entire license notice
+for the JavaScript code in this page.
+
+## Rationale
+
+This script catches `main.mjs` failing to load and re-injects it with
+jittered exponential backoff.
+
+Without this any failures loading `main.mjs` leaves the challenge page
+sitting on the "Loading..." message forever with no error messaging
+outside of the browser console, which is unavailable on mobile browsers.
+
+Disable loading this script at your peril. You have been warned.
+*/
+(()=>{var f=(e,t=750,n=1e4)=>Math.random()*Math.min(n,t*Math.pow(e,2));var d=(e,t={},n=[])=>{let s=typeof e=="function"?e(t):Object.assign(document.createElement(e),t);return Array.isArray(n)||(n=[n]),s.append(...n),s};var i=e=>document.getElementById(e);var _=e=>e.map(i);(()=>{let e=i("anubis-main");if(!e){console.debug("can't find anubis main.mjs element via ID `anubis-main`, bailing");return}let t=e.getAttribute("src");if(!t){console.debug("can't find src attribute of script element `anubis-main`, bailing");return}let n=t.indexOf("?")===-1?"?":"&",s=4,E=750,A=1e4,c=1e4,a=0,l=0,u=()=>window.__anubisBooted===!0,p=()=>{let r=_(["anubis-script-error","status","progress"]);if(r.filter(D=>D==null).length!==0){console.debug("missing one of the following elements: anubis-script-error, status, progress. cannot proceed, bailing.");return}let[o,M,T]=r;o.style.display="block",M.style.display="none",T.style.display="none"},m=r=>()=>{if(u()||r!==l)return;if(l++,a++,a>s){p();return}let o=f(a,E,A);setTimeout(y,o)},y=()=>{if(u())return;let r=m(l),o=d("script",{async:!0,type:"module",src:t+n+"anubisRetry="+a,onerror:r});document.head.appendChild(o),setTimeout(r,c)},b=m(0);e.onerror=b,setTimeout(b,c)})();})();
+</script><div id="progress" role="progressbar" aria-labelledby="status"><div class="bar-inner"></div></div><div id="testarea"></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var status = document.getElementById("status");
+      if (status) {
+        status.textContent = "Vérification en cours…";
+      }
+    })();
+  </script>
+</body>
+</html>
