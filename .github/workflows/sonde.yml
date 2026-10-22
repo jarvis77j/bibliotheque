@@ -1,0 +1,34 @@
+name: sonde-editeurs
+on:
+  push:
+    branches: [sonde-editeurs]
+    paths: [".github/workflows/sonde.yml", "sonde/editeurs.py"]
+permissions:
+  contents: write
+jobs:
+  sonde:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pages brutes
+        run: |
+          mkdir -p sonde/html
+          UA="Mozilla/5.0 (compatible; MaBibliothequeBot/1.0; +https://jarvis77j.github.io/bibliotheque/)"
+          get() { curl -sSL -A "$UA" -H "Accept-Language: fr-FR,fr" -o "sonde/html/$1" -w "$1 %{http_code} %{size_download}\n" "$2" || true; sleep 3; }
+          get hachette-nouv-1.html https://www.hachette.fr/nouveautes/
+          get hachette-nouv-2.html https://www.hachette.fr/nouveautes/2/
+          get hachette-par-1.html https://www.hachette.fr/a-paraitre/
+          get hachette-par-2.html https://www.hachette.fr/paraitre/2/
+          get glenat-cat-1.html https://www.glenat.com/catalogue/
+          get glenat-cat-9.html https://www.glenat.com/catalogue/9/
+          get glenat-apar-1.html https://www.glenat.com/a-paraitre/
+          get seuil-apar-1.html "https://www.seuil.com/catalogue/a-paraitre?p=1"
+          get seuil-nouv-1.html "https://www.seuil.com/catalogue/nouveautes?p=1"
+          for f in hachette glenat seuil; do curl -sSL -A "$UA" "https://www.$f.$( [ $f = hachette ] && echo fr || echo com )/robots.txt" -o sonde/html/robots-$f.txt; done
+          ls -la sonde/html
+      - name: Prototype en vrai
+        run: python3 sonde/editeurs.py --out sonde/live.json --delay 3 > sonde/log.txt 2>&1 || true; tail -30 sonde/log.txt
+      - name: Garder le résultat
+        run: |
+          git config user.name "robot-sonde"; git config user.email "actions@github.com"
+          git add sonde && git commit -m "Sonde éditeurs : résultat" && git push
