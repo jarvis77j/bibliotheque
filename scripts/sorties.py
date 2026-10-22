@@ -161,6 +161,7 @@ def google_upcoming(lo, hi, stats):
     return out
 
 def main():
+    t_start = time.time()
     try:
         prev = json.load(open(OUT, encoding="utf-8"))
         old = {b["id"]: b for b in prev["books"]}
@@ -230,10 +231,13 @@ def main():
         try:
             sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
             import editeurs
-            ed, stats["editeurs"] = editeurs.collect(lo, hi)
+            # tout le robot en 35 minutes au plus (le job GitHub est coupé à 60) : les éditeurs ont ce qui reste
+            ed, stats["editeurs"] = editeurs.collect(lo, hi, end=min(t_start + 34 * 60, time.time() + 28 * 60))
             if any(isinstance(v, dict) and v.get("livres") for v in stats["editeurs"].values()):
                 ed_at = datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ")
-            ok = {s for s, v in stats["editeurs"].items() if isinstance(v, dict) and v.get("livres") and not v.get("erreurs")}
+            # sources lues en entier et sans erreur : leurs anciennes fiches sont remplacées par la nouvelle récolte
+            ok = {s for s, v in stats["editeurs"].items()
+                  if isinstance(v, dict) and v.get("livres") and not v.get("erreurs") and not v.get("incomplet")}
             old = {k: v for k, v in old.items() if not (k.startswith("ed:") and v.get("source", "").split(":")[-1] in ok)}
             if ed:
                 by_isbn = {b["isbn"]: b for b in [*old.values(), *books.values()] if b.get("isbn") and not b["id"].startswith("ed:")}
@@ -254,7 +258,15 @@ def main():
     stats["uniques"] = len(stats.get("uniques", ()))
     if ed_at: stats["editeurs_at"] = ed_at
     stats.update(listes=len(todo), lues=new, en_attente=skipped, plus_loin=max((b["date"] for b in books.values()), default=""))
-    keep = sorted((b for b in books.values() if lo <= b["date"] <= hi), key=lambda b: (b["date"], b["title"]))
+    keep = [b for b in books.values() if lo <= b["date"] <= hi]
+    try:  # même livre vu sur deux sites sans ISBN commun (manga, BD) : une seule fiche
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import editeurs
+        n0, keep = len(keep), editeurs.dedupe(keep)
+        stats["doublons"] = n0 - len(keep)
+    except Exception as e:
+        print("  doublons :", e, file=sys.stderr)
+    keep.sort(key=lambda b: (b["date"], b["title"]))
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     json.dump({"source": "leslibraires.fr", "updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ"), "stats": stats, "books": keep},
               open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=0)

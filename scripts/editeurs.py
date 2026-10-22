@@ -231,6 +231,41 @@ def card_to_book(c, base, source):
     }
 
 
+# ---- même livre lu sur deux sites sans ISBN commun (Nautiljon / Kana, bdgest / libraire…) : titre + date
+ED_MARKS = re.compile(r"\b(collector|limitee|deluxe|coffret|speciale|prestige|reliee|integrale|nb|noir et blanc|noir blanc|"
+                      r"luxe|variant|monarque|gourmande|perfect|double|poche|grand format|originale)\b")
+
+def title_keys(b):
+    """(clé exacte, clé série+tome) : « One Piece - Tome 112 », « One Piece T112 - Le titre » -> onepiecet112.
+    La clé courte garde les mentions d'édition (collector, intégrale…) pour ne pas mêler deux éditions."""
+    t = norm(b.get("title", ""))
+    t = re.sub(r"\b(?:tome|vol|volume|t)\s*0*(\d+)\b", r"t\1", t)
+    t = re.sub(r"^(?:l|le|la|les|the|un|une) ", "", t)
+    m = re.match(r"(.*?\bt\d+)\b(.*)$", t)
+    short = (m.group(1) + "".join(sorted(set(ED_MARKS.findall(m.group(2)))))) if m else t
+    return t.replace(" ", ""), short.replace(" ", "")
+
+def dedupe(books):
+    """Fusionne les fiches d'un même livre (même date, même titre, ISBN égaux ou absents d'un côté).
+    Garde la plus complète (ISBN, résumé, couverture) et y reporte ce qui lui manque. Renvoie la liste."""
+    def score(b):
+        return (8 if b.get("isbn") else 0) + (4 if b.get("description") else 0) + (2 if b.get("cover") else 0) + (1 if b.get("authors") else 0)
+    kept, index = [], {}
+    for b in sorted(books, key=score, reverse=True):
+        same = None
+        for k in title_keys(b):
+            for a in index.get((k, b.get("date", "")), []):
+                if not a.get("isbn") or not b.get("isbn") or a["isbn"] == b["isbn"]: same = a; break
+            if same: break
+        if same:
+            for f in ("authors", "cover", "description", "isbn", "kind", "rayons"):
+                if not same.get(f) and b.get(f): same[f] = b[f]
+            continue
+        kept.append(b)
+        for k in title_keys(b): index.setdefault((k, b.get("date", "")), []).append(b)
+    return kept
+
+
 class Fetcher:
     def __init__(self, delay, fixtures=None):
         self.delay, self.fixtures, self.last, self.n, self.bytes, self.errors = delay, fixtures, 0.0, 0, 0, 0
@@ -316,17 +351,40 @@ def details(fetch, books, n):
     return done
 
 
-def collect(lo, hi, delay=3.0, only="hachette,glenat,seuil"):
-    """Pour sorties.py : renvoie ({isbn: livre}, stats)."""
+MODULES = [("src_manga", 8), ("src_bd", 8), ("src_generale", 10)]  # (module, minutes au plus)
+
+def collect(lo, hi, delay=3.0, only="hachette,glenat,seuil", end=None):
+    """Pour sorties.py : renvoie ({isbn ou id: livre}, stats). end : heure limite de toute la récolte
+    (par défaut dans 28 minutes). Une source coupée par la limite est marquée "incomplet" : sorties.py garde
+    alors ses anciennes fiches au lieu de les remplacer par une liste tronquée."""
     fetch, allb, stats = Fetcher(delay), {}, {}
-    deadline = time.time() + 15 * 60
+    end = end or time.time() + 28 * 60
+    deadline = min(end, time.time() + 12 * 60)
     for s in only.split(","):
         t0, e0 = time.time(), fetch.errors
         try: got, pages = crawl(s, fetch, lo, hi, deadline=deadline)
         except Exception as e:
             stats[s] = "erreur : " + str(e); continue
         stats[s] = {"pages": pages, "livres": len(got), "secondes": round(time.time() - t0), "erreurs": fetch.errors - e0}
+        if time.time() > deadline: stats[s]["incomplet"] = True
         for k, b in got.items(): allb.setdefault(k, b)
+    # autres sources (chacune dans son module, avec sa propre limite de temps)
+    for mod, minutes in MODULES:
+        dl = min(end, time.time() + minutes * 60)
+        try:
+            m = __import__(mod)
+            got, st = m.collect(lo, hi, fetch, dl)
+        except Exception as e:
+            stats[mod] = "erreur : " + str(e)[:200]; continue
+        stats.update(st)
+        for b in got.values():
+            k = b.get("isbn") or b["id"]
+            if k in allb:  # même livre chez deux sources : on complète la première fiche
+                a = allb[k]
+                for f in ("authors", "cover", "description", "kind"):
+                    if not a.get(f) and b.get(f): a[f] = b[f]
+            else:
+                allb[k] = b
     stats["erreurs"] = fetch.errors
     return allb, stats
 
