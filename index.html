@@ -1872,6 +1872,7 @@ function render3D() {
 }
 
 /* ---------- Explorer : parcourir le catalogue par rayons ---------- */
+const shortDay = (d) => new Date(d + "T12:00").toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
 const NEW_KINDS = [["roman", "Romans"], ["policier", "Polar & thriller"], ["fantasy", "Fantasy & SF"], ["romance", "Romance"], ["ya", "Young adult"], ["bd", "BD"], ["manga", "Manga"], ["jeunesse", "Jeunesse"]];
 const EXPLORE_ROWS = [
   // 1) Nouveautés des 7 derniers jours (J-7 à aujourd'hui), un rayon par genre, tirées de la liste du robot
@@ -1928,7 +1929,7 @@ async function weekRows() {
     // un livre par jour, puis on recommence : les 7 jours sont représentés
     for (let n = 0; pick.length < 20 && days.some((d) => byDay[d][n]); n++) days.forEach((d) => { if (byDay[d][n] && pick.length < 20) pick.push(byDay[d][n]); });
     pick.sort((a, b) => b.date.localeCompare(a.date) || newScore(b) - newScore(a));
-    byKind[k] = pick.map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") }));
+    byKind[k] = pick.map((b) => ({ ...b, note: shortDay(b.date) + " · " + (b.authors[0] || "") }));
     pick.forEach((b) => releaseKeys(b).forEach((x) => shown.add(x)));
   }
   const all = new Set(); wb.forEach((b) => releaseKeys(b).forEach((x) => all.add(x)));
@@ -1948,7 +1949,7 @@ async function releasesForMe(genres, authors) {
   const mineOnly = (b) => b.authors.some((a) => names.has(plain(a))) || tomes.has(b) || kinds.has(newKindOf(b));
   return (all || []).filter((b) => b.date >= from && !isOwned(b, keys) && !releaseKeys(b).some((x) => seenInExplore.has(x)) && mineOnly(b))
     .sort((a, b) => ((tomes.has(b) ? 2 : 0) + (b.authors.some((x) => names.has(plain(x))) ? 1 : 0)) - ((tomes.has(a) ? 2 : 0) + (a.authors.some((x) => names.has(plain(x))) ? 1 : 0)) || a.date.localeCompare(b.date))
-    .slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") + (tomes.has(b) ? " · nouveau tome" : "") }));
+    .slice(0, 24).map((b) => ({ ...b, note: shortDay(b.date) + " · " + (b.authors[0] || "") + (tomes.has(b) ? " · nouveau tome" : "") }));
 }
 function personalRows(full) {
   if (!books.length) return [];
