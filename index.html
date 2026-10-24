@@ -1872,40 +1872,83 @@ function render3D() {
 }
 
 /* ---------- Explorer : parcourir le catalogue par rayons ---------- */
+const NEW_KINDS = [["roman", "Romans"], ["policier", "Polar & thriller"], ["fantasy", "Fantasy & SF"], ["romance", "Romance"], ["ya", "Young adult"], ["bd", "BD"], ["manga", "Manga"], ["jeunesse", "Jeunesse"]];
 const EXPLORE_ROWS = [
-  { key: "nouveautes", title: "Nouveautés de la semaine", fn: () => recentReleases() },
-  { title: "Romance", p: { genre: "romance" } },
-  { title: "Policier & thriller", p: { genre: "policier" } },
-  { title: "Fantasy", p: { genre: "fantasy" } },
-  { title: "Feel-good", p: { genre: "feelgood" } },
-  { title: "Horreur", p: { genre: "horreur" } },
-  { title: "Young adult", p: { genre: "ya" } },
-  { title: "Science-fiction", p: { genre: "sf" } },
+  // 1) Nouveautés des 7 derniers jours (J-7 à aujourd'hui), un rayon par genre, tirées de la liste du robot
+  ...NEW_KINDS.map(([k, l]) => ({ key: "new-" + k, title: "Nouveautés · " + l, week: k, fn: () => weekRow(k) })),
+  // 2) Recherches libres (sans date) : ce ne sont pas des nouveautés, et elles ne reprennent pas celles du dessus
+  { title: "Romance : les grands succès", p: { genre: "romance" }, noWeek: true },
+  { title: "Polar & thriller : à découvrir", p: { genre: "policier" }, noWeek: true },
+  { title: "Fantasy : les grands succès", p: { genre: "fantasy" }, noWeek: true },
+  { title: "Feel-good : à découvrir", p: { genre: "feelgood" }, noWeek: true },
+  { title: "Horreur : à découvrir", p: { genre: "horreur" }, noWeek: true },
+  { title: "Young adult : les grands succès", p: { genre: "ya" }, noWeek: true },
+  { title: "Science-fiction : à découvrir", p: { genre: "sf" }, noWeek: true },
   // Google range mal les BD françaises : on part de séries connues
-  { key: "bd", title: "BD", fn: () => famousSeries(["Astérix", "Les Vieux Fourneaux", "Blacksad", "Blake et Mortimer", "L'Arabe du futur", "Mortelle Adèle", "Les Cahiers d'Esther", "Lucky Luke"]), keep: ["bd1"] },
-  { key: "manga", title: "Manga", fn: () => famousSeries(["One Piece", "Spy x Family", "Demon Slayer", "L'Attaque des Titans", "Naruto", "Blue Lock", "Jujutsu Kaisen", "My Hero Academia"]), keep: ["manga1"] },
-  { title: "Grands classiques", p: { q: "classique littérature française" } },
+  { key: "bd", title: "BD : séries à connaître", noWeek: true, fn: () => famousSeries(["Astérix", "Les Vieux Fourneaux", "Blacksad", "Blake et Mortimer", "L'Arabe du futur", "Mortelle Adèle", "Les Cahiers d'Esther", "Lucky Luke"]), keep: ["bd1"] },
+  { key: "manga", title: "Manga : séries à connaître", noWeek: true, fn: () => famousSeries(["One Piece", "Spy x Family", "Demon Slayer", "L'Attaque des Titans", "Naruto", "Blue Lock", "Jujutsu Kaisen", "My Hero Academia"]), keep: ["manga1"] },
+  { title: "Grands classiques", p: { q: "classique littérature française" }, noWeek: true },
 ];
 /* Rayons faits pour elle, d'après sa bibliothèque : la suite de ses séries, les nouveautés de ses auteurs, son genre préféré */
 const ownedKeys = () => new Set(books.flatMap((b) => [b.id, editionKey(b), b.series && b.tome ? plain(b.series) + "#" + b.tome + "|" + lastName(b) : ""]));
 const isOwned = (r, keys) => keys.has(r.id) || keys.has(editionKey(r));
-/* Nouveautés : seulement les livres sortis entre J-7 et aujourd'hui (liste du robot), les plus récents d'abord */
-async function recentReleases() {
+/* Nouveautés : seulement les livres sortis entre J-7 et aujourd'hui (liste du robot), rangés par genre.
+   Pour chaque genre : les livres avec couverture, un jour après l'autre (pas seulement le plus récent),
+   les mieux renseignés (résumé, auteur, éditeur) d'abord. Un livre n'est que dans un seul genre. */
+const KIND_NORM = { sf: "fantasy", horreur: "policier", darkromance: "romance", romantasy: "romance", urban: "fantasy", feelgood: "roman", historique: "roman", lgbt: "roman" };
+function newKindOf(b) {
+  if (/manga/i.test((b.categories || b.rayons || []).join(" ")) || /Nautiljon|Manga-news/.test(b.source || "")) return "manga";
+  const k = b.kind || guessGenre(b.categories);
+  return KIND_NORM[k] || k;
+}
+const newScore = (b) => (b.description ? 3 + Math.min(2, b.description.length / 300) : 0) + (b.authors && b.authors.length ? 1 : 0) + (b.publisher ? 0.5 : 0) + (b.pages ? 0.3 : 0);
+const releaseKeys = (b) => [editionKey(b), b.isbn ? "isbn:" + b.isbn : ""].filter(Boolean);
+async function weekBooks() {
   const all = await loadReleases().catch(() => []);
   const from = isoDay(new Date(Date.now() - 7 * 864e5)), to = isoDay(new Date());
-  return (all || []).filter((b) => b.date >= from && b.date <= to && b.cover)
-    .sort((a, b) => b.date.localeCompare(a.date)).slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") }));
+  return (all || []).filter((b) => b.date >= from && b.date <= to);
 }
+/* { rangées par genre, clés de tous les livres de la semaine } — le même résultat pour tous les rayons de la page */
+let weekPick = null;
+async function weekRows() {
+  const wb = await weekBooks();
+  const sig = wb.length + "|" + (wb[0] || {}).id + "|" + (wb[wb.length - 1] || {}).id + "|" + today();
+  if (weekPick && weekPick.sig === sig) return weekPick;
+  const byKind = {}, shown = new Set(), used = new Set();
+  for (const [k] of NEW_KINDS) {
+    const byDay = {};
+    wb.filter((b) => b.cover && newKindOf(b) === k).forEach((b) => {
+      if (releaseKeys(b).some((x) => used.has(x))) return;
+      releaseKeys(b).forEach((x) => used.add(x));
+      (byDay[b.date] = byDay[b.date] || []).push(b);
+    });
+    const days = Object.keys(byDay).sort().reverse();
+    days.forEach((d) => byDay[d].sort((a, b) => newScore(b) - newScore(a)));
+    const pick = [];
+    // un livre par jour, puis on recommence : les 7 jours sont représentés
+    for (let n = 0; pick.length < 20 && days.some((d) => byDay[d][n]); n++) days.forEach((d) => { if (byDay[d][n] && pick.length < 20) pick.push(byDay[d][n]); });
+    pick.sort((a, b) => b.date.localeCompare(a.date) || newScore(b) - newScore(a));
+    byKind[k] = pick.map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") }));
+    pick.forEach((b) => releaseKeys(b).forEach((x) => shown.add(x)));
+  }
+  const all = new Set(); wb.forEach((b) => releaseKeys(b).forEach((x) => all.add(x)));
+  return (weekPick = { sig, byKind, shown, all });
+}
+const weekRow = async (k) => (await weekRows()).byKind[k] || [];
 /* Genre de la bibliothèque → rayon des sorties */
 const KIND_OF_GENRE = { darkromance: "romance", romantasy: "romance", urban: "fantasy", sf: "fantasy", horreur: "policier", feelgood: "roman", historique: "roman", lgbt: "roman" };
 async function releasesForMe(genres, authors) {
   const all = await loadReleases().catch(() => []);
   const kinds = new Set(genres.map((g) => KIND_OF_GENRE[g] || g));
   const names = new Set(authors.map(plain));
+  if (kinds.has("bd")) kinds.add("manga");
   const from = isoDay(new Date(Date.now() - 7 * 864e5)), keys = ownedKeys();
-  return (all || []).filter((b) => b.date >= from && !isOwned(b, keys) && (b.authors.some((a) => names.has(plain(a))) || kinds.has(b.kind || guessGenre(b.categories))))
-    .sort((a, b) => (b.authors.some((x) => names.has(plain(x))) ? 1 : 0) - (a.authors.some((x) => names.has(plain(x))) ? 1 : 0) || a.date.localeCompare(b.date))
-    .slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") }));
+  const seenInExplore = (await weekRows()).shown; // déjà proposé dans « Explorer » : on ne le répète pas ici
+  const tomes = new Set(newTomes(all));
+  const mineOnly = (b) => b.authors.some((a) => names.has(plain(a))) || tomes.has(b) || kinds.has(newKindOf(b));
+  return (all || []).filter((b) => b.date >= from && !isOwned(b, keys) && !releaseKeys(b).some((x) => seenInExplore.has(x)) && mineOnly(b))
+    .sort((a, b) => ((tomes.has(b) ? 2 : 0) + (b.authors.some((x) => names.has(plain(x))) ? 1 : 0)) - ((tomes.has(a) ? 2 : 0) + (a.authors.some((x) => names.has(plain(x))) ? 1 : 0)) || a.date.localeCompare(b.date))
+    .slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") + (tomes.has(b) ? " · nouveau tome" : "") }));
 }
 function personalRows(full) {
   if (!books.length) return [];
@@ -2115,13 +2158,14 @@ async function renderReleases() {
   if (!box || currentShelf !== "sorties") return;
   if (!all) { box.innerHTML = `<div class="ex-loading">Le catalogue ne répond pas. Réessaie dans un moment.</div>`; return; }
   let start, end;
-  if (relWeek === "j7") { start = new Date(Date.now() - 7 * 864e5); end = new Date(); }
+  const noon = (n) => { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + n); return d; };
+  if (relWeek === "j7") { start = noon(-7); end = noon(0); }
   else if (typeof relWeek === "string") { const [y, m] = relWeek.slice(1).split("-").map(Number); start = new Date(y, m - 1, 1, 12); end = new Date(y, m, 0, 12); }
   else { start = weekStart(relWeek); end = new Date(start.getTime() + 6 * 864e5); }
   // « Pour moi » : tout ce qui la concerne, des deux dernières semaines jusqu'à 6 mois
-  if (relMine) { start = new Date(Date.now() - 7 * 864e5); end = new Date(Date.now() + 186 * 864e5); }
+  if (relMine) { start = noon(-7); end = noon(186); }
   const keys = ownedKeys();
-  const cutoff = isoDay(new Date(Date.now() - 7 * 864e5));
+  const cutoff = isoDay(noon(-7));
   const fresh = newTomes(all), freshSet = new Set(fresh);
   updateTomeBadge(all);
   if (relMine) { settings.tomesVus = [...new Set([...(settings.tomesVus || []), ...fresh.map(tomeKey)])].slice(-500); saveSettings(); updateTomeBadge(all); }
@@ -2134,7 +2178,7 @@ async function renderReleases() {
   const perDay = {}; inRange.forEach((b) => (perDay[b.date] = (perDay[b.date] || 0) + 1));
   // rangée des jours, toujours visible en haut : toucher un jour fait descendre jusqu'à lui
   let strip = "";
-  for (let d = new Date(start); d <= end; d = new Date(d.getTime() + 864e5)) {
+  for (let d = new Date(start); d <= end; d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1, 12)) {
     const k = isoDay(d), n = perDay[k] || 0;
     if ((relMine && !n) || k < cutoff) continue;
     strip += `<button data-day="${k}" ${n ? "" : "disabled"}><span>${d.toLocaleDateString("fr-FR", relMine ? { month: "short" } : { weekday: "short" }).replace(".", "")}</span><b>${d.getDate()}</b><small>${n || "·"}</small></button>`;
@@ -2209,7 +2253,7 @@ async function renderReleases() {
     saveSettings(); renderReleases();
   }));
 }
-let exploreRows = EXPLORE_ROWS;
+let exploreRows = EXPLORE_ROWS, explorePageSeen = new Set(), exploreMine = false;
 const exploreCache = {};
 const RECO_KEY = STORE_KEY + ".reco2"; // changer le numéro vide le cache des rayons perso
 // les rayons « Pour toi » sont gardés 3 jours (ils sont refaits plus tôt si les livres changent)
@@ -2218,12 +2262,13 @@ let exploreObserver;
 function renderExplore(mine) {
   const el = $("#shelves");
   exploreRows = mine ? personalRows(true) : EXPLORE_ROWS;
+  explorePageSeen = new Set(); exploreMine = !!mine; // un même livre n'apparaît qu'une fois sur la page
   if (mine && !exploreRows.length) {
     el.innerHTML = `<div class="explore"><div class="empty-note">Range quelques livres dans ta bibliothèque : je te proposerai des lectures qui leur ressemblent.<br><button id="emptyAdd">Chercher un livre</button></div></div>`;
     $("#emptyAdd").onclick = openSearch; return;
   }
   el.innerHTML = `<div class="explore">
-    ${mine ? `<p class="rel-note" style="margin:4px 16px 0">Choisis d'après les genres, les auteurs et les séries de ta bibliothèque.</p>` : `<button class="ex-search" id="exSearch">🔎 Chercher un titre, un auteur, un ISBN…</button>`}
+    ${mine ? `<p class="rel-note" style="margin:4px 16px 0">Choisis d'après les genres, les auteurs et les séries de ta bibliothèque (sans reprendre les nouveautés d'Explorer).</p>` : `<button class="ex-search" id="exSearch">🔎 Chercher un titre, un auteur, un ISBN…</button><p class="rel-note" style="margin:4px 16px 0">Nouveautés de ces 7 derniers jours, genre par genre. Le calendrier complet est dans l'onglet Sorties.</p>`}
     ${exploreRows.map((r, i) => `<section class="ex-row ${r.sig || r.mine ? "mine" : ""}" data-row="${i}">
       <div class="ex-head"><h3>${esc(r.title)}</h3>${r.p ? `<button data-more="${i}">Tout voir</button>` : ""}</div>
       <div class="ex-list" id="exList${i}"><div class="ex-loading">Chargement…</div></div>
@@ -2261,7 +2306,7 @@ async function loadExploreRow(i) {
       const c = recoCache(), hit = c.rows[ck];
       if (hit && JSON.stringify(hit.sig) === JSON.stringify(sig)) exploreCache[ck] = hit.list;
     }
-    if (!exploreCache[ck]) {
+    if (!exploreCache[ck] || row.week) {
       let r = row.fn ? await row.fn() : await searchBooks(p);
       if (row.exclude) { const keys = ownedKeys(); r = r.filter((b) => !b.otherLang && !isOwned(b, keys)); }
       // les livres avec une vraie couverture d'abord ; sans couverture ni ISBN seulement s'il n'y a pas mieux
@@ -2270,10 +2315,16 @@ async function loadExploreRow(i) {
       exploreCache[ck] = (withCover.length >= 8 ? withCover : [...withCover, ...rest.filter((b) => b.isbn), ...rest.filter((b) => !b.isbn)]).slice(0, 24);
       if (sig && exploreCache[ck].length) { const c = recoCache(); c.rows[ck] = { sig, list: exploreCache[ck] }; try { localStorage.setItem(RECO_KEY, JSON.stringify(c)); } catch {} }
     }
-    const list = exploreCache[ck];
+    // pas de doublon sur la page : ni les nouveautés de la semaine (rayons libres), ni ce qu'Explorer montre (Pour toi), ni un livre déjà affiché plus haut
+    const banned = row.noWeek ? (await weekRows()).all : exploreMine ? (await weekRows()).shown : null;
+    const list = exploreCache[ck].filter((b) => {
+      const ks = releaseKeys(b);
+      if (ks.some((x) => explorePageSeen.has(x) || (banned && banned.has(x)))) return false;
+      ks.forEach((x) => explorePageSeen.add(x)); return true;
+    });
     const target = document.getElementById("exList" + i);
     if (!target) return;
-    if (!list.length && (row.key === "suite" || row.key === "sortiesmoi")) { target.closest(".ex-row").remove(); return; } // rien qui manque : on cache le rayon
+    if (!list.length && (row.key === "suite" || row.key === "sortiesmoi" || row.week)) { target.closest(".ex-row").remove(); return; } // rien qui manque : on cache le rayon
     target.innerHTML = list.length ? list.map((b, j) => `<button class="ex-card" data-i="${j}">
         <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
         <span>${esc(b.title)}</span><small>${esc(b.note || (row.year && b.date ? b.date.slice(0, 4) + " · " : "") + (b.authors[0] || ""))}</small>
