@@ -337,17 +337,19 @@ def crawl(source, fetch, lo, hi, max_pages=100, deadline=None):
     return books, pages
 
 
-def details(fetch, books, n):
-    """Fiche Hachette : og:image (couverture) et og:description (début du résumé)."""
-    done = 0
-    for b in books.values():
-        if done >= n: break
-        if b["cover"] or not b["source"].endswith("hachette"): continue
+def details(fetch, books, n, deadline=None):
+    """Fiche Hachette : og:image (couverture) et og:description (début du résumé), pour les fiches
+    qui n'ont pas l'un des deux, les sorties les plus proches d'aujourd'hui d'abord."""
+    done, today = 0, time.strftime("%Y-%m-%d")
+    near = lambda b: abs((date.fromisoformat(b["date"]) - date.fromisoformat(today)).days) if b.get("date") else 9999
+    for b in sorted(books.values(), key=near):
+        if done >= n or (deadline and time.time() > deadline): break
+        if (b["cover"] and b["description"]) or not b["source"].endswith("hachette"): continue
         page = fetch.get(b["url"], "detail-" + b["isbn"]); done += 1
         m = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', page)
-        if m and "indisponible" not in m.group(1): b["cover"] = html.unescape(m.group(1))
+        if m and not b["cover"] and "indisponible" not in m.group(1): b["cover"] = html.unescape(m.group(1))
         m = re.search(r'<meta[^>]+(?:property="og:description"|name="description")[^>]+content="([^"]*)"', page)
-        if m: b["description"] = html.unescape(m.group(1))[:1500]
+        if m and not b["description"]: b["description"] = html.unescape(m.group(1))[:1500]
     return done
 
 
@@ -385,6 +387,8 @@ def collect(lo, hi, delay=3.0, only="hachette,glenat,seuil", end=None):
                     if not a.get(f) and b.get(f): a[f] = b[f]
             else:
                 allb[k] = b
+    try: stats["fiches_lues"] = details(fetch, allb, 60, min(end, time.time() + 4 * 60))  # résumés Hachette manquants
+    except Exception as e: stats["fiches_lues"] = "erreur : " + str(e)[:100]
     stats["erreurs"] = fetch.errors
     return allb, stats
 

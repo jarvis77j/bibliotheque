@@ -268,14 +268,18 @@ def main():
             # sources lues en entier et sans erreur : leurs anciennes fiches sont remplacées par la nouvelle récolte
             ok = {s for s, v in stats["editeurs"].items()
                   if isinstance(v, dict) and v.get("livres") and not v.get("erreurs") and not v.get("incomplet")}
+            gone = {k: v for k, v in old.items() if k.startswith("ed:") and v.get("source", "").split(":")[-1] in ok}
             old = {k: v for k, v in old.items() if not (k.startswith("ed:") and v.get("source", "").split(":")[-1] in ok)}
             if ed:
                 by_isbn = {b["isbn"]: b for b in [*old.values(), *books.values()] if b.get("isbn") and not b["id"].startswith("ed:")}
                 for isbn, b in ed.items():
                     same = by_isbn.get(isbn)
-                    if same:  # déjà chez le libraire : on complète seulement la couverture
-                        if not same.get("cover") and b.get("cover"): same["cover"] = b["cover"]
+                    if same:  # déjà chez le libraire : on complète ce qui manque (couverture, auteurs, résumé)
+                        for f in ("cover", "authors", "description"):
+                            if not same.get(f) and b.get(f): same[f] = b[f]
                         continue
+                    for f in ("cover", "authors", "description"):  # acquis d'une récolte précédente (fiches lues, cache)
+                        if not b.get(f) and gone.get(b["id"], {}).get(f): b[f] = gone[b["id"]][f]
                     books[b["id"]] = b
         except Exception as e:
             stats["editeurs"] = "erreur : " + str(e)

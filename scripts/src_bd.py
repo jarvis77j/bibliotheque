@@ -167,7 +167,8 @@ def parse_bdgest(page, y, m, cat):
             authors = [person(x) for x in re.split(r"\s*/\s*", smalls[-1])] if smalls else []
             out.append({"aid": aid, "series": disp_series, "tome": str(int(tome)) if tome.isdigit() else "", "album": album,
                         "title": title, "date": d, "publisher": clean(ed.group(1)) if ed else "",
-                        "cover": img.group(1) if img else "", "authors": authors,
+                        "cover": re.sub(r"/cache/thb_couv/(Couv_\d+\.jpg)$", r"/media/Couvertures/\1", img.group(1)) if img else "",  # grande couverture (celle des fiches) ; vignette sinon
+                        "authors": authors,
                         "url": a.group(1) if a else f"https://www.bdgest.com/sorties_{cat}", "cat": cat})
     return out
 
@@ -494,13 +495,14 @@ def collect(lo, hi, fetch, deadline):
         if names: b["authors"] = list(dict.fromkeys(names))[:3]
 
     for b in [b for b in books.values() if b.get("_aid")]:
+        if cache.get("d:" + b["_aid"]) and not b.get("description"): b["description"] = cache["d:" + b["_aid"]]
         if cache.get("a:" + b["_aid"]): set_authors(b, cache["a:" + b["_aid"]].split("|"))
         if EAN_RE.fullmatch(cache.get(b["_aid"], "")): set_isbn(b, cache[b["_aid"]])
     # à lire : sorties proches sans ISBN, ou dont on n'a pas encore les noms complets des auteurs
     # les plus proches d'aujourd'hui d'abord (avant comme après)
     near = lambda b: abs((date.fromisoformat(b["date"]) - date.fromisoformat(today)).days)
     todo = sorted((b for b in books.values() if b.get("_aid")
-                   and ((not b["isbn"] and b["date"] >= soon and not cache.get(b["_aid"], "-0000")[1:] > retry) or "a:" + b["_aid"] not in cache)),
+                   and ((not b["isbn"] and b["date"] >= soon and not cache.get(b["_aid"], "-0000")[1:] > retry) or "a:" + b["_aid"] not in cache or "d:" + b["_aid"] not in cache)),
                   key=near)[:FICHES]
     found = 0
     for b in todo:
@@ -512,6 +514,8 @@ def collect(lo, hi, fetch, deadline):
                  for n in re.findall(r'itemprop="(?:author|illustrator)"[^>]*>([^<]{2,60})<', page)]
         cache["a:" + b["_aid"]] = "|".join(dict.fromkeys(html.unescape(n).strip() for n in names))
         set_authors(b, [n for n in cache["a:" + b["_aid"]].split("|") if n])
+        dm = re.search(r'itemprop="description">([^<]{20,})', page)  # résumé de la fiche
+        cache["d:" + b["_aid"]] = clean(dm.group(1))[:1500] if dm else ""
         m = re.search(r'id="EAN" value="(97[89]\d{10})"', page)
         if not b["isbn"]: cache[b["_aid"]] = m.group(1) if m else "-" + today
         if m and not b["isbn"]: found += 1; set_isbn(b, m.group(1))
