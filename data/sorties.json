@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-24T18:05Z",
+"updated": "2026-10-24T18:17Z",
 "stats": {
 "precommandes": [
 12,
@@ -45,158 +45,12 @@
 "roman": "/dossiers/nouveautes-25-113534/"
 },
 "uniques": 189,
-"editeurs": {
-"hachette": {
-"pages": 129,
-"livres": 1443,
-"secondes": 384,
-"erreurs": 0
-},
-"glenat": {
-"pages": 22,
-"livres": 299,
-"secondes": 67,
-"erreurs": 0
-},
-"seuil": {
-"pages": 10,
-"livres": 109,
-"secondes": 30,
-"erreurs": 0
-},
-"nautiljon": {
-"pages": 9,
-"livres": 1672,
-"secondes": 27,
-"erreurs": 0
-},
-"manganews": {
-"pages": 95,
-"livres": 279,
-"completes": 1428,
-"ecartes": 10,
-"lus": 1717,
-"secondes": 288,
-"erreurs": 0
-},
-"bdgest": {
-"pages": 16,
-"livres": 582,
-"secondes": 47,
-"erreurs": 0,
-"rapproches": 128
-},
-"dargaud": {
-"pages": 6,
-"livres": 44,
-"secondes": 18,
-"erreurs": 0
-},
-"delcourt": {
-"pages": 9,
-"livres": 97,
-"secondes": 27,
-"erreurs": 0
-},
-"soleil": {
-"pages": 5,
-"livres": 40,
-"secondes": 15,
-"erreurs": 0
-},
-"lombard": {
-"pages": 2,
-"livres": 37,
-"secondes": 7,
-"erreurs": 0
-},
-"kana": {
-"pages": 8,
-"livres": 110,
-"secondes": 24,
-"erreurs": 0
-},
-"casterman": {
-"pages": 1,
-"livres": 32,
-"secondes": 13,
-"erreurs": 0
-},
-"ruedesevres": {
-"pages": 1,
-"livres": 13,
-"secondes": 2,
-"erreurs": 0
-},
-"dupuis": {
-"pages": 1,
-"livres": 14,
-"secondes": 4,
-"erreurs": 0
-},
-"bedetheque": {
-"pages": 60,
-"livres": 0,
-"secondes": 178,
-"erreurs": 0,
-"isbn_trouves": 42
-},
-"michellafon": {
-"pages": 38,
-"livres": 38,
-"secondes": 114,
-"erreurs": 0
-},
-"jailu": {
-"pages": 1,
-"livres": 70,
-"secondes": 4,
-"erreurs": 0
-},
-"bragelonne": {
-"pages": 1,
-"livres": 0,
-"secondes": 3,
-"erreurs": 0
-},
-"albinmichel": {
-"pages": 2,
-"livres": 45,
-"secondes": 6,
-"erreurs": 0
-},
-"hugo": {
-"pages": 24,
-"livres": 15,
-"secondes": 73,
-"erreurs": 0
-},
-"points": {
-"pages": 6,
-"livres": 46,
-"secondes": 18,
-"erreurs": 0
-},
-"bayard": {
-"pages": 5,
-"livres": 57,
-"secondes": 14,
-"erreurs": 0
-},
-"milan": {
-"pages": 5,
-"livres": 43,
-"secondes": 15,
-"erreurs": 0
-},
-"erreurs": 0
-},
-"editeurs_at": "2026-10-24T18:05Z",
+"editeurs_at": "2026-10-24T17:32Z",
 "listes": 510,
 "lues": 0,
 "en_attente": 0,
 "plus_loin": "2027-04-23",
-"doublons": 89
+"doublons": 0
 },
 "books": [
 {
@@ -2675,7 +2529,7 @@
 },
 {
 "id": "ed:bdgest:542642",
-"title": "1944 - Tome 6 - Point final",
+"title": "Tome 6 - Point final",
 "authors": [
 "Vergne"
 ],
@@ -8021,7 +7875,7 @@
 },
 {
 "id": "ed:9782387032560",
-"title": "14-14",
+"title": "14",
 "authors": [
 "Paul Beorn",
 "Silène Edgar"
@@ -14131,7 +13985,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "1,2,3, te voilà !",
+"title": "2,3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -17331,24 +17185,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782382883488",
-"title": "100 - Tome 3",
-"authors": [],
-"publisher": "Kbooks",
-"date": "2026-09-03",
-"isbn": "9782382883488",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:bdgest:544056",
 "title": "Cassidy - Tome 7 - Un pacte Criminel",
 "authors": [
@@ -18139,6 +17975,24 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/taro+miyao+adopte+un+chat+-!/volume-3,1015167.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782382883488",
+"title": "Tome 3",
+"authors": [],
+"publisher": "Kbooks",
+"date": "2026-09-03",
+"isbn": "9782382883488",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -32379,7 +32233,7 @@
 },
 {
 "id": "ed:bdgest:545606",
-"title": "14-14",
+"title": "14",
 "authors": [
 "L'Hermenier",
 "Hamo"
@@ -65828,7 +65682,7 @@
 },
 {
 "id": "ed:9782492463501",
-"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
+"title": "2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -71873,7 +71727,7 @@
 "Le monde de Minecraft"
 ],
 "url": "https://www.leslibraires.fr/livre/26545934-le-monde-de-minecraft-mojang-studios-mana-books",
-"kind": "bd"
+"kind": ""
 },
 {
 "id": "ll:26574363",
@@ -74295,27 +74149,6 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26539192-entre-ici-jean-moulin-et-autres-discours-sur-la-resistance-andre-malraux-folio",
 "kind": "roman"
-},
-{
-"id": "ed:9782344072455",
-"title": "1629, ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
-"authors": [
-"Xavier Dorison",
-"Thimothée Montaigne"
-],
-"publisher": "Glénat",
-"date": "2026-11-12",
-"isbn": "9782344072455",
-"pages": 0,
-"format": "",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
-"description": "",
-"rayons": [
-"BD Aventure, western et polar"
-],
-"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
-"kind": "bd",
-"source": "editeur:glenat"
 },
 {
 "id": "ed:9782709677486",
@@ -77276,6 +77109,27 @@
 "url": "https://www.nautiljon.com/mangas/yoridori+bitch/volume-1,1030035.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782344072455",
+"title": "ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
+"authors": [
+"Xavier Dorison",
+"Thimothée Montaigne"
+],
+"publisher": "Glénat",
+"date": "2026-11-12",
+"isbn": "9782344072455",
+"pages": 0,
+"format": "",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
+"description": "",
+"rayons": [
+"BD Aventure, western et polar"
+],
+"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
+"kind": "bd",
+"source": "editeur:glenat"
 },
 {
 "id": "ed:9791043311192",
