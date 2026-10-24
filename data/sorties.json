@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-24T19:32Z",
+"updated": "2026-10-24T20:59Z",
 "stats": {
 "precommandes": [
 12,
@@ -49,11 +49,11 @@
 "libraire": {
 "pages_listes": 71,
 "echecs": 0,
-"secondes_listes": 361,
-"pages": 150,
-"reprises": 1,
-"fiches_lues": 49,
-"secondes": 756,
+"secondes_listes": 351,
+"pages": 104,
+"reprises": 0,
+"fiches_lues": 3,
+"secondes": 516,
 "statut": "ok"
 },
 "suivi": {
@@ -88,17 +88,13 @@
 "echecs": 0
 },
 "src_generale": {
-"dernier_essai": "2026-10-24T19:11Z",
-"secondes_complet": 166,
-"echecs": 1
+"dernier_essai": "2026-10-24T20:54Z",
+"secondes_complet": 304,
+"echecs": 0,
+"dernier_complet": "2026-10-24T20:54Z"
 }
 },
 "plan": [
-"hachette:complet",
-"glenat:complet",
-"seuil:complet",
-"src_manga:complet",
-"src_bd:complet",
 "src_generale:complet"
 ],
 "editeurs": {
@@ -305,7 +301,7 @@
 "michellafon": {
 "pages": 38,
 "livres": 38,
-"secondes": 114,
+"secondes": 111,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -313,7 +309,7 @@
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z"
+"le": "2026-10-24T20:59Z"
 },
 "jailu": {
 "pages": 1,
@@ -326,7 +322,7 @@
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z"
+"le": "2026-10-24T20:59Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -339,7 +335,7 @@
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z"
+"le": "2026-10-24T20:59Z"
 },
 "albinmichel": {
 "pages": 2,
@@ -352,65 +348,60 @@
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z"
+"le": "2026-10-24T20:59Z"
 },
 "hugo": {
-"pages": 13,
+"pages": 24,
 "livres": 15,
-"secondes": 40,
+"secondes": 72,
 "erreurs": 0,
-"incomplet": true,
-"statut": "incomplet",
+"statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z"
+"le": "2026-10-24T20:59Z"
 },
 "points": {
-"pages": 0,
-"livres": 0,
-"secondes": 0,
+"pages": 26,
+"livres": 46,
+"secondes": 80,
 "erreurs": 0,
-"note": "échéance atteinte",
-"statut": "vide",
+"statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z"
+"le": "2026-10-24T20:59Z"
 },
 "bayard": {
-"pages": 0,
-"livres": 0,
-"secondes": 0,
+"pages": 5,
+"livres": 54,
+"secondes": 15,
 "erreurs": 0,
-"note": "échéance atteinte",
-"statut": "vide",
+"statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z"
+"le": "2026-10-24T20:59Z"
 },
 "milan": {
-"pages": 0,
-"livres": 0,
-"secondes": 0,
+"pages": 5,
+"livres": 41,
+"secondes": 13,
 "erreurs": 0,
-"note": "échéance atteinte",
-"statut": "vide",
+"statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z"
+"le": "2026-10-24T20:59Z"
 },
-"fiches_lues": 0,
 "conflits_dates": {
 "nombre": 11,
 "exemples": [
@@ -505,40 +496,30 @@
 ],
 "le": "2026-10-24T19:32Z"
 },
+"fiches_lues": 0,
 "erreurs": 0
 },
-"secondes_editeurs": 1287,
+"secondes_editeurs": 304,
 "dates_relues": {
 "fiches": 30,
 "changees": []
 },
-"ecarts_libraire": {
-"nombre": 1,
-"exemples": [
-{
-"isbn": "9782413092117",
-"titre": "Les légendaires - Résistance - Tome 6 - ",
-"libraire": "2026-10-22",
-"editeur:bdgest": "2026-10-21"
-}
-]
-},
-"editeurs_at": "2026-10-24T19:32Z",
+"editeurs_at": "2026-10-24T20:59Z",
 "listes": 562,
-"lues": 49,
+"lues": 3,
 "en_attente": 0,
 "plus_loin": "2027-04-23",
-"nettoyes": 2,
-"doublons": 131,
+"nettoyes": 0,
+"doublons": 0,
 "sources": {
 "leslibraires": {
 "pages_listes": 71,
 "echecs": 0,
-"secondes_listes": 361,
-"pages": 150,
-"reprises": 1,
-"fiches_lues": 49,
-"secondes": 756,
+"secondes_listes": 351,
+"pages": 104,
+"reprises": 0,
+"fiches_lues": 3,
+"secondes": 516,
 "statut": "ok",
 "livres": 574
 },
@@ -756,14 +737,14 @@
 "statut": "ok",
 "livres": 38,
 "pages": 38,
-"secondes": 114,
+"secondes": 111,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z",
+"le": "2026-10-24T20:59Z",
 "en_base": 35
 },
 "jailu": {
@@ -777,7 +758,7 @@
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z",
+"le": "2026-10-24T20:59Z",
 "en_base": 61
 },
 "bragelonne": {
@@ -791,7 +772,7 @@
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z",
+"le": "2026-10-24T20:59Z",
 "en_base": 0
 },
 "albinmichel": {
@@ -805,68 +786,67 @@
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z",
+"le": "2026-10-24T20:59Z",
 "en_base": 45
 },
 "hugo": {
-"statut": "incomplet",
+"statut": "ok",
 "livres": 15,
-"pages": 13,
-"secondes": 40,
+"pages": 24,
+"secondes": 72,
 "erreurs": 0,
-"incomplet": true,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z",
+"le": "2026-10-24T20:59Z",
 "en_base": 15
 },
 "points": {
-"statut": "vide",
-"livres": 0,
-"pages": 0,
-"secondes": 0,
+"statut": "ok",
+"livres": 46,
+"pages": 26,
+"secondes": 80,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z",
+"le": "2026-10-24T20:59Z",
 "en_base": 46
 },
 "bayard": {
-"statut": "vide",
-"livres": 0,
-"pages": 0,
-"secondes": 0,
+"statut": "ok",
+"livres": 54,
+"pages": 5,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z",
+"le": "2026-10-24T20:59Z",
 "en_base": 54
 },
 "milan": {
-"statut": "vide",
-"livres": 0,
-"pages": 0,
-"secondes": 0,
+"statut": "ok",
+"livres": 41,
+"pages": 5,
+"secondes": 13,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-04-28"
 ],
-"le": "2026-10-24T19:32Z",
+"le": "2026-10-24T20:59Z",
 "en_base": 41
 }
 },
-"duree_secondes": 2044
+"duree_secondes": 821
 },
 "books": [
 {
@@ -3244,7 +3224,7 @@
 },
 {
 "id": "ed:bdgest:542642",
-"title": "1944 - Tome 6 - Point final",
+"title": "Tome 6 - Point final",
 "authors": [
 "Vergne"
 ],
@@ -8550,7 +8530,7 @@
 },
 {
 "id": "ed:9782387032560",
-"title": "14-14",
+"title": "14",
 "authors": [
 "Paul Beorn",
 "Silène Edgar"
@@ -14565,7 +14545,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "1,2,3, te voilà !",
+"title": "2,3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -17700,24 +17680,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782382883488",
-"title": "100 - Tome 3",
-"authors": [],
-"publisher": "Kbooks",
-"date": "2026-09-03",
-"isbn": "9782382883488",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:bdgest:544056",
 "title": "Cassidy - Tome 7 - Un pacte Criminel",
 "authors": [
@@ -18508,6 +18470,24 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/taro+miyao+adopte+un+chat+-!/volume-3,1015167.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782382883488",
+"title": "Tome 3",
+"authors": [],
+"publisher": "Kbooks",
+"date": "2026-09-03",
+"isbn": "9782382883488",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -23769,10 +23749,13 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041430178/petite/162810_couverture_Hres_0.jpg",
 "description": "L'exilé de Guernesey, Edouard Launet : Depuis près d’un demi-siècle, Édouard Launet entreprend, à la voile, une exploration exhaustive des îles et ca...",
-"rayons": [],
+"rayons": [
+"Points Aventure"
+],
 "url": "https://www.editionspoints.com/ouvrage/l-exile-de-guernesey-edouard-launet/9791041430178",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:bdgest:541933",
@@ -24088,10 +24071,13 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041430338/petite/162955_couverture_Hres_0.jpg",
 "description": "Repousser les limites, Patrice Franceschi, Sylvain Tesson, Laurent Ballesta, Jean-Louis Etienne, Luc-Henri Fage, Philippe Frey, Sabrina Krief, Bertrand PICCA...",
-"rayons": [],
+"rayons": [
+"Points Aventure"
+],
 "url": "https://www.editionspoints.com/ouvrage/repousser-les-limites-patrice-franceschi/9791041430338",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:bdgest:544166",
@@ -29440,7 +29426,8 @@
 "rayons": [],
 "url": "https://www.editionspoints.com/ouvrage/spirotherapie-samuel-ganes/9791041431175",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782385039646",
@@ -32752,7 +32739,7 @@
 },
 {
 "id": "ed:bdgest:545606",
-"title": "14-14",
+"title": "14",
 "authors": [
 "L'Hermenier",
 "Hamo"
@@ -33500,10 +33487,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041414383/petite/154988_couverture_Hres_0.jpg",
 "description": "600 coups par minute, Frédéric Paulin : « Frédéric Paulin est un orfèvre du roman noir",
-"rayons": [],
+"rayons": [
+"Points Policier",
+"Policier"
+],
 "url": "https://www.editionspoints.com/ouvrage/600-coups-par-minute-frederic-paulin/9791041414383",
-"kind": "",
-"source": "editeur:points"
+"kind": "policier",
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:bdgest:542583",
@@ -34232,10 +34223,13 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041417643/petite/156529_couverture_Hres_0.jpg",
 "description": "Les immémoriaux, Victor Segalen : À vingt-cinq ans, Victor Segalen débarque à Tahiti",
-"rayons": [],
+"rayons": [
+"Points Aventure"
+],
 "url": "https://www.editionspoints.com/ouvrage/les-immemoriaux-victor-segalen/9791041417643",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782808700603",
@@ -40221,7 +40215,8 @@
 "rayons": [],
 "url": "https://www.editionspoints.com/ouvrage/rien-ne-me-fera-plier-suivi-de-ma-vie-a-vire-au-bleu-maya-angelou/9791041425471",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ll:26559689",
@@ -40416,10 +40411,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041432837/petite/164109_couverture_Hres_0.jpg",
 "description": "Un séisme, Émilie Frèche : « Un séisme ne se referme pas comme un livre achevé",
-"rayons": [],
+"rayons": [
+"Points Documents",
+"Documents"
+],
 "url": "https://www.editionspoints.com/ouvrage/un-seisme-emilie-freche/9791041432837",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782021635195",
@@ -49562,7 +49561,8 @@
 "rayons": [],
 "url": "https://www.editionspoints.com/ouvrage/jardin-de-poemes-enfantins-robert-louis-stevenson/9791041418169",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:bdgest:545758",
@@ -49745,10 +49745,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041433704/petite/164388_couverture_Hres_0.jpg",
 "description": "La Méthode - Livre 1, Edgar Morin : La méthode 1Nous avons besoin de ce qui nous aide à penser par nous-mêmes : une méthode",
-"rayons": [],
+"rayons": [
+"Points Essais",
+"Essais"
+],
 "url": "https://www.editionspoints.com/ouvrage/la-methode-livre-1-edgar-morin/9791041433704",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9791041433711",
@@ -49835,10 +49839,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041430000/petite/162680_couverture_Hres_0.jpg",
 "description": "La Station, Jakub Szamalek, Kamil Barbarski : « Un roman d’espionnage brillamment étouffant",
-"rayons": [],
+"rayons": [
+"Points Policier",
+"Policier"
+],
 "url": "https://www.editionspoints.com/ouvrage/la-station-jakub-szamalek/9791041430000",
-"kind": "",
-"source": "editeur:points"
+"kind": "policier",
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782808218726",
@@ -49871,10 +49879,13 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041430734/petite/163230_couverture_Hres_0.jpg",
 "description": "La croisière du hachich, Henry Monfreid (de) : « Henry de Monfreid est un porte-drapeau de l’anticonformisme et de la liberté",
-"rayons": [],
+"rayons": [
+"Points Aventure"
+],
 "url": "https://www.editionspoints.com/ouvrage/la-croisiere-du-hachich-henry-monfreid-de-/9791041430734",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782808515047",
@@ -50126,10 +50137,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041427703/petite/161247_couverture_Hres_0.jpg",
 "description": "Les maîtres de la stratégie, Olivier Wieviorka, Général Benoît Durieux : « Un livre qui résonne chaque jour un peu plus avec ce que nous vivons »",
-"rayons": [],
+"rayons": [
+"Points Documents",
+"Documents"
+],
 "url": "https://www.editionspoints.com/ouvrage/les-maitres-de-la-strategie-olivier-wieviorka/9791041427703",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9791041418848",
@@ -50147,7 +50162,8 @@
 "rayons": [],
 "url": "https://www.editionspoints.com/ouvrage/les-poetes-hallucines-henri-parisot/9791041418848",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782385037680",
@@ -50397,10 +50413,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041430024/petite/162683_couverture_Hres_0.jpg",
 "description": "Retour à Carbery, Sarah Ortolan : « Un thriller psychologique aussi troublant qu’émouvant",
-"rayons": [],
+"rayons": [
+"Points Policier",
+"Policier"
+],
 "url": "https://www.editionspoints.com/ouvrage/retour-a-carbery-sarah-ortolan/9791041430024",
-"kind": "",
-"source": "editeur:points"
+"kind": "policier",
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ll:26622785",
@@ -50593,10 +50613,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041428908/petite/161732_couverture_Hres_0.jpg",
 "description": "Un monde à vendre, Jack Farchy, Javier Blas : « Une passionnante enquête sur le monde caché de ces tradeurs d’un genre inédit »",
-"rayons": [],
+"rayons": [
+"Points Documents",
+"Documents"
+],
 "url": "https://www.editionspoints.com/ouvrage/un-monde-a-vendre-jack-farchy/9791041428908",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782021029253",
@@ -56985,10 +57009,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041428236/petite/161426_couverture_Hres_0.jpg",
 "description": "La trilogie de Constantinople, Metin Arditi : « Ce nouvel opus entremêle drame intime et tensions historiques, décrivant une Europe en crise et une Consta...",
-"rayons": [],
+"rayons": [
+"Grands romans",
+"Littérature"
+],
 "url": "https://www.editionspoints.com/ouvrage/la-trilogie-de-constantinople-metin-arditi/9791041428236",
-"kind": "",
-"source": "editeur:points"
+"kind": "roman",
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ll:26623890",
@@ -57107,7 +57135,8 @@
 "rayons": [],
 "url": "https://www.editionspoints.com/ouvrage/liberez-votre-potentiel-grace-au-human-design-melissa-simonot/9791041430567",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ll:26623613",
@@ -57388,10 +57417,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041429981/petite/162677_couverture_Hres_0.jpg",
 "description": "Privilèges, Alice de Rochechouart : Le 4 août 1789, en plein cœur de la Révolution Française, l'Assemblée Nationale Constituante vote l'abolition des p...",
-"rayons": [],
+"rayons": [
+"Points Essais",
+"Essais"
+],
 "url": "https://www.editionspoints.com/ouvrage/privileges-alice-de-rochechouart/9791041429981",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782021549065",
@@ -58051,7 +58084,8 @@
 "2, Abysses - Tome 02"
 ],
 "url": "https://www.leslibraires.fr/livre/26627712-2-abysses-tome-02-c-s-quill-hugo-et-cie",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9791039149082",
@@ -58349,7 +58383,8 @@
 "5, Brume - Tome 05, La Cité d'Ys"
 ],
 "url": "https://www.leslibraires.fr/livre/26627902-5-brume-tome-05-la-cite-d-ys-pelissier-hinder-glenat",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782376717652",
@@ -58979,7 +59014,8 @@
 "Humour"
 ],
 "url": "https://www.leslibraires.fr/livre/26458541-23-gaston-tome-23-des-boum-et-des-paf-delaf-dupuis",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782344078723",
@@ -59109,7 +59145,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26574173-hierarchy-the-will-of-the-many-james-islington-j-ai-lu",
-"kind": "fantasy"
+"kind": "fantasy",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782017392149",
@@ -60037,7 +60074,8 @@
 "Les Frères Reynolds - Hors Piste - Collector relié"
 ],
 "url": "https://www.leslibraires.fr/livre/26669575-les-freres-reynolds-hors-piste-collector-relie-aimee-lou-editions-addictives",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782344067505",
@@ -61215,7 +61253,8 @@
 "Tempted - Collector relié"
 ],
 "url": "https://www.leslibraires.fr/livre/26669629-tempted-collector-relie-arielle-hera-editions-addictives",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-24"
 },
 {
 "id": "ll:26627679",
@@ -61237,7 +61276,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26627679-2-the-eating-woods-tome-2-eldritch-la-suite-du-best-seller-anathema-keri-lake-hachette-hlab",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-24"
 },
 {
 "id": "ll:26615026",
@@ -61259,7 +61299,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26615026-2-the-golden-trinity-tome-2-the-evil-one-mathilde-lambin-hachette-hlab",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782344076163",
@@ -61803,7 +61844,8 @@
 "C'est la gaieté qui m'en impose - Chroniques 2023-2025"
 ],
 "url": "https://www.leslibraires.fr/livre/26548058-c-est-la-gaiete-qui-m-en-impose-chroniques-2023-2025-francois-morel-pocket",
-"kind": ""
+"kind": "",
+"lu": "2026-10-24"
 },
 {
 "id": "ll:26548048",
@@ -61847,7 +61889,8 @@
 "Ce que nous pouvons savoir"
 ],
 "url": "https://www.leslibraires.fr/livre/26520241-ce-que-nous-pouvons-savoir-ian-mcewan-gallimard",
-"kind": "roman"
+"kind": "roman",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9791035509309",
@@ -62066,7 +62109,8 @@
 "Icarus Fall - Tome 1"
 ],
 "url": "https://www.leslibraires.fr/livre/26546246-icarus-fall-tome-1-dane-bay-michel-lafon",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782413091028",
@@ -62290,7 +62334,8 @@
 "Plonger dans nos silences"
 ],
 "url": "https://www.leslibraires.fr/livre/26546185-plonger-dans-nos-silences-katie-bernier-editions-kairos",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-24"
 },
 {
 "id": "ll:26546516",
@@ -62396,7 +62441,8 @@
 "The Fabulous Tony Lopez et son orchestre Show"
 ],
 "url": "https://www.leslibraires.fr/livre/26547252-the-fabulous-tony-lopez-et-son-orchestre-show-fabcaro-delcourt",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782749966267",
@@ -62460,7 +62506,8 @@
 "Windy City - Spin Off - In Her Own League"
 ],
 "url": "https://www.leslibraires.fr/livre/26547811-windy-city-spin-off-in-her-own-league-tomforde-liz-chatterley",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782749967127",
@@ -62719,7 +62766,8 @@
 "47, Boule & Bill - Tome 47 - Flair des champs"
 ],
 "url": "https://www.leslibraires.fr/livre/26623660-47-boule-bill-tome-47-flair-des-champs-bastide-cazenove-dargaud",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782386435225",
@@ -62854,7 +62902,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26623483-heros-et-merveilles-du-moyen-age-jacques-le-goff-seuil",
-"kind": ""
+"kind": "",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9791041431557",
@@ -62869,10 +62918,13 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041431557/petite/163648_couverture_Hres_0.jpg",
 "description": "J'ai épousé l'aventure, Osa Johnson : Martin et Osa Johnson formèrent le plus célèbre couple d’aventuriers de l’entre-deux-guerres",
-"rayons": [],
+"rayons": [
+"Points Aventure"
+],
 "url": "https://www.editionspoints.com/ouvrage/j-ai-epouse-l-aventure-osa-johnson/9791041431557",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782383163169",
@@ -62927,10 +62979,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041427918/petite/161297_couverture_Hres_0.jpg",
 "description": "La Voix des fantômes, Grégory Delaplace : La voix des fantômesLa mort est naturelle, bien entendu, mais son traitement est culturel",
-"rayons": [],
+"rayons": [
+"Points Essais",
+"Essais"
+],
 "url": "https://www.editionspoints.com/ouvrage/la-voix-des-fantomes-gregory-delaplace/9791041427918",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782737393198",
@@ -63004,10 +63060,13 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041417629/petite/156527_couverture_Hres_0.jpg",
 "description": "La vie que j'ai choisie, Wilfred Thesiger, Sabine Boulongne : Figure légendaire de l’exploration, Wilfred Thesiger retrace au travers de ses mémoires so...",
-"rayons": [],
+"rayons": [
+"Points Aventure"
+],
 "url": "https://www.editionspoints.com/ouvrage/la-vie-que-j-ai-choisie-wilfred-thesiger/9791041417629",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782021614145",
@@ -63047,7 +63106,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26623766-le-livre-des-chats-d-ursula-k-le-guin-ursula-k-le-guin-aux-forges-de-vulcain",
-"kind": ""
+"kind": "",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9791041429479",
@@ -63062,10 +63122,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041429479/petite/162285_couverture_Hres_0.jpg",
 "description": "Le Soufisme, Eric Geoffroy : Le soufismeDimension intérieure de l’islam sunnite, le soufisme repose sur la transmission, de maître à disciple, d’une �...",
-"rayons": [],
+"rayons": [
+"Points Sagesses",
+"Sagesses"
+],
 "url": "https://www.editionspoints.com/ouvrage/le-soufisme-eric-geoffroy/9791041429479",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9791041429950",
@@ -63080,10 +63144,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041429950/petite/162638_couverture_Hres_0.jpg",
 "description": "Le Sourire de Caterina, Carlo Vecce, Nathalie Bauer : « Magistralement mené, avec autant de panache que d’érudition",
-"rayons": [],
+"rayons": [
+"Grands romans",
+"Littérature"
+],
 "url": "https://www.editionspoints.com/ouvrage/le-sourire-de-caterina-carlo-vecce/9791041429950",
-"kind": "",
-"source": "editeur:points"
+"kind": "roman",
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9791041428977",
@@ -63118,10 +63186,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041425327/petite/160458_couverture_Hres_0.jpg",
 "description": "Les Anges aquatiques, Mons Kallentoft, Frédéric Fourreau : « L’une des héroïnes les plus convaincantes qui soient nées d’une plume masculine",
-"rayons": [],
+"rayons": [
+"Points Policier",
+"Policier"
+],
 "url": "https://www.editionspoints.com/ouvrage/les-anges-aquatiques-mons-kallentoft/9791041425327",
-"kind": "",
-"source": "editeur:points"
+"kind": "policier",
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9791041430048",
@@ -63137,10 +63209,14 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041430048/petite/162721_couverture_Hres_0.jpg",
 "description": "Les Charognards, Brianne Huguerre-Cousin, Matthieu Slisse : « Un récit qui suscite l’indignation et qui illustre la course à la rentabilité imposée pa...",
-"rayons": [],
+"rayons": [
+"Points Documents",
+"Documents"
+],
 "url": "https://www.editionspoints.com/ouvrage/les-charognards-brianne-huguerre-cousin/9791041430048",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782380601923",
@@ -63286,7 +63362,8 @@
 "TENNIS, L'ère Open en infographie"
 ],
 "url": "https://www.leslibraires.fr/livre/26623829-tennis-l-ere-open-en-infographie-yannick-cochennec-seuil",
-"kind": ""
+"kind": "",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782386585982",
@@ -63451,7 +63528,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26562354-a-la-grace-des-fous-roxanne-bouchard-editions-de-l-aube",
-"kind": "policier"
+"kind": "policier",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782490015399",
@@ -63894,7 +63972,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26552565-dino-oiseau-quand-les-poules-avaient-des-dents-fleur-daugey-actes-sud",
-"kind": "jeunesse"
+"kind": "jeunesse",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782253252825",
@@ -64753,7 +64832,8 @@
 "Les Irresponsables, Qui a porté Hitler au pouvoir ?"
 ],
 "url": "https://www.leslibraires.fr/livre/26468152-les-irresponsables-qui-a-porte-hitler-au-pouvoir--johann-chapoutot-philippe-girard-casterman",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782017391616",
@@ -64816,7 +64896,8 @@
 "Les Sept Soeurs (BD)"
 ],
 "url": "https://www.leslibraires.fr/livre/10185100-les-sept-soeurs-bd--riley-carbone-albin-michel",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ll:26602407",
@@ -64838,7 +64919,8 @@
 "Sisters (Les), 21, Les Sisters - tome 21, A la sauce Marinade !"
 ],
 "url": "https://www.leslibraires.fr/livre/26602407-sisters-les-21-les-sisters-tome-21-a-la-sauce-marinade--cazenove-william-bamboo",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ll:26640064",
@@ -64861,7 +64943,8 @@
 "Les Techno-prophètes, L'intelligence artificielle face aux limites planétaires"
 ],
 "url": "https://www.leslibraires.fr/livre/26640064-les-techno-prophetes-l-intelligence-artificielle-face-aux-limites-planetaires-vincent-perriot-casterman",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782253915553",
@@ -65585,7 +65668,8 @@
 "9, Sorceline - Tome 09, Professeur Balzar et Mister Vorn"
 ],
 "url": "https://www.leslibraires.fr/livre/26633549-9-sorceline-tome-09-professeur-balzar-et-mister-vorn-douye-antista-vents-d-ouest",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782344077108",
@@ -66311,7 +66395,8 @@
 "Sous le soleil de Platon"
 ],
 "url": "https://www.leslibraires.fr/livre/26547481-sous-le-soleil-de-platon-charles-pepin-allary-editions",
-"kind": ""
+"kind": "",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9791095720850",
@@ -66393,11 +66478,12 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26529537-a-la-table-des-ecrivaines-voix-d-ecrivaines-fr-editions-des-femmes-antoinette-fouque",
-"kind": ""
+"kind": "",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782492463501",
-"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
+"title": "2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -66513,7 +66599,8 @@
 "Action et aventures"
 ],
 "url": "https://www.leslibraires.fr/livre/26623329-15-blake-mortimer-hors-serie-tome-15-affaires-classees-sente-pelaez-felix-blake-et-mortimer",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ll:26622953",
@@ -66595,7 +66682,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26623828-contes-des-sages-inuits-pierre-olivier-bannwarth-seuil",
-"kind": "roman"
+"kind": "roman",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782021613346",
@@ -67012,7 +67100,8 @@
 "10, Le Loup en slip - Tome 10 - Échec et mites"
 ],
 "url": "https://www.leslibraires.fr/livre/26623799-10-le-loup-en-slip-tome-10-echec-et-mites-lupano-itoiz-dargaud",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-24"
 },
 {
 "id": "ed:9782375066379",
@@ -72380,7 +72469,7 @@
 "Le monde de Minecraft"
 ],
 "url": "https://www.leslibraires.fr/livre/26545934-le-monde-de-minecraft-mojang-studios-mana-books",
-"kind": "bd"
+"kind": ""
 },
 {
 "id": "ll:26574363",
@@ -74726,27 +74815,6 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26539192-entre-ici-jean-moulin-et-autres-discours-sur-la-resistance-andre-malraux-folio",
 "kind": "roman"
-},
-{
-"id": "ed:9782344072455",
-"title": "1629, ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
-"authors": [
-"Xavier Dorison",
-"Thimothée Montaigne"
-],
-"publisher": "Glénat",
-"date": "2026-11-12",
-"isbn": "9782344072455",
-"pages": 0,
-"format": "",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
-"description": "",
-"rayons": [
-"BD Aventure, western et polar"
-],
-"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
-"kind": "bd",
-"source": "editeur:glenat"
 },
 {
 "id": "ed:9782709677486",
@@ -77601,6 +77669,27 @@
 "url": "https://www.nautiljon.com/mangas/yoridori+bitch/volume-1,1030035.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782344072455",
+"title": "ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
+"authors": [
+"Xavier Dorison",
+"Thimothée Montaigne"
+],
+"publisher": "Glénat",
+"date": "2026-11-12",
+"isbn": "9782344072455",
+"pages": 0,
+"format": "",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
+"description": "",
+"rayons": [
+"BD Aventure, western et polar"
+],
+"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
+"kind": "bd",
+"source": "editeur:glenat"
 },
 {
 "id": "ed:9791043311192",
