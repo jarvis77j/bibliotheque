@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-24T14:35Z",
+"updated": "2026-10-24T17:32Z",
 "stats": {
 "precommandes": [
 12,
@@ -45,12 +45,158 @@
 "roman": "/dossiers/nouveautes-25-113534/"
 },
 "uniques": 189,
-"editeurs_at": "2026-10-23T13:57Z",
+"editeurs": {
+"hachette": {
+"pages": 129,
+"livres": 1443,
+"secondes": 385,
+"erreurs": 0
+},
+"glenat": {
+"pages": 22,
+"livres": 299,
+"secondes": 67,
+"erreurs": 0
+},
+"seuil": {
+"pages": 10,
+"livres": 109,
+"secondes": 52,
+"erreurs": 0
+},
+"nautiljon": {
+"pages": 9,
+"livres": 1672,
+"secondes": 25,
+"erreurs": 0
+},
+"manganews": {
+"pages": 95,
+"livres": 279,
+"completes": 1428,
+"ecartes": 10,
+"lus": 1717,
+"secondes": 336,
+"erreurs": 0
+},
+"bdgest": {
+"pages": 16,
+"livres": 584,
+"secondes": 46,
+"erreurs": 0,
+"rapproches": 128
+},
+"dargaud": {
+"pages": 6,
+"livres": 44,
+"secondes": 18,
+"erreurs": 0
+},
+"delcourt": {
+"pages": 9,
+"livres": 97,
+"secondes": 29,
+"erreurs": 0
+},
+"soleil": {
+"pages": 5,
+"livres": 40,
+"secondes": 14,
+"erreurs": 0
+},
+"lombard": {
+"pages": 2,
+"livres": 37,
+"secondes": 6,
+"erreurs": 0
+},
+"kana": {
+"pages": 8,
+"livres": 110,
+"secondes": 24,
+"erreurs": 0
+},
+"casterman": {
+"pages": 1,
+"livres": 32,
+"secondes": 3,
+"erreurs": 0
+},
+"ruedesevres": {
+"pages": 1,
+"livres": 13,
+"secondes": 3,
+"erreurs": 0
+},
+"dupuis": {
+"pages": 1,
+"livres": 14,
+"secondes": 4,
+"erreurs": 0
+},
+"bedetheque": {
+"pages": 60,
+"livres": 0,
+"secondes": 178,
+"erreurs": 0,
+"isbn_trouves": 9
+},
+"michellafon": {
+"pages": 38,
+"livres": 38,
+"secondes": 114,
+"erreurs": 0
+},
+"jailu": {
+"pages": 1,
+"livres": 70,
+"secondes": 4,
+"erreurs": 0
+},
+"bragelonne": {
+"pages": 1,
+"livres": 0,
+"secondes": 3,
+"erreurs": 0
+},
+"albinmichel": {
+"pages": 2,
+"livres": 45,
+"secondes": 6,
+"erreurs": 0
+},
+"hugo": {
+"pages": 24,
+"livres": 15,
+"secondes": 75,
+"erreurs": 0
+},
+"points": {
+"pages": 17,
+"livres": 46,
+"secondes": 49,
+"erreurs": 0
+},
+"bayard": {
+"pages": 8,
+"livres": 58,
+"secondes": 24,
+"erreurs": 0
+},
+"milan": {
+"pages": 6,
+"livres": 43,
+"secondes": 18,
+"erreurs": 0
+},
+"erreurs": 0
+},
+"editeurs_at": "2026-10-24T17:32Z",
 "listes": 510,
 "lues": 0,
 "en_attente": 0,
 "plus_loin": "2027-04-23",
-"doublons": 0
+"doublons": 94
 },
 "books": [
 {
@@ -2529,7 +2675,7 @@
 },
 {
 "id": "ed:bdgest:542642",
-"title": "Tome 6 - Point final",
+"title": "1944 - Tome 6 - Point final",
 "authors": [
 "Vergne"
 ],
@@ -7875,7 +8021,7 @@
 },
 {
 "id": "ed:9782387032560",
-"title": "14",
+"title": "14-14",
 "authors": [
 "Paul Beorn",
 "Silène Edgar"
@@ -8626,6 +8772,25 @@
 "url": "https://www.manga-news.com/index.php/manga/Crocodile-sous-ma-maison-Un",
 "kind": "bd",
 "source": "editeur:manganews"
+},
+{
+"id": "ed:bdgest:546516",
+"title": "Célestine - Tome 1 - Le palais des fées",
+"authors": [
+"Carbone",
+"Tournefeuille"
+],
+"publisher": "Albin Michel",
+"date": "2026-08-26",
+"isbn": "",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546516.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-Celestine-Tome-1-Le-palais-des-fees-546516.html",
+"kind": "bd",
+"source": "editeur:bdgest"
 },
 {
 "id": "ll:26464219",
@@ -13087,7 +13252,7 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:9782205212303",
+"id": "ed:9782205216974",
 "title": "La femme au portrait",
 "authors": [
 "Nicolas Tellop",
@@ -13095,13 +13260,13 @@
 ],
 "publisher": "Dargaud",
 "date": "2026-08-28",
-"isbn": "9782205212303",
+"isbn": "9782205216974",
 "pages": 0,
 "format": "",
-"cover": "https://bdi.dlpdomain.com/album/9782205212303/couv/M325x434/la-femme-au-portrait.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782205216974/couv/M325x440/la-femme-au-portrait.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.dargaud.com/bd/la-femme-au-portrait/la-femme-au-portrait-la-femme-au-portrait-bda5582950",
+"url": "https://www.dargaud.com/bd/la-femme-au-portrait/la-femme-au-portrait-la-femme-au-portrait-nb-bda5654340",
 "kind": "bd",
 "source": "editeur:dargaud"
 },
@@ -13693,14 +13858,14 @@
 "title": "Void Rivals - Tome 5 - La Guerre des Quintessons",
 "authors": [
 "Kirkman",
-"Hughes"
+"Bressan"
 ],
 "publisher": "Urban Comics",
 "date": "2026-08-28",
 "isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_541092.jpg",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_541092_4d864f.jpg",
 "description": "",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Void-Rivals-Tome-5-La-Guerre-des-Quintessons-541092.html",
@@ -13963,6 +14128,28 @@
 "url": "https://www.bedetheque.com/BD-AUT-Ott-Thomas-2026-The-Art-of-Thomas-Ott-544731.html",
 "kind": "bd",
 "source": "editeur:bdgest"
+},
+{
+"id": "ed:9782036089839",
+"title": "1,2,3, te voilà !",
+"authors": [
+"Marion Donon",
+"Toni Galmés"
+],
+"publisher": "Larousse",
+"date": "2026-09-02",
+"isbn": "9782036089839",
+"pages": 0,
+"format": "Grand format - Cartonné",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LAROUSSE/2026/9782036089839-001-X.jpeg",
+"description": "",
+"rayons": [
+"Eveil (0 -3 ans)",
+"Jeunesse"
+],
+"url": "https://www.hachette.fr/livre/123-te-voila-9782036089839/",
+"kind": "jeunesse",
+"source": "editeur:hachette"
 },
 {
 "id": "ed:9782755678031",
@@ -17104,28 +17291,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782036089839",
-"title": "te voilà !",
-"authors": [
-"Marion Donon",
-"Toni Galmés"
-],
-"publisher": "Larousse",
-"date": "2026-09-02",
-"isbn": "9782036089839",
-"pages": 0,
-"format": "Grand format - Cartonné",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LAROUSSE/2026/9782036089839-001-X.jpeg",
-"description": "",
-"rayons": [
-"Eveil (0 -3 ans)",
-"Jeunesse"
-],
-"url": "https://www.hachette.fr/livre/123-te-voila-9782036089839/",
-"kind": "jeunesse",
-"source": "editeur:hachette"
-},
-{
 "id": "ed:9782385693084",
 "title": "À crocs à toi - Tome 4",
 "authors": [
@@ -17162,6 +17327,24 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/008+-+apprenti+espion/volume-23,979673.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782382883488",
+"title": "100 - Tome 3",
+"authors": [],
+"publisher": "Kbooks",
+"date": "2026-09-03",
+"isbn": "9782382883488",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -17956,24 +18139,6 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/taro+miyao+adopte+un+chat+-!/volume-3,1015167.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
-"id": "ed:9782382883488",
-"title": "Tome 3",
-"authors": [],
-"publisher": "Kbooks",
-"date": "2026-09-03",
-"isbn": "9782382883488",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -25389,24 +25554,6 @@
 "source": "editeur:glenat"
 },
 {
-"id": "ed:9782380462432",
-"title": "La Librairie des jours heureux - Tome 1",
-"authors": [],
-"publisher": "Kotodama",
-"date": "2026-09-16",
-"isbn": "9782380462432",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/52/la_librairie_des_jours_heureux_11021925.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/la+librairie+des+jours+heureux/volume-1,1021925.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ll:26440157",
 "title": "La division antimémétique n'existe pas",
 "authors": [
@@ -31121,26 +31268,6 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:9782290431221",
-"title": "Le voyage de Haviland Tuf",
-"authors": [
-"George R.R. Martin"
-],
-"publisher": "J'ai lu",
-"date": "2026-09-23",
-"isbn": "9782290431221",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.jailu.com/media/cache/couverture_jailu_catalogue_poche/flammarion_img/Couvertures/9782290431221.jpg",
-"description": "",
-"rayons": [
-"Science fiction"
-],
-"url": "https://www.jailu.com/le-voyage-de-haviland-tuf/9782290431221",
-"kind": "fantasy",
-"source": "editeur:jailu"
-},
-{
 "id": "ed:9782384968350",
 "title": "Les Misérables",
 "authors": [
@@ -31359,66 +31486,6 @@
 "url": "https://www.glenat.com/glenat-manga/mao-tome-24-9782344073223/",
 "kind": "bd",
 "source": "editeur:glenat"
-},
-{
-"id": "ed:9782290440964",
-"title": "Martyrs - 1",
-"authors": [
-"Oliver Peru"
-],
-"publisher": "J'ai lu",
-"date": "2026-09-23",
-"isbn": "9782290440964",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.jailu.com/media/cache/couverture_jailu_catalogue_poche/flammarion_img/Couvertures/9782290440964.jpg",
-"description": "",
-"rayons": [
-"Fantasy"
-],
-"url": "https://www.jailu.com/martyrs-1/9782290440964",
-"kind": "fantasy",
-"source": "editeur:jailu"
-},
-{
-"id": "ed:9782290440971",
-"title": "Martyrs - 2",
-"authors": [
-"Oliver Peru"
-],
-"publisher": "J'ai lu",
-"date": "2026-09-23",
-"isbn": "9782290440971",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.jailu.com/media/cache/couverture_jailu_catalogue_poche/flammarion_img/Couvertures/9782290440971.jpg",
-"description": "",
-"rayons": [
-"Fantasy"
-],
-"url": "https://www.jailu.com/martyrs-2/9782290440971",
-"kind": "fantasy",
-"source": "editeur:jailu"
-},
-{
-"id": "ed:9782290440988",
-"title": "Martyrs - 3",
-"authors": [
-"Oliver Peru"
-],
-"publisher": "J'ai lu",
-"date": "2026-09-23",
-"isbn": "9782290440988",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.jailu.com/media/cache/couverture_jailu_catalogue_poche/flammarion_img/Couvertures/9782290440988.jpg",
-"description": "",
-"rayons": [
-"Fantasy"
-],
-"url": "https://www.jailu.com/martyrs-3/9782290440988",
-"kind": "fantasy",
-"source": "editeur:jailu"
 },
 {
 "id": "ed:9782344053447",
@@ -32120,46 +32187,6 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:9782290444115",
-"title": "Shantaram - 1",
-"authors": [
-"Gregory David Roberts"
-],
-"publisher": "J'ai lu",
-"date": "2026-09-23",
-"isbn": "9782290444115",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.jailu.com/media/cache/couverture_jailu_catalogue_poche/flammarion_img/Couvertures/9782290444115.jpg",
-"description": "",
-"rayons": [
-"Littérature étrangère"
-],
-"url": "https://www.jailu.com/shantaram-1/9782290444115",
-"kind": "roman",
-"source": "editeur:jailu"
-},
-{
-"id": "ed:9782290444122",
-"title": "Shantaram - 2",
-"authors": [
-"Gregory David Roberts"
-],
-"publisher": "J'ai lu",
-"date": "2026-09-23",
-"isbn": "9782290444122",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.jailu.com/media/cache/couverture_jailu_catalogue_poche/flammarion_img/Couvertures/9782290444122.jpg",
-"description": "",
-"rayons": [
-"Littérature étrangère"
-],
-"url": "https://www.jailu.com/shantaram-2/9782290444122",
-"kind": "roman",
-"source": "editeur:jailu"
-},
-{
 "id": "ed:9782344075906",
 "title": "Shelby",
 "authors": [
@@ -32352,7 +32379,7 @@
 },
 {
 "id": "ed:bdgest:545606",
-"title": "14",
+"title": "14-14",
 "authors": [
 "L'Hermenier",
 "Hamo"
@@ -32430,22 +32457,23 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782413096221",
+"id": "ed:bdgest:545051",
 "title": "Capes - Tome 1 - Au boulot !",
 "authors": [
-"Robert Kirkman"
+"Kirkman",
+"Englert"
 ],
 "publisher": "Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413096221",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413096221.jpg?itok=AZx2ioln",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545051_2e397d.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/comics/series/serie-invincible-univers-capes/album-invincible-univers-capes-t01",
+"url": "https://www.bedetheque.com/BD-Capes-Tome-1-Au-boulot-545051.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
 "id": "ed:bdgest:543017",
@@ -32532,40 +32560,42 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782413096269",
+"id": "ed:bdgest:542064",
 "title": "De rêves et de plancton - Expédition en Antarctique avec Jean-Louis Étienne",
 "authors": [
-"Dorothée Adam"
+"Dorothée Adam",
+"Cezard"
 ],
 "publisher": "Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413096269",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413096269.jpg?itok=Diu6A9zD",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_542064.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-de-reves-et-de-plancton/album-de-reves-et-de-plancton",
+"url": "https://www.bedetheque.com/BD-De-reves-et-de-plancton-Expedition-en-Antarctique-avec-Jean-Louis-Etienne-542064.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
-"id": "ed:9782413079996",
+"id": "ed:bdgest:542058",
 "title": "Dissuasion nucléaire - Une histoire française",
 "authors": [
-"Jean-Claude Bartoll"
+"Bartoll",
+"Otéro"
 ],
 "publisher": "Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413079996",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413079996.jpg?itok=Pb0k9efs",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_542058_d5adc4.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-dissuasion-nucleaire-une-histoire-francaise/album-dissuasion-nucleaire",
+"url": "https://www.bedetheque.com/BD-Dissuasion-nucleaire-Une-histoire-francaise-542058.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
 "id": "ed:9782382881897",
@@ -32588,58 +32618,60 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782413086833",
+"id": "ed:bdgest:542061",
 "title": "Festifood",
 "authors": [
 "Hégron"
 ],
 "publisher": "Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413086833",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413086833.jpg?itok=LYqb6c7v",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_542061_4bb826.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-festifood/album-festifood",
+"url": "https://www.bedetheque.com/BD-Festifood-542061.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
-"id": "ed:9782413092605",
+"id": "ed:bdgest:542066",
 "title": "Foucault - Vies parallèles",
 "authors": [
-"Mathieu Potte-Bonneville"
+"Potte-Bonneville",
+"Morvandiau"
 ],
 "publisher": "La Découverte - Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413092605",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413092605.jpg?itok=h4bV_Yv1",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_542066.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-foucault-vies-paralleles/album-foucault",
+"url": "https://www.bedetheque.com/BD-Foucault-Vies-paralleles-542066.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
-"id": "ed:9782302109575",
+"id": "ed:bdgest:541899",
 "title": "Guerres d'Arran - Tome 8 - Cendres et couronnes",
 "authors": [
-"Jean-Luc Istin"
+"Istin",
+"Lorusso"
 ],
 "publisher": "Soleil Productions",
 "date": "2026-09-24",
-"isbn": "9782302109575",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302109575.jpg?itok=9SddDQ3w",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_541899_de7cf7.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-soleil.fr/bd/series/serie-les-terres-d-arran-guerres-d-arran/album-guerres-d-arran-t08-cendres-et-couronnes",
+"url": "https://www.bedetheque.com/BD-Guerres-d-Arran-Tome-8-Cendres-et-couronnes-541899.html",
 "kind": "bd",
-"source": "editeur:soleil"
+"source": "editeur:bdgest"
 },
 {
 "id": "ed:bdgest:544709",
@@ -32719,22 +32751,23 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:9782413082286",
+"id": "ed:bdgest:542059",
 "title": "L'eau sous emprise - Enquête sur une ressource vitale menacée",
 "authors": [
-"Emma Haziza"
+"Haziza",
+"Brenes"
 ],
 "publisher": "Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413082286",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413082286.jpg?itok=-3-VoKZA",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_542059_406e46.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-l-eau-sous-emprise/album-l-eau-sous-emprise",
+"url": "https://www.bedetheque.com/BD-Eau-sous-emprise-Enquete-sur-une-ressource-vitale-menacee-542059.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
 "id": "ll:26533560",
@@ -32803,22 +32836,23 @@
 "kind": "jeunesse"
 },
 {
-"id": "ed:9782302108745",
+"id": "ed:bdgest:541900",
 "title": "Le duel",
 "authors": [
-"Jean-Pierre Pécau"
+"Pécau",
+"Marinetti"
 ],
 "publisher": "Soleil Productions",
 "date": "2026-09-24",
-"isbn": "9782302108745",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302108745.jpg?itok=8ahQUMGp",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_541900_c81a3f.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-soleil.fr/bd/series/serie-le-duel/album-le-duel",
+"url": "https://www.bedetheque.com/BD-Duel-Le-Duel-541900.html",
 "kind": "bd",
-"source": "editeur:soleil"
+"source": "editeur:bdgest"
 },
 {
 "id": "ed:bdgest:544376",
@@ -32840,22 +32874,23 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:9782413084808",
+"id": "ed:bdgest:542065",
 "title": "Les aléas de la vie",
 "authors": [
-"Satya Daniel"
+"Daniel",
+"Carot"
 ],
 "publisher": "Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413084808",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413084808.jpg?itok=WQnPDrXb",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_542065_11839d.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-les-aleas-de-la-vie/album-les-aleas-de-la-vie",
+"url": "https://www.bedetheque.com/BD-Aleas-de-la-vie-542065.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
 "id": "ed:bdgest:542063",
@@ -32877,58 +32912,42 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:9782302104778",
+"id": "ed:bdgest:541902",
 "title": "Nains - Tome 26 - La Couronne de plomb",
 "authors": [
-"Nicolas Jarry"
+"Jarry",
+"Goux"
 ],
 "publisher": "Soleil Productions",
 "date": "2026-09-24",
-"isbn": "9782302104778",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302104778.jpg?itok=CvA-dnC0",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_541902_4d7978.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-soleil.fr/bd/series/serie-les-terres-d-arran-nains/album-nains-t26-le-cycle-de-l-empereur-la-couronne-de-plomb-edition-nb",
+"url": "https://www.bedetheque.com/BD-Nains-Tome-26-La-Couronne-de-plomb-541902.html",
 "kind": "bd",
-"source": "editeur:soleil"
+"source": "editeur:bdgest"
 },
 {
-"id": "ed:9782302104143",
-"title": "Nains T26 - Le Cycle de l'empereur - La Couronne de plomb",
-"authors": [
-"Nicolas Jarry"
-],
-"publisher": "Soleil",
-"date": "2026-09-24",
-"isbn": "9782302104143",
-"pages": 0,
-"format": "",
-"cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302104143.jpg?itok=j_7CBmg9",
-"description": "",
-"rayons": [],
-"url": "https://www.editions-soleil.fr/bd/series/serie-les-terres-d-arran-nains/album-nains-t26-le-cycle-de-l-empereur-la-couronne-de-plomb",
-"kind": "bd",
-"source": "editeur:soleil"
-},
-{
-"id": "ed:9782413087335",
+"id": "ed:bdgest:541898",
 "title": "Ohio - La Belle Rivière - Tome 3 - Livre 3",
 "authors": [
-"Fred Duval"
+"Duval",
+"Brada"
 ],
 "publisher": "Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413087335",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413087335.jpg?itok=2DDbMjbU",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_541898_bd91ba.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-ohio-la-belle-riviere/album-ohio-la-belle-riviere-t03",
+"url": "https://www.bedetheque.com/BD-Ohio-La-Belle-Riviere-Tome-3-Livre-3-541898.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
 "id": "ll:26425202",
@@ -32998,40 +33017,42 @@
 "source": "editeur:michellafon"
 },
 {
-"id": "ed:9782413096214",
+"id": "ed:bdgest:545050",
 "title": "Rick Grimes 2000",
 "authors": [
-"Robert Kirkman"
+"Kirkman",
+"Ottley"
 ],
 "publisher": "Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413096214",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413096214.jpg?itok=uYQVgXwi",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545050.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/comics/series/serie-rick-grimes-2000/album-rick-grimes-2000",
+"url": "https://www.bedetheque.com/BD-Rick-Grimes-2000-545050.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
-"id": "ed:9782413092131",
+"id": "ed:bdgest:542062",
 "title": "Rose & Crow - Tome 6",
 "authors": [
-"Amélie Sarn"
+"Sarn",
+"Garçon"
 ],
 "publisher": "Delcourt",
 "date": "2026-09-24",
-"isbn": "9782413092131",
+"isbn": "",
 "pages": 0,
 "format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413092131.jpg?itok=6oXsnXb2",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_542062.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-rose-and-crow/album-rose-and-crow-t06",
+"url": "https://www.bedetheque.com/BD-Rose-Crow-Tome-6-542062.html",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:bdgest"
 },
 {
 "id": "ed:bdgest:543093",
@@ -33456,7 +33477,7 @@
 },
 {
 "id": "ed:bdgest:546343",
-"title": "Herculine Barbin - précédé de la Vie des hommes infâmes",
+"title": "Herculine Barbin - précédé de La Vie des hommes infâmes",
 "authors": [
 "Chambon"
 ],
@@ -33468,7 +33489,7 @@
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546343.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Herculine-Barbin-Herculine-Barbin-precede-de-la-Vie-des-hommes-infames-546343.html",
+"url": "https://www.bedetheque.com/BD-Herculine-Barbin-Herculine-Barbin-precede-de-La-Vie-des-hommes-infames-546343.html",
 "kind": "bd",
 "source": "editeur:bdgest"
 },
@@ -33839,25 +33860,6 @@
 "url": "https://www.nautiljon.com/mangas/love+of+kill/volume-14,997415.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
-},
-{
-"id": "ed:bdgest:544367",
-"title": "Lupin III / Lupin The Third - Lupin III - La Merveille",
-"authors": [
-"Kid Toussaint",
-"Munuera"
-],
-"publisher": "Kana",
-"date": "2026-09-25",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544367.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Lupin-III-Lupin-The-Third-Toussaint-Munuera-Lupin-III-La-Merveille-544367.html",
-"kind": "bd",
-"source": "editeur:bdgest"
 },
 {
 "id": "ed:9782505144205",
@@ -34998,6 +35000,24 @@
 "url": "https://www.hachette.fr/livre/cute-cosy-explore-le-monde-9782036093997/",
 "kind": "jeunesse",
 "source": "editeur:hachette"
+},
+{
+"id": "ed:bdgest:546247",
+"title": "Dans l'intimité d'un scénariste de génie",
+"authors": [
+"Du Chatenet"
+],
+"publisher": "Flammarion",
+"date": "2026-09-30",
+"isbn": "",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546247.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-AUT-Goscinny-Dans-l-intimite-d-un-scenariste-de-genie-546247.html",
+"kind": "bd",
+"source": "editeur:bdgest"
 },
 {
 "id": "ed:9782376717003",
@@ -36882,7 +36902,7 @@
 },
 {
 "id": "ed:bdgest:546465",
-"title": "Santos sisters - Tome 1",
+"title": "Santos Sisters - Tome 1",
 "authors": [
 "Petre"
 ],
@@ -36894,7 +36914,7 @@
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546465.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Santos-sisters-Tome-1-546465.html",
+"url": "https://www.bedetheque.com/BD-Santos-Sisters-Tome-1-546465.html",
 "kind": "bd",
 "source": "editeur:bdgest"
 },
@@ -38121,6 +38141,25 @@
 "url": "https://www.michel-lafon.fr/books/ma-vie-au-coeur-de-la-french-49966151",
 "kind": "",
 "source": "editeur:michellafon"
+},
+{
+"id": "ed:bdgest:546518",
+"title": "Marine française - Tome 1 - La grande fresque",
+"authors": [
+"De Gmeline",
+"Federici"
+],
+"publisher": "Triomphe",
+"date": "2026-10-01",
+"isbn": "",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546518_da8ced.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-Marine-francaise-Tome-1-La-grande-fresque-546518.html",
+"kind": "bd",
+"source": "editeur:bdgest"
 },
 {
 "id": "ed:bdgest:543915",
@@ -40164,6 +40203,25 @@
 "description": "",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Petit-Narvalo-Tome-3-Troisieme-tour-545414.html",
+"kind": "bd",
+"source": "editeur:bdgest"
+},
+{
+"id": "ed:bdgest:546257",
+"title": "Ma coloc est une fantôme dépressive",
+"authors": [
+"Genmor",
+"Grish"
+],
+"publisher": "Exemplaire",
+"date": "2026-10-05",
+"isbn": "",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546257.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-Ma-coloc-est-une-fantome-depressive-546257.html",
 "kind": "bd",
 "source": "editeur:bdgest"
 },
@@ -47105,24 +47163,6 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:546271",
-"title": "Ultrawild",
-"authors": [
-"Mushin"
-],
-"publisher": "Sarbacane",
-"date": "2026-10-07",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546271.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Ultrawild-546271.html",
-"kind": "bd",
-"source": "editeur:bdgest"
-},
-{
 "id": "ed:9782290425817",
 "title": "Un Noël pour briser la glace",
 "authors": [
@@ -47187,10 +47227,10 @@
 "id": "ed:bdgest:546266",
 "title": "Une fabuleuse histoire de l'avenir",
 "authors": [
-"De Toledo",
+"de Toledo",
 "Bonneau"
 ],
-"publisher": "Futuropolis",
+"publisher": "Futuropolis - Les Liens qui Libèrent",
 "date": "2026-10-07",
 "isbn": "",
 "pages": 0,
@@ -48380,7 +48420,7 @@
 "isbn": "9782382884799",
 "pages": 0,
 "format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/31/the_beginning_after_the_end_12_edition_reliee_francaise1037813.webp",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/31/1037813.webp",
 "description": "",
 "rayons": [
 "Manga"
@@ -48475,7 +48515,7 @@
 },
 {
 "id": "ed:9782413096610",
-"title": "Warm Fusion",
+"title": "Warm Fusion TL",
 "authors": [
 "Scott Hoffman"
 ],
@@ -50137,24 +50177,6 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:545986",
-"title": "Capitaine Albator - Mémoires de l'Arcadia Intégrale - Mémoires de l’Arcadia",
-"authors": [
-"Alquié"
-],
-"publisher": "Kana",
-"date": "2026-10-12",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545986_f3e9b9.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Capitaine-Albator-Memoires-de-l-Arcadia-INT-Memoires-de-l-Arcadia-545986.html",
-"kind": "bd",
-"source": "editeur:bdgest"
-},
-{
 "id": "ed:bdgest:545555",
 "title": "Fougère et le pouvoir des deux",
 "authors": [
@@ -50398,6 +50420,27 @@
 "source": "editeur:bayard"
 },
 {
+"id": "ed:9791036381959",
+"title": "La comptine de l'hiver",
+"authors": [
+"France Quatromme"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-10-13",
+"isbn": "9791036381959",
+"pages": 26,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036381959/9791036381959.jpg",
+"description": "Toum, Toum, fait la neige qui tombe. Tap tap, tchica tchica, clac clac, font nos amis Ninon, Grignotte et Coco, complètement gelés, pour essayer de se réchauffer. Mais avec tout ce bruit, attention à ne pas réveiller le Yéti ! Un album tout carton pour les petits dès 2 ans à lire de haut en bas pour bien mettre en scène la verticalité du cerisier et les personnages qui vivent chacun à un étage. Écrit par la conteuse France Quatromme et illustré par Mylène Rigaudie (« La Fabrique à contes », 15 000 ex vendus), le quatrième volume d’une petite série qui en comporte quatre, quatre comme les quatre saisons.",
+"rayons": [
+"Autres albums",
+"Albums Eveil"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/96961-la-comptine-de-lhiver/",
+"kind": "jeunesse",
+"source": "editeur:bayard"
+},
+{
 "id": "ed:9791036393242",
 "title": "Le Petit livre pour parler de la mort (et de la vie !)",
 "authors": [
@@ -50481,6 +50524,27 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26515881-le-tres-long-cri-detonton-gregory-chaperon-danielle-monsieur-ed",
 "kind": "bd"
+},
+{
+"id": "ed:9791036396601",
+"title": "Legendary",
+"authors": [
+"Stephanie GARBER"
+],
+"publisher": "Bayard Jeunesse",
+"date": "2026-10-13",
+"isbn": "9791036396601",
+"pages": 544,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036396601/9791036396601.jpg",
+"description": "À la fin de Caraval, Donatella a reçu la lettre d’un mystérieux « ami » lui demandant de payer sa dette. C’est en effet grâce à lui qu’elle et sa sœur ont pu participer au jeu. Il la somme de découvrir la véritable identité de Légende, le maître de Caraval. Si elle réussit, il promet de lui amener sa mère, qui les a quittées huit ans plus tôt. Donatella se rend donc à Valanda pour participer à la nouvelle édition de Caraval, organisée pour les 70 ans de l’impératrice Élantine. Une fois arrivée dans la capitale, les ennuis commencent. Dante, le séducteur qu’elle a embrassé à la fin du Caraval précédent, fait croire que Tella est la fiancée de l’héritier du trône, Jacks. Ce dernier ressemble étrangement au Prince des Cœurs, l’un des puissants mages que Légende aurait enfermés dans un jeu de cartes pour voler ses pouvoirs…",
+"rayons": [
+"Fantastique / fantasy",
+"Caraval"
+],
+"url": "https://tout.bayard-jeunesse.com/livres/104788-legendary/",
+"kind": "fantasy",
+"source": "editeur:bayard"
 },
 {
 "id": "ed:9791036389092",
@@ -50790,15 +50854,15 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:546273",
+"id": "ed:9791038210738",
 "title": "Bretonneries Intégrale - 20 contes et légendes authentiques de la vraie Bretagne",
 "authors": [
 "Monsieur Le Chien",
-"Lévêque"
+"Vincent Lévêque"
 ],
 "publisher": "Audie",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9791038210738",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546273.jpg",
@@ -51955,6 +52019,24 @@
 "source": "editeur:hachette"
 },
 {
+"id": "ed:9782380462432",
+"title": "La Librairie des jours heureux - Tome 1",
+"authors": [],
+"publisher": "Kotodama",
+"date": "2026-10-14",
+"isbn": "9782380462432",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/52/la_librairie_des_jours_heureux_11021925.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/la+librairie+des+jours+heureux/volume-1,1021925.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ed:9782702196328",
 "title": "La Maladresse",
 "authors": [
@@ -52456,15 +52538,15 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:545215",
+"id": "ed:9781649324337",
 "title": "Le garde républicain - Tome 20 - Schisme",
 "authors": [
-"Mornet",
-"Maria"
+"Thierry Mornet",
+"Vincent Maria"
 ],
 "publisher": "Hexagon Comics",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9781649324337",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545215.jpg",
@@ -53034,24 +53116,6 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26468064-mamie-luger-l-amour-aux-trousses-nicolas-keramidas-benoit-philippon-casterman",
 "kind": "bd"
-},
-{
-"id": "ed:bdgest:544025",
-"title": "Mamie Luger - Tome 2 - L'amour aux trousses",
-"authors": [
-"Keramidas"
-],
-"publisher": "Casterman",
-"date": "2026-10-14",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544025.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Mamie-Luger-Tome-2-L-amour-aux-trousses-544025.html",
-"kind": "bd",
-"source": "editeur:bdgest"
 },
 {
 "id": "ll:26468037",
@@ -53705,19 +53769,19 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:543514",
+"id": "ed:9791036365263",
 "title": "Rita Perdido - Tome 2 - La clé du mystère",
 "authors": [
-"Dixen",
-"Carlomagno"
+"Victor Dixen",
+"French Carlomagno"
 ],
 "publisher": "Bayard",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9791036365263",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543514.jpg",
-"description": "",
+"description": "Paris, été 1984. La jeune Rita Perdido crée son agence de retrouvage afin de subvenir à ses besoins. L’une de ses toutes premières missions consiste à élucider un cold case, un mystère jamais résolu par la police : la disparition d’une actrice de cinéma muet dans les années 1930. Persuadée que la légendaire Orlane Dorval a été enlevée par un croquemitaine il y a fort longtemps, Rita se lance dans une quête à travers Paris, entre les tournages glamours qui électrisent la surface… et ceux, beaucoup plus terrifiants, qui se trament dans les sombres profondeurs de la Ville-Lumière.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Rita-Perdido-Tome-2-La-cle-du-mystere-543514.html",
 "kind": "bd",
@@ -54850,6 +54914,24 @@
 "source": "editeur:delcourt"
 },
 {
+"id": "ed:9782413092186",
+"title": "Histoires secrètes des 66 plus grands singles Rock - 1950-1970",
+"authors": [
+"Samuel Degasne"
+],
+"publisher": "Delcourt",
+"date": "2026-10-15",
+"isbn": "9782413092186",
+"pages": 0,
+"format": "",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413092186.jpg?itok=w50LixQL",
+"description": "",
+"rayons": [],
+"url": "https://www.editions-delcourt.fr/bd/series/serie-rock-histoire-secrete-des-66-plus-grands-singles-1950-1970/album-rock",
+"kind": "bd",
+"source": "editeur:delcourt"
+},
+{
 "id": "ll:26546571",
 "title": "Hunger Games - Lever de soleil sur la moisson",
 "authors": [
@@ -55308,8 +55390,8 @@
 "id": "ed:9782874531903",
 "title": "Les meilleurs récits de... - Tome 73 - Funcken - Duval",
 "authors": [
-"Duval",
-"Funcken"
+"Yves Duval",
+"Fred & Liliane Funcken"
 ],
 "publisher": "Hibou",
 "date": "2026-10-15",
@@ -55411,7 +55493,7 @@
 "id": "ed:9791037516114",
 "title": "Niglo et le renard",
 "authors": [
-"Sfar"
+"Joann Sfar"
 ],
 "publisher": "Les Arènes",
 "date": "2026-10-15",
@@ -55546,24 +55628,6 @@
 "url": "https://www.nautiljon.com/mangas/pour+daphné/volume-1,1037089.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
-},
-{
-"id": "ed:9782413092186",
-"title": "Rock - Histoires secrètes des 66 plus grands singles rock (1950-1970)",
-"authors": [
-"Samuel Degasne"
-],
-"publisher": "Delcourt",
-"date": "2026-10-15",
-"isbn": "9782413092186",
-"pages": 0,
-"format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413092186.jpg?itok=w50LixQL",
-"description": "",
-"rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-rock-histoire-secrete-des-66-plus-grands-singles-1950-1970/album-rock",
-"kind": "bd",
-"source": "editeur:delcourt"
 },
 {
 "id": "ll:26602551",
@@ -56088,7 +56152,7 @@
 "id": "ed:9791026829256",
 "title": "Batman - Gargoyle of Gotham",
 "authors": [
-"Grampá"
+"Rafael Grampá"
 ],
 "publisher": "Urban Comics",
 "date": "2026-10-16",
@@ -56144,7 +56208,7 @@
 "id": "ed:9782487849310",
 "title": "Bon débarras !",
 "authors": [
-"Murawiec"
+"Léa Murawiec"
 ],
 "publisher": "2042",
 "date": "2026-10-16",
@@ -56222,7 +56286,7 @@
 "id": "ed:9782493428769",
 "title": "Den Intégrale - Rêves et alarmes",
 "authors": [
-"Corben"
+"Richard Corben"
 ],
 "publisher": "Delirium",
 "date": "2026-10-16",
@@ -56260,7 +56324,7 @@
 "id": "ed:9782808344982",
 "title": "Eddy Puss - Tome 1 - Le Réveil du Sphinx",
 "authors": [
-"Saucin",
+"Joël Saucin",
 "Jihes"
 ],
 "publisher": "Le Livre en papier",
@@ -56286,12 +56350,12 @@
 "isbn": "9791034768592",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543095.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9791034768592-couv-M420x900.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Fleur-Bleue-543095.html",
+"url": "https://www.dupuis.com/fleur-bleue/bd/fleur-bleue-fleur-bleue/121602",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:dupuis"
 },
 {
 "id": "ll:26623640",
@@ -56317,9 +56381,9 @@
 },
 {
 "id": "ed:9791026856511",
-"title": "L'Homme Invisible",
+"title": "L'homme Invisible",
 "authors": [
-"Tynion IV",
+"James Tynion IV",
 "Dani"
 ],
 "publisher": "Urban Comics",
@@ -56330,7 +56394,7 @@
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546220.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-L-Homme-Invisible-Urban-Comics-L-Homme-Invisible-546220.html",
+"url": "https://www.bedetheque.com/BD-Homme-Invisible-Tynion-IV-Dani-L-Homme-Invisible-546220.html",
 "kind": "bd",
 "source": "editeur:bdgest"
 },
@@ -56429,19 +56493,19 @@
 "isbn": "9782808211604",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545260.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808211604/couv/M325x429/le-lien-le-lien.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Lien-Filippi-Yvan-Le-lien-545260.html",
+"url": "https://www.lelombard.com/bd/le-lien/le-lien",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782488807012",
 "title": "Le phare",
 "authors": [
-"Brugeas",
-"Corona"
+"Vincent Brugeas",
+"Jorge Corona"
 ],
 "publisher": "Astrolabe",
 "date": "2026-10-16",
@@ -56467,12 +56531,12 @@
 "isbn": "9782808219211",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545470.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808219211/couv/M325x429/le-territoire-le-territoire.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Territoire-Pruett-Xavier-Le-Territoire-545470.html",
+"url": "https://www.lelombard.com/bd/le-territoire/le-territoire",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9791041430567",
@@ -57093,6 +57157,44 @@
 "source": "editeur:seuil"
 },
 {
+"id": "ed:9791097477585",
+"title": "Agartha #1 TL - Tome 1/2",
+"authors": [
+"Fabrice  Linck",
+"David Soyeur"
+],
+"publisher": "Kamiti",
+"date": "2026-10-17",
+"isbn": "9791097477585",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546525.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-Agartha-Tome-1TL-546525.html",
+"kind": "bd",
+"source": "editeur:bdgest"
+},
+{
+"id": "ed:9782810511006",
+"title": "Lucky Luke - 80 ans ouaip!",
+"authors": [
+"<Collectif>",
+"Morris"
+],
+"publisher": "Le Figaro BD",
+"date": "2026-10-17",
+"isbn": "9782810511006",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546460.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-Lucky-Luke-Autres-Lucky-Luke-80-ans-ouaip-546460.html",
+"kind": "bd",
+"source": "editeur:bdgest"
+},
+{
 "id": "ll:26420355",
 "title": "« Ceci est ma vie »",
 "authors": [
@@ -57243,8 +57345,8 @@
 "id": "ed:9782957991273",
 "title": "Les aventures de Lucas, champion de biathlon - Tome 3 - Une place aux jeux",
 "authors": [
-"Lacroix",
-"Delvecchio"
+"Franck Lacroix",
+"Beniamino Delvecchio"
 ],
 "publisher": "Éditions Du Jura",
 "date": "2026-10-20",
@@ -57339,6 +57441,25 @@
 "source": "editeur:milan"
 },
 {
+"id": "ed:9782408063481",
+"title": "Un petit cadeau de rien du tout",
+"authors": [],
+"publisher": "Milan",
+"date": "2026-10-20",
+"isbn": "9782408063481",
+"pages": 56,
+"format": "",
+"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9782408063481/9782408063481.jpg",
+"description": "Le chat Mooch souhaite faire un cadeau à son ami Earl, mais celui-ci a déjà tout : une gamelle, un panier confortable, un jouet… Après avoir longuement réfléchi, Mooch réalise que c’est du RIEN qui manque réellement à Earl ! Mais où donc trouver du « rien » dans un monde rempli d’objets et de nouveautés ? Il explore les magasins, observe les gens qui se plaignent de ne « rien avoir à faire » ou de ne « rien trouver à acheter »… et pourtant, il y a toujours quelque chose quelque part. C’est en restant contemplatif sur son coussin que Mooch va finalement trouver ce « rien » précieux. Il prépare avec soin une grande boîte vide pour Earl. Quand celui-ci l’ouvre, il ne découvre rien… sauf l’essentiel : leur amitié et le plaisir d’être ensemble. Un album à succès qui séduit tant les jeunes que les adultes.",
+"rayons": [
+"Albums 3 - 7 ans",
+"Albums 3 - 5 ans"
+],
+"url": "https://www.editionsmilan.com/livres/99924-un-petit-cadeau-de-rien-du-tout/",
+"kind": "jeunesse",
+"source": "editeur:milan"
+},
+{
 "id": "ed:9782408068097",
 "title": "Vive la magie de Noël !",
 "authors": [],
@@ -57398,6 +57519,25 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26627712-2-abysses-tome-02-c-s-quill-hugo-et-cie",
 "kind": "romance"
+},
+{
+"id": "ed:9791039149082",
+"title": "Alien Intégrale - La galaxie des cauchemars",
+"authors": [
+"Phillip Kennedy Johnson",
+"Julius Ohta"
+],
+"publisher": "Panini Comics",
+"date": "2026-10-21",
+"isbn": "9791039149082",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546496.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-Alien-Johnson-INT-La-galaxie-des-cauchemars-546496.html",
+"kind": "bd",
+"source": "editeur:bdgest"
 },
 {
 "id": "ll:26531179",
@@ -57858,6 +57998,25 @@
 "url": "https://www.jailu.com/dagon/9782290445419",
 "kind": "fantasy",
 "source": "editeur:jailu"
+},
+{
+"id": "ed:9791039149297",
+"title": "Daredevil & Punisher - L'arme du Diable - L'arme du Diable",
+"authors": [
+"Jimmy Palmiotti",
+"Tommaso Bianchi"
+],
+"publisher": "Panini Comics",
+"date": "2026-10-21",
+"isbn": "9791039149297",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546524.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-Daredevil-Punisher-L-arme-du-Diable-L-arme-du-Diable-546524.html",
+"kind": "bd",
+"source": "editeur:bdgest"
 },
 {
 "id": "ed:9782702197066",
@@ -58470,7 +58629,7 @@
 "id": "ed:9782226509963",
 "title": "Illibéral !",
 "authors": [
-"Alani",
+"Feurat Alani",
 "Terreur Graphique"
 ],
 "publisher": "Albin Michel",
@@ -59254,26 +59413,6 @@
 "source": "editeur:jailu"
 },
 {
-"id": "ed:9791039149686",
-"title": "Le premier amour de Nezumi - Tome 5",
-"authors": [
-"Riku Ôseto"
-],
-"publisher": "Panini",
-"date": "2026-10-21",
-"isbn": "9791039149686",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/73/le_premier_amour_de_nezumi_51014637.webp",
-"description": "Alors que Midori et Ao reviennent de mission, Midori emmène son coéquipier à l'hôpital pour lui présenter Porc (la figure paternelle qu'elle partage avec Nezumi), plongé dans le coma à la suite d'une grave blessure. C'est alors...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/le+premier+amour+de+nezumi/volume-5,1014637.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ll:26640257",
 "title": "Le temps des salauds",
 "authors": [
@@ -59426,7 +59565,7 @@
 "id": "ed:9782384881796",
 "title": "Les familius - Tome 18 - Doux foyer",
 "authors": [
-"Doucet"
+"Nicolas Doucet"
 ],
 "publisher": "Éditions Plein Vent",
 "date": "2026-10-21",
@@ -59526,8 +59665,8 @@
 "id": "ed:9791039145503",
 "title": "Lilo & Stitch - Tome 2",
 "authors": [
-"Pak",
-"Giacomino"
+"Greg Pak",
+"Giulia Giacomino"
 ],
 "publisher": "Panini Comics",
 "date": "2026-10-21",
@@ -60046,7 +60185,7 @@
 "id": "ed:9791039149570",
 "title": "Phantom Road - Tome 3",
 "authors": [
-"Lemire",
+"Jeff Lemire",
 "Gabriel Walta"
 ],
 "publisher": "Panini Comics",
@@ -60188,9 +60327,9 @@
 },
 {
 "id": "ed:9791039149440",
-"title": "Saï, rivaux dimensionnels",
+"title": "Saï - Rivaux dimensionnels",
 "authors": [
-"Momoko"
+"Peach Momoko"
 ],
 "publisher": "Panini Comics",
 "date": "2026-10-21",
@@ -60200,7 +60339,7 @@
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546368.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Sai-rivaux-dimensionnels-Peach-Momoko-Sai-rivaux-dimensionnels-546368.html",
+"url": "https://www.bedetheque.com/BD-Sai-Rivaux-dimensionnels-546368.html",
 "kind": "bd",
 "source": "editeur:bdgest"
 },
@@ -60461,7 +60600,7 @@
 "id": "ed:9782387250940",
 "title": "THB Intégrale - Total THB - Intégrale Volume Un",
 "authors": [
-"Pope"
+"Paul Pope"
 ],
 "publisher": "Morgen",
 "date": "2026-10-21",
@@ -61043,8 +61182,8 @@
 "id": "ed:9791036393358",
 "title": "Zouk - Tome 25 - La musique, c'est magique !",
 "authors": [
-"Hubesch",
-"Bloch"
+"Nicolas Hubesch",
+"Serge Bloch"
 ],
 "publisher": "Bayard",
 "date": "2026-10-21",
@@ -61209,11 +61348,30 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9782875359872",
+"title": "Eddy Paape & Jean-Michel Charlier - André Lefort / Ned Tiger",
+"authors": [
+"Jean-Michel Charlier",
+"Eddy Paape"
+],
+"publisher": "BD Must",
+"date": "2026-10-22",
+"isbn": "9782875359872",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546506.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-Eddy-Paape-Jean-Michel-Charlier-Les-inedits-de-Andre-Lefort-Ned-Tiger-546506.html",
+"kind": "bd",
+"source": "editeur:bdgest"
+},
+{
 "id": "ed:9782822249522",
 "title": "Emma et les mauvais éléments - Tome 2",
 "authors": [
-"Holzl",
-"Cardona"
+"Ariel Holzl",
+"Alba Cardona"
 ],
 "publisher": "Jungle",
 "date": "2026-10-22",
@@ -61293,7 +61451,8 @@
 "id": "ed:bdgest:546410",
 "title": "Fous alliés - II",
 "authors": [
-"Devoitille"
+"Jean-Michel Devoitille",
+"<Collectif>"
 ],
 "publisher": "CHP Liège",
 "date": "2026-10-22",
@@ -61445,6 +61604,24 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26546801-la-puissance-des-meres-pour-un-nouveau-sujet-revolutionnaire-ouassak-plantin-delcourt",
 "kind": "bd"
+},
+{
+"id": "ed:9782384220977",
+"title": "La france de Gauche à Droite",
+"authors": [
+"Marsault"
+],
+"publisher": "Magnus",
+"date": "2026-10-22",
+"isbn": "9782384220977",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546461.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-France-de-Gauche-a-Droite-La-France-de-Gauche-a-Droite-546461.html",
+"kind": "bd",
+"source": "editeur:bdgest"
 },
 {
 "id": "ll:26547855",
@@ -61787,6 +61964,26 @@
 "source": "editeur:michellafon"
 },
 {
+"id": "ed:9791041428618",
+"title": "2049",
+"authors": [
+"Nathanaël Wallenhorst"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041428618",
+"pages": 352,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041428618/petite/161509_couverture_Hres_0.jpg",
+"description": "2049, Nathanaël Wallenhorst : 2049À quoi ressemblerait notre vie quotidienne en 2049 sur une Terre ayant franchi les principaux points de basculement ? For...",
+"rayons": [
+"Sciences humaines"
+],
+"url": "https://www.editionspoints.com/ouvrage/2049-nathanael-wallenhorst/9791041428618",
+"kind": "",
+"source": "editeur:points"
+},
+{
 "id": "ed:9782808216760",
 "title": "Alpha - Tome 21 - Caméléon",
 "authors": [
@@ -61798,12 +61995,12 @@
 "isbn": "9782808216760",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543990.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808216760/couv/M325x429/alpha-cameleon.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Alpha-Tome-21-Cameleon-543990.html",
+"url": "https://www.lelombard.com/bd/alpha/cameleon",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782808703093",
@@ -62043,15 +62240,15 @@
 "id": "ed:9782505133339",
 "title": "Complainte des Landes perdues - Tome 17 - Les Sudenne 5 - Deux cousines",
 "authors": [
-"Dufaux",
-"Teng"
+"Jean Dufaux",
+"Paul Teng"
 ],
 "publisher": "Dargaud",
 "date": "2026-10-23",
 "isbn": "9782505133339",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544849.jpg",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544849_c32d23.jpg",
 "description": "",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Complainte-des-Landes-perdues-Tome-17-Les-Sudenne-5-Deux-cousines-544849.html",
@@ -62069,12 +62266,12 @@
 "isbn": "9782808511377",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543585.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808511377-couv-M420x900.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Cedric-Tome-37-Chaud-devant-543585.html",
+"url": "https://www.dupuis.com/cedric/bd/cedric-tome-37-chaud-devant/138729",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:dupuis"
 },
 {
 "id": "ed:9791033570318",
@@ -62088,12 +62285,32 @@
 "isbn": "9791033570318",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544411.jpg",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544411_6915fa.jpg",
 "description": "",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Des-Hommes-de-Gout-Tome-1-Les-fils-d-Enkidu-544411.html",
 "kind": "bd",
 "source": "editeur:bdgest"
+},
+{
+"id": "ed:9791041426737",
+"title": "Glamour attitude",
+"authors": [
+"Jay McInerney"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041426737",
+"pages": 256,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041426737/petite/161081_couverture_Hres_0.jpg",
+"description": "Glamour attitude , Jay McInerney, Jean-Pierre Carasso, Jacqueline Huet : « Une histoire truffée de clins d’œil, de références aux stars du momentavec ...",
+"rayons": [
+"Littérature étrangère"
+],
+"url": "https://www.editionspoints.com/ouvrage/glamour-attitude-jay-mcinerney/9791041426737",
+"kind": "roman",
+"source": "editeur:points"
 },
 {
 "id": "ed:9782808507714",
@@ -62107,12 +62324,12 @@
 "isbn": "9782808507714",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543593.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808507714-couv-M420x900.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Harry-Dickson-Headline-Vergari-Catacchio-Tome-4-La-resurrection-de-la-Gorgone-543593.html",
+"url": "https://www.dupuis.com/harry-dickson/bd/harry-dickson-tome-4-la-resurrection-de-la-gorgone/135522",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:dupuis"
 },
 {
 "id": "ll:26623483",
@@ -62135,6 +62352,24 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623483-heros-et-merveilles-du-moyen-age-jacques-le-goff-seuil",
 "kind": ""
+},
+{
+"id": "ed:9791041431557",
+"title": "J'ai épousé l'aventure",
+"authors": [
+"Osa Johnson"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041431557",
+"pages": 448,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041431557/petite/163648_couverture_Hres_0.jpg",
+"description": "J'ai épousé l'aventure, Osa Johnson : Martin et Osa Johnson formèrent le plus célèbre couple d’aventuriers de l’entre-deux-guerres",
+"rayons": [],
+"url": "https://www.editionspoints.com/ouvrage/j-ai-epouse-l-aventure-osa-johnson/9791041431557",
+"kind": "",
+"source": "editeur:points"
 },
 {
 "id": "ed:9782383163169",
@@ -62177,10 +62412,28 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9791041427918",
+"title": "La Voix des fantômes",
+"authors": [
+"Grégory Delaplace"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041427918",
+"pages": 352,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041427918/petite/161297_couverture_Hres_0.jpg",
+"description": "La Voix des fantômes, Grégory Delaplace : La voix des fantômesLa mort est naturelle, bien entendu, mais son traitement est culturel",
+"rayons": [],
+"url": "https://www.editionspoints.com/ouvrage/la-voix-des-fantomes-gregory-delaplace/9791041427918",
+"kind": "",
+"source": "editeur:points"
+},
+{
 "id": "ed:9782737393198",
 "title": "La grande histoire du Mont Saint-Michel",
 "authors": [
-"Delalande",
+"Arnaud Delalande",
 "Salvo"
 ],
 "publisher": "Ouest-France",
@@ -62199,8 +62452,8 @@
 "id": "ed:9782205216196",
 "title": "La révolte sans précédent - Tome 3 - La révolte avec précédent",
 "authors": [
-"Meurice",
-"Deloffre"
+"Guillaume Meurice",
+"Sandrine Deloffre"
 ],
 "publisher": "Dargaud",
 "date": "2026-10-23",
@@ -62234,6 +62487,24 @@
 "url": "https://www.nautiljon.com/mangas/la+veille+de+la+cérémonie/volume-1,52500.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9791041417629",
+"title": "La vie que j'ai choisie",
+"authors": [
+"Wilfred Thesiger"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041417629",
+"pages": 720,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041417629/petite/156527_couverture_Hres_0.jpg",
+"description": "La vie que j'ai choisie, Wilfred Thesiger, Sabine Boulongne : Figure légendaire de l’exploration, Wilfred Thesiger retrace au travers de ses mémoires so...",
+"rayons": [],
+"url": "https://www.editionspoints.com/ouvrage/la-vie-que-j-ai-choisie-wilfred-thesiger/9791041417629",
+"kind": "",
+"source": "editeur:points"
 },
 {
 "id": "ed:9782021614145",
@@ -62274,6 +62545,99 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623766-le-livre-des-chats-d-ursula-k-le-guin-ursula-k-le-guin-aux-forges-de-vulcain",
 "kind": ""
+},
+{
+"id": "ed:9791041429479",
+"title": "Le Soufisme",
+"authors": [
+"Eric Geoffroy"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041429479",
+"pages": 336,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041429479/petite/162285_couverture_Hres_0.jpg",
+"description": "Le Soufisme, Eric Geoffroy : Le soufismeDimension intérieure de l’islam sunnite, le soufisme repose sur la transmission, de maître à disciple, d’une �...",
+"rayons": [],
+"url": "https://www.editionspoints.com/ouvrage/le-soufisme-eric-geoffroy/9791041429479",
+"kind": "",
+"source": "editeur:points"
+},
+{
+"id": "ed:9791041429950",
+"title": "Le Sourire de Caterina",
+"authors": [
+"Carlo Vecce"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041429950",
+"pages": 624,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041429950/petite/162638_couverture_Hres_0.jpg",
+"description": "Le Sourire de Caterina, Carlo Vecce, Nathalie Bauer : « Magistralement mené, avec autant de panache que d’érudition",
+"rayons": [],
+"url": "https://www.editionspoints.com/ouvrage/le-sourire-de-caterina-carlo-vecce/9791041429950",
+"kind": "",
+"source": "editeur:points"
+},
+{
+"id": "ed:9791041428977",
+"title": "Le patriarcat des objets",
+"authors": [
+"Rebekka Endler"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041428977",
+"pages": 384,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041428977/petite/161860_couverture_Hres_0.jpg",
+"description": "Le patriarcat des objets, Rebekka Endler : « Une lecture qui fait tomber de nombreux préjugés et pose un regard neuf sur notre environnement",
+"rayons": [
+"Documents"
+],
+"url": "https://www.editionspoints.com/ouvrage/le-patriarcat-des-objets-rebekka-endler/9791041428977",
+"kind": "",
+"source": "editeur:points"
+},
+{
+"id": "ed:9791041425327",
+"title": "Les Anges aquatiques",
+"authors": [
+"Mons Kallentoft"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041425327",
+"pages": 528,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041425327/petite/160458_couverture_Hres_0.jpg",
+"description": "Les Anges aquatiques, Mons Kallentoft, Frédéric Fourreau : « L’une des héroïnes les plus convaincantes qui soient nées d’une plume masculine",
+"rayons": [],
+"url": "https://www.editionspoints.com/ouvrage/les-anges-aquatiques-mons-kallentoft/9791041425327",
+"kind": "",
+"source": "editeur:points"
+},
+{
+"id": "ed:9791041430048",
+"title": "Les Charognards",
+"authors": [
+"Brianne Huguerre-Cousin",
+"Matthieu Slisse"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041430048",
+"pages": 192,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041430048/petite/162721_couverture_Hres_0.jpg",
+"description": "Les Charognards, Brianne Huguerre-Cousin, Matthieu Slisse : « Un récit qui suscite l’indignation et qui illustre la course à la rentabilité imposée pa...",
+"rayons": [],
+"url": "https://www.editionspoints.com/ouvrage/les-charognards-brianne-huguerre-cousin/9791041430048",
+"kind": "",
+"source": "editeur:points"
 },
 {
 "id": "ed:9782380601923",
@@ -62336,25 +62700,6 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623930-mille-ans-duval-bajram-armand-le-lombard",
 "kind": "bd"
-},
-{
-"id": "ed:9782808220804",
-"title": "Mille ans",
-"authors": [
-"Duval",
-"Bajram"
-],
-"publisher": "Le Lombard",
-"date": "2026-10-23",
-"isbn": "9782808220804",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543584.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Mille-ans-543584.html",
-"kind": "bd",
-"source": "editeur:bdgest"
 },
 {
 "id": "ed:manganews:pet-remastered-edition-vol-3",
@@ -62501,6 +62846,26 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9791041426744",
+"title": "Toute ma vie",
+"authors": [
+"Jay McInerney"
+],
+"publisher": "Points",
+"date": "2026-10-23",
+"isbn": "9791041426744",
+"pages": 224,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041426744/petite/161082_couverture_Hres_0.jpg",
+"description": "Toute ma vie, Jay McInerney, Jean-Pierre Carasso : « Sa parole transfigure le sordide en comique, son humour cinglant et dévastateur s’attaque impitoyabl...",
+"rayons": [
+"Littérature étrangère"
+],
+"url": "https://www.editionspoints.com/ouvrage/toute-ma-vie-jay-mcinerney/9791041426744",
+"kind": "roman",
+"source": "editeur:points"
+},
+{
 "id": "ed:9782382766491",
 "title": "Wait, I love you - Tome 1",
 "authors": [
@@ -62625,7 +62990,7 @@
 "id": "ed:9782490015375",
 "title": "Ville Spéciale - Tome 2 - Geôle bizarre",
 "authors": [
-"Shanta"
+"Élodie Shanta"
 ],
 "publisher": "Articho",
 "date": "2026-10-26",
@@ -62744,7 +63109,9 @@
 {
 "id": "ed:9791043307447",
 "title": "Avatar, le dernier maître de l'air - 3",
-"authors": [],
+"authors": [
+"<Collectif>"
+],
 "publisher": "nobi nobi !",
 "date": "2026-10-28",
 "isbn": "9791043307447",
@@ -63699,8 +64066,8 @@
 "id": "ed:9791041119844",
 "title": "La vérité de Pinocchio",
 "authors": [
-"Malnati",
-"Masbou"
+"Loïc Malnati",
+"Jean-Luc Masbou"
 ],
 "publisher": "Bamboo Édition",
 "date": "2026-10-28",
@@ -63777,6 +64144,26 @@
 "source": "editeur:hachette"
 },
 {
+"id": "ed:9791039149686",
+"title": "Le premier amour de Nezumi - Tome 5",
+"authors": [
+"Riku Ôseto"
+],
+"publisher": "Panini",
+"date": "2026-10-28",
+"isbn": "9791039149686",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/73/le_premier_amour_de_nezumi_51014637.webp",
+"description": "Alors que Midori et Ao reviennent de mission, Midori emmène son coéquipier à l'hôpital pour lui présenter Porc (la figure paternelle qu'elle partage avec Nezumi), plongé dans le coma à la suite d'une grave blessure. C'est alors...",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/le+premier+amour+de+nezumi/volume-5,1014637.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ll:26526287",
 "title": "Leonid Petrov T1 Édition Halloween",
 "authors": [
@@ -63800,22 +64187,22 @@
 },
 {
 "id": "ed:9782203300088",
-"title": "Les 4 as Intégrale - Anthologie 3e volume",
+"title": "Les 4 as - Tome 3",
 "authors": [
-"Chaulet",
-"Craenhals"
+"Georges Chaulet",
+"François Craenhals"
 ],
 "publisher": "Casterman",
 "date": "2026-10-28",
 "isbn": "9782203300088",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545401.jpg",
+"cover": "https://www.casterman.com/media/cache/couverture_large/casterman_img/Couvertures/9782203300088.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-4-as-INT03-Anthologie-3e-volume-545401.html",
+"url": "https://www.casterman.com/Bande-dessinee/Catalogue/les-4-as-3/9782203300088",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:casterman"
 },
 {
 "id": "ed:9782226489395",
@@ -64032,7 +64419,7 @@
 "id": "ed:9791041117208",
 "title": "Les gendarmes - Tome 19 - Le radar de la Méduse",
 "authors": [
-"Sulpice",
+"Olivier Sulpice",
 "Jenfèvre"
 ],
 "publisher": "Bamboo Édition",
@@ -64092,7 +64479,7 @@
 "title": "Les profs - Tome 29 - Amis des bêtes",
 "authors": [
 "Erroc",
-"Léturgie"
+"Simon Léturgie"
 ],
 "publisher": "Bamboo Édition",
 "date": "2026-10-28",
@@ -64466,7 +64853,7 @@
 "id": "ed:9782380462487",
 "title": "Nantaises - Elles ont fait l'histoire de leur ville",
 "authors": [
-"Coudrais"
+"Richard Coudrais"
 ],
 "publisher": "petit à petit",
 "date": "2026-10-28",
@@ -64776,7 +65163,7 @@
 "title": "Studio Danse Academy - Tome 2",
 "authors": [
 "Bertrand Béka",
-"Perrault"
+"Clémence Perrault"
 ],
 "publisher": "Bamboo Édition",
 "date": "2026-10-28",
@@ -65153,7 +65540,7 @@
 "title": "Complots à Versailles - Tome 14",
 "authors": [
 "Carbone",
-"Pierpaoli"
+"Roberta Pierpaoli"
 ],
 "publisher": "Jungle",
 "date": "2026-10-29",
@@ -65231,7 +65618,7 @@
 "id": "ed:9782386030888",
 "title": "Karôshi",
 "authors": [
-"Aspecada"
+"Alexis Aspecada"
 ],
 "publisher": "Komics Initiative",
 "date": "2026-10-29",
@@ -65293,7 +65680,7 @@
 "id": "ed:9782413091868",
 "title": "MAGA et la cour du roi Trump - Enquête au cœur de l'empire du chaos",
 "authors": [
-"Cunningham"
+"Darryl Cunningham"
 ],
 "publisher": "Delcourt",
 "date": "2026-10-29",
@@ -65454,8 +65841,8 @@
 "id": "ed:9791095720850",
 "title": "Tex - Tome 8 - Les Cinq doigts de la Main rouge",
 "authors": [
-"Boselli",
-"Ghion"
+"Mauro Boselli",
+"Marco Ghion"
 ],
 "publisher": "Fordis",
 "date": "2026-10-29",
@@ -65495,7 +65882,7 @@
 "id": "ed:9782386031007",
 "title": "Waves !! - Tome 2",
 "authors": [
-"Curci"
+"Adrien Curci"
 ],
 "publisher": "Komics Initiative",
 "date": "2026-10-29",
@@ -65533,7 +65920,7 @@
 },
 {
 "id": "ed:9782492463501",
-"title": "3 et 4, 5, Roku - Tome 1",
+"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -65783,12 +66170,12 @@
 "isbn": "9782800152707",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544976.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782800152707-couv-M420x900.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Dans-les-bois-Chauvel-Komorowski-Dans-les-bois-544976.html",
+"url": "https://www.dupuis.com/dans-les-bois/bd/dans-les-bois-dans-les-bois/23453",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:dupuis"
 },
 {
 "id": "ll:26622909",
@@ -66343,8 +66730,28 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9791033570103",
+"id": "ed:9791033530626",
 "title": "Radiant - Tome 20",
+"authors": [
+"Tony Valente"
+],
+"publisher": "Ankama Éditions",
+"date": "2026-10-30",
+"isbn": "9791033530626",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/13/94/1042749.webp",
+"description": "Le Concile des généraux de l’Inquisition a commencé à Bôme, présidé par Torque, qui se voit attribué les fonctions du Maréchal qui a « disparu ». Il met son plan à l’œuvre : soumettre à un contrôle absolu la totalité...",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/radiant/volume-20,1042749.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
+"id": "ed:9791033570103",
+"title": "Radiant - Tome 20 (Édition Collector)",
 "authors": [
 "Tony Valente"
 ],
@@ -66353,12 +66760,12 @@
 "isbn": "9791033570103",
 "pages": 0,
 "format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/94/radiant_201042749.webp",
+"cover": "https://www.nautiljon.com/images/manga_volumes/13/36/1043863.webp",
 "description": "Le Concile des généraux de l’Inquisition a commencé à Bôme, présidé par Torque, qui se voit attribué les fonctions du Maréchal qui a « disparu ». Il met son plan à l’œuvre : soumettre à un contrôle absolu la totalité...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/radiant/volume-20,1042749.html",
+"url": "https://www.nautiljon.com/mangas/radiant/volume-vol.+20+-+Édition+collector,1043863.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -66597,8 +67004,8 @@
 "id": "ed:9791026857549",
 "title": "Wynd 01 - L'envol du Prince",
 "authors": [
-"Tynion IV",
-"Dialynas"
+"James Tynion IV",
+"Michael Dialynas"
 ],
 "publisher": "Urban Comics",
 "date": "2026-10-30",
@@ -69058,12 +69465,12 @@
 "isbn": "9782810214280",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545682.jpg",
+"cover": "https://medias.edl.li/gecko/couv/prod/9782810214280_C.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Chateau-des-etoiles-INT03-De-Mars-a-Paris-545682.html",
+"url": "https://www.editions-ruedesevres.fr/Le-Chateau-des-etoiles-integrale-T5-T6",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:ruedesevres"
 },
 {
 "id": "ll:26550198",
@@ -71047,7 +71454,7 @@
 },
 {
 "id": "ed:9782413093336",
-"title": "Ailleurs T01",
+"title": "Ailleurs - Tome 1",
 "authors": [
 "Rodolphe"
 ],
@@ -71082,6 +71489,24 @@
 "url": "https://www.nautiljon.com/mangas/ayakashi+triangle/volume-12,979667.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:bdgest:546522",
+"title": "Calvin et Hobbes - La petite intégrale - Tome 3",
+"authors": [
+"Bill Watterson"
+],
+"publisher": "Hors Collection",
+"date": "2026-11-05",
+"isbn": "",
+"pages": 0,
+"format": "",
+"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546522.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.bedetheque.com/BD-Calvin-et-Hobbes-La-petite-integrale-Tome-3-546522.html",
+"kind": "bd",
+"source": "editeur:bdgest"
 },
 {
 "id": "ll:26547273",
@@ -71540,7 +71965,7 @@
 "Le monde de Minecraft"
 ],
 "url": "https://www.leslibraires.fr/livre/26545934-le-monde-de-minecraft-mojang-studios-mana-books",
-"kind": ""
+"kind": "bd"
 },
 {
 "id": "ll:26574363",
@@ -72840,12 +73265,12 @@
 "isbn": "9782808217958",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545743.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808217958/couv/M325x429/schtroumpfs-les-lombard-le-schtroumpf-qui-plantait-de-la-salsepareille.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Schtroumpfs-Tome-44-Le-schtroumpf-qui-plantait-la-salsepareille-545743.html",
+"url": "https://www.lelombard.com/bd/schtroumpfs-les-lombard/le-schtroumpf-qui-plantait-de-la-salsepareille",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782808517805",
@@ -73295,12 +73720,12 @@
 "isbn": "9782808218092",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545744.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808218092/couv/M325x429/sherlock-holmes-contre-arsene-lupin-la-revolution-da-vinci.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Sherlock-Holmes-contre-Arsene-Lupin-Tome-2-La-revolution-de-Vinci-545744.html",
+"url": "https://www.lelombard.com/bd/sherlock-holmes-contre-arsene-lupin/la-revolution-da-vinci",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782808703512",
@@ -73962,6 +74387,27 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26539192-entre-ici-jean-moulin-et-autres-discours-sur-la-resistance-andre-malraux-folio",
 "kind": "roman"
+},
+{
+"id": "ed:9782344072455",
+"title": "1629, ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
+"authors": [
+"Xavier Dorison",
+"Thimothée Montaigne"
+],
+"publisher": "Glénat",
+"date": "2026-11-12",
+"isbn": "9782344072455",
+"pages": 0,
+"format": "",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
+"description": "",
+"rayons": [
+"BD Aventure, western et polar"
+],
+"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
+"kind": "bd",
+"source": "editeur:glenat"
 },
 {
 "id": "ed:9782709677486",
@@ -76924,27 +77370,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782344072455",
-"title": "ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
-"authors": [
-"Xavier Dorison",
-"Thimothée Montaigne"
-],
-"publisher": "Glénat",
-"date": "2026-11-12",
-"isbn": "9782344072455",
-"pages": 0,
-"format": "",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
-"description": "",
-"rayons": [
-"BD Aventure, western et polar"
-],
-"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
-"kind": "bd",
-"source": "editeur:glenat"
-},
-{
 "id": "ed:9791043311192",
 "title": "xxxHolic T11",
 "authors": [
@@ -77176,26 +77601,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782380601435",
-"title": "Jeanne - Tome 1",
-"authors": [
-"Yoshikazu Yasuhiko"
-],
-"publisher": "naBan",
-"date": "2026-11-13",
-"isbn": "9782380601435",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/78/jeanne_1_reedition_naban1004487.webp",
-"description": "Emile, née de la fille du duc de Lorraine mais élevée comme un garçon, est liée à Jeanne par le fil du destin. Elle a rencontré Jeanne lorsqu'elle était petite, et c'est son père adoptif, Baudricourt, qui a envoyé Jeanne se...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/jeanne/volume-1,1004487.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:manganews:paradis-attendra-le-vol-1",
 "title": "Le Paradis attendra - Tome 1",
 "authors": [
@@ -77356,25 +77761,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782808201292",
-"title": "Resurrection Hill",
-"authors": [
-"Charyn",
-"Boucq"
-],
-"publisher": "Le Lombard",
-"date": "2026-11-13",
-"isbn": "9782808201292",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545540.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Resurrection-Hill-545540.html",
-"kind": "bd",
-"source": "editeur:bdgest"
-},
-{
 "id": "ed:9782808219174",
 "title": "Resurrection Hill",
 "authors": [
@@ -77390,6 +77776,22 @@
 "description": "",
 "rayons": [],
 "url": "https://www.lelombard.com/bd/resurrection-hill/resurrection-hill-edition-noir-blanc",
+"kind": "bd",
+"source": "editeur:lombard"
+},
+{
+"id": "ed:9782808201292",
+"title": "Resurrection Hill",
+"authors": [],
+"publisher": "Le Lombard",
+"date": "2026-11-13",
+"isbn": "9782808201292",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782808201292/couv/M325x429/resurrection-hill-resurrection-hill.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.lelombard.com/bd/resurrection-hill/resurrection-hill",
 "kind": "bd",
 "source": "editeur:lombard"
 },
@@ -77465,12 +77867,12 @@
 "isbn": "9782808218535",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545541.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808218535/couv/M325x429/thorgal-yggdrasil.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Thorgal-Tome-44-Yggdrasil-545541.html",
+"url": "https://www.lelombard.com/bd/thorgal/yggdrasil",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782808220491",
@@ -80240,12 +80642,12 @@
 "isbn": "9782808218566",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545181.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808218566/couv/M325x429/ciel-d-orages-brothers-in-arms.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Ciel-d-orages-Tome-3-Brothers-in-arms-545181.html",
+"url": "https://www.lelombard.com/bd/ciel-dorages/brothers-in-arms",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782377178209",
@@ -80343,6 +80745,26 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/ishigami+senki/volume-2,994540.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782380601435",
+"title": "Jeanne - Tome 1",
+"authors": [
+"Yoshikazu Yasuhiko"
+],
+"publisher": "naBan",
+"date": "2026-11-20",
+"isbn": "9782380601435",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/78/jeanne_1_reedition_naban1004487.webp",
+"description": "Emile, née de la fille du duc de Lorraine mais élevée comme un garçon, est liée à Jeanne par le fil du destin. Elle a rencontré Jeanne lorsqu'elle était petite, et c'est son père adoptif, Baudricourt, qui a envoyé Jeanne se...",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/jeanne/volume-1,1004487.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -80591,6 +81013,22 @@
 "url": "https://www.nautiljon.com/mangas/mermaid+prince+(ogeretsu+tanaka)/volume-2,1029594.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782808220804",
+"title": "Mille Ans",
+"authors": [],
+"publisher": "Le Lombard",
+"date": "2026-11-20",
+"isbn": "9782808220804",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782808220804/couv/M325x429/mille-ans-mille-ans.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.lelombard.com/bd/pour-mille-ans/mille-ans-1",
+"kind": "bd",
+"source": "editeur:lombard"
 },
 {
 "id": "ed:9782505144236",
@@ -81755,12 +82193,12 @@
 "isbn": "9782808211260",
 "pages": 0,
 "format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544409.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782808211260/couv/M325x429/lonesome-dove-lonesome-dove-partie-1.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.bedetheque.com/BD-Lonesome-Dove-Tome-1-Lonesome-Dove-Premiere-partie-544409.html",
+"url": "https://www.lelombard.com/bd/lonesome-dove/lonesome-dove-partie-1",
 "kind": "bd",
-"source": "editeur:bdgest"
+"source": "editeur:lombard"
 },
 {
 "id": "ed:manganews:manga-issho-vol-8",
@@ -87087,22 +87525,6 @@
 "url": "https://www.nautiljon.com/mangas/samurai+deeper+kyo/volume-11,1017695.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
-},
-{
-"id": "ed:kana:samurai-deeper-kyo-star-edition-t11",
-"title": "Samurai Deeper Kyo Star Edition - Tome 11",
-"authors": [],
-"publisher": "Kana",
-"date": "2026-12-11",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "",
-"description": "",
-"rayons": [],
-"url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t11/",
-"kind": "bd",
-"source": "editeur:kana"
 },
 {
 "id": "ed:9782808706483",
@@ -93698,6 +94120,26 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:manganews:heros-les",
+"title": "Les Héros",
+"authors": [
+"Inio Asano"
+],
+"publisher": "Kana",
+"date": "2027-01-29",
+"isbn": "",
+"pages": 0,
+"format": "",
+"cover": "",
+"description": "Un groupe de héros vient de vaincre le « darkness », une entité maléfique inconnue qui menaçait le monde. Mais, en pensant retourner à leur quotidien paisible, des tensions éclatent au sein du groupe des héros et font voler en...",
+"rayons": [
+"Manga"
+],
+"url": "https://www.manga-news.com/index.php/manga/Heros-Les",
+"kind": "bd",
+"source": "editeur:manganews"
+},
+{
 "id": "ed:9782808705721",
 "title": "Pour le Meilleur et pour le Vampire - Tome 1",
 "authors": [],
@@ -94247,24 +94689,24 @@
 "source": "editeur:manganews"
 },
 {
-"id": "ed:manganews:premier-amour-de-nezumi-le-vol-7",
-"title": "Le Premier amour de Nezumi - Tome 7",
+"id": "ed:9791070250662",
+"title": "Le premier amour de Nezumi - Tome 7",
 "authors": [
 "Riku Ôseto"
 ],
 "publisher": "Panini",
 "date": "2027-02-03",
-"isbn": "",
+"isbn": "9791070250662",
 "pages": 0,
 "format": "",
-"cover": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/25/1023352.webp",
 "description": "Nezumi et Ao fêtent leur premier anniversaire de couple. Pour vivre leur « première fois », ils se rendent dans un love hotel. Quant à Midori, dont la mission a été reportée à la dernière minute, elle passe son jour de congé...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.manga-news.com/index.php/manga/Premier-amour-de-Nezumi-Le/vol-7",
+"url": "https://www.nautiljon.com/mangas/le+premier+amour+de+nezumi/volume-7,1023352.html",
 "kind": "bd",
-"source": "editeur:manganews"
+"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9782385314583",
@@ -97434,6 +97876,24 @@
 "source": "editeur:manganews"
 },
 {
+"id": "ed:9782811688820",
+"title": "A Villainess for the Tyrant - Tome 4",
+"authors": [],
+"publisher": "Pika",
+"date": "2027-03-03",
+"isbn": "9782811688820",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/13/38/1043883.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/a+villainess+for+the+tyrant/volume-4,1043883.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ed:manganews:agents-of-the-four-seasons-light-novel-vol-3",
 "title": "Agents of the Four Seasons - Light Novel - Tome 3",
 "authors": [
@@ -98129,6 +98589,24 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9791043307195",
+"title": "Doom Breaker - Tome 6",
+"authors": [],
+"publisher": "Pika",
+"date": "2027-03-17",
+"isbn": "9791043307195",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/13/08/1043880.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/doom+breaker/volume-6,1043880.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ed:nautiljon:1003837",
 "title": "Face aux étoiles - Tome 7",
 "authors": [
@@ -98165,6 +98643,24 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/l-héritière+du+dragon/volume-3,1024516.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
+"id": "ed:9791043309359",
+"title": "La vraie, c'est moi ! - Tome 5",
+"authors": [],
+"publisher": "Pika",
+"date": "2027-03-17",
+"isbn": "9791043309359",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/13/18/1043881.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/la+vraie,+c-est+moi+!/volume-5,1043881.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
