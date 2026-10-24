@@ -21,6 +21,7 @@ jobs:
         with:
           fetch-depth: 0
       - run: python3 scripts/sorties.py
+        timeout-minutes: 45
         env:
           # après une modification du robot, on relit aussi tout de suite les sites des éditeurs
           EDITEURS: ${{ github.event_name != 'schedule' && '1' || '' }}
@@ -30,12 +31,16 @@ jobs:
         continue-on-error: true
       # meilleures ventes des librairies indépendantes : un relevé par jour
       - run: python3 scripts/ventes.py
+        if: ${{ !cancelled() }}   # même si le robot des sorties a échoué : le relevé des ventes ne dépend pas de lui
         continue-on-error: true
+        timeout-minutes: 15
         env:
           VENTES: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
-      - run: |
+      - if: ${{ !cancelled() }}
+        run: |
           git config user.name "robot-sorties"; git config user.email "robot@users.noreply.github.com"
-          git add data/sorties.json data/bd-isbn.json data/ventes.json data/ventes-historique.json 2>/dev/null || git add data/sorties.json
+          # chaque fichier séparément : un fichier absent (ventes pas encore produites…) n'empêche pas d'ajouter les autres
+          for f in data/sorties.json data/bd-isbn.json data/ventes.json data/ventes-historique.json; do [ -f "$f" ] && git add "$f"; done
           if git diff --cached --quiet; then echo "rien de neuf"; exit 0; fi
           git -c user.name="robot-sorties" -c user.email="robot@users.noreply.github.com" commit -qm "Sorties mises à jour"
           # si l'app a été mise à jour pendant la collecte, on se replace dessus puis on réessaie

@@ -26,17 +26,24 @@ RAYONS = [
 MONTHS = {m: i + 1 for i, m in enumerate("janvier février mars avril mai juin juillet août septembre octobre novembre décembre".split())}
 
 _last = [0.0]
+COUNT = {"pages": 0, "echecs": 0, "reprises": 0}
 def get(path):
-    wait = DELAY - (time.time() - _last[0])
-    if wait > 0: time.sleep(wait)
-    _last[0] = time.time()
-    req = urllib.request.Request(BASE + path, headers={"User-Agent": UA, "Accept-Language": "fr-FR,fr"})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return r.read().decode("utf-8", "replace")
-    except Exception as e:
-        print("  échec", path, e, file=sys.stderr)
-        return ""
+    """Page du libraire (5 s entre deux pages). Une seconde chance après 10 s pour une erreur passagère (pas pour 403/404)."""
+    for essai in (1, 2):
+        wait = DELAY - (time.time() - _last[0])
+        if wait > 0: time.sleep(wait)
+        _last[0] = time.time()
+        if essai == 1: COUNT["pages"] += 1
+        req = urllib.request.Request(BASE + path, headers={"User-Agent": UA, "Accept-Language": "fr-FR,fr"})
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return r.read().decode("utf-8", "replace")
+        except Exception as e:
+            print("  échec", path, e, file=sys.stderr)
+            if essai == 1 and getattr(e, "code", 0) not in (403, 404, 410):
+                COUNT["reprises"] += 1; time.sleep(10); continue
+            COUNT["echecs"] += 1
+            return ""
 
 def text(s):
     s = re.sub(r"<br\s*/?>", "\n", s)
@@ -183,9 +190,10 @@ def main():
         prev_stats = prev.get("stats", {})
         ed_at = prev_stats.get("editeurs_at", "")
     except Exception:
-        old, ed_at, prev_stats = {}, "", {}
+        old, ed_at, prev_stats, prev = {}, "", {}, {}
     todo = {}  # chemin -> genre suggéré
     stats = {"precommandes": [], "nouveautes": [], "rayons": {}}
+    old_count = len(old)
     # précommandes : on va loin pour voir les sorties des 6 prochains mois
     for p in range(1, 31):
         page = get(f"/dossiers/precommandes/?page={p}")
@@ -214,6 +222,8 @@ def main():
             seen_r.update(links)
             for l in links: todo[l] = k
     print(len(todo), "livres listés", file=sys.stderr)
+    t_fiches = time.time()
+    stats["libraire"] = {"pages_listes": COUNT["pages"], "echecs": COUNT["echecs"], "secondes_listes": round(t_fiches - t_start)}
     books, new, skipped = {}, 0, 0
     today_iso = date.today().isoformat()
     soon_lo, soon_hi = (date.today() - timedelta(days=3)).isoformat(), (date.today() + timedelta(days=10)).isoformat()
@@ -271,35 +281,57 @@ def main():
         for bid, b in gb.items():
             if b["isbn"] and b["isbn"] in isbns: continue
             books[bid] = b
-    # Sites des éditeurs (Hachette et ses maisons, Glénat, Seuil) : environ 1 000 sorties par mois, datées au jour.
-    # Une fois par jour (environ 8 minutes de lecture polie) ; entre-temps on garde la dernière récolte.
+    # Sites des éditeurs (Hachette et ses maisons, Glénat, Seuil, manga, BD, maisons généralistes).
+    # editeurs.collect décide quoi lire à ce tour : lecture complète d'une unité au plus une fois par jour, lecture
+    # « proche » (J-14 à J+45) toutes les 4 h, unités coupées ou en erreur reprises en tête au tour suivant.
+    # tout le robot en 34 minutes au plus (le job GitHub est coupé à 60) : les éditeurs ont ce qui reste (28 min au plus)
+    t_ed = time.time()
     ecarts = []
-    stale = not ed_at or datetime.utcnow() - datetime.strptime(ed_at, "%Y-%m-%dT%H:%MZ") > timedelta(hours=20)
-    if os.environ.get("EDITEURS") == "1" or (stale and datetime.utcnow().hour in (4, 5, 7, 10, 13, 16, 19, 22)):
-        try:
-            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-            import editeurs
-            # tout le robot en 35 minutes au plus (le job GitHub est coupé à 60) : les éditeurs ont ce qui reste
-            ed, stats["editeurs"] = editeurs.collect(lo, hi, end=min(t_start + 34 * 60, time.time() + 28 * 60))
-            if any(isinstance(v, dict) and v.get("livres") for v in stats["editeurs"].values()):
-                ed_at = datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ")
-            # sources lues en entier et sans erreur : leurs anciennes fiches sont remplacées par la nouvelle récolte
-            ok = {s for s, v in stats["editeurs"].items()
-                  if isinstance(v, dict) and v.get("livres") and not v.get("erreurs") and not v.get("incomplet")}
-            old = {k: v for k, v in old.items() if not (k.startswith("ed:") and v.get("source", "").split(":")[-1] in ok)}
-            if ed:
-                by_isbn = {b["isbn"]: b for b in [*old.values(), *books.values()] if b.get("isbn") and not b["id"].startswith("ed:")}
-                for isbn, b in ed.items():
-                    same = by_isbn.get(isbn)
-                    if same:  # déjà chez le libraire : sa date fait foi ; on complète seulement la couverture
-                        if not same.get("cover") and b.get("cover"): same["cover"] = b["cover"]
-                        if same.get("date") and b.get("date") and same["date"] != b["date"]:
-                            ecarts.append({"isbn": isbn, "titre": b["title"][:40], "libraire": same["date"], b.get("source", "editeur"): b["date"]})
-                        continue
-                    books[b["id"]] = b
-        except Exception as e:
-            stats["editeurs"] = "erreur : " + str(e)
-            print("  éditeurs :", e, file=sys.stderr)
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import editeurs
+        ed, est = editeurs.collect(lo, hi, end=min(t_start + 34 * 60, time.time() + 28 * 60),
+                                   state=prev_stats.get("suivi"), force=os.environ.get("EDITEURS") == "1",
+                                   fixtures=os.environ.get("FIXTURES") or None,
+                                   fiches_lues={k for k, v in old.items() if v.get("fiche")})
+        stats["suivi"] = est.pop("suivi", {})
+        stats["plan"] = est.pop("plan", [])
+        # les sources non relues à ce tour gardent leurs derniers chiffres (avec l'heure de leur dernière lecture)
+        stats["editeurs"] = {k: v for k, v in (prev_stats.get("editeurs") or {}).items() if isinstance(v, dict)}
+        now_s = datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ")
+        for k, v in est.items():
+            if isinstance(v, dict) and v.get("statut") != "saute": v["le"] = now_s
+            if isinstance(v, dict) and v.get("statut") == "saute": continue
+            stats["editeurs"][k] = v
+        stats["editeurs"]["erreurs"] = est.get("erreurs", 0)
+        if any(isinstance(v, dict) and v.get("livres") for v in est.values()):
+            ed_at = datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ")
+        # sources relues en entier (sur leur fenêtre) et sans accroc : leurs anciennes fiches de cette fenêtre sont remplacées
+        ok = {s_: v["fenetre"] for s_, v in est.items()
+              if isinstance(v, dict) and v.get("livres") and v.get("statut") in ("ok", "partiel") and v.get("fenetre")}
+        replaced = lambda v: (v["id"].startswith("ed:") and v.get("source", "").split(":")[-1] in ok
+                              and ok[v["source"].split(":")[-1]][1] <= v.get("date", "") <= ok[v["source"].split(":")[-1]][2])
+        gone = {k: v for k, v in old.items() if replaced(v)}
+        old = {k: v for k, v in old.items() if not replaced(v)}
+        if ed:
+            by_isbn = {b["isbn"]: b for b in [*old.values(), *books.values()] if b.get("isbn") and not b["id"].startswith("ed:")}
+            for isbn, b in ed.items():
+                same = by_isbn.get(isbn)
+                if same:  # déjà chez le libraire : on complète ce qui manque (couverture, auteurs, résumé)
+                    for f in ("cover", "authors", "description"):
+                        if not same.get(f) and b.get(f): same[f] = b[f]
+                    if same.get("date") and b.get("date") and same["date"] != b["date"]:
+                        ecarts.append({"isbn": isbn, "titre": b["title"][:40], "libraire": same["date"], b.get("source", "editeur"): b["date"]})
+                    continue
+                for f in ("cover", "authors", "description", "fiche"):  # acquis d'une récolte précédente (fiches lues, cache)
+                    if not b.get(f) and gone.get(b["id"], {}).get(f): b[f] = gone[b["id"]][f]
+                books[b["id"]] = b
+    except Exception as e:
+        stats["editeurs"] = dict(prev_stats.get("editeurs") or {}) if isinstance(prev_stats.get("editeurs"), dict) else {}
+        stats["suivi"] = prev_stats.get("suivi", {})
+        stats["erreur_editeurs"] = str(e)[:300]
+        print("  éditeurs :", e, file=sys.stderr)
+    stats["secondes_editeurs"] = round(time.time() - t_ed)
     # on garde aussi les fiches déjà connues qui ne sont plus listées mais restent dans la fenêtre
     for bid, b in old.items():
         b["title"] = clean_title(b["title"])
@@ -324,9 +356,36 @@ def main():
     except Exception as e:
         print("  doublons :", e, file=sys.stderr)
     keep.sort(key=lambda b: (b["date"], b["title"]))
+    stats["libraire"].update(pages=COUNT["pages"], echecs=COUNT["echecs"], reprises=COUNT["reprises"], fiches_lues=new,
+                             secondes=round(t_ed - t_start), statut="erreur" if todo == {} else ("incomplet" if skipped else "ok"))
+    # tableau clair, une ligne par source : statut, livres, pages, secondes, erreurs, dernière lecture
+    src = {"leslibraires": {**stats["libraire"], "livres": sum(1 for b in keep if not b["id"].startswith(("ed:", "ge:", "gb:")))}}
+    for k, v in (stats.get("editeurs") or {}).items():
+        if isinstance(v, dict) and "pages" in v:
+            src[k] = {f: v.get(f) for f in ("statut", "livres", "pages", "secondes", "erreurs", "incomplet", "fenetre", "le") if v.get(f) is not None}
+            src[k]["en_base"] = sum(1 for b in keep if b.get("source", "").split(":")[-1] == k)
+    stats["sources"] = src
+    stats["duree_secondes"] = round(time.time() - t_start)
+    for k, v in src.items():
+        print(f"  source {k:14} {v.get('statut', '?'):10} en base={v.get('en_base', v.get('livres', 0)):5} lus={v.get('livres', 0):5} "
+              f"pages={v.get('pages', 0):4} sec={v.get('secondes', 0):4} erreurs={v.get('erreurs', v.get('echecs', 0))}", file=sys.stderr)
+    old_win = sum(1 for b in (prev.get("books") or []) if lo <= b.get("date", "") <= hi)
+    # garde-fou : pas d'écriture qui ferait fondre le fichier d'un coup (site en panne, lecture ratée) ; on garde alors l'ancien contenu.
+    # Mais jamais pour toujours : après 4 refus de suite (4 h), ou si on le demande (ACCEPTER=1), la nouvelle lecture est acceptée.
+    refus = int((prev.get("stats") or {}).get("refus", 0) or 0)
+    if old_count > 500 and len(keep) < 0.85 * old_win and refus < 4 and os.environ.get("ACCEPTER") != "1":
+        print("  ALERTE : le résultat est bien plus petit que l'ancien fichier, il n'est pas écrit", file=sys.stderr)
+        try:
+            prev["stats"] = {**prev.get("stats", {}), "refus": refus + 1,
+                             "alerte": datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ") + " : lecture trop petite (" + str(len(keep)) + " livres au lieu de " + str(old_win) + "), ancien fichier gardé"}
+            tmp = OUT + ".tmp"; json.dump(prev, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=0); os.replace(tmp, OUT)
+        except Exception: pass
+        return
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    tmp = OUT + ".tmp"  # écriture complète puis remplacement : un arrêt en cours de route ne laisse jamais un fichier tronqué
     json.dump({"source": "leslibraires.fr", "updated": datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ"), "stats": stats, "books": keep},
-              open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+              open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+    os.replace(tmp, OUT)
     print(len(keep), "livres gardés,", new, "fiches lues", file=sys.stderr)
 
 if __name__ == "__main__":

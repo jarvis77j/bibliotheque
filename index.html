@@ -325,6 +325,7 @@
   .ex-gen { position: absolute; inset: 0; border-radius: 3px 6px 6px 3px; box-shadow: 0 6px 12px rgba(40,20,5,.25), inset 4px 0 0 rgba(0,0,0,.12);
     padding: 10px 9px; display: flex; flex-direction: column; text-align: center; overflow: hidden; }
   .ex-gen::before { content: ""; position: absolute; inset: 6px; border: 1px solid currentColor; opacity: .45; border-radius: 2px; }
+  .ex-gen small:empty { display: none; }
   .ex-gen small { font-size: 8px !important; letter-spacing: .08em; text-transform: uppercase; color: inherit !important; opacity: .8; white-space: normal !important; margin: 4px 0 0 !important; }
   .ex-gen b { flex: 1; display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-size: 14px; line-height: 1.2; font-weight: 600; overflow-wrap: anywhere; }
   .ex-gen i { font-style: normal; font-size: 16px; opacity: .6; margin-bottom: 4px; }
@@ -792,7 +793,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 24 octobre, 23 h</p>
+    <p class="version">Version du 25 octobre, 1 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1363,6 +1364,8 @@ let searchSource = "";
 /* Recherche : Google Livres et la BnF en même temps. Si Google a déjà de quoi répondre, on affiche tout de suite
    et les livres que seule la BnF connaît arrivent ensuite (onMore), sans bouleverser l'ordre. */
 /* Livres récents que ni Google ni la BnF ne connaissent encore : on cherche aussi dans la liste des Sorties (robot) */
+const hays = new WeakMap(); // texte de recherche de chaque sortie, calculé une seule fois
+const searchHay = (b) => { let h = hays.get(b); if (h === undefined) { h = plain([b.title, b.publisher, ...(b.authors || [])].join(" ")); hays.set(b, h); } return h; };
 async function searchSorties(p) {
   const words = plain([p.q, p.title, p.author].filter(Boolean).join(" ")).split(" ").filter((w) => w.length > 1);
   if (!words.length) return [];
@@ -1370,7 +1373,7 @@ async function searchSorties(p) {
   if (!relSite) { relSite = all; relFetchedAt = Date.now(); }
   const isbn = String(p.q || "").replace(/[-\s]/g, "");
   const found = all.filter((b) => (/^\d{10,13}$/.test(isbn) && b.isbn === isbn)
-    || words.every((w) => plain([b.title, b.publisher, ...(b.authors || [])].join(" ")).includes(w)));
+    || ((h) => words.every((w) => h.includes(w)))(searchHay(b)));
   return found.slice(0, 20).map(({ site, ...b }) => ({ ...b, categories: b.categories || b.rayons || [] }));
 }
 async function searchBooks(p, onMore) {
@@ -1547,9 +1550,13 @@ function parseUnimarc(recs) {
 const plain = (x) => String(x || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
 const lastName = (b) => plain((b.authors || [])[0]).split(" ").pop() || "";
 /* Même livre = même auteur et même titre, ou même série et même numéro de tome (« T2 Les deux tours » = « (Tome 2) - Les Deux Tours ») */
+const editionKeys = new WeakMap(); // les sorties du robot ne changent pas : leur clé est calculée une seule fois
 function editionKey(b) {
+  if (b.site) { const c = editionKeys.get(b); if (c) return c; }
   const s = guessSeries(b.title);
-  return (s.series && s.tome ? plain(s.series) + "#" + s.tome : plain(b.title)) + "|" + lastName(b);
+  const k = (s.series && s.tome ? plain(s.series) + "#" + s.tome : plain(b.title)) + "|" + lastName(b);
+  if (b.site) editionKeys.set(b, k);
+  return k;
 }
 function editionScore(b) {
   // à fiche égale, l'édition la plus récente gagne : sa couverture est celle que l'on voit en librairie
@@ -2041,10 +2048,10 @@ function newTomes(all) {
 }
 const tomeKey = (r) => plain(seriesName({ title: r.title })) + "#" + guessSeries(r.title).tome;
 // pastille sur le bouton Sorties : nouveaux tomes pas encore vus
-function updateTomeBadge(all) {
+function updateTomeBadge(all, fresh) {
   const btn = document.querySelector('#quick [data-key="sorties"]'); if (!btn) return;
   const seen = new Set(settings.tomesVus || []);
-  const n = new Set(newTomes(all).map(tomeKey).filter((k) => !seen.has(k))).size;
+  const n = new Set((fresh || newTomes(all)).map(tomeKey).filter((k) => !seen.has(k))).size;
   btn.innerHTML = "🗓 Sorties" + (n ? ` <b class="badge-new">${n}</b>` : "");
 }
 const RELEASE_KEY = STORE_KEY + ".sorties2";
@@ -2052,12 +2059,15 @@ const isoDay = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOS
 function weekStart(offset) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 7 * offset); return d; }
 /* Sorties relevées par le robot du site (data/sorties.json) : leslibraires.fr toutes les heures,
    et chaque jour les sites des éditeurs (Hachette et ses maisons, Glénat, Seuil) */
-let relUpdated = "", relFetchedAt = 0, relSite = null;
+let relUpdated = "", relFetchedAt = 0, relSite = null, relTag = "";
 /* La liste du robot est relue à chaque ouverture de l'onglet (elle change toutes les heures) */
 async function siteReleases() {
   const res = await fetch("data/sorties.json", { cache: "no-cache" }); // revalidé : retéléchargé seulement s'il a changé
   if (!res.ok) throw new Error("sorties " + res.status);
+  const tag = res.headers.get("etag") || res.headers.get("last-modified") || "";
+  if (tag && tag === relTag && relSite) return relSite; // fichier inchangé : on évite de relire et refaire 3 Mo
   const d = await res.json();
+  relTag = tag;
   relUpdated = d.updated || "";
   const SITES = { nautiljon: "Nautiljon", manganews: "Manga-news", bdgest: "BDGest" };
   const label = (s) => s === "google" ? "Google Livres" : SITES[String(s || "").split(":")[1]] || (String(s || "").startsWith("editeur") ? "éditeur" : "leslibraires.fr");
@@ -2069,17 +2079,18 @@ function relLight(site) {
   const from = isoDay(new Date(Date.now() - 7 * 864e5));
   return site.filter((b) => (b.date || "") >= from).map(({ description, rayons, categories, pages, format, url, site: _s, ...b }) => b);
 }
+let relCacheRaw = null, relCacheObj = null; // copie hors ligne déjà lue : pas relue tant qu'elle n'a pas changé
 async function loadReleases(force) {
   const slot = today() + "-" + Math.floor(new Date().getHours() / 4);
   let cache = null;
-  try { cache = JSON.parse(localStorage.getItem(RELEASE_KEY)); } catch {}
+  try { const raw = localStorage.getItem(RELEASE_KEY); if (raw === relCacheRaw) cache = relCacheObj; else { cache = JSON.parse(raw); relCacheRaw = raw; relCacheObj = cache; } } catch {}
   // pas plus d'une lecture par minute (on change souvent de semaine ou de genre)
   if (!force && relSite && Date.now() - relFetchedAt < 60e3 && cache && cache.slot === slot && cache.google) return mergeReleases(relSite, cache.google);
   let site = await siteReleases().catch((e) => { console.warn(e); return null; });
   if (site) { relSite = site; relFetchedAt = Date.now(); }
   else { site = ((cache && cache.site) || []).map((b) => ({ ...b, site: true })); relUpdated = (cache && cache.updated) || ""; } // hors ligne : la dernière liste connue
   if (!force && cache && cache.slot === slot && cache.google) {
-    try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ ...cache, site: relLight(site), updated: relUpdated })); } catch {}
+    if (cache.updated !== relUpdated) try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ ...cache, site: relLight(site), updated: relUpdated })); } catch {}
     return mergeReleases(site, cache.google);
   }
   const from = isoDay(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)), to = isoDay(new Date(Date.now() + 186 * 864e5));
@@ -2103,14 +2114,18 @@ async function loadReleases(force) {
   try { localStorage.setItem(RELEASE_KEY, JSON.stringify({ slot, site: relLight(site), google, updated: relUpdated })); } catch {}
   return mergeReleases(site, google);
 }
+let mergedMemo = null;
 function mergeReleases(site, google) {
+  if (mergedMemo && mergedMemo.site === site && mergedMemo.google === google) return mergedMemo.out;
   const seen = new Set(), out = [];
   for (const b of [...site, ...google]) {
     const k = editionKey(b);
     if (seen.has(k) || (b.isbn && seen.has("isbn:" + b.isbn))) continue;
     seen.add(k); if (b.isbn) seen.add("isbn:" + b.isbn); out.push(b);
   }
-  return out.sort((a, b) => a.date.localeCompare(b.date) || (b.cover ? 1 : 0) - (a.cover ? 1 : 0));
+  out.sort((a, b) => a.date.localeCompare(b.date) || (b.cover ? 1 : 0) - (a.cover ? 1 : 0));
+  mergedMemo = { site, google, out };
+  return out;
 }
 function sinceText(iso) {
   if (!iso) return "";
@@ -2168,13 +2183,13 @@ async function renderReleases() {
   const keys = ownedKeys();
   const cutoff = isoDay(noon(-7));
   const fresh = newTomes(all), freshSet = new Set(fresh);
-  updateTomeBadge(all);
-  if (relMine) { settings.tomesVus = [...new Set([...(settings.tomesVus || []), ...fresh.map(tomeKey)])].slice(-500); saveSettings(); updateTomeBadge(all); }
+  updateTomeBadge(all, fresh);
+  if (relMine) { settings.tomesVus = [...new Set([...(settings.tomesVus || []), ...fresh.map(tomeKey)])].slice(-500); saveSettings(); updateTomeBadge(all, fresh); }
   const myAuthors = new Set(books.flatMap((b) => (b.authors || []).map(plain)));
   const words = plain(relText).split(" ").filter(Boolean);
   const inRange = all.filter((b) => b.date >= isoDay(start) && b.date >= cutoff && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind)
     && (!relMine || freshSet.has(b) || b.authors.some((a) => myAuthors.has(plain(a))))
-    && (!words.length || ((h) => words.every((w) => h.includes(w)))(plain([b.title, b.publisher, ...(b.authors || [])].join(" ")))));
+    && (!words.length || ((h) => words.every((w) => h.includes(w)))(searchHay(b))));
   // choix du jour : une pastille par jour de la période, avec le nombre de sorties
   const perDay = {}; inRange.forEach((b) => (perDay[b.date] = (perDay[b.date] || 0) + 1));
   // rangée des jours, toujours visible en haut : toucher un jour fait descendre jusqu'à lui
@@ -2188,16 +2203,19 @@ async function renderReleases() {
   const stripHtml = `<div class="rel-daypick" id="relDays">${strip}</div>`;
   if (!list.length) { box.innerHTML = stripHtml + `<div class="ex-loading">Aucune sortie trouvée pour ${relWeek === "j7" ? "ces 7 jours" : typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind || relMine || words.length ? " avec ces filtres" : ""}.${relMine ? "<br>« Pour moi » montre les nouveaux tomes de tes séries et les livres de tes auteurs." : ""}</div>`; return; }
   const days = [...new Set(list.map((b) => b.date))];
-  box.innerHTML = stripHtml + days.map((d) => {
-    const items = list.filter((b) => b.date === d);
+  // affichage par paquets : les premiers jours tout de suite, la suite quand on descend (ou en touchant un jour de la rangée)
+  const byDay = new Map(); list.forEach((b) => { if (!byDay.has(b.date)) byDay.set(b.date, []); byDay.get(b.date).push(b); });
+  const pos = new Map(); all.forEach((b, i) => pos.set(b, i));
+  const dayHtml = (d, from, to) => {
+    const items = byDay.get(d);
     const label = new Date(d + "T12:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
-    return `<h3 class="rel-day" id="jour-${d}">${label}<small>${items.length} sortie${items.length > 1 ? "s" : ""}</small></h3>` + items.map((b) => {
-      const n = all.indexOf(b), dist = distributorOf(b.publisher), owned = isOwned(b, keys);
+    return (from ? "" : `<h3 class="rel-day" id="jour-${d}">${label}<small>${items.length} sortie${items.length > 1 ? "s" : ""}</small></h3>`) + items.slice(from, to).map((b) => {
+      const n = pos.get(b), dist = distributorOf(b.publisher), owned = isOwned(b, keys);
       return `<div class="rel-card" data-n="${n}">
         <div class="ex-cover" data-open>${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
         <div class="rel-info">
           <h4 data-open>${esc(b.title)}</h4>
-          <div class="rel-meta">${authorLinks(b)}${b.publisher ? "<br>" + esc(b.publisher) : ""}${b.publisher ? ` · <button class="distrib" data-pub="${esc(b.publisher)}">${dist ? "Distribution : " + esc(dist) : "Distributeur ?"}</button>` : ""}
+          <div class="rel-meta">${authorLinks(b)}${b.publisher ? (b.authors.length ? "<br>" : "") + esc(b.publisher) : ""}${b.publisher ? ` · <button class="distrib" data-pub="${esc(b.publisher)}">${dist ? "Distribution : " + esc(dist) : "Distributeur ?"}</button>` : ""}
             ${b.avg ? `<br>${"★".repeat(Math.round(b.avg))}${"☆".repeat(5 - Math.round(b.avg))} ${String(b.avg).replace(".", ",")} (${b.ratings} avis)` : ""}</div>
           ${freshSet.has(b) ? `<div class="rel-meta"><span class="tag new-tome">🆕 Nouveau tome de ta série</span></div>` : ""}
           ${(() => { const a = guessAge(b); return a.age != null ? `<div class="rel-meta"><span class="tag">${esc(ageLabel(a))}</span></div>` : ""; })()}
@@ -2210,7 +2228,18 @@ async function renderReleases() {
         </div>
       </div>`;
     }).join("");
-  }).join("");
+  };
+  let shownDays = 0, shownInDay = 0; // jours entièrement affichés, et cartes déjà affichées du jour en cours
+  const nextDays = (minCards) => {
+    let html = "";
+    while (shownDays < days.length && minCards > 0) {
+      const d = days[shownDays], n = byDay.get(d).length, to = Math.min(n, shownInDay + minCards);
+      html += dayHtml(d, shownInDay, to); minCards -= to - shownInDay;
+      if (to >= n) { shownDays++; shownInDay = 0; } else shownInDay = to;
+    }
+    return html;
+  };
+  box.innerHTML = stripHtml + nextDays(20);
   box.insertAdjacentHTML("beforeend", `<div class="rel-end"><button id="relTop">↑ Revenir en haut</button></div>`);
   $("#relTop").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const sc = $("#relDays"), head = document.querySelector("header");
@@ -2218,11 +2247,12 @@ async function renderReleases() {
   const headH = () => (head ? Math.max(0, Math.round(head.getBoundingClientRect().bottom)) : 0);
   const topGap = () => headH() + sc.offsetHeight + 8;
   sc.querySelectorAll("[data-day]").forEach((btn) => (btn.onclick = () => {
+    { const di = days.indexOf(btn.dataset.day); if (di >= shownDays + (shownInDay ? 1 : 0) && shownDays < days.length) { let n = byDay.get(days[shownDays]).length - shownInDay; for (let k = shownDays + 1; k <= di; k++) n += byDay.get(days[k]).length; addDays(n); } }
     const h = document.getElementById("jour-" + btn.dataset.day); if (!h) return;
     window.scrollTo({ top: h.getBoundingClientRect().top + window.scrollY - topGap(), behavior: "smooth" });
   }));
   // en descendant, le jour affiché s'allume dans la rangée du haut
-  const heads = [...box.querySelectorAll(".rel-day")];
+  let heads = [...box.querySelectorAll(".rel-day")];
   let lastOn = "";
   const mark = () => {
     if (!document.body.contains(sc)) { window.removeEventListener("scroll", mark); return; }
@@ -2238,14 +2268,16 @@ async function renderReleases() {
   };
   if (window._relMark) window.removeEventListener("scroll", window._relMark);
   window._relMark = mark; window.addEventListener("scroll", mark, { passive: true }); mark();
-  box.querySelectorAll(".rel-card").forEach((c) => {
+  const bind = () => {
+  box.querySelectorAll(".rel-card:not([data-b])").forEach((c) => {
+    c.dataset.b = 1;
     const b = all[c.dataset.n];
     c.querySelectorAll("[data-open]").forEach((x) => (x.onclick = () => openPreview(b)));
     const d = c.querySelector(".rel-desc"); if (d) d.onclick = () => d.classList.toggle("open");
     const add = c.querySelector("[data-add]");
     if (add) add.onclick = async () => { const { avg, kind, rayons, url, format, site, ...x } = b; await addBook(x, null, "alire"); renderReleases(); };
   });
-  box.querySelectorAll(".distrib").forEach((x) => (x.onclick = () => {
+  box.querySelectorAll(".distrib:not([data-b])").forEach((x) => (x.dataset.b = 1, x.onclick = () => {
     const pub = x.dataset.pub, cur = distributorOf(pub);
     const v = prompt(`Distributeur de « ${pub} » (Hachette, Interforum, Union Distribution, MDS, Dilisco, Sodis…) :`, cur);
     if (v === null) return;
@@ -2253,6 +2285,19 @@ async function renderReleases() {
     if (v.trim()) settings.distrib[plain(pub)] = v.trim(); else delete settings.distrib[plain(pub)];
     saveSettings(); renderReleases();
   }));
+  };
+  bind();
+  const endEl = box.querySelector(".rel-end");
+  function addDays(minCards) { const html = nextDays(minCards); if (!html) return; endEl.insertAdjacentHTML("beforebegin", html); heads = [...box.querySelectorAll(".rel-day")]; bind(); }
+  if (window._relIO) window._relIO.disconnect();
+  if (shownDays < days.length && "IntersectionObserver" in window) {
+    window._relIO = new IntersectionObserver((es) => {
+      if (!es[0].isIntersecting) return;
+      addDays(30);
+      if (shownDays >= days.length) window._relIO.disconnect(); else { window._relIO.unobserve(endEl); window._relIO.observe(endEl); }
+    }, { rootMargin: "1500px" });
+    window._relIO.observe(endEl);
+  } else while (shownDays < days.length) addDays(30);
 }
 let exploreRows = EXPLORE_ROWS, explorePageSeen = new Set(), exploreMine = false;
 const exploreCache = {};
@@ -2355,11 +2400,22 @@ async function renderVentes() {
     const list = ((d.listes[k] || {})[ventesPeriod] || []).map((b) => ({ ...b, categories: [] }));
     shown.push(list);
     if (!list.length) return "";
-    return `<section class="ex-row"><div class="ex-head"><h3>${esc(title)}</h3></div><div class="ex-list">${list.map((b, j) => `<button class="ex-card" data-k="${shown.length - 1}" data-i="${j}">
-      <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}<span class="rank">${b.rang}</span></div>
-      <span>${esc(b.title)}</span><small>${esc(b.authors[0] || "")}</small></button>`).join("")}</div></section>`;
+    return `<section class="ex-row" data-vk="${shown.length - 1}"><div class="ex-head"><h3>${esc(title)}</h3></div><div class="ex-list" style="min-height:220px"></div></section>`;
   }).join("") + `<p class="rel-note">Ventes des librairies indépendantes (leslibraires.fr). ${ventesPeriod === "semaine" ? "Cette semaine : les classements des 7 derniers jours cumulés" : "Ce mois-ci : les classements du mois cumulés"}${d.jours < 7 ? ` (relevés depuis ${d.jours} jour${d.jours > 1 ? "s" : ""}, la liste se précise chaque jour)` : ""}. Mis à jour ${esc(sinceText(d.updated))}.</p>`;
-  box.querySelectorAll(".ex-card").forEach((c) => (c.onclick = () => openPreview(shown[c.dataset.k][c.dataset.i])));
+  // chaque classement n'est dessiné que lorsqu'il approche de l'écran
+  const fillRow = (sec) => {
+    const k = Number(sec.dataset.vk);
+    const lst = sec.querySelector(".ex-list"); lst.style.minHeight = "";
+    lst.innerHTML = shown[k].map((b, j) => `<button class="ex-card" data-k="${k}" data-i="${j}">
+      <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}<span class="rank">${b.rang}</span></div>
+      <span>${esc(b.title)}</span><small>${esc(b.authors[0] || "")}</small></button>`).join("");
+  };
+  box.onclick = (e) => { const c = e.target.closest(".ex-card"); if (c) openPreview(shown[c.dataset.k][c.dataset.i]); };
+  if (window._ventesIO) window._ventesIO.disconnect();
+  if ("IntersectionObserver" in window) {
+    window._ventesIO = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { window._ventesIO.unobserve(e.target); fillRow(e.target); } }), { rootMargin: "300px" });
+    box.querySelectorAll("[data-vk]").forEach((sec) => window._ventesIO.observe(sec));
+  } else box.querySelectorAll("[data-vk]").forEach(fillRow);
 }
 function render() { renderTabs(); renderStats(); renderLibraryFilters(); renderShelves(); }
 
@@ -2450,10 +2506,12 @@ function isbn10(isbn) {
 }
 /* Couverture de secours par ISBN (servie par Amazon, couvre la plupart des livres vendus en France) */
 const amzCover = (b) => { const i = isbn10(b.isbn); return i ? `https://images-na.ssl-images-amazon.com/images/P/${i}.01.LZZZZZZZ.jpg` : ""; };
+/* Bedetheque : si la grande couverture manque, on retombe sur la vignette */
+const bdThumb = (u) => (/bedetheque\.com\/media\/Couvertures\//.test(u || "") ? u.replace("/media/Couvertures/", "/cache/thb_couv/") : "");
 function coverImg(b) {
-  const urls = [b.cover, olIsbnCover(b), amzCover(b), ...(b.others || []).flatMap((o) => [olIsbnCover(o), amzCover(o)])].filter(Boolean);
+  const urls = [b.cover, bdThumb(b.cover), olIsbnCover(b), amzCover(b), ...(b.others || []).flatMap((o) => [olIsbnCover(o), amzCover(o)])].filter(Boolean);
   if (!urls.length) return `<div class="noimg"></div>`;
-  return `<img src="${esc(urls[0])}" data-alt="${esc(urls.slice(1).join(" "))}" alt="" loading="lazy" onload="coverLoaded(this)" onerror="coverFailed(this)">`;
+  return `<img src="${esc(urls[0])}" data-alt="${esc(urls.slice(1).join(" "))}" alt="" loading="lazy" decoding="async" onload="coverLoaded(this)" onerror="coverFailed(this)">`;
 }
 const imageExists = (url) => new Promise((ok) => {
   const im = new Image(); const t = setTimeout(() => ok(false), 6000);
@@ -2923,7 +2981,7 @@ function bookFaces(b) {
 }
 function bindFaces(b) {
   const img = $("#coverImg");
-  if (img) img.onerror = () => { img.onerror = null; img.src = b.cover; };
+  if (img) img.onerror = () => { img.onerror = null; img.src = bdThumb(b.cover) || b.cover; };
   $("#book3d").onclick = () => $("#book3d").classList.toggle("flipped");
   if (b.hasBackPhoto) getBackPhoto(b.id).then((d) => { const el = $("#backPhoto"); if (d && el) { el.src = d; el.hidden = false; } });
 }

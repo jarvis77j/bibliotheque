@@ -449,52 +449,140 @@ def crawl(source, fetch, lo, hi, max_pages=100, deadline=None):
     return books, pages
 
 
-def details(fetch, books, n):
-    """Fiche Hachette : og:image (couverture) et og:description (début du résumé)."""
-    done = 0
-    for b in books.values():
-        if done >= n: break
-        if b["cover"] or not b["source"].endswith("hachette"): continue
-        page = fetch.get(b["url"], "detail-" + b["isbn"]); done += 1
+def details(fetch, books, n, deadline=None, seen=()):
+    """Fiche Hachette : og:image (couverture) et og:description (début du résumé), pour les fiches
+    qui n'ont pas l'un des deux, les sorties les plus proches d'aujourd'hui d'abord."""
+    done, today = 0, time.strftime("%Y-%m-%d")
+    near = lambda b: abs((date.fromisoformat(b["date"]) - date.fromisoformat(today)).days) if b.get("date") else 9999
+    for b in sorted(books.values(), key=near):
+        if done >= n or (deadline and time.time() > deadline): break
+        if (b["cover"] and b["description"]) or not b["source"].endswith("hachette") or b["id"] in seen: continue
+        page = fetch.get(b["url"], "detail-" + b["isbn"]); done += 1; b["fiche"] = 1
         m = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', page)
-        if m and "indisponible" not in m.group(1): b["cover"] = html.unescape(m.group(1))
+        if m and not b["cover"] and "indisponible" not in m.group(1): b["cover"] = html.unescape(m.group(1))
         m = re.search(r'<meta[^>]+(?:property="og:description"|name="description")[^>]+content="([^"]*)"', page)
-        if m: b["description"] = html.unescape(m.group(1))[:1500]
+        if m and not b["description"]: b["description"] = html.unescape(m.group(1))[:1500]
     return done
 
 
-MODULES = [("src_manga", 8), ("src_bd", 8), ("src_generale", 10)]  # (module, minutes au plus)
+# ---- planning de la récolte : quoi lire, dans quel ordre, avec quel temps (état gardé dans data/sorties.json, champ stats.suivi)
+# Chaque « unité » est lue en entier (fenêtre complète : d'août à +6 mois) au moins une fois par jour, et en fenêtre
+# « proche » (J-14 à J+45, quelques minutes) à chaque tour où elle n'a pas été lue depuis 4 h. Une unité coupée par
+# la limite de temps ou en erreur n'est pas marquée comme lue : elle repasse en tête au tour suivant, et ses anciennes
+# fiches restent en place (sorties.py ne remplace que ce qui a été relu sans accroc).
+UNITS = [("hachette", "crawl"), ("glenat", "crawl"), ("seuil", "crawl"), ("src_manga", "module"), ("src_bd", "module"), ("src_generale", "module")]
+FULL_EVERY_H, NEAR_EVERY_H = 20, 4
+NEAR_BEFORE, NEAR_AFTER = 14, 45          # jours autour d'aujourd'hui pour la lecture « proche »
+DEFAULT_SECONDS = {"hachette": 420, "glenat": 90, "seuil": 70, "src_manga": 420, "src_bd": 420, "src_generale": 300}
+NEAR_RATIO = 0.35                          # une lecture proche dure environ le tiers d'une complète (valeur de départ)
+ERR_TOLERANCE = 0.03                       # 3 % de pages en échec : la source compte quand même comme lue
 
-def collect(lo, hi, delay=3.0, only="hachette,glenat,seuil", end=None):
-    """Pour sorties.py : renvoie ({isbn ou id: livre}, stats). end : heure limite de toute la récolte
-    (par défaut dans 28 minutes). Une source coupée par la limite est marquée "incomplet" : sorties.py garde
-    alors ses anciennes fiches au lieu de les remplacer par une liste tronquée."""
-    fetch, allb, stats, conflits = Fetcher(delay), {}, {}, []
-    end = end or time.time() + 28 * 60
-    deadline = min(end, time.time() + 12 * 60)
-    for s in only.split(","):
+
+def _age_h(iso, now):
+    try: return (now - datetime.strptime(iso, "%Y-%m-%dT%H:%MZ")).total_seconds() / 3600
+    except Exception: return 1e9
+
+
+def source_status(st):
+    """ok / partiel / vide / incomplet / erreur d'après les chiffres d'une source."""
+    if not isinstance(st, dict): return "erreur"
+    if st.get("incomplet"): return "incomplet"
+    pages, err = st.get("pages", 0), st.get("erreurs", 0)
+    if err and (not st.get("livres") or err > max(1, ERR_TOLERANCE * pages)): return "erreur"
+    if not st.get("livres"): return "vide"  # page lue mais rien trouvé : à surveiller (la page a peut-être changé)
+    return "partiel" if err else "ok"
+
+
+def plan(state, now, lo, hi, today, force=False):
+    """Unités à lire à ce tour, dans l'ordre : [(unité, mode, lo, hi)]. mode = "complet" ou "proche"."""
+    near = (max(lo, (today - timedelta(days=NEAR_BEFORE)).isoformat()), min(hi, (today + timedelta(days=NEAR_AFTER)).isoformat()))
+    todo = []
+    for unit, _ in UNITS:
+        u = state.get(unit, {})
+        full_age = _age_h(u.get("dernier_complet", ""), now)
+        near_age = min(full_age, _age_h(u.get("dernier_proche", ""), now))
+        if force or full_age >= FULL_EVERY_H: todo.append((unit, "complet", lo, hi, full_age))
+        elif near_age >= NEAR_EVERY_H: todo.append((unit, "proche", near[0], near[1], full_age))
+    # les lectures proches d'abord (sorties de la semaine à jour avant tout), puis les complètes, la plus ancienne en tête
+    todo.sort(key=lambda t: (t[1] == "complet", -t[4]))
+    return [t[:4] for t in todo]
+
+
+def _run_unit(unit, kind, fetch, lo, hi, deadline):
+    """Lit une unité. Renvoie (livres, {source: stats}, erreur éventuelle)."""
+    stats, allb = {}, {}
+    if kind == "crawl":
         t0, e0 = time.time(), fetch.errors
-        try: got, pages = crawl(s, fetch, lo, hi, deadline=deadline)
-        except Exception as e:
-            stats[s] = "erreur : " + str(e); continue
-        stats[s] = {"pages": pages, "livres": len(got), "secondes": round(time.time() - t0), "erreurs": fetch.errors - e0}
-        if time.time() > deadline: stats[s]["incomplet"] = True
-        for k, b in got.items(): reconcile_into(allb, k, b, conflits)
-    # autres sources (chacune dans son module, avec sa propre limite de temps)
-    for mod, minutes in MODULES:
-        dl = min(end, time.time() + minutes * 60)
+        got, pages = crawl(unit, fetch, lo, hi, deadline=deadline)
+        stats[unit] = {"pages": pages, "livres": len(got), "secondes": round(time.time() - t0), "erreurs": fetch.errors - e0}
+        if time.time() > deadline: stats[unit]["incomplet"] = True
+        return got, stats
+    m = __import__(unit)
+    got, st = m.collect(lo, hi, fetch, deadline)
+    return got, st
+
+
+def collect(lo, hi, delay=3.0, only="hachette,glenat,seuil", end=None, state=None, force=False, today=None, fixtures=None, fiches_lues=()):
+    """Pour sorties.py : renvoie ({isbn ou id: livre}, stats).
+    end : heure limite de toute la récolte (par défaut dans 28 minutes). state : stats.suivi du tour précédent
+    (sans lui, tout est lu en entier). stats contient une entrée par source (pages, livres, secondes, erreurs,
+    "incomplet" si coupée, "statut", "fenetre" = [mode, début, fin]) et "suivi" (état à reporter au prochain tour)."""
+    fetch, allb, stats, conflits = Fetcher(delay, fixtures), {}, {}, []
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    today = today or date.today()
+    end = end or time.time() + 28 * 60
+    state = {k: dict(v) for k, v in (state or {}).items() if isinstance(v, dict)}
+    todo = plan(state, now, lo, hi, today, force)
+    stats["plan"] = [f"{u}:{m}" for u, m, _, _ in todo]
+    print("  plan :", ", ".join(stats["plan"]) or "rien à lire", file=sys.stderr)
+    kinds = dict(UNITS)
+    for i, (unit, mode, ulo, uhi) in enumerate(todo):
+        u = state.setdefault(unit, {})
+        # temps : le reste de la récolte réparti selon la durée habituelle de chaque unité encore à lire
+        exp = lambda x: u2s(state.get(x[0], {}), x[1], x[0])
+        left = end - time.time()
+        if left < 20: stats[unit] = {"statut": "saute", "raison": "plus de temps"}; continue
+        total = sum(exp(x) for x in todo[i:]) or 1
+        deadline = time.time() + min(left, max(150, left * exp(todo[i]) / total * 1.3))
+        t0, e0 = time.time(), fetch.errors
         try:
-            m = __import__(mod)
-            got, st = m.collect(lo, hi, fetch, dl)
+            got, st = _run_unit(unit, kinds[unit], fetch, ulo, uhi, deadline)
         except Exception as e:
-            stats[mod] = "erreur : " + str(e)[:200]; continue
+            print(f"  {unit} : erreur {e}", file=sys.stderr)
+            st, got = {unit: "erreur : " + str(e)[:200]}, {}
+        secs = round(time.time() - t0)
+        good = bool(st) and all(source_status(v) in ("ok", "partiel", "vide") for v in st.values() if not isinstance(v, int))
+        for name, v in st.items():
+            if isinstance(v, dict):
+                v["statut"] = source_status(v); v["fenetre"] = [mode, ulo, uhi]
+                print(f"  [{name}] {v['statut']} fenêtre={mode} livres={v.get('livres', 0)} pages={v.get('pages', 0)} "
+                      f"secondes={v.get('secondes', 0)} erreurs={v.get('erreurs', 0)}", file=sys.stderr)
+            else:
+                st[name] = {"statut": "erreur", "message": str(v)[:200], "fenetre": [mode, ulo, uhi]}
         stats.update(st)
-        for b in got.values():
-            k = b.get("isbn") or b["id"]
-            reconcile_into(allb, k, b, conflits)  # même livre chez deux sources : la plus fiable, complétée par l'autre
+        stamp = now.strftime("%Y-%m-%dT%H:%MZ")
+        u["dernier_essai"] = stamp
+        u["secondes_" + mode] = secs
+        if good:
+            u["dernier_" + ("complet" if mode == "complet" else "proche")] = stamp; u["echecs"] = 0
+        else:
+            u["echecs"] = u.get("echecs", 0) + 1
+            print(f"  {unit} : lecture {mode} non terminée (échec n°{u['echecs']}), reprise au prochain tour", file=sys.stderr)
+        for k, b in got.items():
+            reconcile_into(allb, b.get("isbn") or b["id"], b, conflits)  # même livre chez deux sources : la plus fiable, complétée par l'autre
+    # résumés (et couvertures) Hachette manquants, les sorties proches d'abord ; une fiche déjà lue n'est pas relue
+    try: stats["fiches_lues"] = details(fetch, allb, 60, min(end, time.time() + 4 * 60), fiches_lues)
+    except Exception as e: stats["fiches_lues"] = "erreur : " + str(e)[:100]
     if conflits: stats["conflits_dates"] = {"nombre": len(conflits), "exemples": conflits[:30]}
     stats["erreurs"] = fetch.errors
+    stats["suivi"] = state
     return allb, stats
+
+
+def u2s(u, mode, unit):
+    """Durée attendue (secondes) d'une lecture de cette unité dans ce mode."""
+    full = u.get("secondes_complet") or DEFAULT_SECONDS.get(unit, 300)
+    return u.get("secondes_proche") or full * NEAR_RATIO if mode == "proche" else full
 
 
 def main():
