@@ -793,7 +793,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 25 octobre, 2 h</p>
+    <p class="version">Version du 25 octobre, 3 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -2313,8 +2313,8 @@ function renderExplore(mine) {
   exploreRows = mine ? personalRows(true) : EXPLORE_ROWS;
   explorePageSeen = new Set(); exploreMine = !!mine; // un même livre n'apparaît qu'une fois sur la page
   if (mine && !exploreRows.length) {
-    el.innerHTML = `<div class="explore"><div class="empty-note">Range quelques livres dans ta bibliothèque : je te proposerai des lectures qui leur ressemblent.<br><button id="emptyAdd">Chercher un livre</button></div></div>`;
-    $("#emptyAdd").onclick = openSearch; return;
+    el.innerHTML = `<div class="explore"><div class="empty-note">Range quelques livres dans ta bibliothèque : je te proposerai des lectures qui leur ressemblent.<br><button id="emptyAdd">Chercher un livre</button></div>${topButton()}</div>`;
+    $("#emptyAdd").onclick = openSearch; bindTop(el); return;
   }
   el.innerHTML = `<div class="explore">
     ${mine ? `<p class="rel-note" style="margin:4px 16px 0">Choisis d'après les genres, les auteurs et les séries de ta bibliothèque (sans reprendre les nouveautés d'Explorer).</p>` : `<button class="ex-search" id="exSearch">🔎 Chercher un titre, un auteur, un ISBN…</button><p class="rel-note" style="margin:4px 16px 0">Nouveautés de ces 7 derniers jours, genre par genre. Le calendrier complet est dans l'onglet Sorties.</p>`}
