@@ -792,7 +792,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 24 octobre, 21 h</p>
+    <p class="version">Version du 24 octobre, 22 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1974,7 +1974,7 @@ function distributorOf(publisher) {
 }
 const REL_KINDS = [["", "Tout"], ["roman", "Romans"], ["romance", "Romance"], ["fantasy", "Fantasy & SF"], ["policier", "Polar & thriller"], ["ya", "Young adult"], ["bd", "BD & manga"], ["jeunesse", "Jeunesse"]];
 const REL_QUERIES = ['subject:"fiction"', 'subject:"romance"', 'subject:"fantasy"', 'subject:"thriller"', 'subject:"young adult"', "roman", "manga", "bande dessinée tome"];
-let relWeek = 0, relKind = "", relDay = "", relMine = false, relText = "";
+let relWeek = "j7", relKind = "", relDay = "", relMine = false, relText = "";
 /* Nouveaux tomes : sorties d'une série qu'elle a commencée, dont elle n'a pas encore ce tome */
 function newTomes(all) {
   const mine = new Map();
@@ -2077,7 +2077,7 @@ async function renderReleases() {
     return ["m" + d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0"), l.charAt(0).toUpperCase() + l.slice(1)];
   };
   // les nouveautés ne remontent pas au-delà de 7 jours ; puis les semaines proches et les 6 mois à venir
-  weeks.push(["-1", "Cette semaine passée"], ["0", "Cette semaine"], ["1", "Semaine prochaine"]);
+  weeks.push(["j7", "7 derniers jours"], ["0", "Cette semaine"], ["1", "Semaine prochaine"]);
   for (let i = 0; i < 7; i++) {
     const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
     const l = d.toLocaleDateString("fr-FR", { month: "long" }) + (d.getFullYear() !== now.getFullYear() ? " " + d.getFullYear() : "");
@@ -2091,7 +2091,7 @@ async function renderReleases() {
     <div id="relList"><div class="ex-loading">Chargement des sorties…</div></div>
     <p class="rel-note">Sorties relevées sur leslibraires.fr (librairies indépendantes, toutes les heures) et chaque jour chez les éditeurs (Hachette, Glénat, Seuil, Delcourt, Dargaud, Michel Lafon, J'ai lu, Albin Michel…) et sur les plannings Nautiljon, Manga-news et BDGest, complétées par Google Livres. « Pour moi » montre les nouveaux tomes de tes séries et les livres de tes auteurs. Le distributeur est déduit de l'éditeur ; touche-le pour le corriger.</p>
   </div>`;
-  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = b.dataset.w[0] === "m" ? b.dataset.w : Number(b.dataset.w); relMine = false; relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
+  el.querySelectorAll("[data-w]").forEach((b) => (b.onclick = () => { relWeek = /^[mj]/.test(b.dataset.w) ? b.dataset.w : Number(b.dataset.w); relMine = false; relScroll = $("#relWeeks").scrollLeft; renderReleases(); }));
   if (relScroll < 0) { const on = $("#relWeeks .on"); relScroll = on ? Math.max(0, on.offsetLeft - 16) : 0; }
   $("#relWeeks").scrollLeft = relScroll;
   el.querySelectorAll("[data-k]").forEach((b) => (b.onclick = () => { relKind = b.dataset.k; renderReleases(); }));
@@ -2108,7 +2108,8 @@ async function renderReleases() {
   if (!box || currentShelf !== "sorties") return;
   if (!all) { box.innerHTML = `<div class="ex-loading">Le catalogue ne répond pas. Réessaie dans un moment.</div>`; return; }
   let start, end;
-  if (typeof relWeek === "string") { const [y, m] = relWeek.slice(1).split("-").map(Number); start = new Date(y, m - 1, 1, 12); end = new Date(y, m, 0, 12); }
+  if (relWeek === "j7") { start = new Date(Date.now() - 7 * 864e5); end = new Date(); }
+  else if (typeof relWeek === "string") { const [y, m] = relWeek.slice(1).split("-").map(Number); start = new Date(y, m - 1, 1, 12); end = new Date(y, m, 0, 12); }
   else { start = weekStart(relWeek); end = new Date(start.getTime() + 6 * 864e5); }
   // « Pour moi » : tout ce qui la concerne, des deux dernières semaines jusqu'à 6 mois
   if (relMine) { start = new Date(Date.now() - 7 * 864e5); end = new Date(Date.now() + 186 * 864e5); }
@@ -2133,7 +2134,7 @@ async function renderReleases() {
   }
   const list = inRange;
   const stripHtml = `<div class="rel-daypick" id="relDays">${strip}</div>`;
-  if (!list.length) { box.innerHTML = stripHtml + `<div class="ex-loading">Aucune sortie trouvée pour ${typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind || relMine || words.length ? " avec ces filtres" : ""}.${relMine ? "<br>« Pour moi » montre les nouveaux tomes de tes séries et les livres de tes auteurs." : ""}</div>`; return; }
+  if (!list.length) { box.innerHTML = stripHtml + `<div class="ex-loading">Aucune sortie trouvée pour ${relWeek === "j7" ? "ces 7 jours" : typeof relWeek === "string" ? "ce mois" : "cette semaine"}${relKind || relMine || words.length ? " avec ces filtres" : ""}.${relMine ? "<br>« Pour moi » montre les nouveaux tomes de tes séries et les livres de tes auteurs." : ""}</div>`; return; }
   const days = [...new Set(list.map((b) => b.date))];
   box.innerHTML = stripHtml + days.map((d) => {
     const items = list.filter((b) => b.date === d);
