@@ -793,7 +793,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 25 octobre, 1 h</p>
+    <p class="version">Version du 25 octobre, 2 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -2305,6 +2305,9 @@ const RECO_KEY = STORE_KEY + ".reco2"; // changer le numéro vide le cache des r
 // les rayons « Pour toi » sont gardés 3 jours (ils sont refaits plus tôt si les livres changent)
 function recoCache() { try { const c = JSON.parse(localStorage.getItem(RECO_KEY)); if (c && Date.now() - new Date(c.day).getTime() < 3 * 86400000) return c; } catch {} return { day: today(), rows: {} }; }
 let exploreObserver;
+/* Bouton « remonter » en bas d'un onglet (Explorer, Pour toi, Ventes) */
+const topButton = () => `<div class="rel-end"><button class="go-top">↑ Revenir en haut</button></div>`;
+const bindTop = (el) => el.querySelectorAll(".go-top").forEach((b) => (b.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" })));
 function renderExplore(mine) {
   const el = $("#shelves");
   exploreRows = mine ? personalRows(true) : EXPLORE_ROWS;
@@ -2319,7 +2322,9 @@ function renderExplore(mine) {
       <div class="ex-head"><h3>${esc(r.title)}</h3>${r.p ? `<button data-more="${i}">Tout voir</button>` : ""}</div>
       <div class="ex-list" id="exList${i}"><div class="ex-loading">Chargement…</div></div>
     </section>`).join("")}
+    ${topButton()}
   </div>`;
+  bindTop(el);
   if ($("#exSearch")) $("#exSearch").onclick = openSearch;
   el.querySelectorAll("[data-more]").forEach((b) => (b.onclick = () => {
     const r = exploreRows[b.dataset.more];
@@ -2389,7 +2394,9 @@ async function renderVentes() {
   el.innerHTML = `<div class="explore">
     <div class="rel-weeks" id="ventesPer" style="padding:10px 16px 0"><button data-p="semaine" class="${ventesPeriod === "semaine" ? "on" : ""}">Cette semaine</button><button data-p="mois" class="${ventesPeriod === "mois" ? "on" : ""}">Ce mois-ci</button></div>
     <div id="ventesBox"><div class="ex-loading">Chargement des classements…</div></div>
+    ${topButton()}
   </div>`;
+  bindTop(el);
   el.querySelectorAll("[data-p]").forEach((b) => (b.onclick = () => { ventesPeriod = b.dataset.p; renderVentes(); }));
   if (!ventesData) { try { const r = await fetch("data/ventes.json", { cache: "no-cache" }); if (r.ok) ventesData = await r.json(); } catch {} }
   const box = $("#ventesBox"); if (!box || currentShelf !== "ventes") return;
