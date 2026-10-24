@@ -1975,7 +1975,7 @@ function newTomes(all) {
   const mine = new Map();
   books.forEach((b) => { const s = seriesName(b); if (s && (b.tome || guessSeries(b.title).tome)) mine.set(plain(s), s); });
   if (!mine.size) return [];
-  const from = isoDay(new Date(Date.now() - 14 * 864e5));
+  const from = isoDay(new Date(Date.now() - 7 * 864e5));
   return (all || []).filter((r) => {
     if (r.date < from) return false;
     const g = guessSeries(r.title); if (!g.tome) return false;
@@ -2010,7 +2010,7 @@ async function siteReleases() {
 /* Copie hors ligne de la liste du robot (plus de 4 000 livres) : sans résumés, rayons ni liens, et seulement
    à partir d'il y a deux semaines, pour laisser la place à la bibliothèque dans la mémoire du navigateur (~5 Mo sur iPhone) */
 function relLight(site) {
-  const from = isoDay(new Date(Date.now() - 14 * 864e5));
+  const from = isoDay(new Date(Date.now() - 7 * 864e5));
   return site.filter((b) => (b.date || "") >= from).map(({ description, rayons, categories, pages, format, url, site: _s, ...b }) => b);
 }
 async function loadReleases(force) {
@@ -2071,8 +2071,8 @@ async function renderReleases() {
     const l = d.toLocaleDateString("fr-FR", { month: "long" }) + (d.getFullYear() !== now.getFullYear() ? " " + d.getFullYear() : "");
     return ["m" + d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0"), l.charAt(0).toUpperCase() + l.slice(1)];
   };
-  // les deux mois passés, les semaines proches, puis les 6 mois à venir
-  weeks.push(month(-2), month(-1), ["-1", "Semaine dernière"], ["0", "Cette semaine"], ["1", "Semaine prochaine"]);
+  // les nouveautés ne remontent pas au-delà de 7 jours ; puis les semaines proches et les 6 mois à venir
+  weeks.push(["-1", "Cette semaine passée"], ["0", "Cette semaine"], ["1", "Semaine prochaine"]);
   for (let i = 0; i < 7; i++) {
     const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
     const l = d.toLocaleDateString("fr-FR", { month: "long" }) + (d.getFullYear() !== now.getFullYear() ? " " + d.getFullYear() : "");
@@ -2106,14 +2106,15 @@ async function renderReleases() {
   if (typeof relWeek === "string") { const [y, m] = relWeek.slice(1).split("-").map(Number); start = new Date(y, m - 1, 1, 12); end = new Date(y, m, 0, 12); }
   else { start = weekStart(relWeek); end = new Date(start.getTime() + 6 * 864e5); }
   // « Pour moi » : tout ce qui la concerne, des deux dernières semaines jusqu'à 6 mois
-  if (relMine) { start = new Date(Date.now() - 14 * 864e5); end = new Date(Date.now() + 186 * 864e5); }
+  if (relMine) { start = new Date(Date.now() - 7 * 864e5); end = new Date(Date.now() + 186 * 864e5); }
   const keys = ownedKeys();
+  const cutoff = isoDay(new Date(Date.now() - 7 * 864e5));
   const fresh = newTomes(all), freshSet = new Set(fresh);
   updateTomeBadge(all);
   if (relMine) { settings.tomesVus = [...new Set([...(settings.tomesVus || []), ...fresh.map(tomeKey)])].slice(-500); saveSettings(); updateTomeBadge(all); }
   const myAuthors = new Set(books.flatMap((b) => (b.authors || []).map(plain)));
   const words = plain(relText).split(" ").filter(Boolean);
-  const inRange = all.filter((b) => b.date >= isoDay(start) && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind)
+  const inRange = all.filter((b) => b.date >= isoDay(start) && b.date >= cutoff && b.date <= isoDay(end) && (!relKind || (b.kind || guessGenre(b.categories)) === relKind)
     && (!relMine || freshSet.has(b) || b.authors.some((a) => myAuthors.has(plain(a))))
     && (!words.length || ((h) => words.every((w) => h.includes(w)))(plain([b.title, b.publisher, ...(b.authors || [])].join(" ")))));
   // choix du jour : une pastille par jour de la période, avec le nombre de sorties
@@ -2122,7 +2123,7 @@ async function renderReleases() {
   let strip = "";
   for (let d = new Date(start); d <= end; d = new Date(d.getTime() + 864e5)) {
     const k = isoDay(d), n = perDay[k] || 0;
-    if (relMine && !n) continue;
+    if ((relMine && !n) || k < cutoff) continue;
     strip += `<button data-day="${k}" ${n ? "" : "disabled"}><span>${d.toLocaleDateString("fr-FR", relMine ? { month: "short" } : { weekday: "short" }).replace(".", "")}</span><b>${d.getDate()}</b><small>${n || "·"}</small></button>`;
   }
   const list = inRange;
