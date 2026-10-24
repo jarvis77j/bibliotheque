@@ -25,6 +25,13 @@ LISTS = {
     "bd": ("/dossiers/meilleures-ventes-a-25-113870/", 4),   # BD, comics et mangas : séparés ensuite
     "jeunesse": ("/dossiers/meilleures-ventes-a-25-113821/", 2),
 }
+# page du rayon : si le dossier ci-dessus ne donne rien, on y cherche le lien « Meilleures ventes » (comme sorties.py pour les nouveautés)
+RAYON_PAGES = {
+    "roman": "/boutique/25/livres-papier/113534/litterature-generale", "policier": "/boutique/25/livres-papier/821433/policier-thriller",
+    "fantasy": "/boutique/25/livres-papier/821434/science-fiction-fantastique-fantasy", "romance": "/boutique/25/livres-papier/821432/romance",
+    "bd": "/boutique/25/livres-papier/113870/bd-comics-mangas", "jeunesse": "/boutique/25/livres-papier/113821/jeunesse",
+    "tous": "/boutique/25/livres-papier/",
+}
 OUTPUT_LISTS = ["tous", "roman", "policier", "fantasy", "romance", "manga", "bd", "jeunesse"]
 TOP = 10          # livres gardés par liste
 POINTS = 21       # le 1er gagne 20 points, le 20e un point
@@ -43,6 +50,13 @@ def cards(page):
     return out
 
 
+def find_dossier(name):
+    """Lien « Meilleures ventes » lu sur la page du rayon (identifiants non garantis : le site peut les changer)."""
+    page = S.get(RAYON_PAGES.get(name, ""))
+    m = re.search(r'href="(/dossiers/meilleures-ventes[^"]*)"', page or "")
+    return m.group(1) if m else ""
+
+
 def is_manga(b):
     """Rayon « BD, Comics & Manga » > « Manga » (les mangas sont rangés à part des bandes dessinées)."""
     r = b.get("rayons", [])
@@ -53,16 +67,26 @@ def main():
     today = date.today().isoformat()
     try: hist = json.load(open(HIST, encoding="utf-8"))
     except Exception: hist = {"snaps": {}, "books": {}}
-    if today in hist["snaps"] and os.environ.get("VENTES") != "1":
+    # relevé du jour déjà fait seulement s'il est complet : sinon (un classement illisible) on réessaie au tour suivant
+    essais = hist.get("essais", {})  # au plus 3 relevés par jour, même incomplets (pas de lecture sans fin)
+    if (set(OUTPUT_LISTS) <= set(hist["snaps"].get(today, {})) or essais.get(today, 0) >= 3) and os.environ.get("VENTES") != "1":
         print("relevé du jour déjà fait"); return
     try: known = {b["id"]: b for b in json.load(open(os.path.join(DATA, "sorties.json"), encoding="utf-8"))["books"]}
     except Exception: known = {}
-    snap, paths = {}, {}
+    snap, paths, diag = {}, {}, {}
     for name, (path, pages) in LISTS.items():
         rows = []
-        for p in range(1, pages + 1):
-            page = S.get(path + (f"?page={p}" if p > 1 else ""))
-            rows += cards(page) if page else []
+        for essai in (0, 1):
+            rows = []
+            for p in range(1, pages + 1):
+                page = S.get(path + (f"?page={p}" if p > 1 else ""))
+                rows += cards(page) if page else []
+                if not page: break
+            if len(rows) >= 6 or essai: break
+            alt = find_dossier(name)  # l'identifiant prévu ne marche pas : on cherche le bon sur la page du rayon
+            if not alt or alt == path: break
+            print("  dossier de remplacement pour", name, ":", alt, file=sys.stderr); path = alt
+        diag[name] = {"dossier": path, "lignes": len(rows)}
         if len(rows) < 6:  # page vide ou changée : on ne garde pas un classement bancal
             print("  classement incomplet :", name, len(rows), file=sys.stderr); continue
         ids = []
@@ -95,6 +119,7 @@ def main():
     snap["manga"] = [i for i in bd if hist["books"].get(i, {}).get("manga")]
     snap["bd"] = [i for i in bd if i in hist["books"] and not hist["books"][i].get("manga")]
     hist["snaps"][today] = snap
+    hist["essais"] = {today: essais.get(today, 0) + 1}
     cut = (date.today() - timedelta(days=62)).isoformat()
     hist["snaps"] = {d: v for d, v in hist["snaps"].items() if d >= cut}
     used = {i for v in hist["snaps"].values() for ids in v.values() for i in ids}
@@ -115,7 +140,7 @@ def main():
     listes = {n: {"semaine": top(n, week_from), "mois": top(n, month_from)} for n in OUTPUT_LISTS}
     days = sorted(hist["snaps"])
     out = {"updated": time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime()), "source": "leslibraires.fr (librairies indépendantes)",
-           "jours": len(days), "depuis": days[0] if days else "", "listes": listes}
+           "jours": len(days), "depuis": days[0] if days else "", "listes": listes, "diagnostic": diag}
     os.makedirs(DATA, exist_ok=True)
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     json.dump(hist, open(HIST, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
