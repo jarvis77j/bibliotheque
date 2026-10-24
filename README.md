@@ -135,3 +135,8 @@ L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robo
 - Champ « Filtrer » : éditeur, auteur ou série.
 - Pastille rouge sur 🗓 Sorties : nombre de nouveaux tomes pas encore vus ; la fiche porte « 🆕 Nouveau tome de ta série ».
 - La liste du robot n'est retéléchargée que si elle a changé (plus rapide, moins de données).
+
+## Recherche et étagères (24 octobre)
+- Quand la barre de recherche est vide, les 4 dernières recherches sont proposées (🕘).
+- Les étagères montrent d'abord les derniers livres ajoutés (tri « Derniers ajoutés » par défaut).
+- La recherche regarde aussi la liste des Sorties (livres trop récents pour Google et la BnF).

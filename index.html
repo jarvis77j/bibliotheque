@@ -278,6 +278,9 @@
   .rel-weeks { display: flex; gap: 8px; margin-bottom: 10px; overflow-x: auto; scrollbar-width: none; }
   .rel-weeks button, .rel-kinds button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 18px; padding: 7px 12px; font-size: 14px; cursor: pointer; white-space: nowrap; }
   .rel-weeks button.on, .rel-kinds button.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
+  .recent { padding: 14px 16px; }
+  .recent h4 { margin: 0 0 8px; font-size: 14px; color: var(--muted); font-weight: 600; }
+  .recent button { display: block; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); background: none; color: var(--ink); font-size: 16px; padding: 12px 4px; cursor: pointer; font-family: inherit; }
   .rel-search { width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink); font-size: 16px; margin-bottom: 8px; }
   .badge-new { display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 2px; border-radius: 9px; background: #d64545; color: #fff; font-size: 12px; line-height: 18px; text-align: center; }
   .tag.new-tome { background: #d64545; color: #fff; }
@@ -651,7 +654,7 @@
   <button class="tb-toggle" id="tbToggle">🔍 Chercher, trier, filtrer ▾</button>
   <input id="filter" type="search" placeholder="Chercher dans mes livres" autocomplete="off">
   <select id="sort" aria-label="Trier">
-    <option value="added">Ordre d'ajout</option>
+    <option value="added">Derniers ajoutés</option>
     <option value="title">Titre</option>
     <option value="author">Auteur</option>
     <option value="read">Date de lecture</option>
@@ -786,7 +789,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 24 octobre, 19 h</p>
+    <p class="version">Version du 24 octobre, 20 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1680,6 +1683,8 @@ function visibleBooks() {
     read: (a, b) => (b.readDate || "").localeCompare(a.readDate || ""),
     rating: (a, b) => (b.rating || 0) - (a.rating || 0),
   }[by];
+  // par défaut : les derniers livres ajoutés d'abord (les séries restent groupées à la place du plus récent)
+  if (!cmp) { const idx = new Map(books.map((b, i) => [b, i])); list = list.slice().sort((a, b) => (b.addedAt || "").localeCompare(a.addedAt || "") || idx.get(b) - idx.get(a)); }
   return groupSeries(cmp ? list.slice().sort(cmp) : list);
 }
 
@@ -2269,9 +2274,24 @@ function render() { renderTabs(); renderStats(); renderLibraryFilters(); renderS
 /* ---------- Recherche ---------- */
 let lastResults = [];
 const openEditions = new Set();
+/* Les 4 dernières recherches, proposées quand la barre est vide */
+const RECENT_KEY = STORE_KEY + ".recherches";
+const recentSearches = () => { try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch { return []; } };
+function rememberSearch(q) {
+  q = String(q || "").trim(); if (q.length < 2) return;
+  const list = [q, ...recentSearches().filter((x) => plain(x) !== plain(q))].slice(0, 4);
+  try { localStorage.setItem(RECENT_KEY, JSON.stringify(list)); } catch {}
+}
+function showRecent() {
+  const box = $("#results"), list = recentSearches();
+  if (!list.length || $("#q").value.trim() || $("#fTitle").value.trim() || $("#fAuthor").value.trim()) return;
+  box.innerHTML = `<div class="recent"><h4>Recherches récentes</h4>${list.map((q, i) => `<button data-r="${i}">🕘 ${esc(q)}</button>`).join("")}</div>`;
+  box.querySelectorAll("[data-r]").forEach((b) => (b.onclick = () => { $("#q").value = list[b.dataset.r]; runSearch(); }));
+}
 function openSearch() {
   $("#searchSheet").classList.add("open");
   setTimeout(() => $("#q").focus(), 50);
+  showRecent();
 }
 let searchTimer, searchSeq = 0;
 let searchGenre = "";
@@ -2301,7 +2321,7 @@ function bindManualLink() { const l = $("#manualLink"); if (l) l.onclick = openM
 async function runSearch() {
   const p = searchParams();
   const box = $("#results");
-  if (p.q.length < 2 && !p.title && !p.author && !p.genre) { box.innerHTML = ""; return; }
+  if (p.q.length < 2 && !p.title && !p.author && !p.genre) { box.innerHTML = ""; showRecent(); return; }
   const seq = ++searchSeq;
   box.innerHTML = `<div class="status">Recherche…</div>`;
   try {
@@ -2315,6 +2335,7 @@ async function runSearch() {
     lastResults = r;
     openEditions.clear();
     renderResults();
+    if (r.length) rememberSearch(p.q || [p.title, p.author].filter(Boolean).join(" "));
   } catch (e) {
     if (seq !== searchSeq) return;
     box.innerHTML = `<div class="status">La recherche ne répond pas. Vérifie la connexion internet.<br><small>${esc(searchSource)} · ${esc(e && e.message || e)}</small></div>` + manualLink;
