@@ -24,6 +24,8 @@ jobs:
         env:
           # après une modification du robot, on relit aussi tout de suite les sites des éditeurs
           EDITEURS: ${{ github.event_name != 'schedule' && '1' || '' }}
+      - run: python3 scripts/controle_semaine.py
+        continue-on-error: true
       # meilleures ventes des librairies indépendantes : un relevé par jour
       - run: python3 scripts/ventes.py
         continue-on-error: true

@@ -118,7 +118,9 @@ GKINDS = [(("romance", "love"), "romance"), (("fantasy", "science fiction", "dra
           (("young adult",), "ya"), (("comics", "graphic novels", "manga"), "bd"), (("juvenile",), "jeunesse"), (("fiction",), "roman")]
 
 NOT_BOOK_RE = re.compile(r"vivre ?cards?|puzzle \d+ pi[eè]ces|calendrier mural|calendrier \d{4}|^agenda\b|\bagenda\b.*\b20\d\d\b|^peluches?\b|jeux? de soci[ée]t[ée]"
-                         r"|^kit\b|^tarot\b|- tarot$|marque.pages? stickers|coffret avec (lampe|accessoires)|\bposters?\b|\bgoodies\b|\bt-shirt\b|\bmugs?\b", re.I)
+                         r"|^kit\b|^tarot\b|- tarot$|marque.pages? stickers|coffret avec (lampe|accessoires)|\bposters?\b|\bgoodies\b|\bt-shirt\b|\bmugs?\b"
+                         r"|\bstickers?\b|calendrier de l.avent|\blivres?[- ]puzzles?\b|\bbo[iî]te jeu|karuta|bloc de jeux|^(mon|ma) (coffret|box)\b|\bjeux et activit[ée]s\b"
+                         r"|\bpack offre d[ée]couverte|\(box \d+ ?- ?vol|^la revue dessin[ée]e\b|^(l.[ée]l[ée]phant|pouvoirs) ?-? ?n° ?\d+", re.I)
 
 # Maisons qui ferment leur site aux robots : on demande leurs sorties à Google Livres, une fois par jour
 GPUBS = [("Gallimard", "roman"), ("Folio", ""), ("Gallimard Jeunesse", "jeunesse"), ("Denoël", "roman"), ("Mercure de France", "roman"),
@@ -293,6 +295,9 @@ def main():
     try:  # même livre vu sur deux sites sans ISBN commun (manga, BD) : une seule fiche
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         import editeurs
+        n_all = len(keep)
+        keep = editeurs.tidy(keep, NOT_BOOK_RE)  # titres propres, faux auteurs, essais hors « roman », publics hors app
+        stats["nettoyes"] = n_all - len(keep)
         n0, keep = len(keep), editeurs.dedupe(keep)
         stats["doublons"] = n0 - len(keep)
     except Exception as e:
