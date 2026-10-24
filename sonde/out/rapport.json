@@ -1,8 +1,56 @@
 {
- "exemple": {
-  "url": "https://www.bragelonne.fr/a-paraitre/?page=1",
+ "seuil1": {
+  "url": "https://www.seuil.com/ouvrage/tante-dimity-et-la-course-a-l-heritage-nancy-atherton/9782386434112",
   "robots_ok": true,
-  "len": 111358,
+  "len": 99216,
+  "erreur": false
+ },
+ "seuil2": {
+  "url": "https://www.seuil.com/ouvrage/mythologies-de-l-ia-jean-gabriel-ganascia/9782021618761",
+  "robots_ok": true,
+  "len": 97692,
+  "erreur": false
+ },
+ "points1": {
+  "url": "https://www.editionspoints.com/ouvrage/les-charognards-brianne-huguerre-cousin/9791041430048",
+  "robots_ok": true,
+  "len": 47631,
+  "erreur": false
+ },
+ "points2": {
+  "url": "https://www.editionspoints.com/ouvrage/privileges-alice-de-rochechouart/9791041429981",
+  "robots_ok": true,
+  "len": 47103,
+  "erreur": false
+ },
+ "mv-jeunesse": {
+  "url": "https://www.leslibraires.fr/dossiers/meilleures-ventes-a-25-113821/",
+  "robots_ok": true,
+  "len": 32086,
+  "erreur": false
+ },
+ "mv-policier": {
+  "url": "https://www.leslibraires.fr/dossiers/meilleures-ventes-a-25-821433/",
+  "robots_ok": true,
+  "len": 33526,
+  "erreur": false
+ },
+ "mv-bd": {
+  "url": "https://www.leslibraires.fr/dossiers/meilleures-ventes-a-25-113870/",
+  "robots_ok": true,
+  "len": 33127,
+  "erreur": false
+ },
+ "nouv-polar": {
+  "url": "https://www.leslibraires.fr/dossiers/nouveautes-25-821433/",
+  "robots_ok": true,
+  "len": 32439,
+  "erreur": false
+ },
+ "nouv-jeunesse": {
+  "url": "https://www.leslibraires.fr/dossiers/nouveautes-25-113821/",
+  "robots_ok": true,
+  "len": 32849,
   "erreur": false
  }
 }
