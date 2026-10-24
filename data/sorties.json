@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-24T17:32Z",
+"updated": "2026-10-24T18:05Z",
 "stats": {
 "precommandes": [
 12,
@@ -49,7 +49,7 @@
 "hachette": {
 "pages": 129,
 "livres": 1443,
-"secondes": 385,
+"secondes": 384,
 "erreurs": 0
 },
 "glenat": {
@@ -61,13 +61,13 @@
 "seuil": {
 "pages": 10,
 "livres": 109,
-"secondes": 52,
+"secondes": 30,
 "erreurs": 0
 },
 "nautiljon": {
 "pages": 9,
 "livres": 1672,
-"secondes": 25,
+"secondes": 27,
 "erreurs": 0
 },
 "manganews": {
@@ -76,13 +76,13 @@
 "completes": 1428,
 "ecartes": 10,
 "lus": 1717,
-"secondes": 336,
+"secondes": 288,
 "erreurs": 0
 },
 "bdgest": {
 "pages": 16,
-"livres": 584,
-"secondes": 46,
+"livres": 582,
+"secondes": 47,
 "erreurs": 0,
 "rapproches": 128
 },
@@ -95,19 +95,19 @@
 "delcourt": {
 "pages": 9,
 "livres": 97,
-"secondes": 29,
+"secondes": 27,
 "erreurs": 0
 },
 "soleil": {
 "pages": 5,
 "livres": 40,
-"secondes": 14,
+"secondes": 15,
 "erreurs": 0
 },
 "lombard": {
 "pages": 2,
 "livres": 37,
-"secondes": 6,
+"secondes": 7,
 "erreurs": 0
 },
 "kana": {
@@ -119,13 +119,13 @@
 "casterman": {
 "pages": 1,
 "livres": 32,
-"secondes": 3,
+"secondes": 13,
 "erreurs": 0
 },
 "ruedesevres": {
 "pages": 1,
 "livres": 13,
-"secondes": 3,
+"secondes": 2,
 "erreurs": 0
 },
 "dupuis": {
@@ -139,7 +139,7 @@
 "livres": 0,
 "secondes": 178,
 "erreurs": 0,
-"isbn_trouves": 9
+"isbn_trouves": 42
 },
 "michellafon": {
 "pages": 38,
@@ -168,35 +168,35 @@
 "hugo": {
 "pages": 24,
 "livres": 15,
-"secondes": 75,
+"secondes": 73,
 "erreurs": 0
 },
 "points": {
-"pages": 17,
-"livres": 46,
-"secondes": 49,
-"erreurs": 0
-},
-"bayard": {
-"pages": 8,
-"livres": 58,
-"secondes": 24,
-"erreurs": 0
-},
-"milan": {
 "pages": 6,
-"livres": 43,
+"livres": 46,
 "secondes": 18,
 "erreurs": 0
 },
+"bayard": {
+"pages": 5,
+"livres": 57,
+"secondes": 14,
 "erreurs": 0
 },
-"editeurs_at": "2026-10-24T17:32Z",
+"milan": {
+"pages": 5,
+"livres": 43,
+"secondes": 15,
+"erreurs": 0
+},
+"erreurs": 0
+},
+"editeurs_at": "2026-10-24T18:05Z",
 "listes": 510,
 "lues": 0,
 "en_attente": 0,
 "plus_loin": "2027-04-23",
-"doublons": 94
+"doublons": 89
 },
 "books": [
 {
@@ -40226,27 +40226,6 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:9791036397066",
-"title": "Avni fan club",
-"authors": [
-"Romain Pujol"
-],
-"publisher": "Bayard Jeunesse",
-"date": "2026-10-06",
-"isbn": "9791036397066",
-"pages": 64,
-"format": "",
-"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036397066/9791036397066.jpg",
-"description": "À l’école, tout le monde ADORE Avni, mais certains plus que d’autres. Parmi les plus jeunes, Waltor le castor et ses copains se sont ainsi pris de passion pour l’animal vraiment non identifié le plus super de la cour de récré. Depuis, ils le suivent partout, pour mieux comprendre ses pouvoirs et ses spécificités. Jusqu’où Avni peut-il étirer ses bras ? Comment arrive-t-il à marcher sur l’eau ? En quelle matière sont faites ses oreilles ? Est-ce vrai qu’il peut changer de couleur ou se transformer ? Les enquêteurs en herbe réunissent ensuite leurs scoops et suppositions dans un journal, le « Avni fan club », qu’ils distribuent dans la cour de récré. Le petit animal bleu est d’abord flatté par tout cet intérêt. Mais parmi la petite bande d’apprentis journalistes, Waltor devient peu à peu de plus en plus envahissant… Le jeune castor aimerait être aussi spécial que son idole, quitte à s’oublier ou se mettre en danger. Pour le faire revenir à la raison, Avni devra lui enseigner que chacun est spécial à sa façon, et que tout le monde à ses propres qualités. Waltor ne sait pas changer de forme, c’est sûr, mais c’est de loin le meilleur pour construire des cabanes incroyables ! En bonus, retrouve en fin d’album le véritable premier numéro du journal « Avni fan club »: des reportages, des jeux, des tests pour tout savoir sur Avni !",
-"rayons": [
-"BD Kids",
-"Avni"
-],
-"url": "https://tout.bayard-jeunesse.com/livres/101022-avni-fan-club/",
-"kind": "bd",
-"source": "editeur:bayard"
-},
-{
 "id": "ed:9791027612420",
 "title": "Boîtes à surprises",
 "authors": [
@@ -40372,26 +40351,6 @@
 "url": "https://www.editionsmilan.com/livres/102071-la-bougie-interdite/",
 "kind": "ya",
 "source": "editeur:milan"
-},
-{
-"id": "ed:9791036382406",
-"title": "La croisière sans faim",
-"authors": [
-"Taylor Robin"
-],
-"publisher": "Bayard Jeunesse",
-"date": "2026-10-06",
-"isbn": "9791036382406",
-"pages": 272,
-"format": "",
-"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036382406/9791036382406.jpg",
-"description": "Neeta et Emery, le fils du capitaine, ont toujours grandi sur le SS Lark, un somptueux navire de croisière. Autrefois, la vie était douce et agréable. Mais depuis que le magnat de la finance, M. Raspiat, a racheté le paquebot, l’atmosphère sur le bateau a changé. Les employés tombent un par un, le rythme est infernal, les passagers de première classe sont encore plus désagréables que d’habitude. Heureusement pour Neeta, un passager bien mystérieux aux crocs pointus s’est aussi rendu compte que quelque chose n’allait pas. Pouvant compter sur ses pouvoirs vampiriques, le détective Warwick Farley a découvert une réalité macabre : M. Raspiat exploite jusqu’à l’os tous les passagers du bateau – des employés jusqu’aux voyageurs de la 3e classe. Une seule règle : travailler 24h/24. Et lorsque ces derniers ne sont plus capables de rien, ils ont pour ordre de sauter droit dans la chaudière pour finir en charbon, quand ce n’est pas pour finir dans les bons petits plats des passagers de la première classe. Le trio cherche alors à mettre un terme aux agissements morbides du propriétaire démoniaque. Cependant, le rapprochement entre Neeta et le vampire n’est pas au goût d’Emery qui devient de plus en plus jaloux. Une proie parfaite pour Raspiat qui le séduit peu à peu, lui faisant miroiter monts et merveilles. Ainsi, tandis que le jeune garçon se noie dans la folie, Neeta, elle, tente tant bien que mal de résister aux appels de la cupidité – et avec l’aide de Warwick, tend un piège au dém",
-"rayons": [
-"Bande d'ados"
-],
-"url": "https://tout.bayard-jeunesse.com/livres/97304-la-croisiere-sans-faim/",
-"kind": "ya",
-"source": "editeur:bayard"
 },
 {
 "id": "ed:9791036384400",
@@ -40733,27 +40692,6 @@
 ],
 "url": "https://tout.bayard-jeunesse.com/livres/103401-sacre-pere-noel/",
 "kind": "jeunesse",
-"source": "editeur:bayard"
-},
-{
-"id": "ed:9791036397073",
-"title": "Sorcellerie sauvage",
-"authors": [
-"Thom Pico"
-],
-"publisher": "Bayard Jeunesse",
-"date": "2026-10-06",
-"isbn": "9791036397073",
-"pages": 136,
-"format": "",
-"cover": "https://imagine.bayard.io/unsafe/400x0/bayard-static/edition/couvertures/9791036397073/9791036397073.jpg",
-"description": "Cendre et Hazel sont de retour au village pour la dernière ligne droite de leurs aventures ! Le dénouement est proche. Bientôt, elles pourront rendre forme humaine à toutes les sorcières et retrouver l’insouciance et la douceur de leur existence, auprès de leurs amis et de leur famille… Euh… BIENTÔT ?!? Vraiment ? Il leur reste tout de même deux ou trois problèmes à régler d’ici là, et pas des moindres : annuler l’effet de la magie élémentaire qui a détraqué le monde, inverser le sort de transformation en chèvre pour redonner forme humaine à Hazel, retrouver et libérer Esmée, combattre leur grand-tante Lupa, et vaincre toute la tripotée de petits et grands méchants croisés ici ou là. Tout ça sans compter les nouvelles catastrophes que les deux sœurs auront sans aucun doute provoquées d’ici là… Mais des années d’aventures sur les routes les ont rendus plus efficaces, plus résistantes et plus malignes. Elles se sont bien entourées, et elles ont même retrouvé leur mère. Alors cette fois, c’est sûr, elles sont prêtes… ou presque ! Après dix tomes à suivre les tribulations de Cendre et Hazel, ce dernier opus clôt avec brio les aventures des deux sorcières. Un final plein de rebondissements, de fantaisie et de suspens, à la hauteur de cette série pas comme les autres, où l’humour le plus loufoque côtoie l’aventure la plus surprenante !",
-"rayons": [
-"BD Kids",
-"Cendre et Hazel"
-],
-"url": "https://tout.bayard-jeunesse.com/livres/105201-sorcellerie-sauvage/",
-"kind": "bd",
 "source": "editeur:bayard"
 },
 {
@@ -41270,15 +41208,15 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:545287",
+"id": "ed:9791041113903",
 "title": "Arsène Lupin - Tome 5 - 1902 - Le bouchon de cristal",
 "authors": [
-"Félix",
-"Janolle"
+"Jérôme Félix",
+"Alain Janolle"
 ],
 "publisher": "Bamboo Édition",
 "date": "2026-10-07",
-"isbn": "",
+"isbn": "9791041113903",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545287.jpg",
@@ -41373,15 +41311,15 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:545436",
+"id": "ed:9782226495075",
 "title": "Autre monde - Tome 1 - L'alliance des trois",
 "authors": [
-"Bruneau",
-"Reynès"
+"Clotilde Bruneau",
+"Mathieu Reynès"
 ],
 "publisher": "Albin Michel",
 "date": "2026-10-07",
-"isbn": "",
+"isbn": "9782226495075",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545436.jpg",
@@ -41392,19 +41330,19 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:543544",
+"id": "ed:9791036397066",
 "title": "Avni - Tome 13 - fan club",
 "authors": [
-"Pujol",
-"Caut"
+"Romain Pujol",
+"Vincent Caut"
 ],
 "publisher": "Bayard",
 "date": "2026-10-07",
-"isbn": "",
+"isbn": "9791036397066",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543544.jpg",
-"description": "",
+"description": "À l’école, tout le monde ADORE Avni, mais certains plus que d’autres. Parmi les plus jeunes, Waltor le castor et ses copains se sont ainsi pris de passion pour l’animal vraiment non identifié le plus super de la cour de récré. Depuis, ils le suivent partout, pour mieux comprendre ses pouvoirs et ses spécificités. Jusqu’où Avni peut-il étirer ses bras ? Comment arrive-t-il à marcher sur l’eau ? En quelle matière sont faites ses oreilles ? Est-ce vrai qu’il peut changer de couleur ou se transformer ? Les enquêteurs en herbe réunissent ensuite leurs scoops et suppositions dans un journal, le « Avni fan club », qu’ils distribuent dans la cour de récré. Le petit animal bleu est d’abord flatté par tout cet intérêt. Mais parmi la petite bande d’apprentis journalistes, Waltor devient peu à peu de plus en plus envahissant… Le jeune castor aimerait être aussi spécial que son idole, quitte à s’oublier ou se mettre en danger. Pour le faire revenir à la raison, Avni devra lui enseigner que chacun est spécial à sa façon, et que tout le monde à ses propres qualités. Waltor ne sait pas changer de forme, c’est sûr, mais c’est de loin le meilleur pour construire des cabanes incroyables ! En bonus, retrouve en fin d’album le véritable premier numéro du journal « Avni fan club »: des reportages, des jeux, des tests pour tout savoir sur Avni !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Avni-Tome-13-Avni-fan-club-543544.html",
 "kind": "bd",
@@ -41768,19 +41706,19 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:545878",
+"id": "ed:9791036397073",
 "title": "Cendre & Hazel - Tome 10 - Sorcellerie sauvage",
 "authors": [
-"Pico",
+"Thom Pico",
 "Karensac"
 ],
 "publisher": "Bayard",
 "date": "2026-10-07",
-"isbn": "",
+"isbn": "9791036397073",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545878.jpg",
-"description": "",
+"description": "Cendre et Hazel sont de retour au village pour la dernière ligne droite de leurs aventures ! Le dénouement est proche. Bientôt, elles pourront rendre forme humaine à toutes les sorcières et retrouver l’insouciance et la douceur de leur existence, auprès de leurs amis et de leur famille… Euh… BIENTÔT ?!? Vraiment ? Il leur reste tout de même deux ou trois problèmes à régler d’ici là, et pas des moindres : annuler l’effet de la magie élémentaire qui a détraqué le monde, inverser le sort de transformation en chèvre pour redonner forme humaine à Hazel, retrouver et libérer Esmée, combattre leur grand-tante Lupa, et vaincre toute la tripotée de petits et grands méchants croisés ici ou là. Tout ça sans compter les nouvelles catastrophes que les deux sœurs auront sans aucun doute provoquées d’ici là… Mais des années d’aventures sur les routes les ont rendus plus efficaces, plus résistantes et plus malignes. Elles se sont bien entourées, et elles ont même retrouvé leur mère. Alors cette fois, c’est sûr, elles sont prêtes… ou presque ! Après dix tomes à suivre les tribulations de Cendre et Hazel, ce dernier opus clôt avec brio les aventures des deux sorcières. Un final plein de rebondissements, de fantaisie et de suspens, à la hauteur de cette série pas comme les autres, où l’humour le plus loufoque côtoie l’aventure la plus surprenante !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Cendre-Hazel-Tome-10-Sorcellerie-sauvage-545878.html",
 "kind": "bd",
@@ -43644,18 +43582,18 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:545879",
+"id": "ed:9791036382406",
 "title": "La croisière sans faim",
 "authors": [
-"Taylor"
+"Robin Taylor"
 ],
 "publisher": "Bayard",
 "date": "2026-10-07",
-"isbn": "",
+"isbn": "9791036382406",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545879.jpg",
-"description": "",
+"description": "Neeta et Emery, le fils du capitaine, ont toujours grandi sur le SS Lark, un somptueux navire de croisière. Autrefois, la vie était douce et agréable. Mais depuis que le magnat de la finance, M. Raspiat, a racheté le paquebot, l’atmosphère sur le bateau a changé. Les employés tombent un par un, le rythme est infernal, les passagers de première classe sont encore plus désagréables que d’habitude. Heureusement pour Neeta, un passager bien mystérieux aux crocs pointus s’est aussi rendu compte que quelque chose n’allait pas. Pouvant compter sur ses pouvoirs vampiriques, le détective Warwick Farley a découvert une réalité macabre : M. Raspiat exploite jusqu’à l’os tous les passagers du bateau – des employés jusqu’aux voyageurs de la 3e classe. Une seule règle : travailler 24h/24. Et lorsque ces derniers ne sont plus capables de rien, ils ont pour ordre de sauter droit dans la chaudière pour finir en charbon, quand ce n’est pas pour finir dans les bons petits plats des passagers de la première classe. Le trio cherche alors à mettre un terme aux agissements morbides du propriétaire démoniaque. Cependant, le rapprochement entre Neeta et le vampire n’est pas au goût d’Emery qui devient de plus en plus jaloux. Une proie parfaite pour Raspiat qui le séduit peu à peu, lui faisant miroiter monts et merveilles. Ainsi, tandis que le jeune garçon se noie dans la folie, Neeta, elle, tente tant bien que mal de résister aux appels de la cupidité – et avec l’aide de Warwick, tend un piège au dém",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Croisiere-sans-faim-545879.html",
 "kind": "bd",
@@ -43957,15 +43895,15 @@
 "kind": "fantasy"
 },
 {
-"id": "ed:bdgest:545442",
+"id": "ed:9782227502024",
 "title": "La révélation",
 "authors": [
-"Loscos",
-"Héritier"
+"Sylvain Loscos",
+"Éloïse Héritier"
 ],
 "publisher": "Bayard",
 "date": "2026-10-07",
-"isbn": "",
+"isbn": "9782227502024",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545442.jpg",
@@ -48168,15 +48106,15 @@
 "kind": "roman"
 },
 {
-"id": "ed:bdgest:544028",
+"id": "ed:9782413092254",
 "title": "Loumi - Tome 2 - Stagiaire de la République",
 "authors": [
-"Meurice",
-"Sénan"
+"Guillaume Meurice",
+"Loïc Sénan"
 ],
 "publisher": "Delcourt",
 "date": "2026-10-08",
-"isbn": "",
+"isbn": "9782413092254",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544028.jpg",
@@ -48350,15 +48288,15 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:545643",
+"id": "ed:9782931251478",
 "title": "Sir Arthur Conan Doyle raconte Sherlock Holmes",
 "authors": [
-"Piredda",
-"Rosati"
+"Gianluca Piredda",
+"Giacomo Rosati"
 ],
 "publisher": "Éditions du Tiroir",
 "date": "2026-10-08",
-"isbn": "",
+"isbn": "9782931251478",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545643.jpg",
@@ -48532,15 +48470,15 @@
 "source": "editeur:delcourt"
 },
 {
-"id": "ed:bdgest:546254",
+"id": "ed:9782302109049",
 "title": "À faire peur - Tome 4 - Une intelligence pas si artificielle",
 "authors": [
-"Chabbert",
+"Ingrid Chabbert",
 "Nesmo"
 ],
 "publisher": "Soleil Productions",
 "date": "2026-10-08",
-"isbn": "",
+"isbn": "9782302109049",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546254.jpg",
@@ -48761,14 +48699,14 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:544851",
+"id": "ed:9782505145547",
 "title": "Dessiner Lesbos - Un regard d'artiste sur les camps de réfugiés en Grèce",
 "authors": [
-"De Jongh"
+"Aimée De Jongh"
 ],
 "publisher": "Dargaud",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9782505145547",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544851_1e37e9.jpg",
@@ -48895,15 +48833,15 @@
 "source": "editeur:seuil"
 },
 {
-"id": "ed:bdgest:545294",
+"id": "ed:9791026856481",
 "title": "Hyde Street - Tome 2 - le Hachoir du passé",
 "authors": [
-"Johns",
+"Geoff Johns",
 "Ivan Reis"
 ],
 "publisher": "Urban Comics",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9791026856481",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545294.jpg",
@@ -48955,7 +48893,7 @@
 "id": "ed:bdgest:545758",
 "title": "Kano la passante",
 "authors": [
-"Gallo"
+"Antonin Gallo"
 ],
 "publisher": "Auto-édition",
 "date": "2026-10-09",
@@ -49228,40 +49166,6 @@
 "source": "editeur:points"
 },
 {
-"id": "ed:bdgest:544528",
-"title": "La bD de l'Avent - Tome 3 - Le Polar BD de l'Avent",
-"authors": [
-"Juncker"
-],
-"publisher": "Le Lombard",
-"date": "2026-10-09",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_544528.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-BD-de-l-Avent-Tome-3-Le-Polar-BD-de-l-Avent-544528.html",
-"kind": "bd",
-"source": "editeur:bdgest"
-},
-{
-"id": "ed:bdgest:546039",
-"title": "La bD de l'Avent - Tome 4 - 2026 (Jeunesse)",
-"authors": [],
-"publisher": "Le Lombard",
-"date": "2026-10-09",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546039.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-BD-de-l-Avent-Tome-4-La-BD-de-l-Avent-2026-Jeunesse-546039.html",
-"kind": "bd",
-"source": "editeur:bdgest"
-},
-{
 "id": "ed:9782808218726",
 "title": "La bibliothèque du père Noël - Tome 1 - Le merveilleux week-end de Madame Julbocken",
 "authors": [
@@ -49337,15 +49241,15 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:545908",
+"id": "ed:9782489014051",
 "title": "La mécanique Intégrale",
 "authors": [
-"Stevens",
+"Kevan Stevens",
 "Jef"
 ],
 "publisher": "Les Sculpteurs de Bulles",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9782489014051",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545908.jpg",
@@ -49356,15 +49260,15 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:543552",
+"id": "ed:9782205215267",
 "title": "Ladies With Guns - Tome 5",
 "authors": [
-"Bocquet",
+"Olivier Bocquet",
 "Anlor"
 ],
 "publisher": "Dargaud",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9782205215267",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543552_6c9edc.jpg",
@@ -49375,15 +49279,15 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:545910",
+"id": "ed:9782489014082",
 "title": "Lawmen #3 TL - L'or des Russes",
 "authors": [
-"Seiter",
-"Le Hénanff"
+"Roger Seiter",
+"Fabrice Le Hénanff"
 ],
 "publisher": "Les Sculpteurs de Bulles",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9782489014082",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545910.jpg",
@@ -49432,15 +49336,15 @@
 "source": "editeur:lombard"
 },
 {
-"id": "ed:bdgest:545296",
+"id": "ed:9791026857501",
 "title": "Le fantôme de l'Opéra",
 "authors": [
-"Boss",
-"Simmonds"
+"Tyler Boss",
+"Martin Simmonds"
 ],
 "publisher": "Urban Comics",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9791026857501",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545296.jpg",
@@ -49451,7 +49355,7 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:545655",
+"id": "ed:9782493764034",
 "title": "Le privé Intégrale - Ce jour-là, j'ai tué...",
 "authors": [
 "Jrmy",
@@ -49459,7 +49363,7 @@
 ],
 "publisher": "Northstar Comics",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9782493764034",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545655.jpg",
@@ -49710,14 +49614,14 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:545658",
+"id": "ed:9782383631385",
 "title": "Photonik Comics #3 Blank - Les fantômes du lac",
 "authors": [
-"Tota"
+"Ciro Tota"
 ],
 "publisher": "Black & White",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9782383631385",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545658.jpg",
@@ -49926,15 +49830,15 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:545292",
+"id": "ed:9791026855705",
 "title": "Superman Unlimited - Tome 2 - Un boulot pour...",
 "authors": [
-"Slott",
-"Meyer"
+"Dan Slott",
+"Lucas Meyer"
 ],
 "publisher": "Urban Comics",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9791026855705",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545292.jpg",
@@ -49983,14 +49887,14 @@
 "source": "editeur:seuil"
 },
 {
-"id": "ed:bdgest:545290",
+"id": "ed:9782205213393",
 "title": "URSS 89 - Les Tribulations d'un étudiant étranger en Union Soviétique",
 "authors": [
-"Daoudi"
+"Youssef Daoudi"
 ],
 "publisher": "Dargaud",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9782205213393",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545290.jpg",
@@ -50038,15 +49942,15 @@
 "source": "editeur:seuil"
 },
 {
-"id": "ed:bdgest:545483",
+"id": "ed:9782931105603",
 "title": "Vauban - Tome 2 - Péril sur Brest 2/2",
 "authors": [
-"Miniac",
-"Rossetto"
+"Jean-François Miniac",
+"Andrea Rossetto"
 ],
 "publisher": "Éditions Anspach",
 "date": "2026-10-09",
-"isbn": "",
+"isbn": "9782931105603",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545483_a61cfb.jpg",
@@ -50139,15 +50043,15 @@
 "kind": "jeunesse"
 },
 {
-"id": "ed:bdgest:545982",
+"id": "ed:9782374700731",
 "title": "La fille de l'air - Tome 3 - La fée des Andes",
 "authors": [
-"Davoz",
-"Plateau"
+"Pascal Davoz",
+"Yves Plateau"
 ],
 "publisher": "Idées+",
 "date": "2026-10-10",
-"isbn": "",
+"isbn": "9782374700731",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545982.jpg",
@@ -50158,15 +50062,15 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:545216",
+"id": "ed:9781649325020",
 "title": "Le garde républicain - Tome 21 - Chambard à Chambéry",
 "authors": [
-"Mornet",
+"Thierry Mornet",
 "Martí"
 ],
 "publisher": "Hexagon Comics",
 "date": "2026-10-10",
-"isbn": "",
+"isbn": "9781649325020",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545216.jpg",
@@ -50177,15 +50081,15 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:545555",
+"id": "ed:9782488813594",
 "title": "Fougère et le pouvoir des deux",
 "authors": [
-"Shanta",
-"Tocheport"
+"Élodie Shanta",
+"Julie Tocheport"
 ],
 "publisher": "Éditions La Doux",
 "date": "2026-10-12",
-"isbn": "",
+"isbn": "9782488813594",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545555.jpg",
@@ -50196,14 +50100,14 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:545553",
+"id": "ed:9782493343697",
 "title": "Mongolie - Tome 3 - Roxane",
 "authors": [
-"Vianello"
+"Lele Vianello"
 ],
 "publisher": "Mosquito",
 "date": "2026-10-12",
-"isbn": "",
+"isbn": "9782493343697",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545553.jpg",
@@ -50214,15 +50118,15 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:545554",
+"id": "ed:9782386030871",
 "title": "Psycho Inferno",
 "authors": [
 "Éric Corbeyran",
-"Millet"
+"Paskal Millet"
 ],
 "publisher": "Komics Initiative",
 "date": "2026-10-12",
-"isbn": "",
+"isbn": "9782386030871",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545554.jpg",
@@ -50798,12 +50702,14 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:545961",
+"id": "ed:9782494687172",
 "title": "Baston 5 / Baston Labaffe - Tome 2 - La Ballade des baffes",
-"authors": [],
+"authors": [
+"<Collectif>"
+],
 "publisher": "Vagator Productions",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9782494687172",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545961.jpg",
@@ -51248,14 +51154,14 @@
 "source": "editeur:hugo"
 },
 {
-"id": "ed:bdgest:545968",
+"id": "ed:9782369122036",
 "title": "Duca Lamberti - Tome 2 - Tous des traîtres - La Deuxième Enquête de Duca Lamberti",
 "authors": [
-"Bacilieri"
+"Paolo Bacilieri"
 ],
 "publisher": "Ici Même Éditions",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9782369122036",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545968_3d2b61.jpg",
@@ -53460,15 +53366,15 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:545759",
+"id": "ed:9791039149105",
 "title": "Multiples crises universelles - Tome 1",
 "authors": [
-"Camp",
-"Zawadzki"
+"Deniz Camp",
+"Eric Zawadzki"
 ],
 "publisher": "Panini Comics",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9791039149105",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545759.jpg",
@@ -53499,12 +53405,14 @@
 "source": "editeur:glenat"
 },
 {
-"id": "ed:bdgest:545863",
+"id": "ed:9782731677331",
 "title": "Métal Hurlant Hors-série - Tome 6 - Daft Punk",
-"authors": [],
+"authors": [
+"<Collectif>"
+],
 "publisher": "Les Humanoïdes Associés",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9782731677331",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545863.jpg",
@@ -53781,7 +53689,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_543514.jpg",
-"description": "Paris, été 1984. La jeune Rita Perdido crée son agence de retrouvage afin de subvenir à ses besoins. L’une de ses toutes premières missions consiste à élucider un cold case, un mystère jamais résolu par la police : la disparition d’une actrice de cinéma muet dans les années 1930. Persuadée que la légendaire Orlane Dorval a été enlevée par un croquemitaine il y a fort longtemps, Rita se lance dans une quête à travers Paris, entre les tournages glamours qui électrisent la surface… et ceux, beaucoup plus terrifiants, qui se trament dans les sombres profondeurs de la Ville-Lumière.",
+"description": "",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Rita-Perdido-Tome-2-La-cle-du-mystere-543514.html",
 "kind": "bd",
@@ -54142,15 +54050,15 @@
 "source": "editeur:hachette"
 },
 {
-"id": "ed:bdgest:546471",
+"id": "ed:9791039146050",
 "title": "The uncanny X-Men - Tome 1 - Vague rouge",
 "authors": [
-"MacKay",
+"Jed MacKay",
 "Javi Garrón"
 ],
 "publisher": "Panini Comics",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9791039146050",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546471.jpg",
@@ -54409,7 +54317,7 @@
 "source": "editeur:jailu"
 },
 {
-"id": "ed:bdgest:545925",
+"id": "ed:9791039149495",
 "title": "Werewolf by Night - Tome 3 - 1974-1975",
 "authors": [
 "Doug Moench",
@@ -54417,7 +54325,7 @@
 ],
 "publisher": "Panini Comics",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9791039149495",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545925.jpg",
@@ -54450,15 +54358,15 @@
 "kind": "policier"
 },
 {
-"id": "ed:bdgest:546469",
+"id": "ed:9791039146067",
 "title": "X-Men - Assaut sur Graymalkin - Assaut sur Graymalkin",
 "authors": [
-"MacKay",
-"Stegman"
+"Jed MacKay",
+"Ryan Stegman"
 ],
 "publisher": "Panini Comics",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9791039146067",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546469.jpg",
@@ -54469,15 +54377,15 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:546468",
+"id": "ed:9791039146074",
 "title": "X-Men - Chasse au X - Chasse au X",
 "authors": [
-"Simone",
+"Gail Simone",
 "Javi Garrón"
 ],
 "publisher": "Panini Comics",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9791039146074",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546468.jpg",
@@ -54488,15 +54396,15 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:bdgest:546470",
+"id": "ed:9791039146043",
 "title": "X-Men - Tome 1 - Le retour",
 "authors": [
-"MacKay",
-"Stegman"
+"Jed MacKay",
+"Ryan Stegman"
 ],
 "publisher": "Panini Comics",
 "date": "2026-10-14",
-"isbn": "",
+"isbn": "9791039146043",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546470.jpg",
@@ -68395,8 +68303,8 @@
 "id": "ed:9791038210370",
 "title": "Faut pas prendre les cons pour des gens Intégrale - Intégrale (tomes 1 à 5)",
 "authors": [
-"Rouhaud",
-"Reuzé"
+"Nicolas Rouhaud",
+"Emmanuel Reuzé"
 ],
 "publisher": "Audie",
 "date": "2026-11-04",
@@ -68498,8 +68406,8 @@
 "id": "ed:9782889327157",
 "title": "Godspeed - Tome 4 - N°4 - Oct 26",
 "authors": [
-"Rousseau",
-"Hugault"
+"Éloi Rousseau",
+"Romain Hugault"
 ],
 "publisher": "Paquet",
 "date": "2026-11-04",
@@ -69378,7 +69286,7 @@
 "title": "Le Grand Meaulnes",
 "authors": [
 "Alain-Fournier",
-"Mallié"
+"Vincent Mallié"
 ],
 "publisher": "Gallimard",
 "date": "2026-11-04",
@@ -69519,7 +69427,7 @@
 "id": "ed:9791038208605",
 "title": "Le petit théâtre des opérations - Tome 6",
 "authors": [
-"Hervieux",
+"Julien Hervieux",
 "Monsieur Le Chien"
 ],
 "publisher": "Audie",
@@ -69748,7 +69656,7 @@
 "id": "ed:9782494687196",
 "title": "Les fabuleux Freak Brothers INTR03 - Retour aux sources et autres idées à la noix",
 "authors": [
-"Shelton"
+"Gilbert Shelton"
 ],
 "publisher": "Revival",
 "date": "2026-11-04",
@@ -70270,8 +70178,8 @@
 "id": "ed:9782849535608",
 "title": "Newroz - Retour au Kurdistan",
 "authors": [
-"Halil",
-"Hermans"
+"Manal Halil",
+"Delphine  Hermans"
 ],
 "publisher": "Pictavita",
 "date": "2026-11-04",
@@ -71491,14 +71399,14 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:bdgest:546522",
+"id": "ed:9782263196218",
 "title": "Calvin et Hobbes - La petite intégrale - Tome 3",
 "authors": [
 "Bill Watterson"
 ],
 "publisher": "Hors Collection",
 "date": "2026-11-05",
-"isbn": "",
+"isbn": "9782263196218",
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546522.jpg",
@@ -72865,7 +72773,7 @@
 "title": "Boulette - Tome 1 - Nouveau terrain de jeu",
 "authors": [
 "Lewis Trondheim",
-"Picault"
+"Aude Picault"
 ],
 "publisher": "Dupuis",
 "date": "2026-11-06",
@@ -72994,7 +72902,7 @@
 "id": "ed:9782889770724",
 "title": "Joseph Roch a disparu",
 "authors": [
-"de Decker"
+"Agnès De Decker"
 ],
 "publisher": "Helvetiq",
 "date": "2026-11-06",
@@ -73276,8 +73184,8 @@
 "id": "ed:9782808517805",
 "title": "Les secrets des sœurs Grémillet - Rêves, chats et princesses",
 "authors": [
-"Di Gregorio",
-"Barbucci"
+"Giovanni Di Gregorio",
+"Alessandro Barbucci"
 ],
 "publisher": "Dupuis",
 "date": "2026-11-06",
@@ -73597,8 +73505,8 @@
 "id": "ed:9782808514590",
 "title": "Petit Poilu - Tome 34 - Neige à gogo !",
 "authors": [
-"Fraipont",
-"Bailly"
+"Céline Fraipont",
+"Pierre Bailly"
 ],
 "publisher": "Dupuis",
 "date": "2026-11-06",
@@ -85728,7 +85636,7 @@
 "source": "editeur:dargaud"
 },
 {
-"id": "ed:9782205084733",
+"id": "ed:9782205207989",
 "title": "Blueberry - Tome 2 - Les hommes de non-justice",
 "authors": [
 "Christophe Blain",
@@ -85736,13 +85644,13 @@
 ],
 "publisher": "Dargaud",
 "date": "2026-12-04",
-"isbn": "9782205084733",
+"isbn": "9782205207989",
 "pages": 0,
 "format": "",
-"cover": "https://bdi.dlpdomain.com/album/9782205084733/couv/M325x436/une-aventure-du-lieutenant-blueberry-tome-2-les-hommes-de-non-justice.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782205207989/couv/M325x432/une-aventure-du-lieutenant-blueberry-tome-2-les-hommes-de-non-justice.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes",
+"url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes-0",
 "kind": "bd",
 "source": "editeur:dargaud"
 },
@@ -86348,7 +86256,7 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782205207989",
+"id": "ed:9782205084733",
 "title": "Une aventure du Lieutenant Blueberry - Tome 2",
 "authors": [
 "Christophe Blain",
@@ -86356,13 +86264,13 @@
 ],
 "publisher": "Dargaud",
 "date": "2026-12-04",
-"isbn": "9782205207989",
+"isbn": "9782205084733",
 "pages": 0,
 "format": "",
-"cover": "https://bdi.dlpdomain.com/album/9782205207989/couv/M325x432/une-aventure-du-lieutenant-blueberry-tome-2-les-hommes-de-non-justice.jpg",
+"cover": "https://bdi.dlpdomain.com/album/9782205084733/couv/M325x436/une-aventure-du-lieutenant-blueberry-tome-2-les-hommes-de-non-justice.jpg",
 "description": "",
 "rayons": [],
-"url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes-0",
+"url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes",
 "kind": "bd",
 "source": "editeur:dargaud"
 },
