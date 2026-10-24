@@ -204,7 +204,17 @@ def from_fiches(c, source, todo, parse):
     for bid, url, key, hint in todo:
         b = c.known.get(bid)
         if b and b.get("source") == "editeur:" + source:
-            if c.in_window(b): out[bid] = b
+            # Points : fiches lues avant que le genre ne soit repris de la collection → relues une fois
+            relire = (source == "points" and not b.get("kind") and not b.get("rayons") and not b.get("refait")
+                      and read < cap and c.fiches < FICHES_MAX and not c.late() and c.in_window(b))
+            if not relire:
+                if c.in_window(b): out[bid] = b
+                continue
+            page = c.get(url, key); read += 1; c.fiches += 1
+            try: nb = parse(page, hint) if page else None
+            except Exception: nb = None
+            if nb: nb["refait"] = 1; out[bid] = nb
+            else: out[bid] = b
             continue
         if bid[3:] in c.known_isbn: continue
         if read >= cap or c.fiches >= FICHES_MAX or c.late(): continue
@@ -330,6 +340,9 @@ def src_points(c):
         d = editeurs.iso((re.search(r"Date de parution (\d\d/\d\d/\d{4})", q) or [None, ""])[1])
         if not d: return None
         themes = [t for t in (txt(x) for x in re.findall(r'itemprop="about"[^>]*>(.*?)</a>', q)) if t and t != "Nos collections"][:2]
+        if not themes:  # « Nos collections » seul : le genre est la collection écrite juste après (« Points Policier », « Points Documents »…)
+            coll = re.search(r'itemprop="about"[^>]*>Nos collections</a><br>\s*([^<]*)<br>\s*([^<]*)<br>', q)
+            if coll: themes = [t for t in (txt(coll.group(1)), txt(coll.group(2))) if t][:2]
         pages = (re.search(r"(\d+) pages", q) or [None, 0])[1]
         return book("points", "Points", h["title"] or og(page, "title"), d, h["isbn"], h["authors"], h["cover"] or og(page, "image"),
                     h["url"], kind_of(*themes), themes, "Poche", pages, og(page, "description"))

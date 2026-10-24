@@ -22,7 +22,7 @@ LISTS = {
     "policier": ("/dossiers/meilleures-ventes-a-25-821433/", 2),
     "fantasy": ("/dossiers/meilleures-ventes-a-25-821434/", 2),
     "romance": ("/dossiers/meilleures-ventes-a-25-821432/", 2),
-    "bd": ("/dossiers/meilleures-ventes-a-25-113870/", 4),   # BD, comics et mangas : séparés ensuite
+    "bd": ("/dossiers/meilleures-ventes-a-25-113870/", 8),   # BD, comics et mangas : séparés ensuite
     "jeunesse": ("/dossiers/meilleures-ventes-a-25-113821/", 2),
 }
 # page du rayon : si le dossier ci-dessus ne donne rien, on y cherche le lien « Meilleures ventes » (comme sorties.py pour les nouveautés)
@@ -35,7 +35,11 @@ RAYON_PAGES = {
 OUTPUT_LISTS = ["tous", "roman", "policier", "fantasy", "romance", "manga", "bd", "jeunesse"]
 TOP = 10          # livres gardés par liste
 POINTS = 21       # le 1er gagne 20 points, le 20e un point
-FICHES_MAX = 70   # fiches lues au plus par relevé
+FICHES_MAX = 90   # fiches lues au plus par passage (5 s chacune)
+# éditeurs de manga : un livre de la liste BD/manga chez l'un d'eux est classé en manga sans lire sa fiche
+MANGA_PUBS = ("kana", "glenat manga", "pika", "kurokawa", "ki oon", "kioon", "kaze", "tonkam", "akata", "meian", "nobi nobi", "crunchyroll",
+              "mangetsu", "doki doki", "panini manga", "soleil manga", "delcourt tonkam", "ototo", "taifu", "vega", "hikari", "noeve grafx",
+              "isan manga", "mana books", "bamboo manga", "michel lafon manga", "kbooks", "kotoon", "komikku", "lumen", "mangas")
 
 
 def cards(page):
@@ -58,22 +62,16 @@ def find_dossier(name):
 
 
 def is_manga(b):
-    """Rayon « BD, Comics & Manga » > « Manga » (les mangas sont rangés à part des bandes dessinées)."""
+    """Rayon « BD, Comics & Manga » > « Manga » (les mangas sont rangés à part des bandes dessinées), ou éditeur de manga."""
     r = b.get("rayons", [])
-    return len(r) > 1 and r[1].lower().startswith("manga")
+    if len(r) > 1 and r[1].lower().startswith("manga"): return True
+    pub = re.sub(r"[^a-z0-9]+", " ", (b.get("publisher") or "").lower().replace("é", "e")).strip()
+    return bool(pub) and any(pub == m or pub.startswith(m + " ") for m in MANGA_PUBS)
 
 
-def main():
-    today = date.today().isoformat()
-    try: hist = json.load(open(HIST, encoding="utf-8"))
-    except Exception: hist = {"snaps": {}, "books": {}}
-    # relevé du jour déjà fait seulement s'il est complet : sinon (un classement illisible) on réessaie au tour suivant
-    essais = hist.get("essais", {})  # au plus 3 relevés par jour, même incomplets (pas de lecture sans fin)
-    if (set(OUTPUT_LISTS) <= set(hist["snaps"].get(today, {})) or essais.get(today, 0) >= 3) and os.environ.get("VENTES") != "1":
-        print("relevé du jour déjà fait"); return
-    try: known = {b["id"]: b for b in json.load(open(os.path.join(DATA, "sorties.json"), encoding="utf-8"))["books"]}
-    except Exception: known = {}
-    snap, paths, diag = {}, {}, {}
+def read_rankings(paths, diag):
+    """Lit les classements du jour. Renvoie {liste: [identifiants]} et remplit paths {id: (lien, titre, auteur, éditeur)}."""
+    snap = {}
     for name, (path, pages) in LISTS.items():
         rows = []
         for essai in (0, 1):
@@ -91,35 +89,66 @@ def main():
             print("  classement incomplet :", name, len(rows), file=sys.stderr); continue
         ids = []
         for href, title, author, pub in rows:
+            if re.match(r"H_", title): continue  # fiche promotionnelle (« H_Bernard Minier Nouveauté poche… »), pas un titre
             bid = "ll:" + href.split("/")[2].split("-")[0]
             ids.append(bid); paths[bid] = (href, title, author, pub)
         snap[name] = ids
+    return snap
+
+
+def main():
+    today = date.today().isoformat()
+    try: hist = json.load(open(HIST, encoding="utf-8"))
+    except Exception: hist = {"snaps": {}, "books": {}}
+    forced = os.environ.get("VENTES") == "1"
+    # classements du jour : déjà lus et complets (sinon, au plus 3 relevés par jour) → on ne les relit pas, on complète seulement les fiches
+    essais = hist.get("essais", {})
+    fait = set(OUTPUT_LISTS) <= set(hist["snaps"].get(today, {})) or essais.get(today, 0) >= 3
+    try: known = {b["id"]: b for b in json.load(open(os.path.join(DATA, "sorties.json"), encoding="utf-8"))["books"]}
+    except Exception: known = {}
+    paths, diag, resplit = {}, {}, False
+    if fait and not forced:
+        snap = {k: list(v) for k, v in hist["snaps"].get(today, {}).items()}
+        try: diag = json.load(open(OUT, encoding="utf-8")).get("diagnostic", {})
+        except Exception: diag = {}
+        for bid, b in hist["books"].items():
+            paths[bid] = (b.get("url", "").replace(S.BASE, ""), b.get("title", ""), (b.get("authors") or [""])[0], b.get("publisher", ""))
+    else:
+        snap = read_rankings(paths, diag); resplit = True
     if not snap:
         print("aucun classement lu", file=sys.stderr); sys.exit(1)
-    # fiches : seulement pour les livres bien classés qu'on ne connaît pas encore
+    # fiches : les livres bien classés dont on n'a pas la fiche (ou dont la lecture a échoué), un rang après l'autre dans chaque liste
     need = []
-    for name, ids in snap.items():
-        for bid in ids[: (30 if name == "bd" else 14)]:
-            if bid not in hist["books"] and bid not in need: need.append(bid)
+    for rang in range(30):
+        for name, ids in snap.items():
+            if rang >= (30 if name == "bd" else 14) or rang >= len(ids): continue
+            bid = ids[rang]
+            h = hist["books"].get(bid)
+            if (not h or not h.get("lu")) and bid not in need: need.append(bid)
     read = 0
     for bid in need:
         href, title, author, pub = paths[bid]
         b = known.get(bid)
+        lu = bool(b)
         if not b and read < FICHES_MAX:
             page = S.get(href); read += 1
-            if page: b = S.parse_book(href, page)
+            if page:
+                try: b = S.parse_book(href, page); lu = bool(b)
+                except Exception as e: print("  fiche illisible", href, e, file=sys.stderr)
         if not b:
+            if bid in hist["books"]: continue  # une lecture ratée ne remplace pas ce qu'on a déjà
             b = {"id": bid, "title": title, "authors": [author] if author else [], "publisher": pub, "isbn": "", "cover": "", "rayons": [], "url": S.BASE + href}
         hist["books"][bid] = {k: (b.get(k) or "") for k in ("id", "title", "publisher", "isbn", "cover", "url", "date")}
         hist["books"][bid]["authors"] = b.get("authors", [])
         hist["books"][bid]["manga"] = is_manga(b)
         hist["books"][bid]["description"] = (b.get("description") or "")[:300]
-    # la liste BD est coupée en manga / BD
-    bd = snap.pop("bd", [])
-    snap["manga"] = [i for i in bd if hist["books"].get(i, {}).get("manga")]
-    snap["bd"] = [i for i in bd if i in hist["books"] and not hist["books"][i].get("manga")]
+        hist["books"][bid]["lu"] = lu
+    if resplit:  # la liste BD est coupée en manga / BD
+        bd = snap.pop("bd", [])
+        snap["manga"] = [i for i in bd if hist["books"].get(i, {}).get("manga")]
+        snap["bd"] = [i for i in bd if i in hist["books"] and not hist["books"][i].get("manga")]
+        hist["essais"] = {today: essais.get(today, 0) + 1}
     hist["snaps"][today] = snap
-    hist["essais"] = {today: essais.get(today, 0) + 1}
     cut = (date.today() - timedelta(days=62)).isoformat()
     hist["snaps"] = {d: v for d, v in hist["snaps"].items() if d >= cut}
     used = {i for v in hist["snaps"].values() for ids in v.values() for i in ids}

@@ -22,7 +22,10 @@ RAYONS = [
     ("/boutique/25/livres-papier/746338/litterature-jeunes-adultes", "ya"),
     ("/boutique/25/livres-papier/113870/bd-comics-mangas", "bd"),
     ("/boutique/25/livres-papier/113534/litterature-generale", "roman"),
+    ("/boutique/25/livres-papier/113821/jeunesse-", "jeunesse"),
 ]
+# pages de 12 lues par dossier « Nouveautés » (un rayon très actif comme la BD/manga en demande davantage)
+RAYON_PAGES = {"bd": 24, "roman": 18, "policier": 18, "jeunesse": 15}
 MONTHS = {m: i + 1 for i, m in enumerate("janvier février mars avril mai juin juillet août septembre octobre novembre décembre".split())}
 
 _last = [0.0]
@@ -216,7 +219,7 @@ def main():
         stats["rayons"][k] = d or "introuvable"
         if not d: continue
         seen_r = set()
-        for p in range(1, 13):
+        for p in range(1, RAYON_PAGES.get(k, 12) + 1):
             links = list_links(get(d + ("" if p == 1 else f"?page={p}")))
             if not links or seen_r.issuperset(links): break
             seen_r.update(links)

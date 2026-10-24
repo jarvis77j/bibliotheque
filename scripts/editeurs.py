@@ -456,8 +456,15 @@ def details(fetch, books, n, deadline=None, seen=()):
     near = lambda b: abs((date.fromisoformat(b["date"]) - date.fromisoformat(today)).days) if b.get("date") else 9999
     for b in sorted(books.values(), key=near):
         if done >= n or (deadline and time.time() > deadline): break
-        if (b["cover"] and b["description"]) or not b["source"].endswith("hachette") or b["id"] in seen: continue
+        seuil_sans_genre = b["source"].endswith("seuil") and not b.get("kind") and not b.get("rayons")
+        if b["id"] in seen or not (seuil_sans_genre or (b["source"].endswith("hachette") and not (b["cover"] and b["description"]))): continue
         page = fetch.get(b["url"], "detail-" + b["isbn"]); done += 1; b["fiche"] = 1
+        if seuil_sans_genre:  # la liste du Seuil ne donne pas le genre : la fiche l'indique (« Littérature étrangère », « Sciences humaines »…)
+            themes = [html.unescape(t).strip() for t in re.findall(r'itemprop="about"[^>]*>([^<]+)</a>', page)][:2]
+            if themes:
+                b["rayons"] = themes
+                hay = " ".join([b["title"]] + themes).lower()
+                b["kind"] = next((k for words, k in KINDS if any(re.search(r"(^|\W)" + re.escape(w) + r"($|\W)", hay) for w in words)), "")
         m = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', page)
         if m and not b["cover"] and "indisponible" not in m.group(1): b["cover"] = html.unescape(m.group(1))
         m = re.search(r'<meta[^>]+(?:property="og:description"|name="description")[^>]+content="([^"]*)"', page)

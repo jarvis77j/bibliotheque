@@ -793,7 +793,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 25 octobre, 3 h</p>
+    <p class="version">Version du 25 octobre, 4 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1933,8 +1933,9 @@ async function weekRows() {
     const days = Object.keys(byDay).sort().reverse();
     days.forEach((d) => byDay[d].sort((a, b) => newScore(b) - newScore(a)));
     const pick = [];
-    // un livre par jour, puis on recommence : les 7 jours sont représentés
-    for (let n = 0; pick.length < 20 && days.some((d) => byDay[d][n]); n++) days.forEach((d) => { if (byDay[d][n] && pick.length < 20) pick.push(byDay[d][n]); });
+    // un livre par jour, puis on recommence : les 7 jours sont représentés, les plus récents plus largement (jusqu'à 8, 6, puis 4 livres)
+    const quota = (i) => (i === 0 ? 8 : i === 1 ? 6 : 4);
+    for (let n = 0; pick.length < 30 && n < 8 && days.some((d, i) => byDay[d][n] && n < quota(i)); n++) days.forEach((d, i) => { if (byDay[d][n] && n < quota(i) && pick.length < 30) pick.push(byDay[d][n]); });
     pick.sort((a, b) => b.date.localeCompare(a.date) || newScore(b) - newScore(a));
     byKind[k] = pick.map((b) => ({ ...b, note: shortDay(b.date) + " · " + (b.authors[0] || "") }));
     pick.forEach((b) => releaseKeys(b).forEach((x) => shown.add(x)));
