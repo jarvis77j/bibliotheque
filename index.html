@@ -325,6 +325,7 @@
   .ex-gen { position: absolute; inset: 0; border-radius: 3px 6px 6px 3px; box-shadow: 0 6px 12px rgba(40,20,5,.25), inset 4px 0 0 rgba(0,0,0,.12);
     padding: 10px 9px; display: flex; flex-direction: column; text-align: center; overflow: hidden; }
   .ex-gen::before { content: ""; position: absolute; inset: 6px; border: 1px solid currentColor; opacity: .45; border-radius: 2px; }
+  .ex-gen small:empty { display: none; }
   .ex-gen small { font-size: 8px !important; letter-spacing: .08em; text-transform: uppercase; color: inherit !important; opacity: .8; white-space: normal !important; margin: 4px 0 0 !important; }
   .ex-gen b { flex: 1; display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-size: 14px; line-height: 1.2; font-weight: 600; overflow-wrap: anywhere; }
   .ex-gen i { font-style: normal; font-size: 16px; opacity: .6; margin-bottom: 4px; }
@@ -1894,7 +1895,7 @@ async function recentReleases() {
   const all = await loadReleases().catch(() => []);
   const from = isoDay(new Date(Date.now() - 7 * 864e5)), to = isoDay(new Date());
   return (all || []).filter((b) => b.date >= from && b.date <= to && b.cover)
-    .sort((a, b) => b.date.localeCompare(a.date)).slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") }));
+    .sort((a, b) => b.date.localeCompare(a.date)).slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + (b.authors[0] ? " · " + b.authors[0] : "") }));
 }
 /* Genre de la bibliothèque → rayon des sorties */
 const KIND_OF_GENRE = { darkromance: "romance", romantasy: "romance", urban: "fantasy", sf: "fantasy", horreur: "policier", feelgood: "roman", historique: "roman", lgbt: "roman" };
@@ -1905,7 +1906,7 @@ async function releasesForMe(genres, authors) {
   const from = isoDay(new Date(Date.now() - 7 * 864e5)), keys = ownedKeys();
   return (all || []).filter((b) => b.date >= from && !isOwned(b, keys) && (b.authors.some((a) => names.has(plain(a))) || kinds.has(b.kind || guessGenre(b.categories))))
     .sort((a, b) => (b.authors.some((x) => names.has(plain(x))) ? 1 : 0) - (a.authors.some((x) => names.has(plain(x))) ? 1 : 0) || a.date.localeCompare(b.date))
-    .slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") }));
+    .slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + (b.authors[0] ? " · " + b.authors[0] : "") }));
 }
 function personalRows(full) {
   if (!books.length) return [];
@@ -2152,7 +2153,7 @@ async function renderReleases() {
         <div class="ex-cover" data-open>${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
         <div class="rel-info">
           <h4 data-open>${esc(b.title)}</h4>
-          <div class="rel-meta">${authorLinks(b)}${b.publisher ? "<br>" + esc(b.publisher) : ""}${b.publisher ? ` · <button class="distrib" data-pub="${esc(b.publisher)}">${dist ? "Distribution : " + esc(dist) : "Distributeur ?"}</button>` : ""}
+          <div class="rel-meta">${authorLinks(b)}${b.publisher ? (b.authors.length ? "<br>" : "") + esc(b.publisher) : ""}${b.publisher ? ` · <button class="distrib" data-pub="${esc(b.publisher)}">${dist ? "Distribution : " + esc(dist) : "Distributeur ?"}</button>` : ""}
             ${b.avg ? `<br>${"★".repeat(Math.round(b.avg))}${"☆".repeat(5 - Math.round(b.avg))} ${String(b.avg).replace(".", ",")} (${b.ratings} avis)` : ""}</div>
           ${freshSet.has(b) ? `<div class="rel-meta"><span class="tag new-tome">🆕 Nouveau tome de ta série</span></div>` : ""}
           ${(() => { const a = guessAge(b); return a.age != null ? `<div class="rel-meta"><span class="tag">${esc(ageLabel(a))}</span></div>` : ""; })()}
@@ -2398,8 +2399,10 @@ function isbn10(isbn) {
 }
 /* Couverture de secours par ISBN (servie par Amazon, couvre la plupart des livres vendus en France) */
 const amzCover = (b) => { const i = isbn10(b.isbn); return i ? `https://images-na.ssl-images-amazon.com/images/P/${i}.01.LZZZZZZZ.jpg` : ""; };
+/* Bedetheque : si la grande couverture manque, on retombe sur la vignette */
+const bdThumb = (u) => (/bedetheque\.com\/media\/Couvertures\//.test(u || "") ? u.replace("/media/Couvertures/", "/cache/thb_couv/") : "");
 function coverImg(b) {
-  const urls = [b.cover, olIsbnCover(b), amzCover(b), ...(b.others || []).flatMap((o) => [olIsbnCover(o), amzCover(o)])].filter(Boolean);
+  const urls = [b.cover, bdThumb(b.cover), olIsbnCover(b), amzCover(b), ...(b.others || []).flatMap((o) => [olIsbnCover(o), amzCover(o)])].filter(Boolean);
   if (!urls.length) return `<div class="noimg"></div>`;
   return `<img src="${esc(urls[0])}" data-alt="${esc(urls.slice(1).join(" "))}" alt="" loading="lazy" onload="coverLoaded(this)" onerror="coverFailed(this)">`;
 }
@@ -2871,7 +2874,7 @@ function bookFaces(b) {
 }
 function bindFaces(b) {
   const img = $("#coverImg");
-  if (img) img.onerror = () => { img.onerror = null; img.src = b.cover; };
+  if (img) img.onerror = () => { img.onerror = null; img.src = bdThumb(b.cover) || b.cover; };
   $("#book3d").onclick = () => $("#book3d").classList.toggle("flipped");
   if (b.hasBackPhoto) getBackPhoto(b.id).then((d) => { const el = $("#backPhoto"); if (d && el) { el.src = d; el.hidden = false; } });
 }

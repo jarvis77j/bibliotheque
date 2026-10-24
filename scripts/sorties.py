@@ -274,7 +274,8 @@ def main():
         import editeurs
         ed, est = editeurs.collect(lo, hi, end=min(t_start + 34 * 60, time.time() + 28 * 60),
                                    state=prev_stats.get("suivi"), force=os.environ.get("EDITEURS") == "1",
-                                   fixtures=os.environ.get("FIXTURES") or None)
+                                   fixtures=os.environ.get("FIXTURES") or None,
+                                   fiches_lues={k for k, v in old.items() if v.get("fiche")})
         stats["suivi"] = est.pop("suivi", {})
         stats["plan"] = est.pop("plan", [])
         # les sources non relues à ce tour gardent leurs derniers chiffres (avec l'heure de leur dernière lecture)
@@ -290,16 +291,20 @@ def main():
         # sources relues en entier (sur leur fenêtre) et sans accroc : leurs anciennes fiches de cette fenêtre sont remplacées
         ok = {s_: v["fenetre"] for s_, v in est.items()
               if isinstance(v, dict) and v.get("livres") and v.get("statut") in ("ok", "partiel") and v.get("fenetre")}
-        old = {k: v for k, v in old.items()
-               if not (k.startswith("ed:") and v.get("source", "").split(":")[-1] in ok
-                       and ok[v["source"].split(":")[-1]][1] <= v.get("date", "") <= ok[v["source"].split(":")[-1]][2])}
+        replaced = lambda v: (v["id"].startswith("ed:") and v.get("source", "").split(":")[-1] in ok
+                              and ok[v["source"].split(":")[-1]][1] <= v.get("date", "") <= ok[v["source"].split(":")[-1]][2])
+        gone = {k: v for k, v in old.items() if replaced(v)}
+        old = {k: v for k, v in old.items() if not replaced(v)}
         if ed:
             by_isbn = {b["isbn"]: b for b in [*old.values(), *books.values()] if b.get("isbn") and not b["id"].startswith("ed:")}
             for isbn, b in ed.items():
                 same = by_isbn.get(isbn)
-                if same:  # déjà chez le libraire : on complète seulement la couverture
-                    if not same.get("cover") and b.get("cover"): same["cover"] = b["cover"]
+                if same:  # déjà chez le libraire : on complète ce qui manque (couverture, auteurs, résumé)
+                    for f in ("cover", "authors", "description"):
+                        if not same.get(f) and b.get(f): same[f] = b[f]
                     continue
+                for f in ("cover", "authors", "description", "fiche"):  # acquis d'une récolte précédente (fiches lues, cache)
+                    if not b.get(f) and gone.get(b["id"], {}).get(f): b[f] = gone[b["id"]][f]
                 books[b["id"]] = b
     except Exception as e:
         stats["editeurs"] = dict(prev_stats.get("editeurs") or {}) if isinstance(prev_stats.get("editeurs"), dict) else {}
@@ -339,11 +344,14 @@ def main():
         print(f"  source {k:14} {v.get('statut', '?'):10} en base={v.get('en_base', v.get('livres', 0)):5} lus={v.get('livres', 0):5} "
               f"pages={v.get('pages', 0):4} sec={v.get('secondes', 0):4} erreurs={v.get('erreurs', v.get('echecs', 0))}", file=sys.stderr)
     old_win = sum(1 for b in (prev.get("books") or []) if lo <= b.get("date", "") <= hi)
-    # garde-fou : jamais d'écriture qui ferait fondre le fichier (site en panne, lecture ratée) ; on garde alors l'ancien contenu
-    if old_count > 500 and len(keep) < 0.85 * old_win:
+    # garde-fou : pas d'écriture qui ferait fondre le fichier d'un coup (site en panne, lecture ratée) ; on garde alors l'ancien contenu.
+    # Mais jamais pour toujours : après 4 refus de suite (4 h), ou si on le demande (ACCEPTER=1), la nouvelle lecture est acceptée.
+    refus = int((prev.get("stats") or {}).get("refus", 0) or 0)
+    if old_count > 500 and len(keep) < 0.85 * old_win and refus < 4 and os.environ.get("ACCEPTER") != "1":
         print("  ALERTE : le résultat est bien plus petit que l'ancien fichier, il n'est pas écrit", file=sys.stderr)
         try:
-            prev["stats"] = {**prev.get("stats", {}), "alerte": datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ") + " : lecture trop petite (" + str(len(keep)) + " livres), ancien fichier gardé"}
+            prev["stats"] = {**prev.get("stats", {}), "refus": refus + 1,
+                             "alerte": datetime.utcnow().strftime("%Y-%m-%dT%H:%MZ") + " : lecture trop petite (" + str(len(keep)) + " livres au lieu de " + str(old_win) + "), ancien fichier gardé"}
             tmp = OUT + ".tmp"; json.dump(prev, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=0); os.replace(tmp, OUT)
         except Exception: pass
         return
