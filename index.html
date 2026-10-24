@@ -792,7 +792,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 24 octobre, 22 h</p>
+    <p class="version">Version du 24 octobre, 23 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1873,7 +1873,7 @@ function render3D() {
 
 /* ---------- Explorer : parcourir le catalogue par rayons ---------- */
 const EXPLORE_ROWS = [
-  { title: "Nouveautés", p: { q: "roman", order: "newest" } },
+  { key: "nouveautes", title: "Nouveautés de la semaine", fn: () => recentReleases() },
   { title: "Romance", p: { genre: "romance" } },
   { title: "Policier & thriller", p: { genre: "policier" } },
   { title: "Fantasy", p: { genre: "fantasy" } },
@@ -1889,6 +1889,13 @@ const EXPLORE_ROWS = [
 /* Rayons faits pour elle, d'après sa bibliothèque : la suite de ses séries, les nouveautés de ses auteurs, son genre préféré */
 const ownedKeys = () => new Set(books.flatMap((b) => [b.id, editionKey(b), b.series && b.tome ? plain(b.series) + "#" + b.tome + "|" + lastName(b) : ""]));
 const isOwned = (r, keys) => keys.has(r.id) || keys.has(editionKey(r));
+/* Nouveautés : seulement les livres sortis entre J-7 et aujourd'hui (liste du robot), les plus récents d'abord */
+async function recentReleases() {
+  const all = await loadReleases().catch(() => []);
+  const from = isoDay(new Date(Date.now() - 7 * 864e5)), to = isoDay(new Date());
+  return (all || []).filter((b) => b.date >= from && b.date <= to && b.cover)
+    .sort((a, b) => b.date.localeCompare(a.date)).slice(0, 24).map((b) => ({ ...b, note: fmtDate(b.date) + " · " + (b.authors[0] || "") }));
+}
 /* Genre de la bibliothèque → rayon des sorties */
 const KIND_OF_GENRE = { darkromance: "romance", romantasy: "romance", urban: "fantasy", sf: "fantasy", horreur: "policier", feelgood: "roman", historique: "roman", lgbt: "roman" };
 async function releasesForMe(genres, authors) {
