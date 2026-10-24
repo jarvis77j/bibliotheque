@@ -13,6 +13,7 @@ UA = "Mozilla/5.0 (compatible; MaBibliothequeBot/1.0; +https://jarvis77j.github.
 DELAY = 5
 OUT = os.path.join(os.path.dirname(__file__), "..", "data", "sorties.json")
 MAX_NEW = int(os.environ.get("MAX_NEW", "350"))
+MAX_REFRESH = int(os.environ.get("MAX_REFRESH", "30"))  # fiches déjà connues relues par passage (dates proches)
 # rayons à suivre : page du rayon (pour trouver son dossier « Nouveautés ») et genre dans l'app
 RAYONS = [
     ("/boutique/25/livres-papier/821432/romance", "romance"),
@@ -212,6 +213,9 @@ def main():
             for l in links: todo[l] = k
     print(len(todo), "livres listés", file=sys.stderr)
     books, new, skipped = {}, 0, 0
+    today_iso = date.today().isoformat()
+    soon_lo, soon_hi = (date.today() - timedelta(days=3)).isoformat(), (date.today() + timedelta(days=10)).isoformat()
+    refreshed, changed = 0, []
     for path, hint in todo.items():
         bid = "ll:" + path.split("/")[2].split("-")[0]
         b = old.get(bid)
@@ -222,6 +226,16 @@ def main():
             try: b = parse_book(path, page)
             except Exception as e:
                 print("  fiche illisible", path, e, file=sys.stderr); continue
+        elif refreshed < MAX_REFRESH and soon_lo <= b.get("date", "") <= soon_hi and b.get("lu", "") < today_iso:
+            # sortie proche : on relit la fiche une fois par jour, car la date peut avoir été repoussée ou avancée
+            page = get(path); refreshed += 1
+            try: nb = parse_book(path, page) if page else None
+            except Exception: nb = None
+            if nb and nb["date"]:
+                if nb["date"] != b["date"]:
+                    changed.append({"id": bid, "titre": b["title"][:40], "avant": b["date"], "apres": nb["date"]})
+                    b["date"] = nb["date"]
+                b["lu"] = today_iso
         b["title"] = clean_title(b["title"])
         b["kind"] = kind_of(b, hint)
         if b["title"] and b["date"]: books[bid] = b
@@ -256,6 +270,7 @@ def main():
             books[bid] = b
     # Sites des éditeurs (Hachette et ses maisons, Glénat, Seuil) : environ 1 000 sorties par mois, datées au jour.
     # Une fois par jour (environ 8 minutes de lecture polie) ; entre-temps on garde la dernière récolte.
+    ecarts = []
     stale = not ed_at or datetime.utcnow() - datetime.strptime(ed_at, "%Y-%m-%dT%H:%MZ") > timedelta(hours=20)
     if os.environ.get("EDITEURS") == "1" or (stale and datetime.utcnow().hour in (4, 5, 7, 10, 13, 16, 19, 22)):
         try:
@@ -273,8 +288,10 @@ def main():
                 by_isbn = {b["isbn"]: b for b in [*old.values(), *books.values()] if b.get("isbn") and not b["id"].startswith("ed:")}
                 for isbn, b in ed.items():
                     same = by_isbn.get(isbn)
-                    if same:  # déjà chez le libraire : on complète seulement la couverture
+                    if same:  # déjà chez le libraire : sa date fait foi ; on complète seulement la couverture
                         if not same.get("cover") and b.get("cover"): same["cover"] = b["cover"]
+                        if same.get("date") and b.get("date") and same["date"] != b["date"]:
+                            ecarts.append({"isbn": isbn, "titre": b["title"][:40], "libraire": same["date"], b.get("source", "editeur"): b["date"]})
                         continue
                     books[b["id"]] = b
         except Exception as e:
@@ -286,6 +303,9 @@ def main():
         if b.get("isbn") and any(x.get("isbn") == b["isbn"] for x in books.values()): continue
         books.setdefault(bid, b)
     stats["uniques"] = len(stats.get("uniques", ()))
+    stats["dates_relues"] = {"fiches": refreshed, "changees": changed[:30]}
+    if ecarts: stats["ecarts_libraire"] = {"nombre": len(ecarts), "exemples": ecarts[:30]}
+
     if ed_at: stats["editeurs_at"] = ed_at
     stats.update(listes=len(todo), lues=new, en_attente=skipped, plus_loin=max((b["date"] for b in books.values()), default=""))
     # pas les objets vendus en librairie qui ne sont pas des livres (cartes, puzzles, peluches, calendriers…)

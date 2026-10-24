@@ -89,6 +89,35 @@ def iso(d):
     return f"{m.group(3)}-{MONTHS[m.group(2).lower()]:02d}-{int(m.group(1)):02d}" if m else ""
 
 
+# ---- même ISBN lu chez deux sources avec deux jours différents : la plus fiable gagne (plus petit = plus fiable)
+# 1 : le site de l'éditeur lui-même ; 2 : calendrier bdgest (fiche bedetheque : « parution ») ; 3 : Nautiljon ; 4 : manga-news.
+# Au-dessus de tout, sorties.py garde la « Date de publication » de la fiche leslibraires.fr (vue de la librairie).
+SOURCE_RANK = {"bdgest": 2, "nautiljon": 3, "manganews": 4}
+
+def source_rank(b):
+    return SOURCE_RANK.get(b.get("source", "").split(":")[-1], 1)
+
+def mardi_vers_mercredi(d):
+    """Bayard et Milan datent leurs livres du mardi ; leslibraires.fr et bdgest donnent le mercredi (jour de mise en
+    place en librairie) pour les mêmes ISBN. On aligne sur le mercredi. Autres jours : inchangés."""
+    try: x = date.fromisoformat(d)
+    except ValueError: return d
+    return (x + timedelta(days=1)).isoformat() if x.weekday() == 1 else d
+
+def reconcile_into(allb, k, b, conflits):
+    """Ajoute b à allb[k]. Si l'ISBN y est déjà : garde la fiche de la source la plus fiable (en cas d'égalité, la
+    première) et lui reporte ce qui lui manque. Un désaccord de date est noté dans conflits."""
+    a = allb.get(k)
+    if a is None:
+        allb[k] = b; return
+    if a.get("date") != b.get("date") and a.get("date") and b.get("date"):
+        conflits.append({"isbn": k, "titre": a.get("title", "")[:40],
+                         "dates": {a.get("source", "?"): a["date"], b.get("source", "?"): b["date"]}})
+    win, lose = (b, a) if source_rank(b) < source_rank(a) else (a, b)
+    for f in ("authors", "cover", "description", "kind", "rayons"):
+        if not win.get(f) and lose.get(f): win[f] = lose[f]
+    allb[k] = win
+
 COVER_RES = [re.compile(r"https://www\.images\.hachette-livre\.fr/media/imgArticle/[A-Z0-9_-]+/\d{4}/(97[89]\d{10})-001-X\.jpe?g"),
              re.compile(r"https://ref\.lamartinieregroupe\.com/media/(97[89]\d{10})/grande/[^\"' ]+?\.jpg")]
 def cover_map(page):
@@ -357,7 +386,7 @@ def collect(lo, hi, delay=3.0, only="hachette,glenat,seuil", end=None):
     """Pour sorties.py : renvoie ({isbn ou id: livre}, stats). end : heure limite de toute la récolte
     (par défaut dans 28 minutes). Une source coupée par la limite est marquée "incomplet" : sorties.py garde
     alors ses anciennes fiches au lieu de les remplacer par une liste tronquée."""
-    fetch, allb, stats = Fetcher(delay), {}, {}
+    fetch, allb, stats, conflits = Fetcher(delay), {}, {}, []
     end = end or time.time() + 28 * 60
     deadline = min(end, time.time() + 12 * 60)
     for s in only.split(","):
@@ -367,7 +396,7 @@ def collect(lo, hi, delay=3.0, only="hachette,glenat,seuil", end=None):
             stats[s] = "erreur : " + str(e); continue
         stats[s] = {"pages": pages, "livres": len(got), "secondes": round(time.time() - t0), "erreurs": fetch.errors - e0}
         if time.time() > deadline: stats[s]["incomplet"] = True
-        for k, b in got.items(): allb.setdefault(k, b)
+        for k, b in got.items(): reconcile_into(allb, k, b, conflits)
     # autres sources (chacune dans son module, avec sa propre limite de temps)
     for mod, minutes in MODULES:
         dl = min(end, time.time() + minutes * 60)
@@ -379,12 +408,8 @@ def collect(lo, hi, delay=3.0, only="hachette,glenat,seuil", end=None):
         stats.update(st)
         for b in got.values():
             k = b.get("isbn") or b["id"]
-            if k in allb:  # même livre chez deux sources : on complète la première fiche
-                a = allb[k]
-                for f in ("authors", "cover", "description", "kind"):
-                    if not a.get(f) and b.get(f): a[f] = b[f]
-            else:
-                allb[k] = b
+            reconcile_into(allb, k, b, conflits)  # même livre chez deux sources : la plus fiable, complétée par l'autre
+    if conflits: stats["conflits_dates"] = {"nombre": len(conflits), "exemples": conflits[:30]}
     stats["erreurs"] = fetch.errors
     return allb, stats
 
