@@ -39,7 +39,7 @@ FIRST_PAGE = {"/nouveautes/{n}/": "/nouveautes/", "/paraitre/{n}/": "/a-paraitre
 
 # éléments qui ne sont pas des livres papier pour l'onglet Sorties
 SKIP_PUBLISHERS = {"audiolib"}
-SKIP_TITLE_RE = re.compile(r"\bchapitre \d+|^revue |^annales de |\bn° \d+\b|calendrier 20\d\d", re.I)
+SKIP_TITLE_RE = re.compile(r"\bchapitre \d+|^revue |^annales de |\bn° \d+\b|calendrier 20\d\d|\bau bac\b", re.I)
 KINDS = [(("manga", "pika", "mangetsu", "nobi nobi", "kana", "glénat manga", "shonen", "seinen", "shojo"), "bd"),
          (("bd", "bande dessinée", "bandes dessinées", "comics", "roman graphique"), "bd"),
          (("romance", "bmr", "new romance", "hlab", "sentimental"), "romance"),
@@ -165,7 +165,7 @@ def rayon_kind(crumbs):
     return ""
 
 # maisons hors du public de l'app (scolaire, universitaire, professionnel)
-SKIP_PUBS = {"dunod", "hachette education", "armand colin", "hachette fle", "hatier", "foucher", "ediser", "istra"}
+SKIP_PUBS = {"dunod", "hachette education", "armand colin", "hachette fle", "hatier", "foucher", "ediser", "istra", "lgdj", "dalloz", "vuibert", "breal", "ellipses"}
 
 def parse_list(page, base, product_re, source):
     """Découpe la page en fiches : chaque nouveau lien vers une fiche (EAN neuf) ouvre une fiche ;
@@ -264,15 +264,63 @@ def card_to_book(c, base, source):
 ED_MARKS = re.compile(r"\b(collector|limitee|deluxe|coffret|speciale|prestige|reliee|integrale|nb|noir et blanc|noir blanc|"
                       r"luxe|variant|monarque|gourmande|perfect|double|poche|grand format|originale)\b")
 
+def _ntitle(b):
+    """Titre normalisé pour comparer : sans article ni précision entre parenthèses devant le tome,
+    « T03 », « Tome 3 » et « 3 » final donnent tous « t3 »."""
+    raw = re.sub(r"\s*\((?:le|la|les|l['’])\)", "", b.get("title", ""), flags=re.I)
+    raw = re.sub(r"\s*\([^)]*\)(?=.*\b(?:tome|vol\.?|volume|t)\s*0*\d)", "", raw, flags=re.I)
+    t = re.sub(r"\bremastered( edition)?\b", "", norm(raw))
+    t = re.sub(r"\b(?:tome|vol|volume|t)\s*0*(\d+)\b", r"t\1", t)
+    t = re.sub(r"^(?:l|le|la|les|the|un|une) ", "", t.strip())
+    if not re.search(r"\bt\d+\b", t): t = re.sub(r"^(.*\D) 0*(\d{1,2})$", r"\1 t\2", t)  # « Sex sales driver 2 »
+    return re.sub(r"\s+", " ", t).strip()
+
 def title_keys(b):
     """(clé exacte, clé série+tome) : « One Piece - Tome 112 », « One Piece T112 - Le titre » -> onepiecet112.
     La clé courte garde les mentions d'édition (collector, intégrale…) pour ne pas mêler deux éditions."""
-    t = norm(b.get("title", ""))
-    t = re.sub(r"\b(?:tome|vol|volume|t)\s*0*(\d+)\b", r"t\1", t)
-    t = re.sub(r"^(?:l|le|la|les|the|un|une) ", "", t)
+    t = _ntitle(b)
     m = re.match(r"(.*?\bt\d+)\b(.*)$", t)
     short = (m.group(1) + "".join(sorted(set(ED_MARKS.findall(m.group(2)))))) if m else t
     return t.replace(" ", ""), short.replace(" ", "")
+
+# éditions « à part » d'un tome sorti le même jour : on ne garde que le tome courant (l'autre a un autre ISBN)
+FOLD_MARKS = re.compile(r"\b(collector|limitee|speciale|ultimate|manga box|anniversaire)\b")
+COFFRET_RE = re.compile(r"\bcoffret\b.*\b(?:tomes?|t)\s*\d+|\(box \d+.*\bvol\.? ?\d+", re.I)
+
+def _fold_editions(books):
+    """Collector / édition limitée… d'un tome qui sort aussi en édition courante le même jour : une seule fiche.
+    Coffret de plusieurs tomes sorti avec ces tomes : retiré. Titre coupé (« …») : fusionné avec la version complète."""
+    by_date = {}
+    for b in books: by_date.setdefault(b.get("date", ""), []).append(b)
+    drop = set()
+    for date_, grp in by_date.items():
+        plain = {}
+        for b in grp:
+            t = _ntitle(b); m = re.match(r"(.*?\bt\d+)\b(.*)$", t)
+            if m and not ED_MARKS.search(m.group(2)) and not ED_MARKS.search(m.group(1)): plain.setdefault(m.group(1).replace(" ", ""), b)
+        for b in grp:
+            t = _ntitle(b); m = re.match(r"(.*?\bt\d+)\b(.*)$", t)
+            if m and FOLD_MARKS.search(m.group(2) + " " + norm(re.sub(r"[()]", " ", b.get("title", "")))):
+                a = plain.get(m.group(1).replace(" ", ""))
+                if a is not None and a is not b:
+                    if not a.get("cover") and b.get("cover"): a["cover"] = b["cover"]
+                    drop.add(id(b))
+            if COFFRET_RE.search(b.get("title", "")):
+                base = norm(re.split(r"\bcoffret\b|\(box|\bbox\b", b["title"], flags=re.I)[0]).replace(" ", "")
+                if len(base) >= 4 and any(o is not b and not COFFRET_RE.search(o.get("title", "")) and _ntitle(o).replace(" ", "").startswith(base) for o in grp):
+                    drop.add(id(b))
+            tt = b.get("title", "")
+            if tt.endswith(("…", "...")):
+                pre = norm(tt.rstrip("….")).replace(" ", "")
+                for o in grp:
+                    if o is b or id(o) in drop: continue
+                    full = norm(o.get("title", "")).replace(" ", "")
+                    if len(pre) >= 12 and full.startswith(pre) and len(full) > len(pre) and (not o.get("isbn") or not b.get("isbn") or o["isbn"] == b["isbn"]):
+                        for f in ("authors", "cover", "description", "isbn", "kind", "rayons"):
+                            if not o.get(f) and b.get(f): o[f] = b[f]
+                        if o.get("source", "").endswith("manganews") and b.get("isbn"): o["id"] = b["id"]
+                        drop.add(id(b)); break
+    return [b for b in books if id(b) not in drop]
 
 def dedupe(books):
     """Fusionne les fiches d'un même livre (même date, même titre, ISBN égaux ou absents d'un côté).
@@ -292,7 +340,42 @@ def dedupe(books):
             continue
         kept.append(b)
         for k in title_keys(b): index.setdefault((k, b.get("date", "")), []).append(b)
-    return kept
+    return _fold_editions(kept)
+
+
+# ---- nettoyage final de la liste (titres, auteurs, genre) ; ne retire que ce qui n'est pas pour Julie
+BAD_AUTHOR_RE = re.compile(r"^(?:<?collectifs?>?(?: collectif)?|non|anonyme|number 8|\d+|n/?a)$", re.I)
+TAGLINE_RE = re.compile(r"\s+[-–]\s+(?:par l['’](?:auteur|autrice)\b.*|la nouveaut[ée] de la saga.*|offre d[ée]couverte)(?=\s+[-–]\s|$)", re.I)
+BAD_COVER_RE = re.compile(r"\s*\((?:couverture|nouvelle couverture)[^)]*\)", re.I)
+NONFICTION_RAYONS = {norm(x) for x in ("Droit et Sciences Humaines", "Savoirs", "Histoire et Actualités", "Sciences humaines et sociales & Histoire",
+                     "Arts", "Beaux livres", "Sciences et Histoire", "Biographies / Mémoires", "Religion, spiritualités", "Théâtre et poésie")}
+NONFICTION_SOUS = {norm(x) for x in ("Actualités, Reportages", "Essais littéraires", "Biographies, Mémoires", "Poésie",
+                   "Art épistolaire, Correspondances, Discours")}
+
+def tidy_title(t):
+    t = re.sub(r"^Couverture (du livre |de |d')?", "", (t or "").strip())
+    t = BAD_COVER_RE.sub("", TAGLINE_RE.sub("", t))
+    parts = [p for p in re.split(r"\s+-\s+", t)]
+    out = []
+    for p in parts:  # « X - L'arme du Diable - L'arme du Diable » ; « Tome 1 - Le titre - Tome 1 »
+        if out and norm(p) == norm(out[-1]): continue
+        if out and re.fullmatch(r"(?:tome|t)\s*0*\d+", norm(p)) and any(re.fullmatch(r"(?:tome|t)\s*0*" + re.search(r"\d+", norm(p)).group().lstrip("0") + "", norm(q)) for q in out): continue
+        out.append(p)
+    return re.sub(r"\s{2,}", " ", " - ".join(out)).strip()
+
+def tidy(books, not_book_re=None):
+    """Titres propres, faux auteurs retirés, genre non-roman pour les essais, puis ce qui n'est pas un livre pour le public de l'app."""
+    out = []
+    for b in books:
+        b["title"] = tidy_title(b.get("title", ""))
+        if not b["title"] or (not_book_re and not_book_re.search(b["title"])) or norm(b.get("publisher", "")) in SKIP_PUBS: continue
+        if SKIP_TITLE_RE.search(b["title"]) or norm(b.get("publisher", "")) in SKIP_PUBLISHERS: continue
+        b["authors"] = [re.sub(r"\s{2,}", " ", re.sub(r",\s*Collectif$", "", a)).strip() for a in b.get("authors", []) if not BAD_AUTHOR_RE.match(a.strip())]
+        r = [norm(x) for x in b.get("rayons", [])[:2]]
+        if b.get("kind") == "roman" and r and (r[0] in NONFICTION_RAYONS or (r[0] == norm("Littérature & Essais littéraires") and len(r) > 1 and r[1] in NONFICTION_SOUS)):
+            b["kind"] = ""  # essai, document, histoire… rangé en « roman » par le rayon du libraire
+        out.append(b)
+    return out
 
 
 class Fetcher:
