@@ -308,6 +308,8 @@
     color: var(--muted); font-size: 16px; cursor: pointer; text-align: left;
   }
   .ex-row { margin-bottom: 22px; }
+  .rank { position: absolute; left: 4px; top: 4px; z-index: 3; min-width: 24px; height: 24px; padding: 0 6px; box-sizing: border-box; border-radius: 12px; background: var(--accent); color: #fff; font: 700 13px/24px system-ui, sans-serif; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,.3); }
+  .quick button { font-size: 13px; padding-left: 4px; padding-right: 4px; }
   .ex-head { display: flex; align-items: baseline; justify-content: space-between; padding: 0 16px 8px; }
   .ex-head h3 { margin: 0; font-family: Georgia, serif; font-size: 19px; }
   .ex-row.mine .ex-head h3::before { content: "✨ "; }
@@ -647,6 +649,7 @@
     <button data-key="sorties">🗓 Sorties</button>
     <button data-key="explore">🔎 Explorer</button>
     <button data-key="pourtoi">✨ Pour toi</button>
+    <button data-key="ventes">🏆 Ventes</button>
   </nav>
   <nav class="tabs" id="tabs"></nav>
 </header>
@@ -789,7 +792,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 24 octobre, 20 h</p>
+    <p class="version">Version du 24 octobre, 21 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -835,6 +838,7 @@ const SHELVES = [
   { key: "sorties", label: "Sorties", empty: "" },
   { key: "explore", label: "Explorer", empty: "" },
   { key: "pourtoi", label: "Pour toi", empty: "" },
+  { key: "ventes", label: "Top ventes", empty: "" },
 ];
 const STATUS_LABEL = { lu: "Lu", encours: "En cours", alire: "À lire" };
 const GENRES = [
@@ -1629,7 +1633,7 @@ function groupEditions(list, p) {
 function inShelf(b, key) { return key === "fav" ? b.fav : b.status === key; }
 /* Statut donné à un livre ajouté depuis l'onglet ouvert */
 const defaultStatus = () => (["lu", "encours", "alire"].includes(currentShelf) ? currentShelf : "lu");
-const SPECIAL = ["sorties", "explore", "pourtoi"];
+const SPECIAL = ["sorties", "explore", "pourtoi", "ventes"];
 function renderTabs() {
   $("#quick").querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.key === currentShelf));
   $("#tabs").innerHTML = SHELVES.filter((s) => !SPECIAL.includes(s.key)).map((s) => {
@@ -1754,6 +1758,7 @@ function renderShelves() {
   if (currentShelf === "explore") { $("#toolbar").hidden = true; renderExplore(); return; }
   if (currentShelf === "pourtoi") { $("#toolbar").hidden = true; renderExplore(true); return; }
   if (currentShelf === "sorties") { $("#toolbar").hidden = true; renderReleases(); return; }
+  if (currentShelf === "ventes") { $("#toolbar").hidden = true; renderVentes(); return; }
   if (window.createRoom3D && !room3dFailed && render3D()) return;
   const shelf = SHELVES.find((s) => s.key === currentShelf);
   const theme = THEMES[currentShelf];
@@ -2269,6 +2274,32 @@ async function loadExploreRow(i) {
   } catch {
     box.innerHTML = `<div class="ex-loading">Le catalogue ne répond pas. Vérifie la connexion internet.</div>`;
   }
+}
+/* Top des ventes des librairies indépendantes (relevé chaque jour par le robot, data/ventes.json) */
+const VENTES_ROWS = [["tous", "Tous genres"], ["roman", "Littérature générale"], ["policier", "Polar & thriller"], ["fantasy", "Fantasy & romantasy"],
+  ["romance", "Romance & dark romance"], ["manga", "Manga"], ["bd", "BD"], ["jeunesse", "Jeunesse"]];
+let ventesPeriod = "semaine", ventesData = null;
+async function renderVentes() {
+  const el = $("#shelves");
+  el.innerHTML = `<div class="explore">
+    <div class="rel-weeks" id="ventesPer" style="padding:10px 16px 0"><button data-p="semaine" class="${ventesPeriod === "semaine" ? "on" : ""}">Cette semaine</button><button data-p="mois" class="${ventesPeriod === "mois" ? "on" : ""}">Ce mois-ci</button></div>
+    <div id="ventesBox"><div class="ex-loading">Chargement des classements…</div></div>
+  </div>`;
+  el.querySelectorAll("[data-p]").forEach((b) => (b.onclick = () => { ventesPeriod = b.dataset.p; renderVentes(); }));
+  if (!ventesData) { try { const r = await fetch("data/ventes.json", { cache: "no-cache" }); if (r.ok) ventesData = await r.json(); } catch {} }
+  const box = $("#ventesBox"); if (!box || currentShelf !== "ventes") return;
+  const d = ventesData;
+  if (!d || !d.listes) { box.innerHTML = `<div class="ex-loading">Les classements arrivent : le premier relevé se fait chaque matin.</div>`; return; }
+  const shown = [];
+  box.innerHTML = VENTES_ROWS.map(([k, title]) => {
+    const list = ((d.listes[k] || {})[ventesPeriod] || []).map((b) => ({ ...b, categories: [] }));
+    shown.push(list);
+    if (!list.length) return "";
+    return `<section class="ex-row"><div class="ex-head"><h3>${esc(title)}</h3></div><div class="ex-list">${list.map((b, j) => `<button class="ex-card" data-k="${shown.length - 1}" data-i="${j}">
+      <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}<span class="rank">${b.rang}</span></div>
+      <span>${esc(b.title)}</span><small>${esc(b.authors[0] || "")}</small></button>`).join("")}</div></section>`;
+  }).join("") + `<p class="rel-note">Ventes des librairies indépendantes (leslibraires.fr). ${ventesPeriod === "semaine" ? "Cette semaine : les classements des 7 derniers jours cumulés" : "Ce mois-ci : les classements du mois cumulés"}${d.jours < 7 ? ` (relevés depuis ${d.jours} jour${d.jours > 1 ? "s" : ""}, la liste se précise chaque jour)` : ""}. Mis à jour ${esc(sinceText(d.updated))}.</p>`;
+  box.querySelectorAll(".ex-card").forEach((c) => (c.onclick = () => openPreview(shown[c.dataset.k][c.dataset.i])));
 }
 function render() { renderTabs(); renderStats(); renderLibraryFilters(); renderShelves(); }
 

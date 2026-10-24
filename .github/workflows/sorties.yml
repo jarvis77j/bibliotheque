@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/sorties.py", "scripts/editeurs.py", "scripts/src_*.py", ".github/workflows/sorties.yml"]
+    paths: ["scripts/sorties.py", "scripts/editeurs.py", "scripts/ventes.py", "scripts/src_*.py", ".github/workflows/sorties.yml"]
 permissions:
   contents: write
 concurrency:
@@ -24,9 +24,14 @@ jobs:
         env:
           # après une modification du robot, on relit aussi tout de suite les sites des éditeurs
           EDITEURS: ${{ github.event_name != 'schedule' && '1' || '' }}
+      # meilleures ventes des librairies indépendantes : un relevé par jour
+      - run: python3 scripts/ventes.py
+        continue-on-error: true
+        env:
+          VENTES: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
       - run: |
           git config user.name "robot-sorties"; git config user.email "robot@users.noreply.github.com"
-          git add data/sorties.json data/bd-isbn.json 2>/dev/null || git add data/sorties.json
+          git add data/sorties.json data/bd-isbn.json data/ventes.json data/ventes-historique.json 2>/dev/null || git add data/sorties.json
           if git diff --cached --quiet; then echo "rien de neuf"; exit 0; fi
           git -c user.name="robot-sorties" -c user.email="robot@users.noreply.github.com" commit -qm "Sorties mises à jour"
           # si l'app a été mise à jour pendant la collecte, on se replace dessus puis on réessaie

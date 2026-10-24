@@ -140,3 +140,9 @@ L'onglet Sorties propose les semaines proches puis les 6 prochains mois (le robo
 - Quand la barre de recherche est vide, les 4 dernières recherches sont proposées (🕘).
 - Les étagères montrent d'abord les derniers livres ajoutés (tri « Derniers ajoutés » par défaut).
 - La recherche regarde aussi la liste des Sorties (livres trop récents pour Google et la BnF).
+
+## Top ventes (24 octobre)
+- Onglet « 🏆 Ventes » : le top 10 de la semaine et du mois, pour tous genres, littérature générale, polar, fantasy et romantasy, romance et dark romance, manga, BD et jeunesse.
+- Source : les classements « Meilleures ventes » de leslibraires.fr (librairies indépendantes), relevés une fois par jour par `scripts/ventes.py` (data/ventes.json, historique dans data/ventes-historique.json).
+- « Cette semaine » cumule les classements des 7 derniers jours (le 1er gagne 20 points, le 20e un point) ; « Ce mois-ci » ceux du mois. Les listes se précisent au fil des jours.
+- Sorties : plus rien au-delà de 7 jours en arrière.
