@@ -228,6 +228,7 @@ def main():
             try: b = parse_book(path, page)
             except Exception as e:
                 print("  fiche illisible", path, e, file=sys.stderr); continue
+            b["lu"] = today_iso  # lue aujourd'hui : pas relue avant demain
         elif refreshed < MAX_REFRESH and soon_lo <= b.get("date", "") <= soon_hi and b.get("lu", "") < today_iso:
             # sortie proche : on relit la fiche une fois par jour, car la date peut avoir été repoussée ou avancée
             page = get(path); refreshed += 1

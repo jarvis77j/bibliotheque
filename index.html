@@ -1902,7 +1902,7 @@ function newKindOf(b) {
   const k = b.kind || guessGenre(b.categories);
   return KIND_NORM[k] || k;
 }
-const newScore = (b) => (b.description ? 3 + Math.min(2, b.description.length / 300) : 0) + (b.authors && b.authors.length ? 1 : 0) + (b.publisher ? 0.5 : 0) + (b.pages ? 0.3 : 0);
+const newScore = (b) => (b.cover ? 2 : 0) + (b.description ? 3 + Math.min(2, b.description.length / 300) : 0) + (b.authors && b.authors.length ? 1 : 0) + (b.publisher ? 0.5 : 0) + (b.pages ? 0.3 : 0);
 const releaseKeys = (b) => [editionKey(b), b.isbn ? "isbn:" + b.isbn : ""].filter(Boolean);
 async function weekBooks() {
   const all = await loadReleases().catch(() => []);
@@ -1918,7 +1918,7 @@ async function weekRows() {
   const byKind = {}, shown = new Set(), used = new Set();
   for (const [k] of NEW_KINDS) {
     const byDay = {};
-    wb.filter((b) => b.cover && newKindOf(b) === k).forEach((b) => {
+    wb.filter((b) => newKindOf(b) === k).forEach((b) => {
       if (releaseKeys(b).some((x) => used.has(x))) return;
       releaseKeys(b).forEach((x) => used.add(x));
       (byDay[b.date] = byDay[b.date] || []).push(b);
@@ -2313,7 +2313,7 @@ async function loadExploreRow(i) {
       // les livres avec une vraie couverture d'abord ; sans couverture ni ISBN seulement s'il n'y a pas mieux
       const withCover = r.filter((b) => b.cover);
       const rest = r.filter((b) => !b.cover);
-      exploreCache[ck] = (withCover.length >= 8 ? withCover : [...withCover, ...rest.filter((b) => b.isbn), ...rest.filter((b) => !b.isbn)]).slice(0, 24);
+      exploreCache[ck] = row.week ? r.slice(0, 24) : (withCover.length >= 8 ? withCover : [...withCover, ...rest.filter((b) => b.isbn), ...rest.filter((b) => !b.isbn)]).slice(0, 24);
       if (sig && exploreCache[ck].length) { const c = recoCache(); c.rows[ck] = { sig, list: exploreCache[ck] }; try { localStorage.setItem(RECO_KEY, JSON.stringify(c)); } catch {} }
     }
     // pas de doublon sur la page : ni les nouveautés de la semaine (rayons libres), ni ce qu'Explorer montre (Pour toi), ni un livre déjà affiché plus haut
