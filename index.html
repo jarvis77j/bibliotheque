@@ -786,7 +786,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 22 octobre, 19 h</p>
+    <p class="version">Version du 24 octobre, 19 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1355,8 +1355,20 @@ let searchSource = "";
    (dépôt légal : tous les livres publiés en France y sont) puis Open Library. */
 /* Recherche : Google Livres et la BnF en même temps. Si Google a déjà de quoi répondre, on affiche tout de suite
    et les livres que seule la BnF connaît arrivent ensuite (onMore), sans bouleverser l'ordre. */
+/* Livres récents que ni Google ni la BnF ne connaissent encore : on cherche aussi dans la liste des Sorties (robot) */
+async function searchSorties(p) {
+  const words = plain([p.q, p.title, p.author].filter(Boolean).join(" ")).split(" ").filter((w) => w.length > 1);
+  if (!words.length) return [];
+  const all = relSite || (await siteReleases());
+  if (!relSite) { relSite = all; relFetchedAt = Date.now(); }
+  const isbn = String(p.q || "").replace(/[-\s]/g, "");
+  const found = all.filter((b) => (/^\d{10,13}$/.test(isbn) && b.isbn === isbn)
+    || words.every((w) => plain([b.title, b.publisher, ...(b.authors || [])].join(" ")).includes(w)));
+  return found.slice(0, 20).map(({ site, ...b }) => ({ ...b, categories: b.categories || b.rayons || [] }));
+}
 async function searchBooks(p, onMore) {
   const bnfJob = searchBnf(p).catch((e) => { console.warn(e); return null; });
+  const sortiesJob = searchSorties(p).catch(() => []);
   let google = [], gErr = "";
   try { google = await searchGoogle(p); } catch (e) { console.warn(e); gErr = e.message.replace("google ", "erreur "); }
   const sources = [];
@@ -1365,19 +1377,26 @@ async function searchBooks(p, onMore) {
   if (google.length >= 5) {
     searchSource = "Google Livres";
     const first = groupEditions(google, p).concat(groupEditions(otherLangResults, p).map((b) => ({ ...b, otherLang: true })));
-    if (onMore) bnfJob.then((bnf) => { if (bnf && bnf.length) { searchSource = "Google Livres, BnF"; onMore(mergeBnf(first, bnf, p)); } });
+    if (onMore) Promise.all([bnfJob, sortiesJob]).then(([bnf, sorties]) => {
+      if ((bnf && bnf.length) || sorties.length) {
+        searchSource = "Google Livres" + (bnf && bnf.length ? ", BnF" : "") + (sorties.length ? ", Sorties" : "");
+        onMore(mergeBnf(first, [...(bnf || []), ...sorties], p));
+      }
+    });
     return first;
   }
   {
-    const [bnf, ol] = await Promise.all([
+    const [bnf, ol, sorties] = await Promise.all([
       bnfJob,
       google.length ? Promise.resolve([]) : searchOpenLibrary(p).catch((e) => { console.warn(e); return null; }),
+      sortiesJob,
     ]);
+    if (sorties.length) sources.push("Sorties");
     if (bnf && bnf.length) sources.push("BnF");
     if (ol && ol.length) sources.push("Open Library");
     const seenIsbn = new Set(google.map((b) => b.isbn).filter(Boolean));
-    extra = [...(bnf || []), ...(ol || [])].filter((b) => !b.isbn || !seenIsbn.has(b.isbn) && seenIsbn.add(b.isbn));
-    if (!google.length && !otherLangResults.length && bnf === null && ol === null) throw new Error(gErr ? "Google " + gErr : "aucune source ne répond");
+    extra = [...(bnf || []), ...(ol || []), ...sorties].filter((b) => !b.isbn || !seenIsbn.has(b.isbn) && seenIsbn.add(b.isbn));
+    if (!google.length && !otherLangResults.length && bnf === null && ol === null && !sorties.length) throw new Error(gErr ? "Google " + gErr : "aucune source ne répond");
   }
   searchSource = (sources.join(", ") || "Google Livres, BnF et Open Library") + (gErr ? " (Google indisponible : " + gErr + ")" : "");
   return groupEditions([...google, ...extra], p).concat(groupEditions(otherLangResults, p).map((b) => ({ ...b, otherLang: true })));

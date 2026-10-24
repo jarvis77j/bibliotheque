@@ -31,7 +31,7 @@ except ImportError:
     import editeurs
 norm, MONTHS = editeurs.norm, editeurs.MONTHS
 
-FICHES = 40          # fiches bedetheque lues au plus par passage (sorties proches sans ISBN)
+FICHES = 60          # fiches bedetheque lues au plus par passage (sorties proches sans ISBN)
 # Cache facultatif {id album bedetheque: EAN, ou "-AAAA-MM-JJ" si lu sans EAN} : chemin dans BD_ISBN_CACHE.
 # Sans lui, chaque passage relit les mêmes fiches (les plus proches) ; avec lui, l'ISBN s'accumule de jour en jour.
 CACHE_PATH = os.environ.get("BD_ISBN_CACHE", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "bd-isbn.json"))
@@ -489,19 +489,32 @@ def collect(lo, hi, fetch, deadline):
         b.update(id="ed:" + isbn, isbn=isbn)
         books[b["id"]] = b
 
+    def set_authors(b, names):
+        # la fiche donne les noms complets (bdgest n'a souvent que le nom de famille)
+        if names: b["authors"] = list(dict.fromkeys(names))[:3]
+
     for b in [b for b in books.values() if b.get("_aid")]:
+        if cache.get("a:" + b["_aid"]): set_authors(b, cache["a:" + b["_aid"]].split("|"))
         if EAN_RE.fullmatch(cache.get(b["_aid"], "")): set_isbn(b, cache[b["_aid"]])
-    todo = sorted((b for b in books.values() if b.get("_aid") and not b["isbn"] and b["date"] >= soon
-                   and not cache.get(b["_aid"], "-0000")[1:] > retry), key=lambda b: b["date"])[:FICHES]
+    # à lire : sorties proches sans ISBN, ou dont on n'a pas encore les noms complets des auteurs
+    # les plus proches d'aujourd'hui d'abord (avant comme après)
+    near = lambda b: abs((date.fromisoformat(b["date"]) - date.fromisoformat(today)).days)
+    todo = sorted((b for b in books.values() if b.get("_aid")
+                   and ((not b["isbn"] and b["date"] >= soon and not cache.get(b["_aid"], "-0000")[1:] > retry) or "a:" + b["_aid"] not in cache)),
+                  key=near)[:FICHES]
     found = 0
     for b in todo:
         if time.time() > deadline: break
         if not re.match(r"^https://www\.bedetheque\.com/BD-[^/?]+\.html$", b["url"]): continue
         page = s.get(b["url"], "bedetheque-" + b["_aid"])
         if not page: continue
+        names = [person(" ".join(reversed(n.split(", ", 1))) if ", " in n else n)
+                 for n in re.findall(r'itemprop="(?:author|illustrator)"[^>]*>([^<]{2,60})<', page)]
+        cache["a:" + b["_aid"]] = "|".join(dict.fromkeys(html.unescape(n).strip() for n in names))
+        set_authors(b, [n for n in cache["a:" + b["_aid"]].split("|") if n])
         m = re.search(r'id="EAN" value="(97[89]\d{10})"', page)
-        cache[b["_aid"]] = m.group(1) if m else "-" + today
-        if m: found += 1; set_isbn(b, m.group(1))
+        if not b["isbn"]: cache[b["_aid"]] = m.group(1) if m else "-" + today
+        if m and not b["isbn"]: found += 1; set_isbn(b, m.group(1))
     save_cache(cache)
     stats["bedetheque"] = s.stats(0)
     for b in books.values():
