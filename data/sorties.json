@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-25T16:47Z",
+"updated": "2026-10-25T19:13Z",
 "stats": {
 "precommandes": [
 12,
@@ -49,11 +49,11 @@
 "libraire": {
 "pages_listes": 71,
 "echecs": 0,
-"secondes_listes": 351,
-"pages": 88,
-"reprises": 0,
+"secondes_listes": 361,
+"pages": 74,
+"reprises": 1,
 "fiches_lues": 3,
-"secondes": 436,
+"secondes": 377,
 "statut": "ok"
 },
 "suivi": {
@@ -98,21 +98,16 @@
 "dernier_proche": "2026-10-25T11:31Z"
 },
 "src_generale": {
-"dernier_essai": "2026-10-25T16:21Z",
-"secondes_complet": 304,
+"dernier_essai": "2026-10-25T19:09Z",
+"secondes_complet": 250,
 "echecs": 0,
-"dernier_complet": "2026-10-24T20:54Z",
+"dernier_complet": "2026-10-25T19:09Z",
 "secondes_proche": 241,
 "dernier_proche": "2026-10-25T16:21Z"
 }
 },
 "plan": [
-"src_generale:proche",
-"hachette:complet",
-"glenat:complet",
-"seuil:complet",
-"src_manga:complet",
-"src_bd:complet"
+"src_generale:complet"
 ],
 "editeurs": {
 "hachette": {
@@ -317,29 +312,29 @@
 },
 "michellafon": {
 "pages": 38,
-"livres": 14,
+"livres": 38,
 "secondes": 111,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z"
+"le": "2026-10-25T19:13Z"
 },
 "jailu": {
 "pages": 1,
-"livres": 0,
-"secondes": 1,
+"livres": 70,
+"secondes": 4,
 "erreurs": 0,
-"statut": "vide",
+"statut": "ok",
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z"
+"le": "2026-10-25T19:13Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -348,76 +343,76 @@
 "erreurs": 0,
 "statut": "vide",
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z"
+"le": "2026-10-25T19:13Z"
 },
 "albinmichel": {
 "pages": 2,
-"livres": 31,
+"livres": 45,
 "secondes": 6,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z"
+"le": "2026-10-25T19:13Z"
 },
 "hugo": {
 "pages": 24,
-"livres": 8,
-"secondes": 73,
+"livres": 15,
+"secondes": 74,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z"
+"le": "2026-10-25T19:13Z"
 },
 "points": {
-"pages": 6,
-"livres": 17,
-"secondes": 18,
+"pages": 8,
+"livres": 46,
+"secondes": 23,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z"
+"le": "2026-10-25T19:13Z"
 },
 "bayard": {
 "pages": 5,
-"livres": 23,
+"livres": 54,
 "secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z"
+"le": "2026-10-25T19:13Z"
 },
 "milan": {
 "pages": 5,
-"livres": 21,
+"livres": 41,
 "secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z"
+"le": "2026-10-25T19:13Z"
 },
 "conflits_dates": {
 "nombre": 10,
@@ -505,41 +500,30 @@
 ],
 "le": "2026-10-25T16:47Z"
 },
-"fiches_lues": 60,
+"fiches_lues": 0,
 "erreurs": 0
 },
-"secondes_editeurs": 1576,
+"secondes_editeurs": 250,
 "dates_relues": {
-"fiches": 14,
+"fiches": 0,
 "changees": []
 },
-"ecarts_libraire": {
-"nombre": 1,
-"exemples": [
-{
-"isbn": "9782413092117",
-"titre": "Les légendaires - Résistance - Tome 6 - ",
-"libraire": "2026-10-22",
-"editeur:bdgest": "2026-10-21"
-}
-]
-},
-"editeurs_at": "2026-10-25T16:47Z",
+"editeurs_at": "2026-10-25T19:13Z",
 "listes": 562,
 "lues": 3,
 "en_attente": 0,
 "plus_loin": "2027-04-23",
-"nettoyes": 2,
-"doublons": 127,
+"nettoyes": 0,
+"doublons": 0,
 "sources": {
 "leslibraires": {
 "pages_listes": 71,
 "echecs": 0,
-"secondes_listes": 351,
-"pages": 88,
-"reprises": 0,
+"secondes_listes": 361,
+"pages": 74,
+"reprises": 1,
 "fiches_lues": 3,
-"secondes": 436,
+"secondes": 377,
 "statut": "ok",
 "livres": 574
 },
@@ -597,7 +581,7 @@
 "2027-04-29"
 ],
 "le": "2026-10-25T16:47Z",
-"en_base": 1244
+"en_base": 1243
 },
 "manganews": {
 "statut": "ok",
@@ -755,30 +739,30 @@
 },
 "michellafon": {
 "statut": "ok",
-"livres": 14,
+"livres": 38,
 "pages": 38,
 "secondes": 111,
 "erreurs": 0,
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z",
-"en_base": 34
+"le": "2026-10-25T19:13Z",
+"en_base": 35
 },
 "jailu": {
-"statut": "vide",
-"livres": 0,
+"statut": "ok",
+"livres": 70,
 "pages": 1,
-"secondes": 1,
+"secondes": 4,
 "erreurs": 0,
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z",
+"le": "2026-10-25T19:13Z",
 "en_base": 61
 },
 "bragelonne": {
@@ -788,85 +772,85 @@
 "secondes": 3,
 "erreurs": 0,
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z",
+"le": "2026-10-25T19:13Z",
 "en_base": 0
 },
 "albinmichel": {
 "statut": "ok",
-"livres": 31,
+"livres": 45,
 "pages": 2,
 "secondes": 6,
 "erreurs": 0,
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z",
+"le": "2026-10-25T19:13Z",
 "en_base": 45
 },
 "hugo": {
 "statut": "ok",
-"livres": 8,
+"livres": 15,
 "pages": 24,
-"secondes": 73,
+"secondes": 74,
 "erreurs": 0,
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z",
+"le": "2026-10-25T19:13Z",
 "en_base": 15
 },
 "points": {
 "statut": "ok",
-"livres": 17,
-"pages": 6,
-"secondes": 18,
+"livres": 46,
+"pages": 8,
+"secondes": 23,
 "erreurs": 0,
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z",
+"le": "2026-10-25T19:13Z",
 "en_base": 46
 },
 "bayard": {
 "statut": "ok",
-"livres": 23,
+"livres": 54,
 "pages": 5,
 "secondes": 15,
 "erreurs": 0,
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z",
+"le": "2026-10-25T19:13Z",
 "en_base": 54
 },
 "milan": {
 "statut": "ok",
-"livres": 21,
+"livres": 41,
 "pages": 5,
 "secondes": 15,
 "erreurs": 0,
 "fenetre": [
-"proche",
-"2026-10-11",
-"2026-12-09"
+"complet",
+"2026-08-01",
+"2027-04-29"
 ],
-"le": "2026-10-25T16:47Z",
+"le": "2026-10-25T19:13Z",
 "en_base": 41
 }
 },
-"duree_secondes": 2012
+"duree_secondes": 628
 },
 "books": [
 {
@@ -3244,7 +3228,7 @@
 },
 {
 "id": "ed:bdgest:542642",
-"title": "1944 - Tome 6 - Point final",
+"title": "Tome 6 - Point final",
 "authors": [
 "Vergne"
 ],
@@ -8405,10 +8389,13 @@
 "format": "Poche",
 "cover": "https://ref.lamartinieregroupe.com/media/9791041417582/petite/156523_couverture_Hres_0.jpg",
 "description": "Voyage sans cartes, Graham Greene : Ce n'est pas uniquement l'attirance pour l'inconnu qui incite le jeune Graham Greene à se rendre dans le golfe de Guiné...",
-"rayons": [],
+"rayons": [
+"Points Aventure"
+],
 "url": "https://www.editionspoints.com/ouvrage/voyage-sans-cartes-graham-greene/9791041417582",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:9782381890401",
@@ -8550,7 +8537,7 @@
 },
 {
 "id": "ed:9782387032560",
-"title": "14-14",
+"title": "14",
 "authors": [
 "Paul Beorn",
 "Silène Edgar"
@@ -12559,21 +12546,23 @@
 "id": "ed:9782749965475",
 "title": "High School Mercenary - Tome 11",
 "authors": [
-"Yc"
+"YC",
+"Rak Hyun",
+"Joo-Hyuk Yoo"
 ],
 "publisher": "Michel Lafon",
 "date": "2026-08-27",
 "isbn": "9782749965475",
 "pages": 0,
 "format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/81/high_school_mercenary_11_edition_reliee_francaise1040318.webp",
-"description": "L'ultime duel d'Ijin pour échapper à son passé ! Pour se venger d'Ijin, Mad Dog – son ancien mentor et tortionnaire – a kidnappé les personnes les plus chères à ses yeux : sa soeur et son grand-père. Un piège évident dans...",
+"cover": "https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aac17ff0da1ad491990c60b_6aac12a299e27a074e84657e_9782749965475WEB.jpeg",
+"description": "",
 "rayons": [
-"Manga"
+"Webtoon"
 ],
-"url": "https://www.nautiljon.com/mangas/high+school+mercenary/volume-11,1040318.html",
+"url": "https://www.michel-lafon.fr/books/high-school-mercenary-tome-11-49965475",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:michellafon"
 },
 {
 "id": "ll:26315121",
@@ -14563,7 +14552,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "1,2,3, te voilà !",
+"title": "2,3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -17698,24 +17687,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782382883488",
-"title": "100 - Tome 3",
-"authors": [],
-"publisher": "Kbooks",
-"date": "2026-09-03",
-"isbn": "9782382883488",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:bdgest:544056",
 "title": "Cassidy - Tome 7 - Un pacte Criminel",
 "authors": [
@@ -18510,6 +18481,24 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9782382883488",
+"title": "Tome 3",
+"authors": [],
+"publisher": "Kbooks",
+"date": "2026-09-03",
+"isbn": "9782382883488",
+"pages": 0,
+"format": "",
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ed:bdgest:543938",
 "title": "Uri Tupka et les dieux",
 "authors": [
@@ -18989,7 +18978,8 @@
 "rayons": [],
 "url": "https://www.editionspoints.com/ouvrage/l-homme-qui-tartinait-une-eponge-colette-roumanoff/9791041429547",
 "kind": "",
-"source": "editeur:points"
+"source": "editeur:points",
+"refait": 1
 },
 {
 "id": "ed:bdgest:542144",
@@ -32757,7 +32747,7 @@
 },
 {
 "id": "ed:bdgest:545606",
-"title": "14-14",
+"title": "14",
 "authors": [
 "L'Hermenier",
 "Hamo"
@@ -66638,7 +66628,7 @@
 },
 {
 "id": "ed:9782492463501",
-"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
+"title": "2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -72711,7 +72701,7 @@
 "Le monde de Minecraft"
 ],
 "url": "https://www.leslibraires.fr/livre/26545934-le-monde-de-minecraft-mojang-studios-mana-books",
-"kind": "bd"
+"kind": ""
 },
 {
 "id": "ll:26574363",
@@ -75057,27 +75047,6 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26539192-entre-ici-jean-moulin-et-autres-discours-sur-la-resistance-andre-malraux-folio",
 "kind": "roman"
-},
-{
-"id": "ed:9782344072455",
-"title": "1629, ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
-"authors": [
-"Xavier Dorison",
-"Thimothée Montaigne"
-],
-"publisher": "Glénat",
-"date": "2026-11-12",
-"isbn": "9782344072455",
-"pages": 0,
-"format": "",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
-"description": "",
-"rayons": [
-"BD Aventure, western et polar"
-],
-"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
-"kind": "bd",
-"source": "editeur:glenat"
 },
 {
 "id": "ed:9782709677486",
@@ -77955,6 +77924,27 @@
 "url": "https://www.nautiljon.com/mangas/yoridori+bitch/volume-1,1030035.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782344072455",
+"title": "ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
+"authors": [
+"Xavier Dorison",
+"Thimothée Montaigne"
+],
+"publisher": "Glénat",
+"date": "2026-11-12",
+"isbn": "9782344072455",
+"pages": 0,
+"format": "",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
+"description": "",
+"rayons": [
+"BD Aventure, western et polar"
+],
+"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
+"kind": "bd",
+"source": "editeur:glenat"
 },
 {
 "id": "ed:9791043311192",
