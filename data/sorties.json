@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-25T01:20Z",
+"updated": "2026-10-25T06:28Z",
 "stats": {
 "precommandes": [
 12,
@@ -49,7 +49,7 @@
 "libraire": {
 "pages_listes": 71,
 "echecs": 0,
-"secondes_listes": 351,
+"secondes_listes": 350,
 "pages": 104,
 "reprises": 0,
 "fiches_lues": 3,
@@ -58,70 +58,75 @@
 },
 "suivi": {
 "hachette": {
-"dernier_essai": "2026-10-24T23:18Z",
+"dernier_essai": "2026-10-25T06:14Z",
 "secondes_complet": 384,
 "dernier_complet": "2026-10-24T19:11Z",
 "echecs": 0,
-"secondes_proche": 133,
-"dernier_proche": "2026-10-24T23:18Z"
+"secondes_proche": 132,
+"dernier_proche": "2026-10-25T06:14Z"
 },
 "glenat": {
-"dernier_essai": "2026-10-24T23:18Z",
+"dernier_essai": "2026-10-25T06:14Z",
 "secondes_complet": 66,
 "dernier_complet": "2026-10-24T19:11Z",
 "echecs": 0,
 "secondes_proche": 36,
-"dernier_proche": "2026-10-24T23:18Z"
+"dernier_proche": "2026-10-25T06:14Z"
 },
 "seuil": {
-"dernier_essai": "2026-10-24T23:18Z",
+"dernier_essai": "2026-10-25T06:14Z",
 "secondes_complet": 31,
 "dernier_complet": "2026-10-24T19:11Z",
 "echecs": 0,
-"secondes_proche": 18,
-"dernier_proche": "2026-10-24T23:18Z"
+"secondes_proche": 19,
+"dernier_proche": "2026-10-25T06:14Z"
 },
 "src_manga": {
-"dernier_essai": "2026-10-24T23:18Z",
+"dernier_essai": "2026-10-25T06:14Z",
 "secondes_complet": 315,
 "dernier_complet": "2026-10-24T19:11Z",
 "echecs": 0,
-"secondes_proche": 138,
-"dernier_proche": "2026-10-24T23:18Z"
+"secondes_proche": 133,
+"dernier_proche": "2026-10-25T06:14Z"
 },
 "src_bd": {
-"dernier_essai": "2026-10-24T23:18Z",
+"dernier_essai": "2026-10-25T06:14Z",
 "secondes_complet": 325,
 "dernier_complet": "2026-10-24T19:11Z",
 "echecs": 0,
-"secondes_proche": 245,
-"dernier_proche": "2026-10-24T23:18Z"
+"secondes_proche": 89,
+"dernier_proche": "2026-10-25T06:14Z"
 },
 "src_generale": {
-"dernier_essai": "2026-10-25T01:16Z",
+"dernier_essai": "2026-10-25T06:14Z",
 "secondes_complet": 304,
 "echecs": 0,
 "dernier_complet": "2026-10-24T20:54Z",
 "secondes_proche": 245,
-"dernier_proche": "2026-10-25T01:16Z"
+"dernier_proche": "2026-10-25T06:14Z"
 }
 },
 "plan": [
+"hachette:proche",
+"glenat:proche",
+"seuil:proche",
+"src_manga:proche",
+"src_bd:proche",
 "src_generale:proche"
 ],
 "editeurs": {
 "hachette": {
 "pages": 45,
 "livres": 534,
-"secondes": 133,
+"secondes": 132,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "glenat": {
 "pages": 12,
@@ -131,66 +136,66 @@
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "seuil": {
 "pages": 6,
 "livres": 48,
-"secondes": 18,
+"secondes": 19,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "nautiljon": {
 "pages": 3,
-"livres": 570,
+"livres": 576,
 "secondes": 9,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "manganews": {
 "pages": 41,
-"livres": 85,
-"completes": 487,
+"livres": 89,
+"completes": 492,
 "ecartes": 2,
-"lus": 574,
-"secondes": 129,
+"lus": 583,
+"secondes": 124,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "bdgest": {
 "pages": 6,
-"livres": 112,
+"livres": 110,
 "secondes": 17,
 "erreurs": 0,
 "rapproches": 62,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "dargaud": {
 "pages": 3,
@@ -200,10 +205,10 @@
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "delcourt": {
 "pages": 9,
@@ -213,10 +218,10 @@
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "soleil": {
 "pages": 5,
@@ -226,10 +231,10 @@
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "lombard": {
 "pages": 1,
@@ -239,36 +244,36 @@
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "kana": {
 "pages": 3,
 "livres": 29,
-"secondes": 8,
+"secondes": 9,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "casterman": {
 "pages": 1,
 "livres": 20,
-"secondes": 3,
+"secondes": 2,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "ruedesevres": {
 "pages": 1,
@@ -278,10 +283,10 @@
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "dupuis": {
 "pages": 1,
@@ -291,29 +296,29 @@
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "bedetheque": {
-"pages": 52,
+"pages": 0,
 "livres": 0,
-"secondes": 155,
+"secondes": 0,
 "erreurs": 0,
-"isbn_trouves": 2,
+"isbn_trouves": 0,
 "statut": "vide",
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
 "michellafon": {
 "pages": 38,
 "livres": 14,
-"secondes": 112,
+"secondes": 113,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -321,12 +326,12 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z"
+"le": "2026-10-25T06:28Z"
 },
 "jailu": {
 "pages": 1,
 "livres": 40,
-"secondes": 3,
+"secondes": 4,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -334,7 +339,7 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z"
+"le": "2026-10-25T06:28Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -347,7 +352,7 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z"
+"le": "2026-10-25T06:28Z"
 },
 "albinmichel": {
 "pages": 2,
@@ -360,12 +365,12 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z"
+"le": "2026-10-25T06:28Z"
 },
 "hugo": {
 "pages": 24,
 "livres": 8,
-"secondes": 73,
+"secondes": 72,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -373,7 +378,7 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z"
+"le": "2026-10-25T06:28Z"
 },
 "points": {
 "pages": 6,
@@ -386,12 +391,12 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z"
+"le": "2026-10-25T06:28Z"
 },
 "bayard": {
 "pages": 5,
 "livres": 23,
-"secondes": 14,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -399,12 +404,12 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z"
+"le": "2026-10-25T06:28Z"
 },
 "milan": {
 "pages": 5,
 "livres": 21,
-"secondes": 17,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -412,7 +417,7 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z"
+"le": "2026-10-25T06:28Z"
 },
 "conflits_dates": {
 "nombre": 5,
@@ -458,28 +463,46 @@
 }
 }
 ],
-"le": "2026-10-24T23:30Z"
+"le": "2026-10-25T06:28Z"
 },
-"fiches_lues": 0,
+"fiches_lues": 60,
 "erreurs": 0
 },
-"secondes_editeurs": 245,
+"secondes_editeurs": 835,
 "dates_relues": {
 "fiches": 30,
-"changees": []
+"changees": [
+{
+"id": "ll:26642193",
+"titre": "Luciole",
+"avant": "2026-11-04",
+"apres": "2026-11-12"
+}
+]
 },
-"editeurs_at": "2026-10-25T01:20Z",
+"ecarts_libraire": {
+"nombre": 1,
+"exemples": [
+{
+"isbn": "9782413092117",
+"titre": "Les légendaires - Résistance - Tome 6 - ",
+"libraire": "2026-10-22",
+"editeur:bdgest": "2026-10-21"
+}
+]
+},
+"editeurs_at": "2026-10-25T06:28Z",
 "listes": 562,
 "lues": 3,
 "en_attente": 0,
 "plus_loin": "2027-04-23",
 "nettoyes": 0,
-"doublons": 0,
+"doublons": 47,
 "sources": {
 "leslibraires": {
 "pages_listes": 71,
 "echecs": 0,
-"secondes_listes": 351,
+"secondes_listes": 350,
 "pages": 104,
 "reprises": 0,
 "fiches_lues": 3,
@@ -491,14 +514,14 @@
 "statut": "ok",
 "livres": 534,
 "pages": 45,
-"secondes": 133,
+"secondes": 132,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 1350
 },
 "glenat": {
@@ -509,66 +532,66 @@
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 269
 },
 "seuil": {
 "statut": "ok",
 "livres": 48,
 "pages": 6,
-"secondes": 18,
+"secondes": 19,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 93
 },
 "nautiljon": {
 "statut": "ok",
-"livres": 570,
+"livres": 576,
 "pages": 3,
 "secondes": 9,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 1203
 },
 "manganews": {
 "statut": "ok",
-"livres": 85,
+"livres": 89,
 "pages": 41,
-"secondes": 129,
+"secondes": 124,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 235
 },
 "bdgest": {
 "statut": "ok",
-"livres": 112,
+"livres": 110,
 "pages": 6,
 "secondes": 17,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 538
 },
 "dargaud": {
@@ -579,10 +602,10 @@
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 38
 },
 "delcourt": {
@@ -593,10 +616,10 @@
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 85
 },
 "soleil": {
@@ -607,10 +630,10 @@
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 37
 },
 "lombard": {
@@ -621,38 +644,38 @@
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 35
 },
 "kana": {
 "statut": "ok",
 "livres": 29,
 "pages": 3,
-"secondes": 8,
+"secondes": 9,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 71
 },
 "casterman": {
 "statut": "ok",
 "livres": 20,
 "pages": 1,
-"secondes": 3,
+"secondes": 2,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 26
 },
 "ruedesevres": {
@@ -663,10 +686,10 @@
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 7
 },
 "dupuis": {
@@ -677,52 +700,52 @@
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 10
 },
 "bedetheque": {
 "statut": "vide",
 "livres": 0,
-"pages": 52,
-"secondes": 155,
+"pages": 0,
+"secondes": 0,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-10",
-"2026-12-08"
+"2026-10-11",
+"2026-12-09"
 ],
-"le": "2026-10-24T23:30Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 0
 },
 "michellafon": {
 "statut": "ok",
 "livres": 14,
 "pages": 38,
-"secondes": 112,
+"secondes": 113,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 35
 },
 "jailu": {
 "statut": "ok",
 "livres": 40,
 "pages": 1,
-"secondes": 3,
+"secondes": 4,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 61
 },
 "bragelonne": {
@@ -736,7 +759,7 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 0
 },
 "albinmichel": {
@@ -750,21 +773,21 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 45
 },
 "hugo": {
 "statut": "ok",
 "livres": 8,
 "pages": 24,
-"secondes": 73,
+"secondes": 72,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 15
 },
 "points": {
@@ -778,39 +801,39 @@
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 46
 },
 "bayard": {
 "statut": "ok",
 "livres": 23,
 "pages": 5,
-"secondes": 14,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 54
 },
 "milan": {
 "statut": "ok",
 "livres": 21,
 "pages": 5,
-"secondes": 17,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-11",
 "2026-12-09"
 ],
-"le": "2026-10-25T01:20Z",
+"le": "2026-10-25T06:28Z",
 "en_base": 41
 }
 },
-"duree_secondes": 763
+"duree_secondes": 1351
 },
 "books": [
 {
@@ -50756,7 +50779,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545555.jpg",
-"description": "",
+"description": "Fougère, alchimiste-potière, adore mijoter de bons petits plats, décorer sa maison et mener une vie paisible au fin fond de la forêt, là où personne ne la dérange jamais. Mais alors vraiment jamais. Jusqu'au jour où Pie, un jeune garçon désemparé, frappe à sa porte pour lui demander de sauver son village, victime d'un étrange sceptre magique... Un sceptre qui semble receler d'immenses pouvoirs et que convoite Téora, une puissante sorcière tapie dans les bois. Alors que la menace grandit, les deux rivales vont devoir partager leur magie... et qui sait, peut-être découvrir que l'union fait la force ?",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Fougere-et-le-pouvoir-des-deux-545555.html",
 "kind": "bd",
@@ -50774,7 +50797,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545553.jpg",
-"description": "",
+"description": "La sulfureuse comtesse Tatiana Turgenief poursuit sa quête de l’or au Tibet. Cette fois, elle croise des nazis à la recherche de la mystérieuse pierre d’Alexandre le Grand… et sa route est toujours jonchée de cadavres.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Mongolie-Tome-3-Roxane-545553.html",
 "kind": "bd",
@@ -50793,7 +50816,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545554.jpg",
-"description": "",
+"description": "Quelque part, près de chez nous... Adrien Pekel est un jeune homme en colère, une ombre au milieu des ombres. Déambulant, en surimpression sans raison, dans une vie qui ne lui appartient pas. Seul au monde, il ne fait partie d'aucun mouvement, club, groupe, cercle, confession ou parti... Il les déteste tous. Un soir, dans une ruelle peu éclairée, Adrien croise une fille qui va faire basculer son destin. Celle-ci lui offre un verre, a l'air de tout savoir sur lui et lui propose un job sur mesure : transformer la Terre en enfer pour le compte de son patron. Adrien va accepter et se mettre au boulot. Il va y mettre tout son cœur et sa hargne. Dans un tourbillon de fureur, il va s'appliquer à détruire le monde, ses habitants au point d'aller beaucoup trop loin. Et lorsque Dieu et le Diable s'en rendent compte, il est trop tard pour l'arrêter... De la frustration à la furie, quand un anonyme devient à lui seul le jugement dernier !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Psycho-Inferno-545554.html",
 "kind": "bd",
@@ -51646,7 +51669,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_546531.jpg",
-"description": "",
+"description": "Un événement tragique impliquant de super-héros divise l'opinion publique et pousse le gouvernement à instaurer la Loi de Recensement des Surhumains. Si Iron Man soutient cette mesure, Captain America s'y oppose fermement. Deux factions opposées se forment. Une guerre civile éclate alors entre les justiciers.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Civil-War-Marvel-Omnibus-OMNI1-546531.html",
 "kind": "bd",
@@ -51854,7 +51877,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_545968_3d2b61.jpg",
-"description": "",
+"description": "Un couple aviné retrouvé mort dans sa voiture. Un avocat au passé trouble. Une mystérieuse jeune femme qui hante les ruelles nocturnes de Milan. Voici campée la deuxième enquête de Duca Lamberti, un opus très attendu !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Duca-Lamberti-Tome-2-Tous-des-traitres-La-Deuxieme-Enquete-de-Duca-Lamberti-545968.html",
 "kind": "bd",
@@ -54091,7 +54114,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545759.jpg",
-"description": "",
+"description": "Le Temps est en crise. Des hommes préhistoriques côtoient des chevaliers médiévaux et des soldats cyborgs en permission de la Quatrième Guerre mondiale. De jeunes aristocrates victoriennes déambulent, perdues, dans des boutiques de téléphonie mobile. Sur le chemin du travail, des employés épuisés se retrouvent piégés dans des boucles temporelles, attaqués par leurs doubles ou projetés dans des terres post-apocalyptiques. Autant de destins pris dans une réalité qui se fissure, où chacun tente de garder le cap tandis que le monde s’effondre, seconde après seconde…",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Multiples-crises-universelles-Tome-1-545759.html",
 "kind": "bd",
@@ -54127,7 +54150,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545863.jpg",
-"description": "",
+"description": "Il y a des rencontres qui relèvent de l’évidence cosmique. Métal Hurlant et Daft Punk, c’était écrit quelque part… dans un circuit imprimé sans doute. Ce n’est pas une simple alliance mais une collision naturelle. Depuis toujours, Métal Hurlant explore les territoires du futur : les machines, les corps augmentés, les nouvelles mythologies technologiques et les créatures nées de l’électronique. Daft Punk… également. L’union Métal Hurlant et Daft Punk est un terrain d’expérimentation. Vous y trouverez des récits qui oscillent, qui scintillent, qui dysfonctionnent. De la science-fiction sensuelle, du romantisme électronique, des machines qui rêvent, des humains qui buggent, des utopies synthétiques et même un peu de body horror chromé.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Metal-Hurlant-Mook-HS06-Daft-Punk-545863.html",
 "kind": "bd",
@@ -54731,7 +54754,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_546471.jpg",
-"description": "",
+"description": "Krakoa n’est plus. Le Professeur X est emprisonné dans l’ancien Institut Xavier, la communauté mutante a volé en éclats. Malicia s’entoure de Gambit, Wolverine et Diablo pour protéger les siens à tout prix. Dans les marais de Louisiane, l’équipe croise la route de quatre jeunes mutants incontrôlables tandis qu’une force tapie dans l’ombre menace d’anéantir les X-Men.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Uncanny-X-Men-Marvel-Deluxe-2026-Tome-1-Vague-rouge-546471.html",
 "kind": "bd",
@@ -55039,7 +55062,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_546469.jpg",
-"description": "",
+"description": "Plusieurs mutants sont incarcérés dans l’ancien Institut Xavier, désormais transformé en prison. Pour les libérer, deux équipes de X-Men organisent une opération de sauvetage sous haute tension. Depuis l’Alaska, Cyclope prépare une extraction méthodique tandis qu’en Louisiane, Malicia privilégie l’assaut frontal. Deux visions. Deux stratégies. Deux leaders que tout oppose.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-X-Men-Assaut-sur-Graymalkin-Assaut-sur-Graymalkin-546469.html",
 "kind": "bd",
@@ -55058,7 +55081,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_546468.jpg",
-"description": "",
+"description": "À l'issue de la guerre contre Orchis, Charles Xavier s'est rendu aux autorités. Mais voilà qu'un nouveau danger l'a convaincu de fuir de sa prison ! Quelle est cette terrible menace ? Et qui parmi ses anciens élèves parviendra à retrouver le Professeur pour obtenir des réponses ? Les équipes de Cyclope et de Malicia ? Ou bien Tornade, Facteur-X ou encore X-Force ? En octobre, les mutants prennent la collection MARVEL DELUXE d'assaut avec pas moins de quatre volumes décrivant quasiment toute la période pré-Ère de Révélation ! Pour satisfaire le plus grand nombre de lecteurs, les deux crossovers impliquant les séries principales X-Men et Uncanny X-Men sont recueillis dans deux albums séparés, ce qui permettra à chacun de choisir sa série préférée... ou de se faire la totale !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-X-Men-Chasse-au-X-Chasse-au-X-546468.html",
 "kind": "bd",
@@ -55579,7 +55602,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aba958b9fb7f7091d4e1da8_9782749965543WEB.jpg",
-"description": "",
+"description": "Jaehyun se rend dans des ruines où l'attendent de périlleuses épreuves. S'il parvient à les surmonter, il se rapprochera un peu plus de son rôle de héros de l'humanité. Mais alors qu'il s'attendait à acquérir une nouvelle arme, il...",
 "rayons": [
 "Webtoon"
 ],
@@ -55704,7 +55727,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6ab630c7ff411c69e223b445_9782749965482WEB.jpg",
-"description": "",
+"description": "Au cœur de l'enfer de Kowloon, Peter et l'apôtre Thaddaeus se livrent un duel fratricide. Mais l'assassin légendaire se refuse à tuer le jeune homme, préférant faire de lui un allié de choix pour sa vengeance. Pour y parvenir, il...",
 "rayons": [
 "Webtoon"
 ],
@@ -56526,11 +56549,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782386434037/grande/161437_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Affaires de coeur - T.4 « Automne », B.K. Borison, Frédérique Le Boucher : VIVEZ VOS PASSIONS AU RYTHME DES SAISONS AVEC LE QUATRIEME TOME « AUTOMNE » ...",
+"rayons": [
+"Littérature étrangère"
+],
 "url": "https://www.seuil.com/ouvrage/affaires-de-coeur-t-4-automne-b-k-borison/9782386434037",
-"kind": "",
-"source": "editeur:seuil"
+"kind": "roman",
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782382766514",
@@ -56565,11 +56591,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021524147/grande/152414_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Animal errant sur autoroute et autres offres d'emploi raisonnables , Dalibor Frioux : OFFRE D'EMPLOI — Lecteur/lectrice de ce livrePour un recueil littéra...",
+"rayons": [
+"Littérature française"
+],
 "url": "https://www.seuil.com/ouvrage/animal-errant-sur-autoroute-et-autres-offres-d-emploi-raisonnables-dalibor-frioux/9782021524147",
-"kind": "",
-"source": "editeur:seuil"
+"kind": "roman",
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782808701006",
@@ -56621,11 +56650,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021588385/grande/158838_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Avec la terre, Geneviève Pruvost, Alain Marcom, Aymone Nicolas : Pour vivre sur une planète habitable, nous devons rénover nos passoires thermiques et bâ...",
+"rayons": [
+"Documents"
+],
 "url": "https://www.seuil.com/ouvrage/avec-la-terre-genevieve-pruvost/9782021588385",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782021622034",
@@ -56639,11 +56671,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021622034/grande/162203_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Aya pour l'exemple, Christelle Bakima Poundza : Comment Aya Nakamura est-elle devenue l'artiste française la plus écoutée dans le monde ? Et pourquoi son ...",
+"rayons": [
+"Documents"
+],
 "url": "https://www.seuil.com/ouvrage/aya-pour-l-exemple-christelle-bakima-poundza/9782021622034",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782386587917",
@@ -56771,11 +56806,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021635645/grande/163564_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Bèstia, Irene Solà, Edmond Raillard : Bèstia est porté par un langage viscérale qui, sous une forme minimale, fait écho aux romans que les lecteurs fra...",
+"rayons": [
+"Littérature étrangère"
+],
 "url": "https://www.seuil.com/ouvrage/bestia-irene-sola/9782021635645",
-"kind": "",
-"source": "editeur:seuil"
+"kind": "roman",
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9791041425235",
@@ -57280,11 +57318,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021618761/grande/161876_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Mythologies de l'IA, Jean-Gabriel Ganascia : Les IA seraient menteuses, racistes, manipulatrices… Elles suscitent beaucoup d’inquiétudes",
+"rayons": [
+"Sciences humaines"
+],
 "url": "https://www.seuil.com/ouvrage/mythologies-de-l-ia-jean-gabriel-ganascia/9782021618761",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ll:26612663",
@@ -57381,11 +57422,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021621051/grande/162105_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Plonge, nage et vis !, Aurore Chaillou, Marie Graftiaux : Qu’est-ce que le handicap intellectuel ? Comment vit-on ses amours, ses amitiés et son travail a...",
+"rayons": [
+"Documents"
+],
 "url": "https://www.seuil.com/ouvrage/plonge-nage-et-vis-aurore-chaillou/9782021621051",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9791041429981",
@@ -57421,11 +57465,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021549065/grande/154906_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Quand ils devinrent des hommes, Kan  Yao-Ming, Pierre-Mong Lim : Été 1945",
+"rayons": [
+"Littérature étrangère"
+],
 "url": "https://www.seuil.com/ouvrage/quand-ils-devinrent-des-hommes-kan-yao-ming/9782021549065",
-"kind": "",
-"source": "editeur:seuil"
+"kind": "roman",
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ll:26623545",
@@ -57540,11 +57587,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782386434112/grande/161467_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Tante Dimity et la course à l'héritage, Nancy Atherton, Axelle Demoulin, Nicolas Ancion : LE TOME 7 DE LA SÉRIE D’ENQUÊTES PLUS COSY QUE MYSTERY, BEST-...",
+"rayons": [
+"Littérature étrangère"
+],
 "url": "https://www.seuil.com/ouvrage/tante-dimity-et-la-course-a-l-heritage-nancy-atherton/9782386434112",
-"kind": "",
-"source": "editeur:seuil"
+"kind": "roman",
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782382766002",
@@ -57699,11 +57749,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021629361/grande/162936_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "méduse-moi, Ananda Brizzi : Dans méduse-moi, Ananda Brizzi déploie une poésie incandescente où l’intime se mêle au mythe pour dire la violence du mon...",
+"rayons": [
+"Littérature française"
+],
 "url": "https://www.seuil.com/ouvrage/meduse-moi-ananda-brizzi/9782021629361",
-"kind": "",
-"source": "editeur:seuil"
+"kind": "roman",
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9791097477585",
@@ -58295,7 +58348,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_535932_9cf309.jpg",
-"description": "",
+"description": "Blondie est un album qui sort un peu du modèle du Docu-BD Petit à Petit. Après une introduction d'une vingtaine de planches sur la naissance du groupe et centrée sur Debbie Harry et Chris Stein, les deux fondateurs, se suivent les interprétations en illustration puis en BD de dix chansons de leur répertoire. C'est une bande dessinée qui fait la part belle à la créativité et à l'inspiration, et qui rend un hommage coloré à ce groupe pionnier du mouvement punk dans les années 1970. Il se finit par une postface de Victor Bockris auteur anglais ayant vécu principalement aux États-Unis, et connu pour ses biographies d'artistes et de musiciens, notamment du mouvement punk, comme Lou Reed, Patti Smith et, bien sûr, Blondie. Pionnier du mouvement punk new-yorkais dans les années 1970, Blondie a su se démarquer par son mélange des genres et sa flamboyante chanteuse, Debbie Harry. Avec ses tubes ''Call Me'', ''Heart of Glass'', ''One Way or Another'' et ''The Tide is High'', le groupe joue avec les styles punk, rock, disco et même reggae ! Après une carrière foudroyante qui a donné naissance à six albums, le groupe se reforme à la fin des années 1990 et tourne encore aujourd'hui ! Dans ce Docu-BD, découvrez la création du groupe par ses deux fondateurs, Debbie Harry et Chris Stein, puis les interprétations en illustration et en BD de dix chansons de leur répertoire. Le tout est ponctué de pages documentaires rédigées par Victor Bockris, célèbre biographe de musiciens punk.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Blondie-collectif-chez-petit-a-petit-Blondie-535932.html",
 "kind": "bd",
@@ -62806,11 +62859,9 @@
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782386435225/grande/163007_couverture_Hres_0.jpg",
 "description": "Ce qui dévore la nuit, T. Kingfisher, Robin Bouder : LE DEUXIÈME VOLET DE LA TRILOGIE D'HORREUR BEST-SELLER « SWORN SOLDIER »\nLa nuit a faim",
-"rayons": [
-"Littérature étrangère"
-],
+"rayons": [],
 "url": "https://www.seuil.com/ouvrage/ce-qui-devore-la-nuit-t-kingfisher/9782386435225",
-"kind": "roman",
+"kind": "",
 "source": "editeur:seuil",
 "fiche": 1
 },
@@ -63108,9 +63159,7 @@
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021614145/grande/161414_couverture_Hres_0.jpg",
 "description": "Le Corps en mouvement dans la peinture, Georges Vigarello : Feuilleter un extraitLe mouvement corporel, avec ses versants techniques, expressifs, émotifs ou...",
-"rayons": [
-"Beaux Livres"
-],
+"rayons": [],
 "url": "https://www.seuil.com/ouvrage/le-corps-en-mouvement-dans-la-peinture-georges-vigarello/9782021614145",
 "kind": "",
 "source": "editeur:seuil",
@@ -63641,7 +63690,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26615072-deux-messieurs-de-la-police-sont-venus-ce-matin-robert-debre-mon-arriere-grand-pere-medecin-juif-et-resistant-guillaume-debre-flammarion",
 "kind": "roman",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782344078020",
@@ -63673,14 +63722,15 @@
 "pages": 0,
 "format": "Grand format - Broché",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/GRASSETFASQUELLE/2026/9782246843658-001-X.jpeg",
-"description": "",
+"description": "«  La cuisine des restaurants, autant que de viande et de poisson, de légumes, de fruits, de céréales, d’épices et de condiments, se nourrit de chair ",
 "rayons": [
 "Actualités",
 "Histoire et Actualités"
 ],
 "url": "https://www.hachette.fr/livre/arriere-cuisines-9782246843658/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782226502414",
@@ -63826,7 +63876,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26452874-c-est-papa-possible-colas-gutman-ecole-des-loisirs",
 "kind": "jeunesse",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ll:25995966",
@@ -63986,7 +64036,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26611250-deux-aventures-de-chevalier-chouette-edition-collector-christopher-denise-kaleidoscope",
 "kind": "jeunesse",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ll:26552565",
@@ -64023,14 +64073,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253252825-001-X.jpeg",
-"description": "",
+"description": "Dès l’Antiquité, penseurs et écoles philosophiques se sont affrontés en proposant des visions du monde totalement antagonistes: l’idéalisme de Platon ",
 "rayons": [
 "Droit et Sciences Humaines",
 "Savoirs"
 ],
 "url": "https://www.hachette.fr/livre/deambulation-dans-les-ruines-histoire-philosophique-de-loccident-tome-1-9782253252825/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782382817278",
@@ -64203,7 +64254,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26574289-japon-saveurs-vegetales-authentiques-kurata-merkscha-la-plage",
 "kind": "",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782253915492",
@@ -64370,14 +64421,15 @@
 "pages": 0,
 "format": "Grand format - Autre",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/RAGEOT/2026/9782700289589-001-X.jpeg",
-"description": "",
+"description": "L’Autre - L’intégrale regroupe les trois tomes de la trilogie fantastique de Pierre Bottero  : Le Souffle de la hyène, Le Maître des tempêtes et La Hu",
 "rayons": [
 "Premières lectures (6-9 ans)",
 "Jeunesse"
 ],
 "url": "https://www.hachette.fr/livre/lautre-lintegrale-9782700289589/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782253249924",
@@ -64391,14 +64443,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253249924-001-X.jpeg",
-"description": "",
+"description": "Solenn Pol, trente-quatre ans, Professeur de pharmacologie en région parisienne, reçoit un étrange coup de fil d’une de ses collègues bordelaises qui ",
 "rayons": [
 "Romans francophones",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/leffet-nocebo-9782253249924/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782203265172",
@@ -64538,15 +64591,16 @@
 "isbn": "9782253249856",
 "pages": 0,
 "format": "Poche",
-"cover": "",
-"description": "",
+"cover": "https://media.hachette.fr/fit-in/500x500/imgArticle/LGFLIVREDEPOCHE/2026/9782253249856-001-G.jpeg?source=web&v=00e7e50d71e1a2b7cb4bc5342589a73a",
+"description": "Stephen Moran, flic ambitieux affecté aux affaires non classées, rêve d’intégrer la brigade criminelle quand il reçoit la visite de la fille d’un coll",
 "rayons": [
 "Romans étrangers",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/la-cour-des-secrets-9782253249856/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ll:26640026",
@@ -64895,14 +64949,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/HACHETTEJEUNESSE/2026/9782017391616-001-X.jpeg",
-"description": "",
+"description": "Résumé Catastrophe ! Bibi s’est procuré un livre sur les Marsupilamis et elle est persuadée qu’ils existent ! Bien décidée à en trouver un pour l’adop",
 "rayons": [
 "Premières lectures (6-9 ans)",
 "Jeunesse"
 ],
 "url": "https://www.hachette.fr/livre/les-marsupilamis-tome-03-un-marsu-pour-bibi-9782017391616/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782344078037",
@@ -65148,14 +65203,15 @@
 "pages": 0,
 "format": "Grand format - Broché",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/GRASSETFASQUELLE/2026/9782246844723-001-X.jpeg",
-"description": "",
+"description": "Le chef-d’œuvre de Natalia Ginzburg enfin retraduit. Lexique familial raconte l’histoire d’une famille juive antifasciste, celle de l’autrice et de se",
 "rayons": [
 "Romans étrangers",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/lexique-familial-9782246844723/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782246838920",
@@ -65170,14 +65226,15 @@
 "pages": 0,
 "format": "Grand format - Broché",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/GRASSETFASQUELLE/2026/9782246838920-001-X.jpeg",
-"description": "",
+"description": "Philippe Raynaud retrace ici son propre itinéraire philosophique et politique. Ces entretiens veulent ensuite contribuer à une analyse et à un bilan d",
 "rayons": [
 "Actualités",
 "Histoire et Actualités"
 ],
 "url": "https://www.hachette.fr/livre/liberte-amitie-verite-9782246838920/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782344069950",
@@ -65322,14 +65379,15 @@
 "pages": 0,
 "format": "Grand format - Relié",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/GAUTIERLANGUEREAU/2026/9782017330950-001-X.jpeg",
-"description": "",
+"description": "En haut d’un château, vit la princesse aux mille kimonos. Chaque jour, elle enfile un par un ses habits précieux : jaunes, bleus, verts, rouges ou dor",
 "rayons": [
 "Eveil (0 -3 ans)",
 "Jeunesse"
 ],
 "url": "https://www.hachette.fr/livre/mille-kimonos-9782017330950/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782017245414",
@@ -65448,14 +65506,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/HACHETTEJEUNESSE/2026/9782017392217-001-X.jpeg",
-"description": "",
+"description": "Un mystérieux animal sème la zizanie à Londres en prenant les commandes d’objets connectés. Mais ce n’est pas tout ! Il s’amuse à laisser à l’inspecte",
 "rayons": [
 "Premières lectures (6-9 ans)",
 "Jeunesse"
 ],
 "url": "https://www.hachette.fr/livre/mystery-lane-tome-17-le-faiseur-denigmes-9782017392217/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782380462487",
@@ -65505,14 +65564,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253913962-001-X.jpeg",
-"description": "",
+"description": "Dans la petite ville de Désespoir, trois jeunes femmes ont été kidnappées. La police arrête un suspect. Surprise: son ADN correspond en tout point à c",
 "rayons": [
 "Romans étrangers",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/noir-comme-lenfer-bourbon-kid-tome-11-9782253913962/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ll:26633515",
@@ -65663,7 +65723,8 @@
 ],
 "url": "https://www.hachette.fr/livre/ruben-cie-mes-premiers-colos-9782017390169/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782226516626",
@@ -65915,7 +65976,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26574250-the-korean-vegan-homemade-recettes-coreennes-conviviales-et-familiales-joanne-lee-molinaro-la-plage",
 "kind": "",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782017396048",
@@ -65929,14 +65990,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/HACHETTELAB/2026/9782017396048-001-X.jpeg",
-"description": "",
+"description": "Chaque battement de son cœur pourrait être le dernier… Cinq ans après avoir été exilée pour sa sécurité, Maxine Callaghan revient à Little Bay, bien d",
 "rayons": [
 "Ito",
 "BMR"
 ],
 "url": "https://www.hachette.fr/livre/sons-death-tome-1-9782017396048/",
 "kind": "bd",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782017375647",
@@ -66024,7 +66086,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26657221-un-petit-quartier-demilly-de-nussy-grasset-jeunesse",
 "kind": "jeunesse",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782017343660",
@@ -66082,14 +66144,15 @@
 "pages": 0,
 "format": "Grand format - Broché",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/COMET/2026/9782487412507-001-X.jpeg",
-"description": "",
+"description": "Eva rêvait de grands reportages, d’enquêtes qui bousculent le monde. À la place, elle anime Sausage Talk, un podcast absurde où elle pose des question",
 "rayons": [
 "Ados",
 "Jeunesse"
 ],
 "url": "https://www.hachette.fr/livre/well-actually-9782487412507/",
 "kind": "ya",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782017392194",
@@ -66103,14 +66166,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/HACHETTEJEUNESSE/2026/9782017392194-001-X.jpeg",
-"description": "",
+"description": "Cet été, Romain voyage au Groenland pour observer la faune du Grand Nord. Sur une île, il fait la rencontre d’un bébé loup abandonné. Impossible de re",
 "rayons": [
 "Premières lectures (6-9 ans)",
 "Jeunesse"
 ],
 "url": "https://www.hachette.fr/livre/wild-immersion-tome-26-expedition-au-pays-des-loups-arctiques-9782017392194/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782376717782",
@@ -66214,7 +66278,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26548010-facteur-x-comment-l-industrie-chimique-nous-cache-la-verite-camille-etienne-les-arenes",
 "kind": "",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782302107601",
@@ -66296,7 +66360,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26520149-la-vie-au-bout-des-doigts-penelope-les-grandes-personnes",
 "kind": "jeunesse",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782413091868",
@@ -66337,7 +66401,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26547948-nos-coeurs-invincibles-correspondance-entre-une-etudiante-a-gaza-et-une-etudiante-en-israel-albanna-amzalak-pocket",
 "kind": "",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782302109643",
@@ -66438,7 +66502,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26520082-sous-le-grand-chene-le-voyage-d-une-vie-le-voyage-d-une-vie-elena-selena-les-grandes-personnes",
 "kind": "jeunesse",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ll:26547481",
@@ -66548,7 +66612,7 @@
 },
 {
 "id": "ed:9782492463501",
-"title": "2, 3 et 4, 5, Roku - Tome 1",
+"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -66688,7 +66752,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622953-1-blake-mortimer-tome-1-le-secret-de-l-espadon-tome-1-edgar-p-jacobs-blake-et-mortimer",
 "kind": "bd",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782870973424",
@@ -66762,11 +66826,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021613346/grande/161334_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Contes des sages érotiques, Céline Ripoll : À l’heure où nos sociétés questionnent ouvertement les rapports entre hommes et femmes, où sont mises en...",
+"rayons": [
+"Beaux Livres"
+],
 "url": "https://www.seuil.com/ouvrage/contes-des-sages-erotiques-celine-ripoll/9782021613346",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ll:26622748",
@@ -66789,7 +66856,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622748-cybele-katia-lanero-zamora-aux-forges-de-vulcain",
 "kind": "roman",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782800152707",
@@ -66831,7 +66898,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622909-demeure-diglee-maureen-wingrove-la-ville-brule",
 "kind": "",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782379509414",
@@ -66965,11 +67032,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021585193/grande/158519_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Il n'y a pas d'ailleurs, Pierre-Louis Choquet : Comment continuer à vivre et à espérer aujourd’hui, alors que les forces aveugles de l’économie rende...",
+"rayons": [
+"Sciences humaines"
+],
 "url": "https://www.seuil.com/ouvrage/il-n-y-a-pas-d-ailleurs-pierre-louis-choquet/9782021585193",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782377178162",
@@ -67024,11 +67094,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021620474/grande/162047_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "L'Autre monde. Une histoire illustrée de l'au-delà (nouvelle édition brochée), Guillaume Duprat : Feuilleter un extraitLes sociétés humaines se sont to...",
+"rayons": [
+"Sciences humaines"
+],
 "url": "https://www.seuil.com/ouvrage/l-autre-monde-une-histoire-illustree-de-l-au-dela-nouvelle-edition-brochee-guillaume-duprat/9782021620474",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ll:26623551",
@@ -67051,7 +67124,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623551-l-espion-utile-william-boyd-seuil",
 "kind": "roman",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782021629682",
@@ -67065,11 +67138,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021629682/grande/162968_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "L'athlétisme par Philippe Delerm, Philippe Delerm : Feuilleter un extrait« 100 mètres, dix secondes, on tutoie toujours l’absolu",
+"rayons": [
+"Beaux Livres"
+],
 "url": "https://www.seuil.com/ouvrage/l-athletisme-par-philippe-delerm-philippe-delerm/9782021629682",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782021590418",
@@ -67083,11 +67159,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021590418/grande/159041_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "L'Éléphante d'Asie qui réinvente la douche, Nathaniel Herzberg : Saviez-vous qu'une éléphante du zoo de Berlin a appris à se doucher en manipulant un t...",
+"rayons": [
+"Sciences humaines"
+],
 "url": "https://www.seuil.com/ouvrage/l-elephante-d-asie-qui-reinvente-la-douche-nathaniel-herzberg/9782021590418",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782021604313",
@@ -67101,11 +67180,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021604313/grande/160431_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "La montagne par Stéphanie Bodet, Stéphanie Bodet : Feuilleter un extrait« Quelques heures passées dans la montagne peuvent chambouler une vie",
+"rayons": [
+"Beaux Livres"
+],
 "url": "https://www.seuil.com/ouvrage/la-montagne-par-stephanie-bodet-stephanie-bodet/9782021604313",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782492463365",
@@ -67200,11 +67282,14 @@
 "pages": 0,
 "format": "",
 "cover": "https://ref.lamartinieregroupe.com/media/9782021616606/grande/161660_couverture_Hres_0.jpg",
-"description": "",
-"rayons": [],
+"description": "Le cyclisme par Aurélien Bellanger, Aurélien Bellanger : Feuilleter un extrait« Le cyclisme est une forme du bonheur – la plus approchante peut-être",
+"rayons": [
+"Beaux Livres"
+],
 "url": "https://www.seuil.com/ouvrage/le-cyclisme-par-aurelien-bellanger-aurelien-bellanger/9782021616606",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"fiche": 1
 },
 {
 "id": "ed:9782808702195",
@@ -67267,7 +67352,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623471-2-love-bullet-tome-2-inee-vega-dupuis",
 "kind": "bd",
-"lu": "2026-10-24"
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782377178155",
@@ -68226,7 +68311,8 @@
 "22, Ariol, Tome 22, Ariol au pays du poisson cru"
 ],
 "url": "https://www.leslibraires.fr/livre/26310861-22-ariol-tome-22-ariol-au-pays-du-poisson-cru-emmanuel-guibert-bayard-jeunesse",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782818507940",
@@ -68463,7 +68549,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26664822-2-captive-tome-2-sarah-rivens-hachette-hlab",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9791041114696",
@@ -68707,14 +68794,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253918097-001-X.jpeg",
-"description": "",
+"description": "« Agressif : “Moi, Monsieur, si j’avais un tel nez, Il faudrait sur-le-champ que je me l’amputasse !” Amical : “Mais il doit tremper dans votre tasse ",
 "rayons": [
 "Théâtre et poésie",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/cyrano-de-bergerac-edition-collector-9782253918097/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782702196229",
@@ -68781,7 +68869,8 @@
 "Des chiens et des ours"
 ],
 "url": "https://www.leslibraires.fr/livre/26611274-des-chiens-et-des-ours-max-porter-ecole-des-loisirs",
-"kind": "jeunesse"
+"kind": "jeunesse",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782017910770",
@@ -69011,7 +69100,8 @@
 "Fantômes Cheyennes"
 ],
 "url": "https://www.leslibraires.fr/livre/26633524-fantomes-cheyennes-craig-johnson-editions-gallmeister",
-"kind": "roman"
+"kind": "roman",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9791038210370",
@@ -69026,7 +69116,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545677.jpg",
-"description": "",
+"description": "En ces temps où tout le monde se demande si l'on peut encore rire de tout, Reuzé et ses comparses font fi de ces questions et nous offrent un bijou d'humour noir et absurde que n'aurait pas renié Desproges.LA série d'humour de référence. Déjà plus d'un million de lecteurs conquis ! Reuzé aborde par l'absurde de grands sujets de société tels que l'enseignement, la pauvreté, le racisme ordinaire, l'intelligence artificielle, la radicalisation, le dopage, l'eugénisme, le harcèlement publicitaire, la corrida, les services après vente, les déserts médicaux... Une intégrale réunissant les 4 premiers tomes de la série.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Faut-pas-prendre-les-cons-pour-des-gens-INT02-Integrale-tomes-1-a-5-545677.html",
 "kind": "bd",
@@ -69129,7 +69219,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_543513.jpg",
-"description": "",
+"description": "Liz, la course, la compagnie Leixoil... Après la disparition de Lowell, la mort, l'amour et la chance tournent plus que jamais autour de Lloyd ! Celui-ci doit dominer son Gee Bee afin de vaincre le flamboyant Roscoe Turner dans l'arène délirante de la course du Trophée Thompson, où la foule se presse, comme pour assister à un combat de gladiateurs de la vitesse. Mais le danger n'est pas toujours là où on l'attend et l'ombre d'un secret de famille pourrait venir à nouveau rebattre les cartes du destin et nous amener très loin de Mine's field...",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Godspeed-Hugault-Tome-4-N4-Oct-26-543513.html",
 "kind": "bd",
@@ -69237,7 +69327,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782749310503-001-X.jpeg",
-"description": "",
+"description": "La chasse aux monstres est ouverte ! Griffonne, jeune démone, s'intègre tant bien que mal à l'école du village de Bouille-en-Joie. Le monde des humains est nouveau pour elle, tout comme les devoirs... Heureusement, elle peut compter sur ses amis Séraphin et Lili. Mais depuis quelque temps, l'école est en ébullition. Les élèves sont perturbés, des disputes éclatent. Colère, peur et tristesse règnent dans la cour de récréation. Et si ces événements inquiétants étaient liés à la mystérieuse créature qui rôde dans l'école ? Quand le bipomètre de Griffonne s'affole, c'est qu'une entité infernale se cache non loin. Mais si ce n'était pas un monstre ordinaire mais « un cauchemar » capable de se nourrir de la peur et d'envahir peu à peu les esprits ? Comment renvoyer une telle créature dans les Enfers, alors que les cauchemars ne meurent jamais ? Au même moment, les pouvoirs de Griffonne se réveillent. Mais eux aussi semblent de plus en plus difficiles à maîtriser. Ensemble, Griffonne, Séraphin et Lili vont former une bande d'enquêteurs ultra-futés pour tenter de comprendre se qui se trame. Il va falloir ruser, rester soudés et surtout apprendre à affronter ses propres peurs pour empêcher l'école de sombrer dans le chaos. Bienvenue dans un monde aux apparences trompeuses où les monstres sont parmi nous. Le duo Elsa Corradi et Fabien Ronteix continue de nous surprendre avec le second tome de cette série fantastique pleine de rebondissements, de jeux de mots et de courses-poursuites en",
 "rayons": [
 "BD - Humour"
 ],
@@ -69319,14 +69409,15 @@
 "pages": 0,
 "format": "Grand format - Cartonné",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LAROUSSE/2026/9782036094765-001-X.jpeg",
-"description": "",
+"description": "Newton, Tesla, Linné, Lovelace, Buffon, Mendeleïev, Faraday, Descartes… Ces noms vous disent certainement quelque chose, certains plus que d’autres, m",
 "rayons": [
 "Histoire de l'Art et Art majeurs",
 "Arts"
 ],
 "url": "https://www.hachette.fr/livre/ils-ont-revolutionne-les-sciences-9782036094765/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ll:26633741",
@@ -69348,7 +69439,8 @@
 "Psychologie sociale"
 ],
 "url": "https://www.leslibraires.fr/livre/26633741-inquietante-liberte-cyrulnik-koubova-odile-jacob",
-"kind": ""
+"kind": "",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782382813836",
@@ -69391,7 +69483,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26523639-j-ai-trouve-un-homme-dans-le-jardin-hiro-arikawa-actes-sud",
-"kind": "roman"
+"kind": "roman",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782253918127",
@@ -69405,14 +69498,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253918127-001-X.jpeg",
-"description": "",
+"description": "« Dieu bon ! Quel cri ! La nuit, son silence, son repos, furent déchirés par un cri sauvage, aigu, strident, qui retentit d’un bout à l’autre de Thorn",
 "rayons": [
 "Oeuvres classiques",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/jane-eyre-edition-collector-9782253918127/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782278133376",
@@ -69426,14 +69520,15 @@
 "pages": 0,
 "format": "Grand format - Cartonné",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/DIDIERJEUNESSE/2026/9782278133376-001-X.jpeg",
-"description": "",
+"description": "Un nouveau livre sonore classique de 5 puces (90 secondes) pour découvrir des musiques classiques sur le thème de Noël par de grands compositeurs : Tc",
 "rayons": [
 "Eveil (0 -3 ans)",
 "Jeunesse"
 ],
 "url": "https://www.hachette.fr/livre/je-decouvre-les-musiques-classiques-de-noel-9782278133376/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782017336327",
@@ -69445,13 +69540,14 @@
 "pages": 0,
 "format": "Grand format - Broché",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/HACHETTEFICTIONS/2026/9782017336327-001-X.jpeg",
-"description": "",
+"description": "À quarante-neuf ans, Agneta a l’impression de s’être fondue dans la tapisserie. Ses enfants ne l’appellent que s’ils ont besoin d’argent, ses collègue",
 "rayons": [
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/je-mappelle-agneta-9782017336327/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782017395522",
@@ -69514,7 +69610,8 @@
 "Kpop Demon Hunters Tome 1 - Le Manwha officiel"
 ],
 "url": "https://www.leslibraires.fr/livre/26633397-kpop-demon-hunters-tome-1-le-manwha-officiel-collectif-neotoon",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-25"
 },
 {
 "id": "ll:26633376",
@@ -69549,14 +69646,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/PIKA/2026/9791043312298-001-X.jpeg",
-"description": "",
+"description": "Un coffret contenant les 3 premiers tomes de la série L'Atelier des sorciers. Coco a toujours été fascinée par la magie. Hélas, seuls les sorciers peu",
 "rayons": [
 "Mangas",
 "BD Mangas"
 ],
 "url": "https://www.hachette.fr/livre/latelier-des-sorciers-coffret-t01-t03-9791043312298/",
 "kind": "bd",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782344076439",
@@ -69641,7 +69739,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26409147-l-evenement-laetitia-coryn-catherine-mory-futuropolis",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782353484263",
@@ -69683,7 +69782,8 @@
 "Histoire"
 ],
 "url": "https://www.leslibraires.fr/livre/26633313-1-la-chute-des-geants-tome-01-toutes-les-coleres-du-monde-alcante-djief-glenat",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782253918004",
@@ -69726,7 +69826,8 @@
 "Fantasy"
 ],
 "url": "https://www.leslibraires.fr/livre/26596719-la-dragonne-et-le-drole-alex-w-inker-sarbacane",
-"kind": "bd"
+"kind": "bd",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782213731643",
@@ -69892,7 +69993,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26556255-1-lakestone-tome-1-edition-speciale-sarah-rivens-hachette-hlab",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782253073581",
@@ -69906,14 +70008,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253073581-001-X.jpeg",
-"description": "",
+"description": "« Je plie mon titre de baron et le mets au fond de mon porte-manteau, comme un vêtement qui n’est plus de mise. […] Donc je succède à Matamore et pren",
 "rayons": [
 "Oeuvres classiques",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/le-capitaine-fracasse-edition-collector-9782253073581/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782387219985",
@@ -70012,7 +70115,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/cache/thb_couv/Couv_546011_08175a.jpg",
-"description": "",
+"description": "Le Grand Meaulnes suit le destin d'Augustin Meaulnes, adolescent insaisissable hanté par l'apparition d'Yvonne de Galais, entrevue lors d'une fête mystérieuse et devenue l'objet d'une quête absolue. Vincent Mallié en livre une incarnation magistrale, sensible et habitée, qui révèle toute la tension intérieure du récit. Ses aquarelles, d'une virtuosité éclatante, installent une atmosphère vibrante entre réel et mémoire. Le rhodoïde rouge agit alors comme un filtre du regard. Il déplace, révèle, altère. Il donne forme aux œillères de Meaulnes et à cette fascination qui transforme le monde.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-AUT-Mallie-Tome-2026-Le-Grand-Meaulnes-546011.html",
 "kind": "bd",
@@ -70030,14 +70133,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253918134-001-X.jpeg",
-"description": "",
+"description": "« Une sensation bizarre m’envahit, je jetai un défi au sort, j’eus envie de lui donner une chiquenaude,  de lui tirer la langue. Je misai le maximum a",
 "rayons": [
 "Oeuvres classiques",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/le-joueur-edition-collector-9782253918134/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:manganews:pays-de-tanabata-le-vol-3",
@@ -70118,7 +70222,8 @@
 "Le monde de Noé"
 ],
 "url": "https://www.leslibraires.fr/livre/26550198-le-monde-de-noe-pierre-antoine-city",
-"kind": "roman"
+"kind": "roman",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782754116954",
@@ -70256,14 +70361,15 @@
 "pages": 0,
 "format": "Grand format - Cartonné",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/HICOMICS/2026/9782378873066-001-X.jpeg",
-"description": "",
+"description": "Après sa reprise en main explosive des Tortues Ninja , Jason Aaron livre ici la seconde partie de son interprétation des héros iconiques de Kevin East",
 "rayons": [
 "Bande dessinées",
 "BD Mangas"
 ],
 "url": "https://www.hachette.fr/livre/les-tortues-ninja-tmnt-t2-nyc-vs-tmnt-9782378873066/",
 "kind": "bd",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782253918042",
@@ -70277,14 +70383,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253918042-001-X.jpeg",
-"description": "",
+"description": "« De leur côté, les trois mousquetaires aimaient fort leur jeune camarade. L’amitié qui unissait ces quatre hommes, et le besoin de se voir trois ou q",
 "rayons": [
 "Oeuvres classiques",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/les-trois-mousquetaires-edition-collector-9782253918042/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782213736235",
@@ -70363,7 +70470,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545679.jpg",
-"description": "",
+"description": "Dans cette nouvelle épopée des hilarants et politiquement corrects Freak Brothers, Freewheelin' Franklin, Phineas et Fat Freddy pensent avoir trouvé le filon en créant leur propre ligne de bus à bas prix, composée d'un seul véhicule, intitulée « Le Whiteline Cannonball Express à 29,95 de San Francisco à New York ». Mais ce prix dérisoire entraîne de nombreux détours imprévus, surtout lorsqu'ils décident de laisser les passagers voter pour les arrêts ! Bien sûr, ils oublient d'inclure le prix de l'essence dans leurs calculs, et ils semblent ignorer le sens du mot « express ». Ensuite, les frères donnent de l'argent à Fat Freddy pour qu'il achète de l'herbe, et il revient fièrement avec... un train électrique ? Parmi les autres folies des Freak Brothers présentes dans ce volume, on retrouve toutes les bandes dessinées en couleurs initialement publiées dans les magazines High Times et Playboy. (Ah oui, on a dit « politiquement correct » ? C'est une blague !) En bonus : le chat de Fat Freddy est la vedette du court-métrage en noir et blanc « Les Chariots des Globes » et du court-métrage en couleurs « L'Incendie d'Hollywood », ainsi que d'autres aventures en solo !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Fabuleux-Freak-Brothers-INTR03-Retour-aux-sources-et-autres-idees-a-la-noix-545679.html",
 "kind": "bd",
@@ -70421,13 +70528,14 @@
 "pages": 0,
 "format": "Grand format - Broché",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/HACHETTEFICTIONS/2026/9782017336235-001-X.jpeg",
-"description": "",
+"description": "Angleterre, décembre 1904. La saison de Noël au domaine d’Ashmore devrait être un moment de réjouissances mais avec la neige arrive le scandale. L’onc",
 "rayons": [
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/les-saisons-dashmore-castle-tome-4-9782017336235/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:manganews:lone-wolf-cub-gallery-edition",
@@ -70468,28 +70576,6 @@
 "url": "https://www.hugopublishing.fr/produits/lore-olympus-tome-11/",
 "kind": "bd",
 "source": "editeur:hugo"
-},
-{
-"id": "ll:26642193",
-"title": "Luciole",
-"authors": [
-"Robert Macfarlane"
-],
-"publisher": "La Plage",
-"date": "2026-11-04",
-"isbn": "9782383386957",
-"pages": 32,
-"format": "Relié",
-"cover": "https://leslibraires.b-cdn.net/S8pariIh1xV0rV1DSFgI9X-SJ_7TJCHrx9VjadzYdSE/s:800:800/MTY5ODcwMTI.webp",
-"description": "L'heure sonne : vas-y, cherche ce qui brille",
-"rayons": [
-"Religion & Ésotérisme",
-"Religion",
-"Jeunesse",
-"Luciole"
-],
-"url": "https://www.leslibraires.fr/livre/26642193-luciole-robert-macfarlane-la-plage",
-"kind": "jeunesse"
 },
 {
 "id": "ll:26531234",
@@ -70746,7 +70832,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26708595-2-murdoku-l-original-tome-2-version-francaise-80-enigmes-a-elucider-a-travers-les-ages-manuel-garand-albin-michel",
-"kind": ""
+"kind": "",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9791041120697",
@@ -70892,7 +70979,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_541081.jpg",
-"description": "",
+"description": "Après des années d'absence, Rojda est de retour dans son Kurdistan natale. C'est pour elle l'occasion de faire découvrir à sa fille sa culture, son histoire et celle de son pays. 2018, Rojda est de retour dans son Kurdistan natale après 10 années d'absence. Il faut dire qu'entre la dictature et la guerre, fuir la Syrie était nécessaire pour la jeune femme expatriée en Belgique. Avec elle, sa fille, Hêlin, âgée de 9 ans. C'est l'occasion pour elle de rencontrer sa famille et découvrir l'histoire et la culture kurde. Pour Rojda, le séjour est propice aux souvenirs. Ainsi, chaque soir, la jeune femme raconte à Hêlin son histoire et celle de Nalin, son amie de toujours : l'enfance, l'adolescence, la séparation, l'engagement de Nalin auprès YSJ des forces armées du Kurdistan syrien et son combat contre DAESH... A travers le récit de cette amitié puissante se dévoile en filigrane l'histoire du peuple kurde et sa culture méconnue.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Newroz-Retour-au-Kurdistan-541081.html",
 "kind": "bd",
@@ -70928,14 +71015,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253918028-001-X.jpeg",
-"description": "",
+"description": "« Quasimodo était donc carillonneur de Notre-Dame. Avec le temps, il s’était formé je ne sais quel lien intime qui unissait le sonneur à l’église. Sép",
 "rayons": [
 "Romans francophones",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/notre-dame-de-paris-edition-collector-9782253918028/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782385692933",
@@ -71386,14 +71474,15 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253918011-001-X.jpeg",
-"description": "",
+"description": "« Levée au jour, parfois devançant le jour, ma mère accordait aux points cardinaux, à leurs dons comme à leurs méfaits, une importance singulière. C’e",
 "rayons": [
 "Romans francophones",
 "Littérature Générale"
 ],
 "url": "https://www.hachette.fr/livre/sido-suivi-de-les-vrilles-de-la-vigne-edition-collector-9782253918011/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"fiche": 1
 },
 {
 "id": "ed:9782017252689",
@@ -71577,7 +71666,8 @@
 "The Mistake Off-Campus T02, The Mistake Off-Campus T02"
 ],
 "url": "https://www.leslibraires.fr/livre/26635667-the-mistake-off-campus-t02-the-mistake-off-campus-t02-elle-kennedy-hugo-et-cie",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9791041121182",
@@ -72120,7 +72210,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_546522.jpg",
-"description": "",
+"description": "Troisième volume de l'intégrale Calvin et Hobbes dans un format compact à l'italienne - deux tomes d'environ 500 planches chacun rassemblant les strips parus de juin 1988 à novembre 1989 Les aventures de Calvin, le petit garçon râleur à l'imagination débordante, et de son tigre en peluche Hobbes ont fait le tour du monde : une amitié imaginaire, teintée d'absurde, d'humour et de philosophie... Calvin et Hobbes est incontestablement l'une des bandes dessinées les plus populaires de tous les temps depuis sa première planche publiée en 1985. Ce nouveau format portable est conçu pour présenter les aventures du garçon et de son tigre à une nouvelle génération de lecteurs, et s'intégrera facilement dans les sacs à dos ainsi que sur l'étagère du collectionneur. Mettant en vedette des pochettes d'archives et des pochettes sélectionnées par l'auteur, cette collection rend hommage aux origines de cette bande dessinée : la publication en strips dans les journaux. Ce coffret de deux tomes est le troisième d'une série de 7, comprenant chacun environ 500 planches.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Calvin-et-Hobbes-La-petite-integrale-Tome-3-546522.html",
 "kind": "bd",
@@ -72562,7 +72652,7 @@
 "Le monde de Minecraft"
 ],
 "url": "https://www.leslibraires.fr/livre/26545934-le-monde-de-minecraft-mojang-studios-mana-books",
-"kind": ""
+"kind": "bd"
 },
 {
 "id": "ll:26574363",
@@ -73355,7 +73445,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545748.jpg",
-"description": "",
+"description": "Le retour de Batman ne se fait pas sans difficultés : Vandal Savage accélère sa croisade sans pitié contre la Bat-Famille, tandis que les gangs de Gotham s'allient autour d'un nouveau génie criminel, le Minotaure. Pour ne rien arranger, le Joker est de retour, plus mystérieux et effrayant que jamais... Mais le Chevalier Noir sait se relever, prêt à montrer à tous ceux qui menacent Gotham City à qui ils ont affaire !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Batman-Prime-Tome-2-Le-sang-et-l-argent-545748.html",
 "kind": "bd",
@@ -73412,7 +73502,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545172.jpg",
-"description": "",
+"description": "Quand Boulette le chaton fait ses premiers pas sur les toits de Paris, c'est pour découvrir que la vie est sacrément intéressante, avec ces chats qui parfois l'aiment et parfois pas, ces faucons qui veulent le croquer ou ces moineaux qui lui font gober qu'il pourrait voler... À chaque page : un gag. À chaque page : une (re)découverte de la vie dans tout ce qu'elle a de tendre, parfois absurde et toujours drôle. Voici ce que vous ont préparé le toujours surprenant Lewis Trondheim et la formidable Aude Picault, portée par les délicates couleurs de Brigitte Findakly ! Boulette, c'est le cadeau parfait à offrir ou à s'offrir si l'on est amoureux des chats, avec à chaque tome un environnement différent. Ici, les merveilleux toits de la ville de Paris !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Boulette-Tome-1-Nouveau-terrain-de-jeu-545172.html",
 "kind": "bd",
@@ -73541,7 +73631,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_544751.jpg",
-"description": "",
+"description": "Dans un train, Patricia assiste à la disparition inexpliquée d’un inconnu, Joseph, troublant écho à la mort récente de son père. Dans une atmosphère inspirée des films d’Alfred Hitchcock, elle tente d’élucider le mystère. La scène se rejoue alors en plusieurs variantes, plusieurs scénarios. Si la disparition demeure inévitable, la relation entre Patricia et Joseph se transforme, jusqu’à devenir intime. À travers ces possibles, ce roman graphique explore le deuil, l’absence et les multiples visages du lien père-fille.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Joseph-Roch-a-disparu-544751.html",
 "kind": "bd",
@@ -73824,7 +73914,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545240.jpg",
-"description": "",
+"description": "Les sœurs Grémillet ont déjà vécu de nombreuses aventures, mais elles détiennent encore tellement de secrets... Découvrez-les dans ce premier tome où Di Gregorio et Barbucci, accompagnés d'autrices invitées, explorent en quatre histoires courtes des pans inattendus du quotidien de mystère et de poésie de leurs héroïnes. Dans « Le jardin des objets perdus », vous découvrirez la surprenante origine du nom « Grémillet ». Dans « La nuit de la chouette », Sarah vous contera une fable sur l'incompréhension entre amies. « Mon cœur en jeu », quant à elle, parlera d'amours impossibles en compagnie de « Princesse » Cassiopée... En plus de ces histoires scénarisées par Di Gregorio pour Maya, Dicataldo et Cioni, Barbucci seul vous révélera, dans « Le voyage du chat pressé », pourquoi la jeune Lucille préfère laisser ses sœurs se disputer plutôt que d'intervenir ! Épaulés par trois talentueuses autrices – Maya, Dicataldo et Cioni –, Barbucci et Di Gregorio explorent de manière inattendue le petit monde des sœurs Grémillet. Un régal !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Secrets-des-soeurs-Gremillet-Reves-chats-et-princesses-545240.html",
 "kind": "bd",
@@ -74145,7 +74235,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545746.jpg",
-"description": "",
+"description": "Petit Poilu découvre les joies de la neige et du ski avec Floutch, Doutch et Moutch, trois adorables petits flocons qui l'entraînent dans cet environnement amusant et merveilleux. Grizzly-Congélo, le meilleur des professeurs de ski, initie même Petit Poilu à la glisse ! Mais voilà que Nimbostratus le nuage ne s'arrête plus de cracher de la neige... Une attitude qui transforme rapidement les amusantes leçons de ski en désastre ! La petite bande va-t-elle parvenir à convaincre Nimbostratus de se limiter dans sa fabrication de neige à tout va ? Ou vont-ils se perdre à jamais dans ce gigantesque amas neigeux ? Une petite histoire d'hiver, drôle et délirante, pour aborder avec les enfants l'idée de la collaboration et de l'entraide. Fonce, Petit Poilu, fonce !",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Petit-Poilu-Tome-34-Neige-a-gogo-545746.html",
 "kind": "bd",
@@ -74908,6 +74998,27 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26539192-entre-ici-jean-moulin-et-autres-discours-sur-la-resistance-andre-malraux-folio",
 "kind": "roman"
+},
+{
+"id": "ed:9782344072455",
+"title": "1629, ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
+"authors": [
+"Xavier Dorison",
+"Thimothée Montaigne"
+],
+"publisher": "Glénat",
+"date": "2026-11-12",
+"isbn": "9782344072455",
+"pages": 0,
+"format": "",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
+"description": "",
+"rayons": [
+"BD Aventure, western et polar"
+],
+"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
+"kind": "bd",
+"source": "editeur:glenat"
 },
 {
 "id": "ed:9782709677486",
@@ -76756,7 +76867,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545390.jpg",
-"description": "",
+"description": "Londres, février 1891. Alors que l'hiver engourdit Londres, Enola sauve in extremis une jeune fille d'une mort tragique. La mystérieuse rescapée est amnésique, et dans sa quête de réponses, Enola s'aventure dans un dédale de souvenirs manquants. De son côté, Sherlock s'apprête à faire face à l'ennemi le plus redoutable qu'il ait jamais combattu. Entre courses-poursuites, cadeaux empoisonnés, énigles mathématiques et révelations, la jeune enquêtrice va devoir jouer sa partie la plus dangereuse... Et Sherlock a lui aussi quelques atouts dans sa manche. Cet album intègre le carnet secret d'Enola Holmes.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Enquetes-d-Enola-Holmes-Tome-10-La-rescapee-du-cercueil-545390.html",
 "kind": "bd",
@@ -76804,6 +76915,29 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26539295-les-soeurs-field-dorothy-whipple-folio",
 "kind": "roman"
+},
+{
+"id": "ll:26642193",
+"title": "Luciole",
+"authors": [
+"Robert Macfarlane"
+],
+"publisher": "La Plage",
+"date": "2026-11-12",
+"isbn": "9782383386957",
+"pages": 32,
+"format": "Relié",
+"cover": "https://leslibraires.b-cdn.net/S8pariIh1xV0rV1DSFgI9X-SJ_7TJCHrx9VjadzYdSE/s:800:800/MTY5ODcwMTI.webp",
+"description": "L'heure sonne : vas-y, cherche ce qui brille",
+"rayons": [
+"Religion & Ésotérisme",
+"Religion",
+"Jeunesse",
+"Luciole"
+],
+"url": "https://www.leslibraires.fr/livre/26642193-luciole-robert-macfarlane-la-plage",
+"kind": "jeunesse",
+"lu": "2026-10-25"
 },
 {
 "id": "ed:9782812322600",
@@ -77764,27 +77898,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782344072455",
-"title": "ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
-"authors": [
-"Xavier Dorison",
-"Thimothée Montaigne"
-],
-"publisher": "Glénat",
-"date": "2026-11-12",
-"isbn": "9782344072455",
-"pages": 0,
-"format": "",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
-"description": "",
-"rayons": [
-"BD Aventure, western et polar"
-],
-"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
-"kind": "bd",
-"source": "editeur:glenat"
-},
-{
 "id": "ed:9791043311192",
 "title": "xxxHolic T11",
 "authors": [
@@ -77860,7 +77973,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545547.jpg",
-"description": "",
+"description": "En quelques semaines seulement, la vie de Wally West a été radicalement bouleversée. Mais après sa bataille décisive au cœur du Fort Fox, Wally doit accepter de porter le costume et partir en quête de réponses. Dans l’ombre, le Maître des Miroirs, qui observe ce jeune Flash depuis le début, est prêt à passer à l’action…",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Absolute-Flash-Tome-3-Face-au-miroir-545547.html",
 "kind": "bd",
@@ -77879,7 +77992,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545694.jpg",
-"description": "",
+"description": "Après s'être échappée du Labyrinthe de la Zone 41, Diana est plus que jamais dans le collimateur de Veronica Cale. Et qui de mieux pour éliminer la sorcière Amazone qu'une autre sorcière ? Pour en finir une bonne fois pour toutes, elle envoie à sa poursuite sa Suicide Squad, menée par la puissante Zatanna...",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Absolute-Wonder-Woman-Tome-3-545694.html",
 "kind": "bd",
@@ -77971,7 +78084,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545536.jpg",
-"description": "",
+"description": "La Terre est hostile à l'humanité. Les derniers survivants font désormais société sous terre ou protégés par un dôme, des moins chanceux vivent à l'extérieur soumis aux tempêtes de sable et aux chaleurs. Alors que la marchandisation des corps est imposée comme moyen hégémonique pour subvenir à ses besoins, Dièn, un jeune de 18 ans vivant avec sa soeur, est contraint de travailler à l'extérieur en tant que soldat. Ne pouvant pas commercialiser son corps à cause d'un handicap, Dièn grange de l'argent en protégeant des convois de matériaux contre un groupe identifié comme terroriste. Arrivant tant bien que mal à survivre dans cette société qui classe les individus en fonction de la valeur de leur corps, le quotidien de Dièn est perturbé lorsque Éline, une fille des classes supérieures vient à sa rencontre. Lui qui a toujours gardé ses distances finit, malgré lui, obligé d'entretenir des relations qui le force à affronter le Régime dominant.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Burnout-Hachin-Tome-1-545536.html",
 "kind": "bd",
@@ -78657,7 +78770,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545581.jpg",
-"description": "",
+"description": "Les ressources naturelles sont cherchées toujours plus loin, toujours plus profond. Au risque de libérer des monstres qu'on croyait depuis longtemps disparus... Lors d'un forage dans une caverne sous-marine, des scaphandriers sont attaqués par un megalodon. Ancêtre préhistorique du requin, il est le plus féroce prédateur des mers que n'ait jamais connu notre planète. Employée par le richissime collectionneur Feiersinger, l'océanographe Kim Melville découvre que des spécimens ont survécu dans des grottes sous-marines alors qu'ils sont censés avoir disparu depuis 5 millions d'années ! Une découverte qui pourrait remettre en question l'équilibre écologique de la planète et la survie même de l'humanité.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Carthago-INT3-Integrale-des-tomes-11-a-16-545581.html",
 "kind": "bd",
@@ -78930,7 +79043,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545184.jpg",
-"description": "",
+"description": "Comme tout analgésique, le bonheur a ses limites. C'est une leçon que Lauren Thomas, malheureuse en amour, va devoir apprendre à ses dépens, malgré l'aide de quelques-uns des incubes les plus redoutables des Enfers. Car même avec des entités divines à ses ordres, affronter son passé n'a rien d'une partie de plaisir... Troisième volet de la série indépendante sexy, fantastique et romantique de Stjepan Sejic.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Fine-Print-Tome-3-545184.html",
 "kind": "bd",
@@ -79218,7 +79331,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782749310527-001-X.jpeg",
-"description": "",
+"description": "Entre oeuvres d'art et sombres desseins, retrouvez toute la puissance d'une série culte enfin en intégrale Un soir d'ivresse, deux riches noceurs décident de se jouer d'un jeune homme pauvre en le façonnant à leur guise, comme une oeuvre d'art vivante. Leur choix se porte sur le jeune Victor. À leurs côtés, le jeune homme va découvrir des plaisirs insoupçonnés derrière les murs de la plus prestigieuse maison close de Vienne. Un monde de volupté et de raffinement s'ouvre à lui. Un monde dans lequel il y a la merveilleuse Mathilde. Un monde qui n'est pas le sien. Quel sera le prix à payer pour que le rêve se poursuive ? Sur fond d'art nouveau, Wilfrid Lupano - scénariste incontournable du paysage BD - écrit une réflexion sociologique et humaniste, sublimée par la délicate finesse du trait de Yannick Corboz. Réunis pour la première fois dans une intégrale soignée qui comprend une couverture inédite et un cahier graphique de 16 pages, redécouvrez les 4 tomes de ce thriller haletant !",
 "rayons": [
 "BD Aventure, western et polar"
 ],
@@ -79324,7 +79437,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545202.jpg",
-"description": "",
+"description": "Nous connaissons et pratiquons tous une écriture. Mais savons-nous ce qu'est une écriture ? Louis-Jean Calvet, auteur de référence pour de nombreux chercheurs et étudiants en sociologie et en linguistique, rêvait de consacrer une bande dessinée à l'invention de l'écriture. Partageant ses connaissances immenses à Anne Defréville, La voix au bout des doigts est un ouvrage ludique et savoureux sur cet outil que nous utilisons tous les jours, l'écriture, mais dont nous ignorons les origines. Les chevaux que l'on voit sur les murs de la grotte Chauvet (vers 30000 avant JC) sont-ils une écriture ? Le Codex Aztèque, (Codex Mendoza), recueilli au XVIe siècle, est-t-il une écriture ? Et savons-nous quand l'espèce humaine a commencé à écrire ? La première écriture : hiéroglyphes ou cunéiformes ? Caractères chinois et glyphes mayas, chaque époque et chaque culture répondent par des moyens originaux à la nécessité de communication écrite. L'écriture c'est la notation des sons du langage, ce que résume bien la formule latine, scripta manent, verba volant, «les écrits restent, les paroles s'envolent» : les écritures servent à retenir les paroles. Après avoir étudié les écritures et leur diffusion, les auteurs explorent les multiples possibilités offertes par celles-ci : jouer avec les lettres et les sons. Contrepèteries, virelangues, anagrammes, calligraphie... n'ont pas de secrets pour Louis-Jean Calvet et Anne Defréville.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Voix-au-bout-des-doigts-La-voix-au-bout-des-doigts-Les-aventures-de-l-ecriture-545202.html",
 "kind": "bd",
@@ -81193,7 +81306,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_546026.jpg",
-"description": "",
+"description": "Mêlant faits historiques et fiction spéculative, David B. revisite l'épisode de l'internement d'Antonin Artaud après son retour d'Irlande et imagine un dialogue troublant entre Artaud et Breton autour d'un événement impossible : la prise d'assaut de l'asile du Havre par les surréalistes. Entre délire, mémoire, croyance et réécriture de l'histoire, chacun tente de démêler le vrai du fantasme. Avec son dessin immédiatement reconnaissable, nourri d'images symboliques, de visions hallucinées et de références littéraires, David B. compose une méditation fascinante sur la folie, l'amitié, la création et la puissance des récits. Un album où le surréalisme devient une aventure graphique autant qu'intellectuelle.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Asile-du-Havre-L-asile-du-Havre-Soupault-Breton-Artaud-546026.html",
 "kind": "bd",
@@ -81329,7 +81442,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_546029.jpg",
-"description": "",
+"description": "Amoureux de la nature, auteur satirique, virtuose du dessin, Raymond Macherot (1924-2008) est l'un des auteurs phares de la bande dessinée franco-belge de la seconde moitié du XXe siècle. « Macherot est l'égal de Disney dans sa manière de camper le caractère des animaux », estimait Hergé. Chlorophylle, Chaminou et Sibylline témoignent de cette exceptionnelle rencontre entre la poésie animalière et le grand frisson de l'Aventure. Auteur multi-facettes, Macherot crée aussi Clifton, le meilleur détective anglais depuis Sherlock Holmes. Avec plus de deux cents originaux scannés et reproduits avec soin, ce livre offre une formidable redécouverte d'un dessinateur en liberté qui livra une œuvre riche et, à bien des égards, avant-gardiste.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-DOC-Une-vie-en-dessins-Tome-12-Macherot-Une-vie-en-dessins-546029.html",
 "kind": "bd",
@@ -81615,7 +81728,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545179.jpg",
-"description": "",
+"description": "La Matriarche entame sa croisade pour régner sur l'Univers DC. Alors que héros et méchants succombent à son pouvoir, Wonder Woman et sa fille Trinity doivent s'unir pour sauver tout ce qui leur est cher. La Guerre des Merveilles fait rage, et la Reine d'Amérique n'aura de repos tant qu'elles ne se seront pas pliées à sa volonté.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Wonder-Woman-Hors-la-loi-Tome-5-545179.html",
 "kind": "bd",
@@ -82496,7 +82609,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_545697.jpg",
-"description": "",
+"description": "Blandine et Marco sillonnent les villes thermales de Chaudes-Aigues, La Bourboule, Évaux-les-Bains, Barèges et Digne-les-Bains pour enrichir le jeu vidéo médiéval-fantastique inventé par Blandine. Mais dans ce monde virtuel, un monstre d'eau chaude sème le chaos. Les héros mènent l'enquête pour percer le secret d'une salle cachée. Mêlant habilement enquête scientifique, humour et aventure, le récit souligne les limites de l'IA et valorise le savoir humain.",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Mondes-d-Arven-Tome-4-Le-monstre-des-eaux-chaudes-545697.html",
 "kind": "bd",
@@ -82912,7 +83025,7 @@
 "pages": 0,
 "format": "",
 "cover": "https://www.bedetheque.com/media/Couvertures/Couv_546019.jpg",
-"description": "",
+"description": "Le royaume d'Esseriel est devenu plus sombre et plus dangereux que jamais, tandis que les tensions entre les royaumes des humains et celui des fées menacent de dégénérer en une guerre totale. Wynd serait-il le seul espoir de paix ? Et quelle sera sa destinée s'il est vraiment l'un des légendaires Êtres Ailés ?",
 "rayons": [],
 "url": "https://www.bedetheque.com/BD-Wynd-02-Le-trone-des-cieux-546019.html",
 "kind": "bd",
