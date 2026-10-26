@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-25T22:01Z",
+"updated": "2026-10-26T00:33Z",
 "stats": {
 "precommandes": [
 12,
@@ -50,10 +50,10 @@
 "pages_listes": 71,
 "echecs": 0,
 "secondes_listes": 351,
-"pages": 74,
+"pages": 104,
 "reprises": 0,
 "fiches_lues": 3,
-"secondes": 366,
+"secondes": 516,
 "statut": "ok"
 },
 "suivi": {
@@ -98,20 +98,16 @@
 "dernier_proche": "2026-10-25T21:51Z"
 },
 "src_generale": {
-"dernier_essai": "2026-10-25T19:09Z",
+"dernier_essai": "2026-10-26T00:29Z",
 "secondes_complet": 250,
 "echecs": 0,
 "dernier_complet": "2026-10-25T19:09Z",
-"secondes_proche": 241,
-"dernier_proche": "2026-10-25T16:21Z"
+"secondes_proche": 244,
+"dernier_proche": "2026-10-26T00:29Z"
 }
 },
 "plan": [
-"hachette:proche",
-"glenat:proche",
-"seuil:proche",
-"src_manga:proche",
-"src_bd:proche"
+"src_generale:proche"
 ],
 "editeurs": {
 "hachette": {
@@ -316,29 +312,29 @@
 },
 "michellafon": {
 "pages": 38,
-"livres": 38,
-"secondes": 111,
+"livres": 14,
+"secondes": 113,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z"
+"le": "2026-10-26T00:33Z"
 },
 "jailu": {
 "pages": 1,
-"livres": 70,
+"livres": 40,
 "secondes": 4,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z"
+"le": "2026-10-26T00:33Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -347,76 +343,76 @@
 "erreurs": 0,
 "statut": "vide",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z"
+"le": "2026-10-26T00:33Z"
 },
 "albinmichel": {
 "pages": 2,
-"livres": 45,
+"livres": 30,
 "secondes": 6,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z"
+"le": "2026-10-26T00:33Z"
 },
 "hugo": {
 "pages": 24,
-"livres": 15,
-"secondes": 74,
+"livres": 8,
+"secondes": 72,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z"
+"le": "2026-10-26T00:33Z"
 },
 "points": {
-"pages": 8,
-"livres": 46,
-"secondes": 23,
+"pages": 6,
+"livres": 17,
+"secondes": 18,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z"
+"le": "2026-10-26T00:33Z"
 },
 "bayard": {
 "pages": 5,
-"livres": 54,
+"livres": 23,
 "secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z"
+"le": "2026-10-26T00:33Z"
 },
 "milan": {
 "pages": 5,
-"livres": 41,
+"livres": 21,
 "secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z"
+"le": "2026-10-26T00:33Z"
 },
 "conflits_dates": {
 "nombre": 4,
@@ -456,41 +452,30 @@
 ],
 "le": "2026-10-25T22:01Z"
 },
-"fiches_lues": 60,
+"fiches_lues": 0,
 "erreurs": 0
 },
-"secondes_editeurs": 598,
+"secondes_editeurs": 245,
 "dates_relues": {
-"fiches": 0,
+"fiches": 30,
 "changees": []
 },
-"ecarts_libraire": {
-"nombre": 1,
-"exemples": [
-{
-"isbn": "9782413092117",
-"titre": "Les légendaires - Résistance - Tome 6 - ",
-"libraire": "2026-10-22",
-"editeur:bdgest": "2026-10-21"
-}
-]
-},
-"editeurs_at": "2026-10-25T22:01Z",
+"editeurs_at": "2026-10-26T00:33Z",
 "listes": 562,
 "lues": 3,
 "en_attente": 0,
 "plus_loin": "2027-04-23",
 "nettoyes": 0,
-"doublons": 48,
+"doublons": 0,
 "sources": {
 "leslibraires": {
 "pages_listes": 71,
 "echecs": 0,
 "secondes_listes": 351,
-"pages": 74,
+"pages": 104,
 "reprises": 0,
 "fiches_lues": 3,
-"secondes": 366,
+"secondes": 516,
 "statut": "ok",
 "livres": 574
 },
@@ -548,7 +533,7 @@
 "2026-12-09"
 ],
 "le": "2026-10-25T22:01Z",
-"en_base": 1241
+"en_base": 1239
 },
 "manganews": {
 "statut": "ok",
@@ -706,30 +691,30 @@
 },
 "michellafon": {
 "statut": "ok",
-"livres": 38,
+"livres": 14,
 "pages": 38,
-"secondes": 111,
+"secondes": 113,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z",
-"en_base": 33
+"le": "2026-10-26T00:33Z",
+"en_base": 35
 },
 "jailu": {
 "statut": "ok",
-"livres": 70,
+"livres": 40,
 "pages": 1,
 "secondes": 4,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z",
+"le": "2026-10-26T00:33Z",
 "en_base": 61
 },
 "bragelonne": {
@@ -739,85 +724,85 @@
 "secondes": 3,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z",
+"le": "2026-10-26T00:33Z",
 "en_base": 0
 },
 "albinmichel": {
 "statut": "ok",
-"livres": 45,
+"livres": 30,
 "pages": 2,
 "secondes": 6,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z",
+"le": "2026-10-26T00:33Z",
 "en_base": 44
 },
 "hugo": {
 "statut": "ok",
-"livres": 15,
+"livres": 8,
 "pages": 24,
-"secondes": 74,
+"secondes": 72,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z",
+"le": "2026-10-26T00:33Z",
 "en_base": 15
 },
 "points": {
 "statut": "ok",
-"livres": 46,
-"pages": 8,
-"secondes": 23,
+"livres": 17,
+"pages": 6,
+"secondes": 18,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z",
+"le": "2026-10-26T00:33Z",
 "en_base": 46
 },
 "bayard": {
 "statut": "ok",
-"livres": 54,
+"livres": 23,
 "pages": 5,
 "secondes": 15,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z",
+"le": "2026-10-26T00:33Z",
 "en_base": 54
 },
 "milan": {
 "statut": "ok",
-"livres": 41,
+"livres": 21,
 "pages": 5,
 "secondes": 15,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-04-29"
+"proche",
+"2026-10-12",
+"2026-12-10"
 ],
-"le": "2026-10-25T19:13Z",
+"le": "2026-10-26T00:33Z",
 "en_base": 41
 }
 },
-"duree_secondes": 965
+"duree_secondes": 762
 },
 "books": [
 {
@@ -14518,28 +14503,6 @@
 "source": "editeur:bdgest"
 },
 {
-"id": "ed:9782036089839",
-"title": "3, te voilà !",
-"authors": [
-"Marion Donon",
-"Toni Galmés"
-],
-"publisher": "Larousse",
-"date": "2026-09-02",
-"isbn": "9782036089839",
-"pages": 0,
-"format": "Grand format - Cartonné",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LAROUSSE/2026/9782036089839-001-X.jpeg",
-"description": "",
-"rayons": [
-"Eveil (0 -3 ans)",
-"Jeunesse"
-],
-"url": "https://www.hachette.fr/livre/123-te-voila-9782036089839/",
-"kind": "jeunesse",
-"source": "editeur:hachette"
-},
-{
 "id": "ed:9782755678031",
 "title": "7FATES: CHAKHO - Tome 7",
 "authors": [
@@ -17612,6 +17575,28 @@
 "url": "https://www.nautiljon.com/mangas/you+are+so+cute/volume-7,999843.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782036089839",
+"title": "te voilà !",
+"authors": [
+"Marion Donon",
+"Toni Galmés"
+],
+"publisher": "Larousse",
+"date": "2026-09-02",
+"isbn": "9782036089839",
+"pages": 0,
+"format": "Grand format - Cartonné",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LAROUSSE/2026/9782036089839-001-X.jpeg",
+"description": "",
+"rayons": [
+"Eveil (0 -3 ans)",
+"Jeunesse"
+],
+"url": "https://www.hachette.fr/livre/123-te-voila-9782036089839/",
+"kind": "jeunesse",
+"source": "editeur:hachette"
 },
 {
 "id": "ed:9782385693084",
@@ -55623,6 +55608,27 @@
 "source": "editeur:delcourt"
 },
 {
+"id": "ed:9782749965543",
+"title": "Item Légendaire - Tome 7",
+"authors": [
+"Jung Seonyul",
+"Hess"
+],
+"publisher": "Michel Lafon",
+"date": "2026-10-15",
+"isbn": "9782749965543",
+"pages": 0,
+"format": "",
+"cover": "https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6aba958b9fb7f7091d4e1da8_9782749965543WEB.jpg",
+"description": "",
+"rayons": [
+"Webtoon"
+],
+"url": "https://www.michel-lafon.fr/books/item-legendaire-tome-7-49965543",
+"kind": "bd",
+"source": "editeur:michellafon"
+},
+{
 "id": "ed:9782749965659",
 "title": "Je vous ai tant aimés",
 "authors": [
@@ -55731,21 +55737,21 @@
 "id": "ed:9782749965482",
 "title": "Killer Peter - Tome 7",
 "authors": [
-"Lim Li Na - Lim Lina"
+"Lim Lina"
 ],
 "publisher": "Michel Lafon",
 "date": "2026-10-15",
 "isbn": "9782749965482",
 "pages": 0,
 "format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/03/killer_peter_7_edition_reliee_francaise1037630.webp",
-"description": "Au cœur de l'enfer de Kowloon, Peter et l'apôtre Thaddaeus se livrent un duel fratricide. Mais l'assassin légendaire se refuse à tuer le jeune homme, préférant faire de lui un allié de choix pour sa vengeance. Pour y parvenir, il...",
+"cover": "https://cdn.prod.website-files.com/6a60c0369879c07f7143335d/6ab630c7ff411c69e223b445_9782749965482WEB.jpg",
+"description": "",
 "rayons": [
-"Manga"
+"Webtoon"
 ],
-"url": "https://www.nautiljon.com/mangas/killer+peter/volume-7,1037630.html",
+"url": "https://www.michel-lafon.fr/books/killer-peter-tome-7-49965482",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:michellafon"
 },
 {
 "id": "ll:26520335",
@@ -56508,26 +56514,6 @@
 "url": "https://www.michel-lafon.fr/books/a-la-vie-a-la-mort-papa-49965383",
 "kind": "",
 "source": "editeur:michellafon"
-},
-{
-"id": "ed:9782749965543",
-"title": "À moi, l'item légendaire - Tome 7",
-"authors": [
-"Seon Yul Jeong"
-],
-"publisher": "Michel Lafon",
-"date": "2026-10-15",
-"isbn": "9782749965543",
-"pages": 0,
-"format": "",
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/34/a_moi_l_item_legendaire_7_edition_reliee_francaise1041443.webp",
-"description": "Jaehyun se rend dans des ruines où l'attendent de périlleuses épreuves. S'il parvient à les surmonter, il se rapprochera un peu plus de son rôle de héros de l'humanité. Mais alors qu'il s'attendait à acquérir une nouvelle arme, il...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/À+moi,+l-item+légendaire/volume-7,1041443.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
 },
 {
 "id": "ll:26550343",
@@ -63997,7 +63983,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26657228-ce-beau-pays-maudit-491-jours-dans-les-geoles-de-poutine-evan-gershkovich-grasset",
 "kind": "roman",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782226516671",
@@ -66662,7 +66648,7 @@
 },
 {
 "id": "ed:9782492463501",
-"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
+"title": "2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -68228,7 +68214,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26644056-ariol-tome-1-petit-prix-un-petit-ane-comme-vous-et-moi-guibert-boutavant-bayard-jeunesse",
 "kind": "bd",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26310861",
@@ -68387,7 +68373,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26633362-black-sessions-le-beau-livre-sur-l-emission-culte-de-france-inter-the-black-sessions-plommee-francois-harpercollins",
 "kind": "",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782344074299",
@@ -68450,7 +68436,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26664824-1-bluernout-tome-01-quiet-storm-ilarieau-orlando-editions-addictives",
 "kind": "romance",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782017376682",
@@ -68907,7 +68893,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26656969-dragon-mom-anonyme-albin-michel",
 "kind": "",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782253918110",
@@ -70069,7 +70055,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26672889-le-dictionnaire-de-laurent-baffie-la-totale-laurent-baffie-kero",
 "kind": "roman",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782073150721",
@@ -70277,7 +70263,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26642309-les-fourmis-tome-1-bd--werber-kimyonghoi-albin-michel",
 "kind": "bd",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782226516633",
@@ -70573,7 +70559,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26531234-ma-cherie-a-propos-d-amour-d-aventure-et-de-guerison-wendy-delorme-cambourakis",
 "kind": "",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26640242",
@@ -70942,7 +70928,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26642334-ne-le-laissez-pas-entrer-jewell-lisa-hauteville",
 "kind": "policier",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782849535608",
@@ -71107,7 +71093,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26611150-7-palomino-a-la-neige-michael-escoffier-ecole-des-loisirs",
 "kind": "jeunesse",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782017397717",
@@ -71275,7 +71261,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26561409-pere-castor-le-monde-des-histoires-collectif-pere-castor",
 "kind": "jeunesse",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782387218476",
@@ -71380,7 +71366,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26611275-schnock-chez-soi--alister-tengo",
 "kind": "",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9791043305313",
@@ -71444,7 +71430,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26611186-si-j-etais-un-chat-soledad-bravi-ecole-des-loisirs",
 "kind": "jeunesse",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782253918011",
@@ -71802,7 +71788,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26633562-tout-autre-nom-craig-johnson-editions-gallmeister",
 "kind": "roman",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26642221",
@@ -71995,7 +71981,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26611171-winter-romances-malika-ferdjoukh-medium-edl",
 "kind": "romance",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9791043311093",
@@ -72081,7 +72067,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26664823-a-nos-coeurs-battants-emma-green-editions-addictives",
 "kind": "romance",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26642108",
@@ -72104,7 +72090,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26642108-ca-aurait-pu-etre-elle-jewell-lisa-hauteville",
 "kind": "policier",
-"lu": "2026-10-25"
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782754113687",
@@ -72246,7 +72232,8 @@
 "Crimes et contretemps - Les tonalités du meurtre - Tome 1"
 ],
 "url": "https://www.leslibraires.fr/livre/26547414-crimes-et-contretemps-les-tonalites-du-meurtre-tome-1-chapman-julia-robert-laffont",
-"kind": "policier"
+"kind": "policier",
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782382884843",
@@ -72470,7 +72457,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26539344-huitieme-section-marc-trevidic-folio",
-"kind": "policier"
+"kind": "policier",
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26664791",
@@ -72492,7 +72480,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26664791-le-monde-de-narnia-ii-le-lion-la-sorciere-et-l-armoire-magique-edition-deluxe-c-s-lewis-gallimard-jeunesse",
-"kind": "jeunesse"
+"kind": "jeunesse",
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782413078494",
@@ -72534,7 +72523,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26627570-l-echarpe-jaune-r-j-ellory-breves-edit",
-"kind": "policier"
+"kind": "policier",
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26537308",
@@ -72640,7 +72630,8 @@
 "Le monde de Minecraft"
 ],
 "url": "https://www.leslibraires.fr/livre/26545934-le-monde-de-minecraft-mojang-studios-mana-books",
-"kind": "bd"
+"kind": "",
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26574363",
@@ -72662,7 +72653,8 @@
 "Le mystère Jésus, La nouvelle enquête historique"
 ],
 "url": "https://www.leslibraires.fr/livre/26574363-le-mystere-jesus-la-nouvelle-enquete-historique-jean-christian-petitfils-tallandier",
-"kind": ""
+"kind": "",
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26547120",
@@ -72684,7 +72676,8 @@
 "Les Frères Hayes - tome 1 : Too Much"
 ],
 "url": "https://www.leslibraires.fr/livre/26547120-les-freres-hayes-tome-1-too-much-i-a-dice-michel-lafon",
-"kind": "romance"
+"kind": "romance",
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26538993",
@@ -72728,7 +72721,8 @@
 "Les chefs militaires de la Seconde Guerre mondiale - Les meilleurs... et les pires"
 ],
 "url": "https://www.leslibraires.fr/livre/26546342-les-chefs-militaires-de-la-seconde-guerre-mondiale-les-meilleurs-et-les-pires-bihan-benoist-perrin",
-"kind": ""
+"kind": "",
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26546670",
@@ -72826,7 +72820,8 @@
 "Leur guerre de 14"
 ],
 "url": "https://www.leslibraires.fr/livre/26547023-leur-guerre-de-14-jean-michel-steg-perrin",
-"kind": ""
+"kind": "",
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9791032723357",
@@ -72904,7 +72899,8 @@
 "Mes 80 expériences inoubliables autour du monde"
 ],
 "url": "https://www.leslibraires.fr/livre/26529476-mes-80-experiences-inoubliables-autour-du-monde-bruno-maltor-gallimard-loisirs",
-"kind": ""
+"kind": "",
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26546385",
@@ -72926,7 +72922,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26546385-miss-winter-dans-le-hall-avec-une-corde-edwards-martin-sonatine-editions",
-"kind": "policier"
+"kind": "policier",
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26547492",
@@ -73032,7 +73029,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26547925-operation-bounce-house-dinniman-matt-lorestone",
-"kind": "fantasy"
+"kind": "fantasy",
+"lu": "2026-10-26"
 },
 {
 "id": "ll:26346667",
@@ -73154,7 +73152,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26545947-qui-a-tue-harry-kennedy--johnston-antony-10-18",
-"kind": "policier"
+"kind": "policier",
+"lu": "2026-10-26"
 },
 {
 "id": "ed:9782413079668",
@@ -74986,27 +74985,6 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26539192-entre-ici-jean-moulin-et-autres-discours-sur-la-resistance-andre-malraux-folio",
 "kind": "roman"
-},
-{
-"id": "ed:9782344072455",
-"title": "1629, ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
-"authors": [
-"Xavier Dorison",
-"Thimothée Montaigne"
-],
-"publisher": "Glénat",
-"date": "2026-11-12",
-"isbn": "9782344072455",
-"pages": 0,
-"format": "",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
-"description": "",
-"rayons": [
-"BD Aventure, western et polar"
-],
-"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
-"kind": "bd",
-"source": "editeur:glenat"
 },
 {
 "id": "ed:9782709677486",
@@ -77884,6 +77862,27 @@
 "url": "https://www.nautiljon.com/mangas/yoridori+bitch/volume-1,1030035.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782344072455",
+"title": "ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
+"authors": [
+"Xavier Dorison",
+"Thimothée Montaigne"
+],
+"publisher": "Glénat",
+"date": "2026-11-12",
+"isbn": "9782344072455",
+"pages": 0,
+"format": "",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
+"description": "",
+"rayons": [
+"BD Aventure, western et polar"
+],
+"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
+"kind": "bd",
+"source": "editeur:glenat"
 },
 {
 "id": "ed:9791043311192",
