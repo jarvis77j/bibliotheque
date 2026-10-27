@@ -33,9 +33,9 @@
   html[data-mode="sombre"] img { filter: brightness(.94); }
   .swatches { display: flex; flex-wrap: wrap; gap: 10px; padding: 4px 16px 14px; border-bottom: 1px solid var(--line); }
   .menu .swatches button { width: auto; padding: 0; border: 0; }
-  .menu .swatches .dot { width: 34px; height: 34px; border-radius: 50%; box-shadow: inset 0 0 0 2px rgba(0,0,0,.12); }
+  .menu .swatches .dot { width: 40px; height: 40px; border-radius: 50%; box-shadow: inset 0 0 0 2px rgba(0,0,0,.12); }
   .menu .swatches .dot.on { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--ink); }
-  .swatches .pill { padding: 8px 14px !important; border-radius: 18px; background: var(--bg) !important; border: 1px solid var(--line) !important; font-size: 14px !important; }
+  .swatches .pill { padding: 11px 14px !important; border-radius: 18px; background: var(--bg) !important; border: 1px solid var(--line) !important; font-size: 14px !important; }
   .swatches .pill.on { background: var(--ink) !important; color: var(--card); border-color: var(--ink) !important; }
   .dpanel[hidden] { display: none !important; }
   body.decorating .quick, body.decorating .tabs, body.decorating #toolbar, body.decorating .r3d-nav, body.decorating .r3d-hint { display: none !important; }
@@ -130,9 +130,9 @@
     border-radius: 10px; padding: 9px 10px; font-size: 15px; outline: none;
   }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip { flex: none; border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px 12px; font-size: 14px; cursor: pointer; }
+  .chip { flex: none; border: 1px solid var(--line); background: var(--card); border-radius: 20px; padding: 9px 13px; min-height: 40px; font-size: 14px; cursor: pointer; }
   .chip.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
-  .manual-link { display: block; margin: 18px auto 30px; border: 0; background: none; color: var(--accent); font-size: 15px; cursor: pointer; text-decoration: underline; }
+  .manual-link { display: block; margin: 18px auto 30px; padding: 10px; border: 0; background: none; color: var(--accent); font-size: 15px; cursor: pointer; text-decoration: underline; }
   .manual { padding: 16px; display: flex; flex-direction: column; gap: 14px; max-width: 520px; margin: 0 auto; width: 100%; }
   .manual label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); flex: 1; min-width: 0; }
   .manual input, .manual select, .manual textarea {
@@ -141,7 +141,7 @@
   .manual textarea { min-height: 110px; resize: vertical; font-family: Georgia, serif; line-height: 1.5; }
   .manual img { width: 120px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,.2); }
   .primary { border: 0; background: var(--ink); color: var(--card); border-radius: 22px; padding: 13px 20px; font-size: 16px; cursor: pointer; }
-  .mine select { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 6px 8px; max-width: 60%; }
+  .mine select { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 9px 8px; max-width: 60%; }
 
   /* Étagère : une pièce en perspective, un meuble différent par onglet */
   #shelves { padding: 0; }
@@ -256,7 +256,7 @@
   .r3d-nav.prev { left: max(10px, env(safe-area-inset-left)); }
   .r3d-nav.next { right: max(10px, env(safe-area-inset-right)); }
   .r3d-label {
-    position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 2; pointer-events: none; white-space: nowrap;
+    position: absolute; top: 12px; left: 10px; max-width: calc(100% - 150px); overflow: hidden; text-overflow: ellipsis; z-index: 2; pointer-events: none; white-space: nowrap;
     background: rgba(43,29,20,.72); color: #fbf6ee; padding: 6px 14px; border-radius: 16px; font-size: 14px; font-family: Georgia, serif;
   }
   .r3d-hint {
@@ -467,7 +467,7 @@
   .grid-covers span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; font-weight: 600; margin-top: 6px; line-height: 1.25; }
   .grid-covers small { display: block; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .grid-covers .fav-dot { position: absolute; top: 4px; right: 4px; z-index: 2; font-size: 14px; }
-  .r3d-grid { position: absolute; top: 10px; right: 10px; z-index: 2; border: 0; border-radius: 16px; padding: 7px 11px; font-size: 13px; cursor: pointer;
+  .r3d-grid { position: absolute; top: 10px; right: 10px; z-index: 2; border: 0; border-radius: 20px; padding: 11px 14px; font-size: 13px; cursor: pointer;
     background: rgba(255,250,242,.85); color: #2b1d14; box-shadow: 0 3px 10px rgba(0,0,0,.3); }
   .pick { position: fixed; inset: 0; z-index: 60; background: rgba(20,10,0,.45); display: flex; align-items: flex-end; justify-content: center; }
   .pick-box { width: 100%; max-width: 520px; background: var(--card); border-radius: 18px 18px 0 0; padding: 14px 16px calc(16px + env(safe-area-inset-bottom)); }
@@ -475,7 +475,7 @@
   .pick-box button { display: block; width: 100%; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 14px; padding: 14px; font-size: 16px; margin-bottom: 8px; cursor: pointer; }
   .pick-tags { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: 0 4px 12px; font-size: 14px; color: var(--muted); }
   .pick-tags label { display: flex; align-items: center; gap: 6px; }
-  .pick-tags select { font-size: 15px; padding: 6px 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); max-width: 46vw; }
+  .pick-tags select { font-size: 15px; padding: 9px 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); max-width: 46vw; }
   .pick-first { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); }
   .pick-first input { width: 18px; height: 18px; }
   .tag-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 2px 0 22px; }
@@ -516,7 +516,7 @@
   .result-meta { color: var(--muted); font-size: 13px; margin-top: 3px; }
   .add-btn {
     flex: none; border: 1px solid var(--ink); background: none; border-radius: 16px;
-    padding: 6px 12px; font-size: 14px; cursor: pointer;
+    padding: 10px 14px; min-height: 40px; font-size: 14px; cursor: pointer;
   }
   .add-btn.done { background: var(--ink); color: var(--card); }
   .status { text-align: center; color: var(--muted); padding: 30px 20px; line-height: 1.5; }
@@ -595,11 +595,11 @@
     border-radius: 10px; padding: 10px; font-family: Georgia, serif; font-size: 15px; line-height: 1.5;
   }
   .desc { width: 100%; max-width: 480px; font-family: Georgia, serif; line-height: 1.6; font-size: 16px; white-space: pre-line; }
-  .danger { margin-top: 28px; border: 0; background: none; color: var(--accent); cursor: pointer; font-size: 15px; padding: 8px 12px; border-radius: 18px; }
+  .danger { margin-top: 28px; border: 0; background: none; color: var(--accent); cursor: pointer; font-size: 15px; padding: 12px 14px; border-radius: 20px; }
   .danger.confirm { background: var(--accent); color: var(--card); }
 
   .mine input[type=text], .mine input[type=number], .quote-add input {
-    border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 6px 8px; font: inherit; font-size: 15px; min-width: 0;
+    border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 9px 8px; font: inherit; font-size: 15px; min-width: 0;
   }
   .mine-row input[type=text] { flex: 1; }
   .mine-row input[type=number] { width: 72px; }
@@ -618,16 +618,16 @@
   .quote-add textarea { width: 100%; min-height: 60px; border: 1px solid var(--line); background: var(--bg); border-radius: 10px; padding: 10px; font-family: Georgia, serif; font-size: 15px; }
   .quote-add div { display: flex; gap: 8px; }
   .quote-add input { width: 90px; }
-  .quote-add button, .goal-form button, .backup-bar button { border: 0; background: var(--ink); color: var(--card); border-radius: 18px; padding: 8px 16px; font-size: 14px; cursor: pointer; }
+  .quote-add button, .goal-form button, .backup-bar button { border: 0; background: var(--ink); color: var(--card); border-radius: 18px; padding: 11px 16px; min-height: 40px; font-size: 14px; cursor: pointer; }
   .stats { cursor: pointer; }
   .st { padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 0; }
   .st .panel { padding-bottom: 14px; }
   .st .panel > *:not(.panel-title) { margin-left: 14px; margin-right: 14px; }
-  .st select { margin-bottom: 14px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; padding: 8px 12px; font-size: 15px; }
+  .st select { margin-bottom: 14px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; padding: 10px 12px; font-size: 15px; }
   .goal-big { font-family: Georgia, serif; font-size: 34px; margin-top: 8px; font-variant-numeric: tabular-nums; }
   .goal-big small { font-size: 16px; color: var(--muted); }
   .goal-form { display: flex; gap: 8px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
-  .goal-form input { width: 80px; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 7px 8px; font-size: 15px; }
+  .goal-form input { width: 80px; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 10px 8px; font-size: 15px; }
   .badges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .badge { text-align: center; font-size: 12px; line-height: 1.3; color: var(--muted); }
   .badge i { display: grid; place-items: center; width: 56px; height: 56px; margin: 0 auto 6px; border-radius: 50%; font-style: normal; font-size: 26px;
@@ -866,7 +866,7 @@
   </div>
   <div class="sheet-body menu">
     <button id="statsBtn">Mes statistiques et mon objectif</button>
-    <label class="key-row" style="display:none">Clé Google Livres<input id="googleKeyIn" type="text" placeholder="Colle ta clé ici" autocomplete="off" spellcheck="false"></label>
+    <label class="key-row" style="display:none !important">Clé Google Livres<input id="googleKeyIn" type="text" placeholder="Colle ta clé ici" autocomplete="off" spellcheck="false"></label>
     <p class="sw-title">Couleur préférée</p>
     <div class="swatches" id="accentSw"></div>
     <p class="sw-title">Ambiance de la pièce</p>
