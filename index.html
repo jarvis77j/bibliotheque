@@ -83,7 +83,7 @@
     font-family: Georgia, "Times New Roman", serif;
     font-size: 26px; font-weight: 700; letter-spacing: -.3px;
   }
-  .stats { color: var(--muted); font-size: 13px; margin: -10px 0 -12px; padding: 12px 0; font-variant-numeric: tabular-nums; min-height: 17px; }
+  .stats { color: var(--muted); font-size: 13px; margin: -10px 0 -12px; padding: 12px 0; font-variant-numeric: tabular-nums; min-height: 41px; box-sizing: border-box; }
   .icon-btn {
     border: 0; background: var(--ink); color: var(--card);
     width: 40px; height: 40px; border-radius: 20px; flex: none;
@@ -559,7 +559,7 @@
   .cover-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 10px; margin-top: 8px; }
   .cover-grid button { border: 0; background: none; padding: 0; cursor: pointer; font-size: 11px; color: var(--muted); }
   .cover-grid img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 3px; box-shadow: 0 2px 6px rgba(0,0,0,.2); display: block; margin-bottom: 3px; }
-  .chip-btn { border: 1px solid var(--line, #e2d6c4); background: transparent; color: inherit; border-radius: 999px; padding: 10px 14px; font: inherit; font-size: 13px; cursor: pointer; }
+  .chip-btn { border: 1px solid var(--line, #e2d6c4); background: transparent; color: inherit; border-radius: 999px; padding: 11px 14px; font: inherit; font-size: 13px; cursor: pointer; }
   .back-blurb { flex: 1; overflow-y: auto; font-family: Georgia, serif; font-size: 13px; line-height: 1.5; white-space: pre-line; }
   .back-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px; padding-top: 10px; font-size: 10px; opacity: .85; }
   .barcode { background: #fff; color: #000; padding: 4px 6px 2px; text-align: center; font-size: 9px; }
@@ -583,7 +583,7 @@
   .facts span:last-child { text-align: right; }
   .mine { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 14px; }
   .seg { display: flex; background: var(--bg); border-radius: 10px; padding: 3px; }
-  .seg button { flex: 1; border: 0; background: none; border-radius: 8px; padding: 11px 4px; cursor: pointer; font-size: 14px; }
+  .seg button { flex: 1; border: 0; background: none; border-radius: 8px; padding: 12px 4px; cursor: pointer; font-size: 14px; }
   .seg button.on { background: var(--card); box-shadow: 0 1px 3px rgba(0,0,0,.15); font-weight: 600; }
   .mine-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .mine-row label { color: var(--muted); font-size: 15px; }
@@ -591,6 +591,7 @@
   .stars button { border: 0; background: none; font-size: 26px; line-height: 1; padding: 7px 5px; min-width: 40px; cursor: pointer; color: var(--line); }
   .stars button.on { color: var(--gold); }
   .stars button:not(.on) { color: var(--muted); opacity: .4; }
+  .mine-row:has(.stars) { flex-wrap: wrap; row-gap: 4px; } .fav-btn { white-space: nowrap; }
   .fav-btn { border: 1px solid var(--line); background: none; border-radius: 20px; padding: 10px 12px; cursor: pointer; font-size: 14px; }
   .fav-btn.on { background: var(--accent); border-color: var(--accent); color: var(--card); }
   .mine input[type=date] { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 6px 8px; }
