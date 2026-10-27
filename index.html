@@ -675,6 +675,43 @@
   }
   .toast.show { opacity: 1; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  /* ===== Bilan de l'année (écrans plein écran) ===== */
+  .bl { position: fixed; inset: 0; z-index: 70; display: none; background: #2b1d14; color: #fff; user-select: none; -webkit-user-select: none; touch-action: pan-y; overflow: hidden; }
+  .bl.open { display: block; }
+  .bl-slide { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: calc(60px + env(safe-area-inset-top)) 28px calc(40px + env(safe-area-inset-bottom)); opacity: 0; pointer-events: none; transform: translateX(30px); transition: opacity .35s, transform .35s; }
+  .bl-slide.on { opacity: 1; pointer-events: auto; transform: none; }
+  .bl-slide.past { transform: translateX(-30px); }
+  .bl-slide > * { opacity: 0; transform: translateY(18px); }
+  .bl-slide.on > * { animation: blUp .6s ease forwards; }
+  .bl-slide.on > *:nth-child(2) { animation-delay: .15s; } .bl-slide.on > *:nth-child(3) { animation-delay: .3s; } .bl-slide.on > *:nth-child(4) { animation-delay: .45s; } .bl-slide.on > *:nth-child(5) { animation-delay: .6s; }
+  @keyframes blUp { to { opacity: 1; transform: none; } }
+  .bl small { display: block; font-size: 16px; letter-spacing: .04em; opacity: .85; line-height: 1.4; }
+  .bl .big { font-family: Georgia, "Times New Roman", serif; font-size: 88px; line-height: 1; font-weight: 700; margin: 10px 0; letter-spacing: -2px; font-variant-numeric: tabular-nums; }
+  .bl .mid { font-family: Georgia, "Times New Roman", serif; font-size: 40px; line-height: 1.12; font-weight: 700; margin: 10px 0; overflow-wrap: anywhere; letter-spacing: -.5px; }
+  .bl .stars { font-size: 28px; letter-spacing: 4px; color: #ffd86b; margin-top: 6px; }
+  .bl-cov { width: 130px; height: 195px; border-radius: 3px 8px 8px 3px; overflow: hidden; position: relative; box-shadow: 0 14px 30px rgba(0,0,0,.45); margin: 8px auto 12px; background: rgba(255,255,255,.2); }
+  .bl-cov img, .bl-cov .ex-gen { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bl-cov .noimg { display: none; }
+  .bl-bar { position: absolute; left: 12px; right: 12px; top: calc(10px + env(safe-area-inset-top)); display: flex; gap: 4px; z-index: 3; pointer-events: none; }
+  .bl-bar i { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,.3); overflow: hidden; }
+  .bl-bar i.done::after, .bl-bar i.cur::after { content: ""; display: block; height: 100%; background: #fff; }
+  .bl-bar i.cur::after { animation: blFill .5s ease; }
+  @keyframes blFill { from { width: 0; } to { width: 100%; } }
+  .bl-x { position: absolute; right: 8px; top: calc(20px + env(safe-area-inset-top)); z-index: 4; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(0,0,0,.25); color: #fff; font-size: 20px; cursor: pointer; }
+  .bl-hint { position: absolute; bottom: calc(14px + env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; font-size: 13px; opacity: .6; pointer-events: none; z-index: 3; }
+  .bl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; max-width: 340px; margin: 10px auto; }
+  .bl-grid .bl-cov { width: 100%; height: auto; aspect-ratio: 2/3; margin: 0; box-shadow: 0 4px 10px rgba(0,0,0,.4); }
+  .bl-grid .ex-gen b { font-size: 9px; } .bl-grid .ex-gen small, .bl-grid .ex-gen i { display: none; }
+  .bl-btn { border: 0; border-radius: 999px; padding: 13px 24px; font-size: 17px; font-weight: 600; cursor: pointer; background: #fff; color: #5e3b22; margin: 5px; font-family: inherit; }
+  .bl-btn.ghost { background: rgba(255,255,255,.18); color: #fff; }
+  .bl-sparkle { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .bl-sparkle b { position: absolute; border-radius: 50%; background: rgba(255,255,255,.12); animation: blFloat 7s ease-in-out infinite alternate; }
+  @keyframes blFloat { to { transform: translateY(-26px) scale(1.08); } }
+  .bl-slide > .bl-sparkle { opacity: 1; transform: none; animation: none !important; }
+  .hm-bilan { display: flex; align-items: center; gap: 12px; width: calc(100% - 32px); margin: 0 16px 22px; padding: 14px 16px; border: 0; border-radius: 18px; color: #fff; text-align: left; cursor: pointer; font-family: inherit; box-shadow: 0 6px 16px rgba(60,35,15,.25); }
+  .hm-bilan i { font-style: normal; font-size: 30px; } .hm-bilan b { display: block; font-family: Georgia, serif; font-size: 19px; } .hm-bilan small { display: block; font-size: 13px; opacity: .9; margin-top: 2px; }
+  .bilan-btn { display: block; width: 100%; margin: 10px 0; border: 0; border-radius: 14px; padding: 13px; font-size: 16px; font-weight: 600; color: #fff; cursor: pointer; font-family: Georgia, serif; }
+  @media (prefers-reduced-motion: reduce) { .bl-slide, .bl-slide > *, .bl-sparkle b { animation: none !important; transition: none !important; opacity: 1; transform: none; } .bl-slide:not(.on) { opacity: 0; } }
 </style>
 </head>
 <body>
@@ -2394,6 +2431,7 @@ async function renderHome() {
       <div class="hm-stat" data-go="lu"><b>${read.length}</b><span>livre${read.length > 1 ? "s" : ""} lu${read.length > 1 ? "s" : ""}</span></div>
       <div class="hm-stat" data-go="lu"><b>${nf.format(pages)}</b><span>pages</span></div>
     </div>
+    ${thisYear >= 3 ? `<button class="hm-bilan" id="hmBilan" style="background:${bilanGrad()}"><i>✨</i><span><b>Mon bilan ${year}</b><small>${thisYear} livres lus. Découvre ton année en lecture</small></span></button>` : ""}
     ${q ? `<div class="hm-quote">« ${esc(q.text)} »<small>${esc(q.book.title)}${q.page ? " · page " + esc(q.page) : ""}</small></div>` : ""}
     <div id="hmRows"></div>
     <div class="hm-tiles">
@@ -2411,6 +2449,7 @@ async function renderHome() {
   bindAll(el, () => null);
   const card = el.querySelector(".hm-card"); if (card) card.onclick = () => openDetail(card.dataset.open);
   if ($("#hmAdd")) $("#hmAdd").onclick = openSearch;
+  if ($("#hmBilan")) $("#hmBilan").onclick = () => openBilan(year);
   // rangées : tes livres tout de suite, les nouveautés et les ventes quand elles arrivent
   const rows = $("#hmRows"), parts = {}, known = {};
   const paint = () => {
@@ -3441,6 +3480,7 @@ function openStats() {
   const lent = books.filter((b) => b.lentTo);
   $("#statsBody").innerHTML = `<div class="st">
     <select id="yearSel" aria-label="Année">${years.map((y) => `<option value="${y}" ${y === statsYear ? "selected" : ""}>${y}</option>`).join("")}<option value="all" ${all ? "selected" : ""}>Depuis le début</option></select>
+    ${all || !list.length ? "" : `<button class="bilan-btn" id="bilanBtn" style="background:${bilanGrad()}">✨ Mon bilan ${statsYear}</button>`}
     ${all ? "" : `<div class="panel">
       <div class="panel-title">Objectif ${statsYear}</div>
       ${goal ? `<div class="goal-big">${list.length} <small>/ ${goal} livres</small></div>
@@ -3468,6 +3508,7 @@ function openStats() {
     ${lent.length ? `<div class="panel"><div class="panel-title">Livres prêtés</div>${lent.map((b) => `<div class="list-row" data-id="${esc(b.id)}"><span>${esc(b.title)}</span><span class="sub">${esc(b.lentTo)}${b.lentDate ? " · " + esc(fmtDate(b.lentDate)) : ""}</span></div>`).join("")}</div>` : ""}
   </div>`;
   $("#yearSel").onchange = (e) => { statsYear = e.target.value; openStats(); };
+  if ($("#bilanBtn")) $("#bilanBtn").onclick = () => openBilan(statsYear);
   if ($("#goalSave")) $("#goalSave").onclick = () => {
     const n = Math.round(Number($("#goalIn").value));
     if (n > 0) settings.goals[statsYear] = n; else delete settings.goals[statsYear];
@@ -3481,6 +3522,180 @@ function openStats() {
   $("#statsBody").querySelectorAll(".list-row").forEach((r) => (r.onclick = () => { $("#statsSheet").classList.remove("open"); openDetail(r.dataset.id); }));
   $("#statsSheet").classList.add("open");
 }
+/* ===== Bilan de l'année : écrans à faire défiler, comme un « Wrapped » pour livres ===== */
+const hexMix = (a, b, t) => {
+  const p = (h) => [1, 3, 5].map((i) => parseInt(h.replace("#", "").padEnd(6, "0").slice(i - 1, i + 1), 16));
+  const x = p(a), y = p(b);
+  return "#" + x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, "0")).join("");
+};
+const accentNow = () => (getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#a8432f");
+function bilanBooks(year) { return books.filter((b) => b.status === "lu" && readWhen(b).startsWith(year)); }
+function bilanData(year) {
+  const list = bilanBooks(year), n = list.length;
+  const pagesList = list.filter((b) => b.pages > 0);
+  const d = { year, list, n, pages: list.reduce((s, b) => s + (b.pages || 0), 0) };
+  const perMonth = Array(12).fill(0);
+  for (const b of list) { const m = Number(readWhen(b).slice(5, 7)); if (m >= 1 && m <= 12) perMonth[m - 1]++; }
+  const dated = perMonth.reduce((s, v) => s + v, 0), bm = Math.max(...perMonth);
+  if (dated >= 2 && bm >= 1) d.month = { i: perMonth.indexOf(bm), n: bm };
+  const gl = (k) => (GENRES.find((g) => g.key === k) || {}).label || "";
+  const g = topCounts(list, (b) => [gl(b.genre)])[0];
+  if (g && n >= 2) d.genre = { label: g[0], n: g[1] };
+  const a = topCounts(list, (b) => b.authors.slice(0, 1))[0];
+  if (a && a[1] >= 2) d.author = { name: a[0], n: a[1] };
+  if (pagesList.length >= 2) d.big = pagesList.reduce((m, b) => (b.pages > m.pages ? b : m));
+  const rated = list.filter((b) => b.rating > 0);
+  if (rated.length) {
+    const top = Math.max(...rated.map((b) => b.rating));
+    const tops = rated.filter((b) => b.rating === top).sort((x, y) => (y.fav ? 1 : 0) - (x.fav ? 1 : 0) || readWhen(y).localeCompare(readWhen(x)));
+    d.best = tops[0];
+  }
+  const now = new Date(), cur = String(now.getFullYear()) === year;
+  const days = cur ? Math.max(1, Math.round((now - new Date(now.getFullYear(), 0, 0)) / 864e5)) : (Number(year) % 4 === 0 ? 366 : 365);
+  if (n >= 2) d.every = Math.max(1, Math.round(days / n));
+  d.goal = settings.goals[year] || 0;
+  return d;
+}
+const bilanCover = (b, cls) => `<div class="bl-cov ${cls || ""}">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>`;
+const plur = (n, s, p) => (n > 1 ? p || s + "s" : s);
+function bilanSlides(d) {
+  const s = [], y = d.year, cur = String(new Date().getFullYear()) === y;
+  s.push(`<small>${cur ? "Ton année en lecture" : "Ton année de lecture"} ${y}</small><div class="big" data-count="${d.n}">${d.n}</div><small>${plur(d.n, "livre lu", "livres lus")}${d.pages ? `<br>et ${nf.format(d.pages)} pages tournées` : ""}</small>`);
+  if (d.month) s.push(`<small>Ton mois préféré</small><div class="mid" style="font-size:52px">${MONTHS_LONG[d.month.i][0].toUpperCase() + MONTHS_LONG[d.month.i].slice(1)}</div><small>${d.month.n} ${plur(d.month.n, "livre lu", "livres lus")} ce mois-là. Les pages défilaient toutes seules !</small>`);
+  if (d.genre) s.push(`<small>Ton genre favori</small><div class="mid">${esc(d.genre.label)}</div><small>${d.genre.n} ${plur(d.genre.n, "livre")} sur ${d.n}</small>`);
+  if (d.author) s.push(`<small>L'auteur que tu as le plus lu</small><div class="mid">${esc(d.author.name)}</div><small>${d.author.n} livres cette année. Une vraie fidélité !</small>`);
+  if (d.big) s.push(`<small>Ton plus gros livre</small>${bilanCover(d.big)}<div class="mid" style="font-size:26px">${esc(d.big.title.split(" : ")[0])}</div><small>${nf.format(d.big.pages)} pages</small>`);
+  if (d.best) s.push(`<small>Ton livre le mieux noté</small>${bilanCover(d.best)}<div class="mid" style="font-size:26px">${esc(d.best.title.split(" : ")[0])}</div><div class="stars">${"★".repeat(d.best.rating)}${"☆".repeat(5 - d.best.rating)}</div>`);
+  if (d.every || d.goal) {
+    let t = "";
+    if (d.every) t += `<small>Ton rythme</small><div class="mid">Un livre tous les ${d.every} ${plur(d.every, "jour")}</div>`;
+    else t += `<small>Ton objectif ${y}</small>`;
+    if (d.goal) {
+      const ok = d.n >= d.goal;
+      t += ok ? `<small style="margin-top:12px">🎯 Objectif atteint : ${d.n} livres sur ${d.goal} prévus. Bravo !</small>`
+        : cur ? `<small style="margin-top:12px">🎯 Objectif : ${d.n} sur ${d.goal}. Plus que ${d.goal - d.n} ${plur(d.goal - d.n, "livre")} à lire !</small>`
+        : `<small style="margin-top:12px">🎯 Objectif : ${d.n} sur ${d.goal}. Presque, ce sera pour l'an prochain.</small>`;
+    }
+    s.push(t);
+  }
+  const shown = d.list.slice().sort((a, b) => readWhen(a).localeCompare(readWhen(b))).slice(0, 12);
+  s.push(`<small>Mon bilan ${y}</small><div class="mid" style="font-size:30px;margin:4px 0">${d.n} ${plur(d.n, "livre")}${d.pages ? " · " + nf.format(d.pages) + " pages" : ""}</div>
+    <div class="bl-grid">${shown.map((b) => bilanCover(b)).join("")}</div>
+    ${d.n > shown.length ? `<small>et ${d.n - shown.length} autres</small>` : ""}
+    <div><button class="bl-btn" id="blShare">Partager mon bilan</button><button class="bl-btn ghost" id="blClose2">Fermer</button></div>`);
+  return s;
+}
+let blIdx = 0, blCount = 0, blData = null;
+function openBilan(year) {
+  year = year || String(new Date().getFullYear());
+  const d = bilanData(year);
+  if (!d.n) { toast(`Pas encore de livre lu en ${year}.`); return; }
+  blData = d;
+  let el = $("#bilan");
+  if (!el) { el = document.createElement("div"); el.id = "bilan"; el.className = "bl"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Bilan de l'année"); document.body.appendChild(el); }
+  const ac = accentNow(), gold = "#c9a227";
+  const grads = [[hexMix(ac, "#000", .15), hexMix(ac, gold, .35)], [hexMix(ac, "#000", .55), ac], [hexMix(ac, "#2a3a6a", .55), hexMix(ac, "#000", .45)], [hexMix(ac, gold, .5), hexMix(ac, "#000", .4)], [hexMix(ac, "#1f6f5c", .6), hexMix(ac, "#000", .55)], [hexMix(ac, "#000", .6), hexMix(ac, gold, .3)], [ac, hexMix(ac, "#4a1d6a", .6)], [hexMix(ac, "#000", .7), hexMix(ac, "#000", .1)]];
+  const slides = bilanSlides(d);
+  blCount = slides.length; blIdx = 0;
+  const sp = () => `<div class="bl-sparkle">${[0, 1, 2, 3, 4].map((i) => `<b style="width:${60 + i * 37}px;height:${60 + i * 37}px;left:${(i * 29 + 5) % 85}%;top:${(i * 41 + 8) % 80}%;animation-delay:${-i * 1.3}s"></b>`).join("")}</div>`;
+  el.innerHTML = `<div class="bl-bar">${slides.map(() => "<i></i>").join("")}</div><button class="bl-x" aria-label="Fermer">✕</button>` +
+    slides.map((h, i) => `<div class="bl-slide" style="background:linear-gradient(160deg,${grads[i % grads.length][0]},${grads[i % grads.length][1]})">${sp()}${h}</div>`).join("") +
+    `<div class="bl-hint" id="blHint">Touche pour continuer</div>`;
+  el.querySelector(".bl-x").onclick = closeBilan;
+  const c2 = el.querySelector("#blClose2"); if (c2) c2.onclick = closeBilan;
+  const sh = el.querySelector("#blShare"); if (sh) sh.onclick = shareBilan;
+  // toucher : tiers gauche = retour, le reste = suite ; balayer aussi
+  let x0 = null, y0 = 0;
+  el.onpointerdown = (e) => { x0 = e.clientX; y0 = e.clientY; };
+  el.onpointerup = (e) => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
+    if (e.target.closest("button")) return;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) { bilanGo(blIdx + (dx < 0 ? 1 : -1)); return; }
+    if (Math.abs(dx) < 12 && Math.abs(dy) < 12) bilanGo(blIdx + (e.clientX < innerWidth / 3 ? -1 : 1));
+  };
+  el.classList.add("open");
+  bilanGo(0, true);
+}
+function bilanGo(i, force) {
+  const el = $("#bilan"); if (!el) return;
+  if (i < 0) i = 0;
+  if (i >= blCount) { if (!force) return; i = 0; }
+  blIdx = i;
+  el.querySelectorAll(".bl-slide").forEach((s, k) => { s.classList.toggle("on", k === i); s.classList.toggle("past", k < i); });
+  el.querySelectorAll(".bl-bar i").forEach((b, k) => { b.className = k < i ? "done" : k === i ? "cur" : ""; });
+  const h = el.querySelector("#blHint"); if (h) h.style.display = i === blCount - 1 ? "none" : "";
+  const big = el.querySelector(".bl-slide.on [data-count]"); // petit effet : le chiffre monte jusqu'à sa valeur
+  if (big) { const to = Number(big.dataset.count); let v = 0; const t = setInterval(() => { v = Math.min(to, v + Math.max(1, Math.ceil(to / 18))); big.textContent = v; if (v >= to) clearInterval(t); }, 40); }
+}
+function closeBilan() { const el = $("#bilan"); if (el) el.classList.remove("open"); }
+document.addEventListener("keydown", (e) => {
+  const el = $("#bilan"); if (!el || !el.classList.contains("open")) return;
+  if (e.key === "Escape") closeBilan(); else if (e.key === "ArrowRight") bilanGo(blIdx + 1); else if (e.key === "ArrowLeft") bilanGo(blIdx - 1);
+});
+/* Image à partager (canvas 1080 x 1920) */
+const bilanImg = (b) => new Promise((ok) => {
+  const urls = [b.cover, bdThumb(b.cover), olIsbnCover(b), amzCover(b)].filter(Boolean);
+  const next = () => {
+    const u = urls.shift(); if (!u) { ok(null); return; }
+    const im = new Image(); im.crossOrigin = "anonymous"; const t = setTimeout(next, 3500);
+    im.onload = () => { clearTimeout(t); im.naturalWidth > 20 ? ok(im) : next(); };
+    im.onerror = () => { clearTimeout(t); next(); }; im.src = u;
+  };
+  next();
+});
+async function bilanCanvas(d) {
+  const W = 1080, H = 1920, c = document.createElement("canvas"); c.width = W; c.height = H;
+  const x = c.getContext("2d"), ac = accentNow();
+  const g = x.createLinearGradient(0, 0, W * .5, H); g.addColorStop(0, hexMix(ac, "#000", .2)); g.addColorStop(1, hexMix(ac, "#c9a227", .4));
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.fillStyle = "rgba(255,255,255,.07)"; [[180, 260, 220], [900, 700, 300], [120, 1500, 260]].forEach(([a, b, r]) => { x.beginPath(); x.arc(a, b, r, 0, 7); x.fill(); });
+  x.fillStyle = "#fff"; x.textAlign = "center";
+  x.font = "44px Georgia, serif"; x.globalAlpha = .85; x.fillText("Mon année en lecture", W / 2, 170); x.globalAlpha = 1;
+  x.font = "bold 190px Georgia, serif"; x.fillText(d.year, W / 2, 360);
+  x.font = "bold 70px Georgia, serif"; x.fillText(`${d.n} ${plur(d.n, "livre lu", "livres lus")}`, W / 2, 500);
+  x.font = "44px Georgia, serif";
+  const lines = [d.pages ? `${nf.format(d.pages)} pages` : "", d.genre ? `Genre favori : ${d.genre.label}` : "", d.author ? `Auteur le plus lu : ${d.author.name}` : "", d.every ? `Un livre tous les ${d.every} ${plur(d.every, "jour")}` : ""].filter(Boolean);
+  lines.forEach((t, i) => { let s = t; while (x.measureText(s).width > W - 120 && s.length > 8) s = s.slice(0, -2); x.fillText(s === t ? t : s + "…", W / 2, 580 + i * 62); });
+  const shown = d.list.slice().sort((a, b) => readWhen(a).localeCompare(readWhen(b))).slice(0, 12);
+  const imgs = await Promise.all(shown.map(bilanImg));
+  const cols = 4, cw = 200, ch = 300, gap = 26, left = (W - (cols * cw + (cols - 1) * gap)) / 2, top = 780;
+  shown.forEach((b, i) => {
+    const px = left + (i % cols) * (cw + gap), py = top + Math.floor(i / cols) * (ch + gap);
+    x.save(); x.shadowColor = "rgba(0,0,0,.45)"; x.shadowBlur = 24; x.shadowOffsetY = 10;
+    if (imgs[i]) { x.drawImage(imgs[i], px, py, cw, ch); x.restore(); }
+    else {
+      const bg = colorOf(b); x.fillStyle = bg; x.fillRect(px, py, cw, ch); x.restore();
+      x.fillStyle = textOn(bg); x.font = "bold 24px Georgia, serif"; x.textAlign = "center";
+      const words = b.title.split(" : ")[0].split(" "); let ln = "", yy = py + 90;
+      for (const w of words) { if (x.measureText(ln + " " + w).width > cw - 24 && ln) { x.fillText(ln, px + cw / 2, yy); yy += 30; ln = w; } else ln = (ln + " " + w).trim(); }
+      x.fillText(ln, px + cw / 2, yy);
+    }
+  });
+  if (d.n > shown.length) { x.fillStyle = "#fff"; x.font = "40px Georgia, serif"; x.textAlign = "center"; x.fillText(`et ${d.n - shown.length} autres`, W / 2, top + 3 * (ch + gap) + 40); }
+  x.fillStyle = "#fff"; x.globalAlpha = .8; x.font = "36px Georgia, serif"; x.textAlign = "center"; x.fillText("Ma bibliothèque", W / 2, H - 70); x.globalAlpha = 1;
+  return c;
+}
+async function shareBilan() {
+  const d = blData; if (!d) return;
+  const btn = $("#blShare"); if (btn) { btn.disabled = true; btn.textContent = "Je prépare l'image…"; }
+  try {
+    const c = await bilanCanvas(d);
+    const blob = await new Promise((ok) => { try { c.toBlob(ok, "image/png"); } catch { ok(null); } });
+    if (!blob) throw new Error("image");
+    const file = new File([blob], `mon-bilan-${d.year}.png`, { type: "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file], title: `Mon bilan ${d.year}` }); }
+      catch (e) { if (e && e.name !== "AbortError") throw e; }
+    } else {
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file.name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000); toast("Image enregistrée");
+    }
+  } catch { toast("Je n'ai pas réussi à créer l'image."); }
+  if (btn) { btn.disabled = false; btn.textContent = "Partager mon bilan"; }
+}
+const bilanGrad = () => `linear-gradient(135deg,${hexMix(accentNow(), "#000", .2)},${hexMix(accentNow(), "#c9a227", .35)})`;
+/* ===== fin du bilan ===== */
 /* ---------- Badges : de petits défis gagnés en lisant ---------- */
 function badgeList() {
   const read = books.filter((b) => b.status === "lu");
