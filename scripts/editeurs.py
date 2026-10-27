@@ -97,13 +97,6 @@ SOURCE_RANK = {"bdgest": 2, "nautiljon": 3, "manganews": 4}
 def source_rank(b):
     return SOURCE_RANK.get(b.get("source", "").split(":")[-1], 1)
 
-def mardi_vers_mercredi(d):
-    """Bayard et Milan datent leurs livres du mardi ; leslibraires.fr et bdgest donnent le mercredi (jour de mise en
-    place en librairie) pour les mêmes ISBN. On aligne sur le mercredi. Autres jours : inchangés."""
-    try: x = date.fromisoformat(d)
-    except ValueError: return d
-    return (x + timedelta(days=1)).isoformat() if x.weekday() == 1 else d
-
 def lundi_vers_mercredi(d):
     """Albin Michel date certains livres du lundi suivant la sortie (Anderson : 2 novembre sur son site, mis en vente le
     mercredi 28 octobre chez les libraires). Le mercredi est le jour de mise en place : lundi → mercredi précédent."""

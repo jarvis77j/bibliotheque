@@ -380,7 +380,6 @@ def src_bayard_milan(c, source):
         q = re.sub(r"\s+", " ", page)
         d = editeurs.iso(txt((re.search(r"Date de parution\s*</div>(.*?)</div>", q) or re.search(r"Date de parution(.{0,200})", q) or [None, ""])[1]))
         if not d: return None
-        d = editeurs.mardi_vers_mercredi(d)  # leslibraires.fr et bdgest : mercredi pour les mêmes ISBN
         e = EAN.search((re.search(r"N°\s?EAN(.{0,300})", q) or [None, ""])[1])
         authors = [txt(x) for x in re.findall(r">\s*Auteur\s*</div>\s*(?:<[^>]+>\s*)*([^<]+)<", q)]
         coll = html.unescape((re.search(r'href="/livres/collections/[^"]+"[^>]*title="Voir ([^"]+)"', q) or [None, ""])[1])
