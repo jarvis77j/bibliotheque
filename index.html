@@ -373,7 +373,7 @@
   .home { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
   .home .ex-row { margin-bottom: 14px; }
   .home .ex-list { min-height: 0; padding-top: 8px; }
-  .home .ex-cover .vrank { left: 6px; top: auto; bottom: 6px; display: block; min-height: 0; margin: 0; overflow: visible; -webkit-line-clamp: unset; }
+  .ex-cover .vrank { left: 6px; top: auto; bottom: 6px; display: block; min-height: 0; margin: 0; overflow: visible; -webkit-line-clamp: unset; }
   .ex-head button { margin: -10px 0; }
   @media (max-width: 340px) { .hm-card .hm-cover { width: 68px; height: 102px; } .hm-card { gap: 12px; padding: 14px; } .hm-card b { font-size: 18px; } }
   .hm-card em { display: block; }
@@ -751,7 +751,7 @@
   .bl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; max-width: min(340px, max(190px, calc(100vh - 410px))); margin: 8px auto; }
   .bl-last small { margin: 2px 0 6px; } .bl-last .bl-acts { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 6px; } .bl-last .bl-btn { padding: 11px 20px; font-size: 16px; margin: 3px; }
   .bl-grid .bl-cov { width: 100%; height: auto; aspect-ratio: 2/3; margin: 0; box-shadow: 0 4px 10px rgba(0,0,0,.4); }
-  .bl-grid .ex-gen { --fs: 9px; } .bl-grid .ex-gen small, .bl-grid .ex-gen i { display: none; }
+  .bl-grid .ex-gen { --fs: 9px; } @media (max-height: 600px) { .bl-grid .ex-gen b { display: none; } } .bl-grid .ex-gen small, .bl-grid .ex-gen i { display: none; }
   .bl-btn { border: 0; border-radius: 999px; padding: 13px 24px; font-size: 17px; font-weight: 600; cursor: pointer; background: #fff; color: #5e3b22; margin: 5px; font-family: inherit; }
   .bl-btn.ghost { background: rgba(255,255,255,.18); color: #fff; }
   .bl-sparkle { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
