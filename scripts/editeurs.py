@@ -104,6 +104,13 @@ def mardi_vers_mercredi(d):
     except ValueError: return d
     return (x + timedelta(days=1)).isoformat() if x.weekday() == 1 else d
 
+def lundi_vers_mercredi(d):
+    """Albin Michel date certains livres du lundi suivant la sortie (Anderson : 2 novembre sur son site, mis en vente le
+    mercredi 28 octobre chez les libraires). Le mercredi est le jour de mise en place : lundi → mercredi précédent."""
+    try: x = date.fromisoformat(d)
+    except ValueError: return d
+    return (x - timedelta(days=5)).isoformat() if x.weekday() == 0 else d
+
 def reconcile_into(allb, k, b, conflits):
     """Ajoute b à allb[k]. Si l'ISBN y est déjà : garde la fiche de la source la plus fiable (en cas d'égalité, la
     première) et lui reporte ce qui lui manque. Un désaccord de date est noté dans conflits."""

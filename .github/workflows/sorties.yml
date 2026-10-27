@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/sorties.py", "scripts/editeurs.py", "scripts/ventes.py", "scripts/src_*.py", ".github/workflows/sorties.yml"]
+    paths: ["scripts/sorties.py", "scripts/editeurs.py", "scripts/ventes.py", "scripts/prix.py", "scripts/src_*.py", ".github/workflows/sorties.yml"]
 permissions:
   contents: write
 concurrency:
@@ -25,6 +25,10 @@ jobs:
         env:
           # après une modification du robot, on relit aussi tout de suite les sites des éditeurs
           EDITEURS: ${{ github.event_name != 'schedule' && '1' || '' }}
+      # prix et format : fiches relues par petits lots (les plus proches d'aujourd'hui d'abord)
+      - run: python3 scripts/prix.py
+        continue-on-error: true
+        timeout-minutes: 15
       - run: python3 scripts/controle_dates.py
         continue-on-error: true
       - run: python3 scripts/controle_semaine.py
@@ -40,7 +44,7 @@ jobs:
         run: |
           git config user.name "robot-sorties"; git config user.email "robot@users.noreply.github.com"
           # chaque fichier séparément : un fichier absent (ventes pas encore produites…) n'empêche pas d'ajouter les autres
-          for f in data/sorties.json data/bd-isbn.json data/ventes.json data/ventes-historique.json; do [ -f "$f" ] && git add "$f"; done
+          for f in data/sorties.json data/bd-isbn.json data/ventes.json data/ventes-historique.json data/prix.json; do [ -f "$f" ] && git add "$f"; done
           if git diff --cached --quiet; then echo "rien de neuf"; exit 0; fi
           git -c user.name="robot-sorties" -c user.email="robot@users.noreply.github.com" commit -qm "Sorties mises à jour"
           # si l'app a été mise à jour pendant la collecte, on se replace dessus puis on réessaie

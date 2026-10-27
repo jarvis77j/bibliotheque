@@ -274,7 +274,9 @@ def src_albinmichel(c):
         cover = h["cover"] if "default-cover" not in h["cover"] else ""
         return book("albinmichel", "Albin Michel", h["title"], d, h["isbn"], h["authors"], cover or og(page, "image"),
                     base + h["path"], k, crumbs, "", pages, og(page, "description"))
-    return from_fiches(c, "albinmichel", todo, parse)
+    out = from_fiches(c, "albinmichel", todo, parse)
+    for b in out.values(): b["date"] = editeurs.lundi_vers_mercredi(b["date"])  # aussi pour les fiches déjà lues
+    return out
 
 # Hugo Publishing
 # univers Hugo (« Hugo Poche / Impact », « New Romance », « Neotoon »…) : premier mot reconnu dans l'ordre

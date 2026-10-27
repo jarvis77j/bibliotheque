@@ -311,6 +311,7 @@
   .rel-info h4 { margin: 0 0 2px; font-size: 15px; line-height: 1.25; cursor: pointer; }
   .rel-meta { color: var(--muted); font-size: 13px; line-height: 1.4; }
   .rel-meta .distrib { border: 0; background: none; padding: 8px 0; margin: -8px 0; color: var(--accent-text, var(--accent)); font: inherit; cursor: pointer; }
+  .rel-px { margin-top: 3px; } .rel-px b { color: var(--ink); font-weight: 600; }
   .rel-desc { font-size: 13px; line-height: 1.45; margin: 6px 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; cursor: pointer; }
   .rel-desc.open { -webkit-line-clamp: unset; }
   .rel-acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
@@ -937,7 +938,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 28 octobre, 1 h</p>
+    <p class="version">Version du 27 octobre, 23 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -2244,9 +2245,14 @@ async function siteReleases() {
    à partir d'il y a deux semaines, pour laisser la place à la bibliothèque dans la mémoire du navigateur (~5 Mo sur iPhone) */
 function relLight(site) {
   const from = isoDay(new Date(Date.now() - 7 * 864e5));
-  return site.filter((b) => (b.date || "") >= from).map(({ description, rayons, categories, pages, format, url, site: _s, ...b }) => b);
+  return site.filter((b) => (b.date || "") >= from).map(({ description, rayons, categories, pages, url, site: _s, ...b }) => b);
 }
 let relCacheRaw = null, relCacheObj = null; // copie hors ligne déjà lue : pas relue tant qu'elle n'a pas changé
+// « Grand format - Broché », « Poche »… → Poche / Broché / Relié (vide si le format n'est pas clair)
+function formatLabel(f) {
+  const s = plain(f || "");
+  return /poche/.test(s) ? "Poche" : /broch/.test(s) ? "Broché" : /reli|cartonn/.test(s) ? "Relié" : "";
+}
 async function loadReleases(force) {
   const slot = today() + "-" + Math.floor(new Date().getHours() / 4);
   let cache = null;
@@ -2384,6 +2390,7 @@ async function renderReleases() {
           <h4 data-open>${esc(b.title)}</h4>
           <div class="rel-meta">${authorLinks(b)}${b.publisher ? (b.authors.length ? "<br>" : "") + esc(b.publisher) : ""}${b.publisher ? ` · <button class="distrib" data-pub="${esc(b.publisher)}">${dist ? "Distribution : " + esc(dist) : "Distributeur : à indiquer"}</button>` : ""}
             ${b.avg ? `<br>${"★".repeat(Math.round(b.avg))}${"☆".repeat(5 - Math.round(b.avg))} ${String(b.avg).replace(".", ",")} (${b.ratings} avis)` : ""}</div>
+          ${(() => { const f = formatLabel(b.format), p = b.prix ? String(b.prix.toFixed(2)).replace(".", ",") + " €" : ""; return f || p ? `<div class="rel-meta rel-px">${[f, p].filter(Boolean).map((x) => `<b>${esc(x)}</b>`).join(" · ")}</div>` : ""; })()}
           ${freshSet.has(b) ? `<div class="rel-meta"><span class="tag new-tome">🆕 Nouveau tome de ta série</span></div>` : ""}
           ${(() => { const a = guessAge(b); return a.age != null ? `<div class="rel-meta"><span class="tag">${esc(ageLabel(a))}</span></div>` : ""; })()}
           ${b.description ? `<div class="rel-desc">${esc(b.description)}</div>` : `<div class="rel-meta" style="margin:6px 0">Pas encore de résumé.</div>`}

@@ -97,6 +97,7 @@ def parse_book(path, page):
         "isbn": caract(page, "EAN13"),
         "pages": int(caract(page, "Nombre de pages") or 0) if caract(page, "Nombre de pages").isdigit() else 0,
         "format": caract(page, "Format"),
+        "prix": float((re.search(r'itemprop="price" content="(\d+(?:\.\d+)?)"', page) or [0, 0])[1] or 0),
         "cover": "https:" + cover.group(1) if cover else "",
         "description": text(desc.group(1))[:1500] if desc else "",
         "rayons": crumbs[2:6] if len(crumbs) > 2 else [],
