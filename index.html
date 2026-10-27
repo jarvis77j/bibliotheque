@@ -3728,7 +3728,7 @@ function openBilan(year) {
   blData = d;
   let el = $("#bilan");
   if (!el) { el = document.createElement("div"); el.id = "bilan"; el.className = "bl"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Bilan de l'année"); document.body.appendChild(el); }
-  const ac = accentNow(), gold = "#c9a227";
+  const ac0 = accentNow(), ac = luminance(ac0) > .25 ? hexMix(ac0, "#000", .4) : ac0, gold = "#c9a227"; // accent clair (Miel) : on fonce pour garder le texte blanc lisible
   const grads = [[hexMix(ac, "#000", .15), hexMix(ac, gold, .35)], [hexMix(ac, "#000", .55), ac], [hexMix(ac, "#2a3a6a", .55), hexMix(ac, "#000", .45)], [hexMix(ac, gold, .5), hexMix(ac, "#000", .4)], [hexMix(ac, "#1f6f5c", .6), hexMix(ac, "#000", .55)], [hexMix(ac, "#000", .6), hexMix(ac, gold, .3)], [ac, hexMix(ac, "#4a1d6a", .6)], [hexMix(ac, "#000", .7), hexMix(ac, "#000", .1)]];
   const slides = bilanSlides(d);
   blCount = slides.length; blIdx = 0;
@@ -3839,7 +3839,7 @@ async function shareBilan() {
   } catch { toast("Je n'ai pas réussi à créer l'image."); }
   if (btn) { btn.disabled = false; btn.textContent = "Partager mon bilan"; }
 }
-const bilanGrad = () => `linear-gradient(135deg,${hexMix(accentNow(), "#000", .2)},${hexMix(accentNow(), "#c9a227", .35)})`;
+const bilanGrad = () => { const ac = accentNow(), clair = luminance(ac) > .25; return `linear-gradient(135deg,${hexMix(ac, "#000", clair ? .5 : .2)},${hexMix(ac, clair ? "#000" : "#c9a227", clair ? .28 : .35)})`; }; // accent clair (Miel) : fond plus foncé pour que le texte blanc reste lisible
 /* ===== fin du bilan ===== */
 /* ---------- Badges : de petits défis gagnés en lisant ---------- */
 function badgeList() {
