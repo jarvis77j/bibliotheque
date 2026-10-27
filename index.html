@@ -89,20 +89,28 @@
   .menu-btn { background: transparent; color: var(--ink); font-size: 20px; }
 
   .rel-bn { display: block; text-align: center; margin: 4px 0 10px; padding: 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; font-size: 14px; }
-  .quick { display: flex; gap: 8px; margin: 10px 0 0; }
-  .quick button { flex: 1; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 8px 6px; font-size: 14px; cursor: pointer; white-space: nowrap; }
-  .quick button.on { background: var(--ink); color: var(--card); border-color: var(--ink); font-weight: 600; }
+  .quick { display: flex; gap: 6px; margin: 12px -16px 0; padding: 2px 16px 4px; overflow-x: auto; scrollbar-width: none; }
+  .quick::-webkit-scrollbar { display: none; }
+  .quick button { flex: 1 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 62px; border: 1px solid var(--line); background: var(--card); color: var(--muted); border-radius: 16px; padding: 7px 8px 6px; font-size: 12px; font-weight: 500; cursor: pointer; white-space: nowrap; box-shadow: 0 1px 2px rgba(60,35,15,.06); transition: transform .15s, background .15s; }
+  .quick button { position: relative; }
+  .quick .badge-new { position: absolute; top: 1px; right: 4px; margin: 0; }
+  .quick button i { font-style: normal; font-size: 19px; line-height: 1.15; }
+  .quick button:active { transform: scale(.95); }
+  .quick button.on { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; box-shadow: 0 4px 10px rgba(80,30,10,.28); }
   body.shared .quick { display: none !important; }
   .tb-toggle { flex: 1 1 100%; border: 0; background: none; color: var(--accent); font-size: 15px; padding: 2px 0; text-align: left; cursor: pointer; }
   .toolbar.closed > :not(.tb-toggle) { display: none; }
   .tabs { display: flex; gap: 4px; overflow-x: auto; margin: 12px -16px 0; padding: 0 16px; scrollbar-width: none; }
   .tabs::-webkit-scrollbar { display: none; }
+  .tabs { gap: 8px; padding-top: 2px; padding-bottom: 10px; }
   .tab {
-    flex: none; border: 0; background: none; padding: 9px 12px 11px; cursor: pointer;
-    font-size: 15px; color: var(--muted); border-bottom: 2px solid transparent;
+    flex: none; border: 1px solid transparent; background: none; padding: 6px 13px; cursor: pointer; border-radius: 999px;
+    font-size: 14px; color: var(--muted);
   }
-  .tab.active { color: var(--ink); border-bottom-color: var(--ink); font-weight: 600; }
-  .tab span { font-size: 12px; opacity: .7; margin-left: 3px; }
+  .tab.active { color: var(--ink); background: var(--card); border-color: var(--line); font-weight: 600; box-shadow: 0 1px 3px rgba(60,35,15,.12); }
+  .tab span { font-size: 11px; opacity: .8; margin-left: 5px; background: var(--line); border-radius: 9px; padding: 1px 6px; }
+  .tab.active span { background: var(--accent); color: #fff; opacity: 1; }
+  .tab span:empty { display: none; }
 
   .toolbar { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 16px 4px; }
   .toolbar input, .toolbar select {
@@ -309,7 +317,42 @@
   }
   .ex-row { margin-bottom: 22px; }
   .rank { position: absolute; left: 4px; top: 4px; z-index: 3; min-width: 24px; height: 24px; padding: 0 6px; box-sizing: border-box; border-radius: 12px; background: var(--accent); color: #fff; font: 700 13px/24px system-ui, sans-serif; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,.3); }
-  .quick button { font-size: 13px; padding-left: 4px; padding-right: 4px; }
+  /* ---- page d'accueil ---- */
+  .home { padding: 6px 0 40px; }
+  .home .ex-card { position: relative; }
+  .home .ex-list { scroll-padding-left: 16px; }
+  .hm-hello { padding: 8px 18px 14px; }
+  .hm-hello small { display: block; color: var(--muted); font-size: 13px; text-transform: capitalize; letter-spacing: .2px; }
+  .hm-hello h2 { margin: 2px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 30px; line-height: 1.1; letter-spacing: -.4px; }
+  .hm-card { margin: 0 16px 18px; border-radius: 22px; padding: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 88%, #000) 0%, color-mix(in srgb, var(--accent) 60%, #f5c98a) 130%); color: #fff; box-shadow: 0 10px 24px rgba(80,35,10,.28); display: flex; gap: 14px; align-items: center; position: relative; overflow: hidden; }
+  .hm-card::after { content: ""; position: absolute; right: -40px; top: -40px; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,.1); }
+  .hm-card .hm-cover { flex: none; width: 84px; height: 126px; border-radius: 3px 8px 8px 3px; overflow: hidden; background: rgba(255,255,255,.25); box-shadow: 0 8px 16px rgba(0,0,0,.35); position: relative; z-index: 1; }
+  .hm-card .hm-cover img, .hm-card .hm-cover .ex-gen { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hm-card .hm-txt { position: relative; z-index: 1; min-width: 0; flex: 1; }
+  .hm-card small { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; opacity: .85; }
+  .hm-card b { display: block; font-family: Georgia, serif; font-size: 19px; line-height: 1.2; margin: 4px 0 2px; }
+  .hm-card em { font-style: normal; font-size: 14px; opacity: .9; }
+  .hm-card .hm-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,.3); margin-top: 10px; overflow: hidden; }
+  .hm-card .hm-bar div { height: 100%; background: #fff; border-radius: 3px; }
+  .hm-card button { margin-top: 12px; border: 0; background: #fff; color: #5a2412; border-radius: 999px; padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .hm-stats { display: flex; gap: 10px; margin: 0 16px 22px; }
+  .hm-stat { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px 8px; text-align: center; box-shadow: 0 1px 3px rgba(60,35,15,.06); cursor: pointer; }
+  .hm-stat b { display: block; font-family: Georgia, serif; font-size: 24px; font-variant-numeric: tabular-nums; }
+  .hm-stat span { display: block; color: var(--muted); font-size: 12px; margin-top: 1px; }
+  .hm-ring { width: 54px; height: 54px; border-radius: 50%; margin: 0 auto 4px; display: grid; place-items: center; background: conic-gradient(var(--accent) calc(var(--p) * 1%), var(--line) 0); }
+  .hm-ring b { width: 42px; height: 42px; border-radius: 50%; background: var(--card); display: grid; place-items: center; font-size: 14px; }
+  .hm-quote { margin: 0 16px 22px; padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--card); border-radius: 0 14px 14px 0; font-family: Georgia, serif; font-style: italic; line-height: 1.4; }
+  .hm-quote small { display: block; font-family: system-ui, sans-serif; font-style: normal; color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .hm-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 4px 16px 10px; }
+  .hm-tile { border: 0; border-radius: 18px; padding: 14px; min-height: 84px; text-align: left; color: #fff; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 5px 12px rgba(40,20,5,.2); }
+  .hm-tile i { font-style: normal; font-size: 24px; }
+  .hm-tile b { font-size: 15px; }
+  .hm-tile small { display: block; font-size: 12px; opacity: .85; font-weight: 400; margin-top: 1px; }
+  .hm-tile:nth-child(1) { background: linear-gradient(135deg, #3f6f8c, #6aa0b8); }
+  .hm-tile:nth-child(2) { background: linear-gradient(135deg, #5a7a4a, #8bad6e); }
+  .hm-tile:nth-child(3) { background: linear-gradient(135deg, #8c4a6a, #c0789c); }
+  .hm-tile:nth-child(4) { background: linear-gradient(135deg, #b0762a, #dfa64f); }
+  .hm-empty { margin: 0 16px 18px; padding: 22px 16px; border: 1px dashed var(--line); border-radius: 18px; text-align: center; color: var(--muted); }
   .ex-head { display: flex; align-items: baseline; justify-content: space-between; padding: 0 16px 8px; }
   .ex-head h3 { margin: 0; font-family: Georgia, serif; font-size: 19px; }
   .ex-row.mine .ex-head h3::before { content: "✨ "; }
@@ -647,10 +690,12 @@
     <button class="icon-btn" id="searchBtn" aria-label="Ajouter un livre">+</button>
   </div>
   <nav class="quick" id="quick">
-    <button data-key="sorties">🗓 Sorties</button>
-    <button data-key="explore">🔎 Explorer</button>
-    <button data-key="pourtoi">✨ Pour toi</button>
-    <button data-key="ventes">🏆 Ventes</button>
+    <button data-key="accueil"><i>🏠</i>Accueil</button>
+    <button data-key="bib"><i>📚</i>Mes livres</button>
+    <button data-key="sorties"><i>📅</i>Sorties</button>
+    <button data-key="explore"><i>🔎</i>Explorer</button>
+    <button data-key="pourtoi"><i>✨</i>Pour toi</button>
+    <button data-key="ventes"><i>🏆</i>Ventes</button>
   </nav>
   <nav class="tabs" id="tabs"></nav>
 </header>
@@ -793,7 +838,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 25 octobre, 4 h</p>
+    <p class="version">Version du 27 octobre, 12 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -836,6 +881,7 @@ const SHELVES = [
   { key: "encours", label: "En cours", empty: "Aucune lecture en cours." },
   { key: "alire", label: "À lire", empty: "Ta pile à lire est vide." },
   { key: "fav", label: "Coups de cœur", empty: "Pas encore de coup de cœur.<br>Touche ♥ sur la fiche d'un livre." },
+  { key: "accueil", label: "Accueil", empty: "" },
   { key: "sorties", label: "Sorties", empty: "" },
   { key: "explore", label: "Explorer", empty: "" },
   { key: "pourtoi", label: "Pour toi", empty: "" },
@@ -944,8 +990,7 @@ let currentShelf = "lu";
 function load() {
   try { books = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch { books = []; }
   books = books.map(normalize);
-  try { currentShelf = localStorage.getItem(STORE_KEY + ".onglet") || "lu"; } catch {}
-  if (!SHELVES.some((s) => s.key === currentShelf)) currentShelf = "lu";
+  currentShelf = "accueil"; // on ouvre toujours sur la page d'accueil
 }
 function normalize(b) {
   const n = { authors: [], categories: [], status: "lu", fav: false, rating: 0, readDate: "", review: "", ...b };
@@ -1640,17 +1685,22 @@ function groupEditions(list, p) {
 function inShelf(b, key) { return key === "fav" ? b.fav : b.status === key; }
 /* Statut donné à un livre ajouté depuis l'onglet ouvert */
 const defaultStatus = () => (["lu", "encours", "alire"].includes(currentShelf) ? currentShelf : "lu");
-const SPECIAL = ["sorties", "explore", "pourtoi", "ventes"];
+const SPECIAL = ["accueil", "sorties", "explore", "pourtoi", "ventes"];
+let lastLibShelf = "lu";
 function renderTabs() {
-  $("#quick").querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.key === currentShelf));
+  if (!SPECIAL.includes(currentShelf)) lastLibShelf = currentShelf;
+  $("#quick").querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.key === (b.dataset.key === "bib" && !SPECIAL.includes(currentShelf) ? "bib" : currentShelf)));
+  $("#tabs").style.display = SPECIAL.includes(currentShelf) ? "none" : "";
+  const onBtn = $("#quick").querySelector("button.on"), qk = $("#quick");
+  if (onBtn) qk.scrollTo({ left: onBtn.offsetLeft - (qk.clientWidth - onBtn.offsetWidth) / 2, behavior: "auto" });
   $("#tabs").innerHTML = SHELVES.filter((s) => !SPECIAL.includes(s.key)).map((s) => {
     const n = books.filter((b) => inShelf(b, s.key)).length;
     return `<button class="tab ${s.key === currentShelf ? "active" : ""}" data-key="${s.key}">${s.label}<span>${n || ""}</span></button>`;
   }).join("");
   [...$("#tabs").querySelectorAll(".tab"), ...$("#quick").querySelectorAll("button")].forEach((t) => (t.onclick = () => {
-    currentShelf = t.dataset.key;
+    currentShelf = t.dataset.key === "bib" ? lastLibShelf : t.dataset.key;
     try { localStorage.setItem(STORE_KEY + ".onglet", currentShelf); } catch {}
-    render();
+    render(); if (SPECIAL.includes(currentShelf)) window.scrollTo(0, 0);
   }));
 }
 function renderStats() {
@@ -1762,6 +1812,7 @@ function spineHtml(b) {
 }
 function renderShelves() {
   const el = $("#shelves");
+  if (currentShelf === "accueil") { $("#toolbar").hidden = true; renderHome(); return; }
   if (currentShelf === "explore") { $("#toolbar").hidden = true; renderExplore(); return; }
   if (currentShelf === "pourtoi") { $("#toolbar").hidden = true; renderExplore(true); return; }
   if (currentShelf === "sorties") { $("#toolbar").hidden = true; renderReleases(); return; }
@@ -2053,7 +2104,7 @@ function updateTomeBadge(all, fresh) {
   const btn = document.querySelector('#quick [data-key="sorties"]'); if (!btn) return;
   const seen = new Set(settings.tomesVus || []);
   const n = new Set((fresh || newTomes(all)).map(tomeKey).filter((k) => !seen.has(k))).size;
-  btn.innerHTML = "🗓 Sorties" + (n ? ` <b class="badge-new">${n}</b>` : "");
+  btn.innerHTML = "<i>📅</i>Sorties" + (n ? `<b class="badge-new">${n}</b>` : "");
 }
 const RELEASE_KEY = STORE_KEY + ".sorties2";
 const isoDay = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
@@ -2306,6 +2357,86 @@ const RECO_KEY = STORE_KEY + ".reco2"; // changer le numéro vide le cache des r
 // les rayons « Pour toi » sont gardés 3 jours (ils sont refaits plus tôt si les livres changent)
 function recoCache() { try { const c = JSON.parse(localStorage.getItem(RECO_KEY)); if (c && Date.now() - new Date(c.day).getTime() < 3 * 86400000) return c; } catch {} return { day: today(), rows: {} }; }
 let exploreObserver;
+/* ---------- Page d'accueil ---------- */
+const hmCard = (b, on) => `<button class="ex-card" data-id="${esc(b.id)}">${b.rang ? `<span class="rank">${b.rang}</span>` : ""}
+    <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
+    <span>${esc(b.title)}</span><small>${esc(b.note || b.authors[0] || "")}</small></button>`;
+function homeRow(title, list, goKey, goLabel, mine) {
+  if (!list.length) return "";
+  return `<section class="ex-row"><div class="ex-head"><h3>${title}</h3>${goKey ? `<button data-go="${goKey}">${goLabel || "Tout voir"} ›</button>` : ""}</div>
+    <div class="ex-list" style="min-height:0">${list.map((b) => hmCard(b)).join("")}</div></section>`;
+}
+async function renderHome() {
+  const el = $("#shelves");
+  const h = new Date().getHours(), year = String(new Date().getFullYear());
+  const hello = h < 5 || h >= 18 ? "Bonsoir" : h < 12 ? "Bonjour" : "Bon après-midi";
+  const dateTxt = new Date().toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+  const read = books.filter((b) => b.status === "lu");
+  const thisYear = read.filter((b) => (b.readDate || b.addedAt || "").startsWith(year)).length;
+  const goal = settings.goals[year] || 0, pages = read.reduce((s, b) => s + (b.pages || 0), 0);
+  const cur = books.filter((b) => b.status === "encours").sort((a, b) => (b.addedAt || "").localeCompare(a.addedAt || ""))[0];
+  const next = !cur && books.filter((b) => b.status === "alire").sort((a, b) => (b.addedAt || "").localeCompare(a.addedAt || ""))[0];
+  const hero = cur || next;
+  const pct = hero && hero.pages ? Math.min(100, Math.round((hero.page || 0) / hero.pages * 100)) : 0;
+  const quotes = books.flatMap((b) => (b.quotes || []).map((q) => ({ ...q, book: b })));
+  const q = quotes.length ? quotes[Math.floor(Date.now() / 864e5) % quotes.length] : null;
+  const shelfList = (st) => books.filter((b) => b.status === st).sort((a, b) => (b.addedAt || "").localeCompare(a.addedAt || "")).slice(0, 12);
+  el.innerHTML = `<div class="home">
+    <div class="hm-hello"><small>${esc(dateTxt)}</small><h2>${hello} 👋</h2></div>
+    ${hero ? `<div class="hm-card" data-open="${esc(hero.id)}"><div class="hm-cover">${drawnCover(hero)}${hero.cover || hero.isbn ? coverImg(hero) : ""}</div>
+      <div class="hm-txt"><small>${cur ? "En ce moment" : "À lire ensuite"}</small><b>${esc(hero.title)}</b><em>${esc(hero.authors[0] || "")}</em>
+        ${cur && hero.pages ? `<div class="hm-bar"><div style="width:${pct}%"></div></div><em style="font-size:12px;opacity:.85">${pct} % · page ${hero.page || 0} sur ${hero.pages}</em>` : ""}
+        <br><button>${cur ? "Continuer" : "Ouvrir"}</button></div></div>`
+    : `<div class="hm-empty">Ta bibliothèque t'attend.<br><button class="rel-sync-btn" id="hmAdd" style="margin-top:10px;border:0;background:var(--accent);color:#fff;border-radius:999px;padding:9px 18px;font-size:15px;cursor:pointer">+ Ajouter un livre</button></div>`}
+    <div class="hm-stats">
+      <div class="hm-stat" data-go="stats"><div class="hm-ring" style="--p:${goal ? Math.min(100, Math.round(thisYear / goal * 100)) : 0}"><b>${thisYear}</b></div><span>${goal ? "sur " + goal + " en " + year : "lus en " + year}</span></div>
+      <div class="hm-stat" data-go="lu"><b>${read.length}</b><span>livre${read.length > 1 ? "s" : ""} lu${read.length > 1 ? "s" : ""}</span></div>
+      <div class="hm-stat" data-go="lu"><b>${nf.format(pages)}</b><span>pages</span></div>
+    </div>
+    ${q ? `<div class="hm-quote">« ${esc(q.text)} »<small>${esc(q.book.title)}${q.page ? " · page " + esc(q.page) : ""}</small></div>` : ""}
+    <div id="hmRows"></div>
+    <div class="hm-tiles">
+      <button class="hm-tile" data-go="sorties"><i>📅</i><b>Sorties<small>Les parutions du calendrier</small></b></button>
+      <button class="hm-tile" data-go="explore"><i>🔎</i><b>Explorer<small>Des idées par rayon</small></b></button>
+      <button class="hm-tile" data-go="pourtoi"><i>✨</i><b>Pour toi<small>Selon tes lectures</small></b></button>
+      <button class="hm-tile" data-go="ventes"><i>🏆</i><b>Top ventes<small>Chez les libraires</small></b></button>
+    </div>
+  </div>`;
+  const go = (k) => { if (k === "stats") { $("#stats").click(); return; } currentShelf = k; render(); window.scrollTo(0, 0); };
+  const bindAll = (root, listFor) => {
+    root.querySelectorAll("[data-go]").forEach((b) => (b.onclick = () => go(b.dataset.go)));
+    root.querySelectorAll(".ex-card").forEach((c) => (c.onclick = () => { const b = listFor(c.dataset.id); if (!b) return; books.some((x) => x.id === b.id) ? openDetail(b.id) : openPreview(b); }));
+  };
+  bindAll(el, () => null);
+  const card = el.querySelector(".hm-card"); if (card) card.onclick = () => openDetail(card.dataset.open);
+  if ($("#hmAdd")) $("#hmAdd").onclick = openSearch;
+  // rangées : tes livres tout de suite, les nouveautés et les ventes quand elles arrivent
+  const rows = $("#hmRows"), parts = {}, known = {};
+  const paint = () => {
+    if (currentShelf !== "accueil" || !rows.isConnected) return;
+    rows.innerHTML = ["pile", "sorties", "ventes", "lus"].map((k) => parts[k] || "").join("");
+    bindAll(rows, (id) => known[id]);
+  };
+  const reg = (list) => list.forEach((b) => (known[b.id] = b));
+  const pile = shelfList("alire"), lus = shelfList("lu");
+  reg(pile); reg(lus);
+  parts.pile = homeRow("Ta pile à lire", pile, "alire", "Voir");
+  parts.lus = homeRow("Tes dernières lectures", lus, "lu", "Voir");
+  paint();
+  try {
+    const wk = await weekRows();
+    const mix = []; const kinds = NEW_KINDS.map(([k]) => wk.byKind[k] || []);
+    for (let n = 0; mix.length < 14 && kinds.some((l) => l[n]); n++) kinds.forEach((l) => { if (l[n] && mix.length < 14) mix.push(l[n]); });
+    mix.sort((a, b) => b.date.localeCompare(a.date));
+    reg(mix); parts.sorties = homeRow("Nouveautés de la semaine", mix, "sorties", "Le calendrier"); paint();
+  } catch {}
+  try {
+    if (!ventesData) { const r = await fetch("data/ventes.json", { cache: "no-cache" }); if (r.ok) ventesData = await r.json(); }
+    const top = (((ventesData || {}).listes || {}).tous || {})[ventesPeriod] || [];
+    const tl = top.slice(0, 10).map((b) => ({ ...b, categories: [] }));
+    reg(tl); parts.ventes = homeRow("Les plus vendus cette semaine", tl, "ventes", "Top ventes"); paint();
+  } catch {}
+}
 /* Bouton « remonter » en bas d'un onglet (Explorer, Pour toi, Ventes) */
 const topButton = () => `<div class="rel-end"><button class="go-top">↑ Revenir en haut</button></div>`;
 const bindTop = (el) => el.querySelectorAll(".go-top").forEach((b) => (b.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" })));
