@@ -412,9 +412,9 @@
   .ex-gen::before { content: ""; position: absolute; inset: 6px; border: 1px solid currentColor; opacity: .45; border-radius: 2px; }
   .ex-gen small:empty { display: none; }
   .ex-gen small { font-size: 8px !important; letter-spacing: .08em; text-transform: uppercase; color: inherit !important; opacity: .8; white-space: normal !important; margin: 4px 0 0 !important; }
-  .ex-gen b { flex: 1; display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-size: var(--fs); line-height: 1.2; font-weight: 600; overflow-wrap: break-word; word-break: normal; hyphens: auto; min-width: 0; }
+  .ex-gen b { flex: 1; display: flex; flex-direction: column; align-items: stretch; justify-content: center; font-family: Georgia, serif; font-size: var(--fs); line-height: 1.2; font-weight: 600; overflow-wrap: break-word; word-break: normal; hyphens: auto; min-width: 0; }
   /* le mot le plus long (--w, en lettres) tient en entier : la police se réduit au besoin, sans couper un mot au milieu */
-  @supports (width: 1cqw) { .ex-gen b { font-size: clamp(7px, calc((100cqw - 6px) / (var(--w, 6) * .6)), var(--fs)); } }
+  @supports (width: 1cqw) { .ex-gen b { font-size: clamp(8px, calc((100cqw - 6px) / (var(--w, 6) * .6)), var(--fs)); } }
   .ex-gen i { font-style: normal; font-size: 16px; opacity: .6; margin-bottom: 4px; }
   .ex-card span { display: block; font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .ex-card small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -2566,7 +2566,7 @@ async function renderHome() {
   await Promise.all([
     (async () => { try { // rappel : un nouveau tome d'une de ses séries vient de sortir (ou va sortir)
       raw.tomes = newTomes(await loadReleases().catch(() => [])).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 12)
-        .map((b) => ({ ...b, note: shortDay(b.date) + " · nouveau tome" })); paint();
+        .map((b) => ({ ...b, note: shortDay(b.date) })); paint();
     } catch { done("tomes"); } })(),
     (async () => { try {
       const wk = await weekRows();
