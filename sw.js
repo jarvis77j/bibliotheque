@@ -10,7 +10,7 @@ self.addEventListener("fetch", (e) => {
   const u = new URL(r.url);
   const own = u.origin === self.location.origin;
   const isImage = r.destination === "image" || /\.(jpe?g|png|webp)$/i.test(u.pathname) || /books\/content|\/images\/P\//.test(u.pathname + u.search) || u.hostname === "covers.openlibrary.org";
-  if (!isImage && !(own && /three\.min\.js$/.test(u.pathname))) return;
+  if (!isImage && !(own && /(three|zxing)\.min\.js$/.test(u.pathname))) return;
   // deux réserves : les images lues par la 3D (mode « cors ») ne peuvent pas réutiliser une image opaque
   e.respondWith(caches.open(CACHE + (r.mode === "cors" ? "-3d" : "")).then(async (c) => {
     const hit = await c.match(r);

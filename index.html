@@ -531,6 +531,8 @@
     position: absolute; left: 10%; right: 10%; top: 38%; height: 22%;
     border: 3px solid #fff; border-radius: 12px; box-shadow: 0 0 0 9999px rgba(0,0,0,.45);
   }
+  .scan-manual { display: flex; gap: 8px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: #000; }
+  .scan-manual input { flex: 1; min-width: 0; font-size: 16px; padding: 10px 12px; border-radius: 10px; border: 1px solid #444; background: #111; color: #fff; }
   .scan-msg { position: absolute; left: 16px; right: 16px; bottom: 24px; text-align: center; font-size: 15px; }
 
   /* Fiche livre */
@@ -773,6 +775,10 @@
     <div class="scan-frame"></div>
     <div class="scan-msg" id="scanMsg">Vise le code-barres au dos du livre</div>
   </div>
+  <form class="scan-manual" id="scanManual">
+    <input id="scanIsbn" inputmode="numeric" placeholder="Ou tape l'ISBN (13 chiffres)" autocomplete="off">
+    <button class="add-btn" type="submit">Chercher</button>
+  </form>
 </section>
 
 <section class="sheet" id="gridSheet">
@@ -2842,7 +2848,7 @@ function coverLoaded(img) { if (img.naturalWidth && img.naturalWidth < 20) cover
 function renderResults() {
   const box = $("#results");
   if (!lastResults.length) {
-    box.innerHTML = `<div class="status">Aucun livre trouvé.<br>Essaie avec le nom de l'auteur, ou l'ISBN écrit au-dessus du code-barres.</div><div class="source-note">Cherché dans : ${esc(searchSource.replace("Open Library", "Google Livres et Open Library"))}</div>` + manualLink;
+    box.innerHTML = `<div class="status">Aucun livre trouvé.<br>${ISBN_RE.test($("#q").value.replace(/[-\s]/g, "")) ? "Cet ISBN n'est pas encore connu : tu peux ajouter le livre à la main." : "Essaie avec le nom de l'auteur, ou l'ISBN écrit au-dessus du code-barres."}</div><div class="source-note">Cherché dans : ${esc(searchSource.replace("Open Library", "Google Livres et Open Library"))}</div>` + manualLink;
     bindManualLink();
     return;
   }
@@ -3029,7 +3035,13 @@ let scanStream = null, scanTimer = null, zxingReader = null;
 function loadScript(src) {
   return new Promise((ok, ko) => { const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
 }
-function isIsbn(code) { return /^(97[89])\d{10}$/.test(code) || /^\d{9}[\dX]$/.test(code); }
+function isIsbn(code) {
+  if (/^(97[89])\d{10}$/.test(code)) { // somme de contrôle EAN-13 : évite les mauvaises lectures
+    const s = [...code].reduce((t, c, i) => t + Number(c) * (i % 2 ? 3 : 1), 0);
+    return s % 10 === 0;
+  }
+  return false;
+}
 function onScanned(code) {
   stopScan();
   $("#q").value = code;
@@ -3046,40 +3058,60 @@ async function startScan() {
   }
   const video = $("#video");
   try {
+    let detect;
     if ("BarcodeDetector" in window) {
       const detector = new BarcodeDetector({ formats: ["ean_13"] });
-      scanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-      video.srcObject = scanStream;
-      await video.play();
-      scanTimer = setInterval(async () => {
-        try {
-          const codes = await detector.detect(video);
-          const hit = codes.map((c) => c.rawValue).find(isIsbn);
-          if (hit) onScanned(hit);
-        } catch {}
-      }, 300);
+      detect = async () => (await detector.detect(video)).map((c) => c.rawValue).find(isIsbn);
     } else {
-      if (!window.ZXing) await loadScript("https://unpkg.com/@zxing/library@0.20.0/umd/index.min.js");
-      zxingReader = new ZXing.BrowserMultiFormatReader();
-      await zxingReader.decodeFromConstraints({ video: { facingMode: "environment" } }, video, (result) => {
-        const code = result && result.getText();
-        if (code && isIsbn(code)) onScanned(code);
-      });
+      // Safari n'a pas BarcodeDetector : lecteur ZXing (fichier local, chargé seulement ici)
+      if (!window.ZXing) await loadScript("zxing.min.js");
+      const hints = new Map([[ZXing.DecodeHintType.POSSIBLE_FORMATS, [ZXing.BarcodeFormat.EAN_13]], [ZXing.DecodeHintType.TRY_HARDER, true]]);
+      zxingReader = new ZXing.BrowserMultiFormatReader(hints);
+      const cv = document.createElement("canvas"), cx = cv.getContext("2d", { willReadFrequently: true });
+      detect = async () => {
+        const k = Math.min(1, 960 / video.videoWidth); // image réduite : plus rapide sur iPhone
+        cv.width = Math.round(video.videoWidth * k); cv.height = Math.round(video.videoHeight * k);
+        cx.drawImage(video, 0, 0, cv.width, cv.height);
+        try {
+          const t = zxingReader.decodeBitmap(new ZXing.BinaryBitmap(new ZXing.HybridBinarizer(new ZXing.HTMLCanvasElementLuminanceSource(cv)))).getText();
+          return isIsbn(t) ? t : "";
+        } catch { return ""; }
+      };
     }
+    scanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" } }, audio: false });
+    if (!$("#scanSheet").classList.contains("open")) { stopCamera(); return; } // fermé pendant l'attente
+    video.srcObject = scanStream;
+    await video.play();
+    scanTimer = setInterval(async () => {
+      if (video.readyState < 2 || !video.videoWidth) return;
+      const hit = await detect().catch(() => "");
+      if (hit && scanTimer) onScanned(hit);
+    }, 250);
   } catch (e) {
     console.warn(e);
+    stopCamera();
     msg.textContent = e && e.name === "NotAllowedError"
-      ? "L'accès à l'appareil photo a été refusé. Autorise-le dans les réglages du navigateur, puis réessaie."
-      : "Impossible d'ouvrir l'appareil photo. Tape l'ISBN à la main.";
+      ? "L'appareil photo est refusé. Tu peux l'autoriser dans les réglages de Safari, ou taper l'ISBN ci-dessous."
+      : "Impossible d'ouvrir l'appareil photo. Tape l'ISBN ci-dessous.";
   }
 }
-function stopScan() {
+function stopCamera() {
   clearInterval(scanTimer); scanTimer = null;
-  if (zxingReader) { try { zxingReader.reset(); } catch {} zxingReader = null; }
+  zxingReader = null;
   if (scanStream) { scanStream.getTracks().forEach((t) => t.stop()); scanStream = null; }
-  $("#video").srcObject = null;
-  $("#scanSheet").classList.remove("open");
+  const v = $("#video");
+  v.srcObject?.getTracks?.().forEach((t) => t.stop());
+  v.srcObject = null;
 }
+function stopScan() { stopCamera(); $("#scanSheet").classList.remove("open"); }
+$("#scanManual").onsubmit = (e) => {
+  e.preventDefault();
+  const code = $("#scanIsbn").value.replace(/[-\s]/g, "");
+  if (!/^(\d{13}|\d{9}[\dXx])$/.test(code)) { $("#scanMsg").textContent = "L'ISBN doit avoir 13 chiffres (ou 10)."; return; }
+  $("#scanIsbn").value = "";
+  onScanned(code);
+};
+document.addEventListener("visibilitychange", () => { if (document.hidden && $("#scanSheet").classList.contains("open")) stopScan(); });
 $("#scanBtn").onclick = startScan;
 $("#scanClose").onclick = stopScan;
 
