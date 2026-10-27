@@ -838,7 +838,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 27 octobre, 12 h</p>
+    <p class="version">Version du 27 octobre, 17 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -1931,7 +1931,7 @@ function render3D() {
 
 /* ---------- Explorer : parcourir le catalogue par rayons ---------- */
 const shortDay = (d) => new Date(d + "T12:00").toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
-const NEW_KINDS = [["roman", "Romans"], ["policier", "Polar & thriller"], ["fantasy", "Fantasy & SF"], ["romance", "Romance"], ["ya", "Young adult"], ["bd", "BD"], ["manga", "Manga"], ["jeunesse", "Jeunesse"]];
+const NEW_KINDS = [["roman", "Romans"], ["policier", "Polar & thriller"], ["fantasy", "Fantasy & SF"], ["romance", "Romance"], ["ya", "Young adult"], ["bd", "BD"], ["manga", "Manga"], ["jeunesse", "Jeunesse"], ["doc", "Documents & beaux livres"]];
 const EXPLORE_ROWS = [
   // 1) Nouveautés des 7 derniers jours (J-7 à aujourd'hui), un rayon par genre, tirées de la liste du robot
   ...NEW_KINDS.map(([k, l]) => ({ key: "new-" + k, title: "Nouveautés · " + l, week: k, fn: () => weekRow(k) })),
@@ -1958,7 +1958,8 @@ const KIND_NORM = { sf: "fantasy", horreur: "policier", darkromance: "romance", 
 function newKindOf(b) {
   if (/manga/i.test((b.categories || b.rayons || []).join(" ")) || /Nautiljon|Manga-news/.test(b.source || "")) return "manga";
   const k = b.kind || guessGenre(b.categories);
-  return KIND_NORM[k] || k;
+  const r = KIND_NORM[k] || k;
+  return NEW_KINDS.some(([x]) => x === r) ? r : "doc"; // essais, beaux livres, documents…
 }
 const newScore = (b) => (b.cover ? 2 : 0) + (b.description ? 3 + Math.min(2, b.description.length / 300) : 0) + (b.authors && b.authors.length ? 1 : 0) + (b.publisher ? 0.5 : 0) + (b.pages ? 0.3 : 0);
 const releaseKeys = (b) => [editionKey(b), b.isbn ? "isbn:" + b.isbn : ""].filter(Boolean);
@@ -2414,7 +2415,7 @@ async function renderHome() {
   const rows = $("#hmRows"), parts = {}, known = {};
   const paint = () => {
     if (currentShelf !== "accueil" || !rows.isConnected) return;
-    rows.innerHTML = ["pile", "sorties", "ventes", "lus"].map((k) => parts[k] || "").join("");
+    rows.innerHTML = ["tomes", "pile", "sorties", "ventes", "lus"].map((k) => parts[k] || "").join("");
     bindAll(rows, (id) => known[id]);
   };
   const reg = (list) => list.forEach((b) => (known[b.id] = b));
@@ -2423,9 +2424,14 @@ async function renderHome() {
   parts.pile = homeRow("Ta pile à lire", pile, "alire", "Voir");
   parts.lus = homeRow("Tes dernières lectures", lus, "lu", "Voir");
   paint();
+  try { // rappel : un nouveau tome d'une de ses séries vient de sortir (ou va sortir)
+    const nt = newTomes(await loadReleases().catch(() => [])).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 12)
+      .map((b) => ({ ...b, note: shortDay(b.date) + " · nouveau tome" }));
+    reg(nt); parts.tomes = homeRow("Nouveaux tomes de tes séries", nt, "sorties", "Sorties"); paint();
+  } catch {}
   try {
     const wk = await weekRows();
-    const mix = []; const kinds = NEW_KINDS.map(([k]) => wk.byKind[k] || []);
+    const mix = []; const kinds = NEW_KINDS.filter(([k]) => k !== "doc").map(([k]) => wk.byKind[k] || []);
     for (let n = 0; mix.length < 14 && kinds.some((l) => l[n]); n++) kinds.forEach((l) => { if (l[n] && mix.length < 14) mix.push(l[n]); });
     mix.sort((a, b) => b.date.localeCompare(a.date));
     reg(mix); parts.sorties = homeRow("Nouveautés de la semaine", mix, "sorties", "Le calendrier"); paint();
