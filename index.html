@@ -675,6 +675,7 @@
   }
   .toast.show { opacity: 1; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+#offlineBar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#3a2f27;color:#fff;font-size:12px;text-align:center;padding:5px 10px calc(5px + env(safe-area-inset-bottom));opacity:.92;pointer-events:none}#offlineBar[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -867,6 +868,7 @@
 <datalist id="seriesList"></datalist>
 
 <div class="toast" id="toast"></div>
+<div id="offlineBar" hidden>Hors ligne : tu vois la dernière version enregistrée</div>
 
 <script src="three.min.js"></script>
 <script src="room3d.js"></script>
@@ -2520,7 +2522,7 @@ async function loadExploreRow(i) {
       </button>`).join("") : `<div class="ex-loading">${row.key === "suite" ? "Tu as déjà tous les tomes trouvés pour tes séries." : row.key === "auteurs" ? "Pas de nouveau livre de tes auteurs ces deux dernières années." : "Rien trouvé pour ce rayon."}</div>`;
     target.querySelectorAll(".ex-card").forEach((c) => (c.onclick = () => openPreview(list[c.dataset.i])));
   } catch {
-    box.innerHTML = `<div class="ex-loading">Le catalogue ne répond pas. Vérifie la connexion internet.</div>`;
+    box.innerHTML = `<div class="ex-loading">${navigator.onLine ? "Le catalogue ne répond pas. Vérifie la connexion internet." : "Pas de connexion."}</div>`;
   }
 }
 /* Top des ventes des librairies indépendantes (relevé chaque jour par le robot, data/ventes.json) */
@@ -2631,7 +2633,8 @@ async function runSearch() {
     if (r.length) rememberSearch(p.q || [p.title, p.author].filter(Boolean).join(" "));
   } catch (e) {
     if (seq !== searchSeq) return;
-    box.innerHTML = `<div class="status">La recherche ne répond pas. Vérifie la connexion internet.<br><small>${esc(searchSource)} · ${esc(e && e.message || e)}</small></div>` + manualLink;
+    if (!navigator.onLine) box.innerHTML = `<div class="status">Pas de connexion.<br>Tu peux ajouter le livre à la main.</div>` + manualLink;
+    else box.innerHTML = `<div class="status">La recherche ne répond pas. Vérifie la connexion internet.<br><small>${esc(searchSource)} · ${esc(e && e.message || e)}</small></div>` + manualLink;
     bindManualLink();
   }
 }
@@ -3775,6 +3778,7 @@ $("#shareMine").onclick = () => { location.href = location.href.split("#")[0]; }
 })();
 window.addEventListener("hashchange", () => { if (/^#partage=/.test(location.hash) || shareView) location.reload(); });
 </script>
+<script>(() => { const b = document.getElementById("offlineBar"), m = () => { b.hidden = navigator.onLine; }; addEventListener("online", m); addEventListener("offline", m); m(); })();</script>
 <script>if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));</script>
 </body>
 </html>
