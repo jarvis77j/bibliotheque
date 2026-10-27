@@ -3711,6 +3711,13 @@ async function bilanCanvas(d) {
   x.fillStyle = "#fff"; x.globalAlpha = .8; x.font = "36px Georgia, serif"; x.textAlign = "center"; x.fillText("Ma bibliothèque", W / 2, H - 70); x.globalAlpha = 1;
   return c;
 }
+function bilanShowImage(blob) {
+  const o = document.createElement("div"), u = URL.createObjectURL(blob);
+  o.style.cssText = "position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;color:#fff;text-align:center";
+  o.innerHTML = `<img src="${u}" alt="Mon bilan" style="max-width:100%;max-height:75vh;border-radius:8px"><div>Garde ton doigt appuyé sur l'image pour l'enregistrer ou la partager.</div><button class="bl-btn">Fermer</button>`;
+  o.querySelector("button").onclick = () => { o.remove(); URL.revokeObjectURL(u); };
+  document.body.appendChild(o);
+}
 async function shareBilan() {
   const d = blData; if (!d) return;
   const btn = $("#blShare"); if (btn) { btn.disabled = true; btn.textContent = "Je prépare l'image…"; }
@@ -3721,7 +3728,10 @@ async function shareBilan() {
     const file = new File([blob], `mon-bilan-${d.year}.png`, { type: "image/png" });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       try { await navigator.share({ files: [file], title: `Mon bilan ${d.year}` }); }
-      catch (e) { if (e && e.name !== "AbortError") throw e; }
+      catch (e) {
+        if (e && e.name === "NotAllowedError") bilanShowImage(blob); // Safari refuse parfois le partage après l'attente : on montre l'image
+        else if (e && e.name !== "AbortError") throw e;
+      }
     } else {
       const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file.name; document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 4000); toast("Image enregistrée");
