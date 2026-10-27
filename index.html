@@ -762,6 +762,11 @@
   .hm-bilan i { font-style: normal; font-size: 30px; } .hm-bilan b { display: block; font-family: Georgia, serif; font-size: 19px; } .hm-bilan small { display: block; font-size: 13px; opacity: .9; margin-top: 2px; }
   .bilan-btn { display: block; width: 100%; margin: 10px 0; border: 0; border-radius: 14px; padding: 13px; font-size: 16px; font-weight: 600; color: #fff; cursor: pointer; font-family: Georgia, serif; }
   @media (prefers-reduced-motion: reduce) { .bl-slide, .bl-slide > *, .bl-sparkle b { animation: none !important; transition: none !important; opacity: 1; transform: none; } .bl-slide:not(.on) { opacity: 0; } }
+  /* bouton « remonter » flottant sur le côté droit */
+  #toTop { position: fixed; right: max(12px, env(safe-area-inset-right)); bottom: calc(86px + env(safe-area-inset-bottom)); z-index: 12; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; box-shadow: 0 4px 14px rgba(40,20,5,.28); opacity: 0; transform: translateY(12px) scale(.9); pointer-events: none; transition: opacity .2s, transform .2s; }
+  #toTop.show { opacity: 1; transform: none; pointer-events: auto; }
+  #toTop:active { transform: scale(.92); }
+  @media (prefers-reduced-motion: reduce) { #toTop { transition: none; } }
 </style>
 </head>
 <body>
@@ -932,7 +937,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 28 octobre, 0 h</p>
+    <p class="version">Version du 28 octobre, 1 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -961,6 +966,7 @@
 <datalist id="seriesList"></datalist>
 
 <div class="toast" id="toast"></div>
+<button id="toTop" aria-label="Remonter en haut de la page" hidden>↑</button>
 <div id="offlineBar" hidden>Hors ligne : tu vois la dernière version enregistrée</div>
 
 <script src="three.min.js"></script>
@@ -4159,5 +4165,11 @@ window.addEventListener("hashchange", () => { if (/^#partage=/.test(location.has
 </script>
 <script>(() => { const b = document.getElementById("offlineBar"), m = () => { b.hidden = navigator.onLine; }; addEventListener("online", m); addEventListener("offline", m); m(); })();</script>
 <script>if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));</script>
+<script>(() => { // bouton « remonter » : visible après un peu de défilement, hors bibliothèque 3D (qui ne défile pas)
+  const b = document.getElementById("toTop"); if (!b) return; b.hidden = false; let tick = false;
+  const upd = () => { tick = false; b.classList.toggle("show", window.scrollY > 500 && !document.querySelector(".sheet.open, #bilan.open, .bilan.open")); };
+  addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true });
+  b.onclick = () => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+})();</script>
 </body>
 </html>
