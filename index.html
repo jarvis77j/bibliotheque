@@ -333,7 +333,7 @@
   .hm-hello small { display: block; color: var(--muted); font-size: 14px; letter-spacing: .2px; }
   .hm-hello small::first-letter { text-transform: uppercase; }
   .hm-hello h2 { margin: 2px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 30px; line-height: 1.1; letter-spacing: -.4px; overflow-wrap: anywhere; }
-  .hm-card { margin: 0 16px 18px; border-radius: 22px; padding: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 88%, #000) 0%, color-mix(in srgb, var(--accent) 60%, #f5c98a) 130%); color: var(--on-accent, #fff); box-shadow: 0 10px 24px rgba(80,35,10,.28); display: flex; gap: 14px; align-items: center; position: relative; overflow: hidden; }
+  .hm-card { margin: 0 16px 18px; border-radius: 22px; padding: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 88%, #000) 0%, color-mix(in srgb, var(--accent) 88%, #f5c98a) 100%); color: var(--on-accent, #fff); box-shadow: 0 10px 24px rgba(80,35,10,.28); display: flex; gap: 14px; align-items: center; position: relative; overflow: hidden; }
   .hm-card::after { content: ""; position: absolute; right: -40px; top: -40px; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,.1); }
   .hm-card .hm-cover { flex: none; width: 84px; height: 126px; border-radius: 3px 8px 8px 3px; overflow: hidden; background: rgba(255,255,255,.25); box-shadow: 0 8px 16px rgba(0,0,0,.35); position: relative; z-index: 1; }
   .hm-card .hm-cover img, .hm-card .hm-cover .ex-gen { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -1251,12 +1251,12 @@ function applyColors() {
   const acc = settings.accent || "#a8432f", okHex = /^#[0-9a-f]{6}$/i.test(acc);
   if (okHex) {
     const ratio = (a, b) => { const x = luminance(a), y = luminance(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
-    const bgc = mode === "sombre" ? "#1d1712" : "#fffaf2", toward = mode === "sombre" ? "#ffffff" : "#000000";
+    const bgc = mode === "sombre" ? "#2a221b" : "#f4ede2", toward = mode === "sombre" ? "#ffffff" : "#000000";
     const mixTo = (a, b, f) => "#" + [1, 3, 5].map((i) => { const v = parseInt(a.slice(i, i + 2), 16), w = parseInt(b.slice(i, i + 2), 16); return Math.round(v + (w - v) * f).toString(16).padStart(2, "0"); }).join("");
     let t = acc; for (let k = 1; k <= 20 && ratio(t, bgc) < 4.5; k++) t = mixTo(acc, toward, k * .05);
     root.style.setProperty("--accent-text", t);
     // texte posé SUR la couleur préférée : blanc, ou foncé quand la couleur est claire (Miel)
-    const light = ratio(acc, "#ffffff") < ratio(acc, "#1d1410");
+    const light = ratio(acc, "#ffffff") < 3.5 && ratio(acc, "#1d1410") > ratio(acc, "#ffffff");
     root.style.setProperty("--on-accent", light ? "#1d1410" : "#ffffff");
     root.style.setProperty("--on-accent-inv", light ? "#fbf6ee" : "#5a2412");
   } else ["--accent-text", "--on-accent", "--on-accent-inv"].forEach((p) => root.style.removeProperty(p));
