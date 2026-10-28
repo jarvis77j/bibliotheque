@@ -322,7 +322,7 @@ def main():
             for isbn, b in ed.items():
                 same = by_isbn.get(isbn)
                 if same:  # déjà chez le libraire : on complète ce qui manque (couverture, auteurs, résumé)
-                    for f in ("cover", "authors", "description"):
+                    for f in ("cover", "authors", "description", "prix"):
                         if not same.get(f) and b.get(f): same[f] = b[f]
                     if same.get("date") and b.get("date") and same["date"] != b["date"]:
                         ecarts.append({"isbn": isbn, "titre": b["title"][:40], "libraire": same["date"], b.get("source", "editeur"): b["date"]})

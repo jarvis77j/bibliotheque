@@ -97,7 +97,8 @@ def parse_nautiljon(page):
         price = re.search(r"<td>([\d.,]+)&nbsp;€</td>", row)
         out.append({
             "id": f"ed:{ean}" if ean else f"ed:nautiljon:{vid}",
-            "title": title, "authors": [], "publisher": pub, "date": d, "isbn": ean, "pages": 0, "format": "",
+            "title": title, "authors": [], "publisher": pub, "date": d, "isbn": ean, "pages": 0, "format": "Relié" if "reliée" in norm(" ".join(eds)) else "",
+            "prix": float(price.group(1).replace(",", ".")) if price else 0,
             "cover": cover, "description": "",
             "rayons": ["Manga"] + [e for e in eds + flags if norm(e) in ("nouveaute", "dernier tome", "one shot", "reedition")][:2],
             "url": NJ + href.group(1) if href else NJ + "/planning/manga/", "kind": "bd", "source": "editeur:nautiljon",

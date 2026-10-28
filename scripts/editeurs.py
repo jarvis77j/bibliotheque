@@ -114,7 +114,7 @@ def reconcile_into(allb, k, b, conflits):
         conflits.append({"isbn": k, "titre": a.get("title", "")[:40],
                          "dates": {a.get("source", "?"): a["date"], b.get("source", "?"): b["date"]}})
     win, lose = (b, a) if source_rank(b) < source_rank(a) else (a, b)
-    for f in ("authors", "cover", "description", "kind", "rayons"):
+    for f in ("authors", "cover", "description", "kind", "rayons", "prix", "format"):
         if not win.get(f) and lose.get(f): win[f] = lose[f]
     allb[k] = win
 
