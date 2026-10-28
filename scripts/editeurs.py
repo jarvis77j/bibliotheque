@@ -342,7 +342,27 @@ def dedupe(books):
             continue
         kept.append(b)
         for k in title_keys(b): index.setdefault((k, b.get("date", "")), []).append(b)
-    return _fold_editions(kept)
+    return _fold_editions(_homonymes_datés_autrement(kept))
+
+
+def _homonymes_datés_autrement(books):
+    """Même livre vu par deux sources avec deux dates (l'une sans ISBN, ex. manga-news) : on garde la fiche avec ISBN et
+    on note l'autre date (« date à confirmer » dans l'app) au lieu d'afficher le livre deux fois."""
+    by = {}
+    for b in books:
+        for k in set(title_keys(b)): by.setdefault((k, norm(b.get("publisher", ""))), []).append(b)
+    drop = set()
+    for group in by.values():
+        withi = [b for b in group if b.get("isbn") and id(b) not in drop]
+        sans = [b for b in group if not b.get("isbn") and id(b) not in drop]
+        if len(withi) != 1 or not sans: continue
+        keep = withi[0]
+        for o in sans:
+            if o.get("date") and o["date"] != keep.get("date") and keep.get("title") and norm(o["title"]) == norm(keep["title"]):
+                keep["date_autre"] = o["date"]; drop.add(id(o))
+                for f in ("authors", "cover", "description", "kind", "rayons"):
+                    if not keep.get(f) and o.get(f): keep[f] = o[f]
+    return [b for b in books if id(b) not in drop]
 
 
 # ---- nettoyage final de la liste (titres, auteurs, genre) ; ne retire que ce qui n'est pas pour Julie
