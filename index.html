@@ -938,7 +938,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 28 octobre, 9 h</p>
+    <p class="version">Version du 28 octobre, 10 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -2118,12 +2118,14 @@ async function releasesForMe(genres, authors) {
   const kinds = new Set(genres.map((g) => KIND_OF_GENRE[g] || g));
   const names = new Set(authors.map(plain));
   if (kinds.has("bd")) kinds.add("manga");
-  const from = isoDay(new Date(Date.now() - 7 * 864e5)), keys = ownedKeys();
-  const seenInExplore = (await weekRows()).shown; // déjà proposé dans « Explorer » : on ne le répète pas ici
+  const from = isoDay(new Date()), to = isoDay(new Date(Date.now() + 60 * 864e5)), keys = ownedKeys();
   const tomes = new Set(newTomes(all));
-  const mineOnly = (b) => b.authors.some((a) => names.has(plain(a))) || tomes.has(b) || kinds.has(newKindOf(b));
-  return (all || []).filter((b) => b.date >= from && !isOwned(b, keys) && !releaseKeys(b).some((x) => seenInExplore.has(x)) && mineOnly(b))
-    .sort((a, b) => ((tomes.has(b) ? 2 : 0) + (b.authors.some((x) => names.has(plain(x))) ? 1 : 0)) - ((tomes.has(a) ? 2 : 0) + (a.authors.some((x) => names.has(plain(x))) ? 1 : 0)) || a.date.localeCompare(b.date))
+  const byAuthor = (b) => b.authors.some((a) => names.has(plain(a)));
+  const mineOnly = (b) => byAuthor(b) || tomes.has(b) || kinds.has(newKindOf(b));
+  // à partir d'aujourd'hui (les sorties du jour comprises) ; ses auteurs et ses séries d'abord, puis la date
+  const score = (b) => (byAuthor(b) ? 3 : 0) + (tomes.has(b) ? 2 : 0) + (b.cover ? 0.5 : 0) + (b.description ? 0.3 : 0);
+  return (all || []).filter((b) => b.date >= from && b.date <= to && !isOwned(b, keys) && mineOnly(b))
+    .sort((a, b) => score(b) - score(a) || a.date.localeCompare(b.date))
     .slice(0, 24).map((b) => ({ ...b, note: shortDay(b.date) + " · " + (b.authors[0] || "") + (tomes.has(b) ? " · nouveau tome" : "") }));
 }
 function personalRows(full) {
@@ -2134,7 +2136,7 @@ function personalRows(full) {
   const series = topCounts(books.filter((b) => b.series), (b) => [b.series]).slice(0, 4).map(([x]) => x);
   if (series.length) rows.push({ key: "suite", title: "La suite de tes séries", fn: () => nextInSeries(series), sig: series });
   const authors = topCounts(base, (b) => b.authors.slice(0, 1)).slice(0, 4).map(([x]) => x);
-  if (authors.length) rows.push({ key: "auteurs", title: "Nouveautés de tes auteurs", fn: () => authorsNews(authors), sig: authors, year: true });
+  if (authors.length) rows.push({ key: "auteurs", title: "Nouveautés de tes auteurs", fn: () => authorsNews(authors), sig: [...authors, "v2"], year: true });
   const gs = topCounts(base, (b) => [b.genre]).map(([k]) => GENRES.find((x) => x.key === k)).filter(Boolean).slice(0, full ? 4 : 1);
   if (full && (gs.length || authors.length)) rows.unshift({ key: "sortiesmoi", title: "Sorties qui devraient te plaire", mine: true, fn: () => releasesForMe(gs.map((g) => g.key), authors) });
   gs.forEach((g, i) => rows.push({ key: "genre" + (i || ""), title: (i ? "Encore en " : "Pour toi : ") + g.label.toLowerCase(), p: { genre: g.key }, sig: [g.key], exclude: true }));
@@ -2159,16 +2161,22 @@ async function nextInSeries(seriesList) {
 }
 async function authorsNews(authors) {
   const keys = ownedKeys(), out = [];
+  const lns = authors.map((a) => plain(a).split(" ").pop());
+  // d'abord la liste du robot (vraies dates, tous les éditeurs) : ses auteurs, de 2 mois en arrière jusqu'aux sorties à venir
+  const site = (await loadReleases().catch(() => [])).filter((b) => b.date >= isoDay(new Date(Date.now() - 60 * 864e5)) && !isOwned(b, keys)
+    && b.authors.some((x) => lns.includes(plain(x).split(" ").pop()) && authors.some((a) => plain(x).includes(plain(a).split(" ").pop()))));
+  out.push(...site);
   for (const a of authors) {
     const ln = plain(a).split(" ").pop();
     const found = (await searchBooks({ q: "", title: "", author: a, genre: "", order: "newest" }).catch(() => []))
       .filter((r) => !r.otherLang && !isOwned(r, keys) && r.authors.some((x) => plain(x).includes(ln)) && !DERIVED_RE.test(plain(r.title)));
     out.push(...found.slice(0, 6));
   }
-  const seen = new Set(), recent = String(new Date().getFullYear() - 2);
+  const seen = new Set(), recent = isoDay(new Date(Date.now() - 365 * 864e5)); // Google : seulement ce qui a moins d'un an
   // « Les Légendes - tome 1 - Black Venus » et « Black Venus » : le même livre, on n'en garde qu'un
   const short = (r) => plain(r.title.split(/\s[-–—:]\s/).pop()) + "|" + lastName(r);
-  return out.filter((r) => (r.date || "") >= recent).filter((r) => !seen.has(short(r)) && seen.add(short(r))).sort((x, y) => (y.date || "").localeCompare(x.date || "")).slice(0, 24);
+  return out.filter((r) => (r.date || "") >= recent).filter((r) => !seen.has(short(r)) && seen.add(short(r))).sort((x, y) => (y.date || "").localeCompare(x.date || "")).slice(0, 24)
+    .map((r) => ({ ...r, note: (r.date ? shortDay(r.date) + " · " : "") + (r.authors[0] || "") }));
 }
 async function famousSeries(names) {
   const keys = ownedKeys(), out = [];
@@ -2661,7 +2669,7 @@ async function loadExploreRow(i) {
       if (sig && exploreCache[ck].length) { const c = recoCache(); c.rows[ck] = { sig, list: exploreCache[ck] }; try { localStorage.setItem(RECO_KEY, JSON.stringify(c)); } catch {} }
     }
     // pas de doublon sur la page : ni les nouveautés de la semaine (rayons libres), ni ce qu'Explorer montre (Pour toi), ni un livre déjà affiché plus haut
-    const banned = row.noWeek ? (await weekRows()).all : exploreMine ? (await weekRows()).shown : null;
+    const banned = row.noWeek ? (await weekRows()).all : exploreMine && !["sortiesmoi", "auteurs", "suite"].includes(row.key) ? (await weekRows()).shown : null; // ses auteurs, ses séries et ses sorties : jamais retirés
     const list = exploreCache[ck].filter((b) => {
       const ks = releaseKeys(b);
       if (ks.some((x) => explorePageSeen.has(x) || (banned && banned.has(x)))) return false;
@@ -2669,7 +2677,7 @@ async function loadExploreRow(i) {
     });
     const target = document.getElementById("exList" + i);
     if (!target) return;
-    if (!list.length && (row.key === "suite" || row.key === "sortiesmoi" || row.week)) { target.closest(".ex-row").remove(); return; } // rien qui manque : on cache le rayon
+    if (!list.length && (row.key === "suite" || row.key === "sortiesmoi" || row.week || (row.key === "auteurs" && exploreCache[ck].length))) { target.closest(".ex-row").remove(); return; } // rien qui manque : on cache le rayon
     target.innerHTML = list.length ? list.map((b, j) => `<button class="ex-card" data-i="${j}">
         <div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div>
         <span>${esc(b.title)}</span><small>${esc(b.note || (row.year && b.date ? b.date.slice(0, 4) + " · " : "") + (b.authors[0] || ""))}</small>
