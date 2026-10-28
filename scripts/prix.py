@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import editeurs
 
 DATA, CACHE = "data/sorties.json", "data/prix.json"
-PAR_TOUR = int(os.environ.get("PRIX_FICHES", "150"))
+PAR_TOUR = int(os.environ.get("PRIX_FICHES", "250"))
 # sources dont les fiches ne donnent pas de prix lisible (ou sont fermées aux robots)
 SANS = ("bdgest", "nautiljon", "manganews", "michellafon", "dupuis", "casterman", "google")
 
@@ -61,6 +61,26 @@ def norm_format(f):
     return ""
 
 
+def serie(b):
+    """Titre de la série sans le numéro de tome : « One Piece - Tome 107 » → « one piece »."""
+    t = re.split(r"\s+[-–:]\s*(?:tome|t\.?|vol\.?|volume)\s*\d+|\s+(?:tome|t|vol\.?|volume)\s*\d+|\s+\d+\s*$", editeurs.norm(b["title"]), maxsplit=1)[0]
+    return t.strip()
+
+
+def propager_auteurs(books):
+    """Livres sans auteur (surtout les mangas de Nautiljon, qui ne les donne pas) : on prend celui des autres tomes de
+    la même série chez le même éditeur, seulement s'il n'y en a qu'un seul."""
+    par = {}
+    for b in books:
+        if b.get("authors"): par.setdefault((serie(b), editeurs.norm(b.get("publisher", ""))), set()).add(tuple(b["authors"]))
+    n = 0
+    for b in books:
+        if b.get("authors") or not b.get("title"): continue
+        c = par.get((serie(b), editeurs.norm(b.get("publisher", ""))))
+        if c and len(c) == 1 and len(serie(b)) >= 4: b["authors"] = list(next(iter(c))); b["auteur_deduit"] = 1; n += 1
+    return n
+
+
 def main():
     d = json.load(open(DATA, encoding="utf-8"))
     books = d["books"]
@@ -72,6 +92,7 @@ def main():
         if c:
             if c.get("prix") and not b.get("prix"): b["prix"] = c["prix"]
             if c.get("format") and not norm_format(b.get("format")): b["format"] = c["format"]
+    deduits = propager_auteurs(books)
     # 2. fiches à lire : sans prix, les plus proches d'aujourd'hui d'abord
     today = date.today()
     def near(b):
@@ -96,7 +117,7 @@ def main():
     # format des livres déjà connus : un seul mot (Poche / Broché / Relié) quand on peut
     st = d.setdefault("stats", {})
     st["prix"] = {"lus": lus, "trouves": trouves, "avec_prix": sum(1 for b in books if b.get("prix")),
-                  "reste": max(0, len(todo) - lus), "total": len(books)}
+                  "reste": max(0, len(todo) - lus), "total": len(books), "auteurs_deduits": deduits}
     json.dump(d, open(DATA, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     json.dump(cache, open(CACHE, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     print("prix :", st["prix"])

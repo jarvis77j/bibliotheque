@@ -939,7 +939,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 28 octobre, 11 h</p>
+    <p class="version">Version du 28 octobre, 12 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -2160,6 +2160,30 @@ async function nextInSeries(seriesList) {
   }
   return out;
 }
+/* Selon l'humeur : parmi les sorties du mois (J-30 à +45 jours), celles dont le genre, le titre ou le résumé collent à l'envie du moment */
+const MOODS = [
+  ["rire", "😂 Rire", { kinds: [], need: 1, re: /humour|drole|comique|hilarant|comedie|burlesque|satire|rire aux eclats/ }],
+  ["emotion", "🥹 Émotion", { kinds: [], need: 2, re: /emouvant|bouleversant|poignant|larmes|deuil|secret de famille|destin|amitie|famille|mere|pere|enfance/ }],
+  ["frissons", "😱 Frissons", { kinds: ["policier"], need: 2, re: /thriller|suspense|angoisse|meurtre|enquete|tueur|disparition|horreur/ }],
+  ["romance", "💕 Romance", { kinds: ["romance"], need: 2, re: /romance|histoire d amour|passion|coup de foudre/ }],
+  ["evasion", "🌍 Évasion", { kinds: ["fantasy"], need: 2, re: /voyage|aventure|magie|dragon|royaume|science fiction|space opera|roman historique|epopee/ }],
+  ["detente", "☕ Détente", { kinds: [], need: 1, re: /feel good|feelgood|cosy|reconfort|douceur|lecture legere|comfort/ }],
+  ["reflechir", "🧠 Réfléchir", { kinds: [], need: 2, re: /essai|philosophie|temoignage|societe|politique|histoire de|sciences/ }],
+];
+async function moodPicks(key) {
+  const m = MOODS.find((x) => x[0] === key); if (!m) return [];
+  const all = await loadReleases().catch(() => []), keys = ownedKeys();
+  const lo = isoDay(new Date(Date.now() - 30 * 864e5)), hi = isoDay(new Date(Date.now() + 45 * 864e5)), today = new Date(isoDay(new Date()));
+  const score = (b) => {
+    const hay = plain([b.title, b.description, (b.rayons || b.categories || []).join(" ")].join(" "));
+    const hits = new Set(hay.match(new RegExp(m[2].re.source, "g")) || []).size; // mots différents trouvés
+    return (m[2].kinds.includes(newKindOf(b)) ? 2 : 0) + hits;
+  };
+  return all.filter((b) => b.date >= lo && b.date <= hi && !isOwned(b, keys) && (b.cover || b.isbn) && !DERIVED_RE.test(plain(b.title)))
+    .map((b) => [b, score(b)]).filter(([, sc]) => sc >= m[2].need)
+    .sort((a, b) => b[1] - a[1] || Math.abs(new Date(a[0].date) - today) - Math.abs(new Date(b[0].date) - today))
+    .slice(0, 20).map(([b]) => ({ ...b, note: shortDay(b.date) + " · " + (b.authors[0] || "") }));
+}
 async function authorsNews(authors) {
   const keys = ownedKeys(), out = [];
   const lns = authors.map((a) => plain(a).split(" ").pop());
@@ -2531,7 +2555,7 @@ async function renderHome() {
   const pile = shelfList("alire"), lus = shelfList("lu");
   const hasSeries = books.some((b) => b.series || guessSeries(b.title).tome);
   // ordre des rangées : rien en cours, la pile à lire d'abord ; sinon les nouveaux tomes de ses séries d'abord
-  const order = !books.length ? ["sorties", "ventes"] : cur ? ["tomes", "pile", "ventes", "sorties", "lus"] : ["pile", "tomes", "ventes", "sorties", "lus"];
+  const order = !books.length ? ["sorties", "ventes"] : cur ? ["auj", "tomes", "pile", "ventes", "sorties", "lus"] : ["auj", "pile", "tomes", "ventes", "sorties", "lus"];
   el.innerHTML = `<div class="home">
     <div class="hm-hello"><small>${esc(dateTxt)}</small><h2>${esc(hello)} 👋</h2></div>
     ${hero ? `<div class="hm-card" data-open="${esc(hero.id)}" role="button" tabindex="0"><div class="hm-cover">${drawnCover(hero)}${hero.cover || hero.isbn ? coverImg(hero) : ""}</div>
@@ -2546,7 +2570,7 @@ async function renderHome() {
     </div>
     ${thisYear >= 3 ? `<button class="hm-bilan" id="hmBilan" style="background:${bilanGrad()}"><i>✨</i><span><b>Mon bilan ${year}</b><small>${thisYear} livres lus. Découvre ton année en lecture</small></span></button>` : ""}
     ${q ? `<div class="hm-quote">« ${esc(q.text)} »<small>${esc(q.book.title)}${q.page ? " · page " + esc(q.page) : ""}</small></div>` : ""}
-    <div id="hmRows">${order.map((k) => `<div class="hm-part" data-part="${k}">${k === "tomes" ? (hasSeries ? homeSkeleton() : "") : k === "pile" || k === "lus" ? "" : homeSkeleton()}</div>`).join("")}</div>
+    <div id="hmRows">${order.map((k) => `<div class="hm-part" data-part="${k}">${k === "tomes" ? (hasSeries ? homeSkeleton() : "") : k === "pile" || k === "lus" || k === "auj" ? "" : homeSkeleton()}</div>`).join("")}</div>
     <p class="hm-note" id="hmNote" hidden>Les nouveautés et les ventes n'ont pas pu se charger. Elles reviendront avec internet.</p>
     <div class="hm-tiles">
       <button class="hm-tile" data-go="sorties"><i>📅</i><b>Sorties<small>Les parutions du calendrier</small></b></button>
@@ -2573,12 +2597,13 @@ async function renderHome() {
   const fresh = (list, seen) => list.filter((b) => { const ks = releaseKeys(b); if (ks.some((x) => seen.has(x) || mine.has(x)) || mine.has(b.id)) return false; ks.forEach((x) => seen.add(x)); return true; });
   const compute = () => {
     const seen = new Set(), out = { pile, lus };
+    out.auj = raw.auj || null; (raw.auj || []).forEach((b) => releaseKeys(b).forEach((x) => seen.add(x))); // déjà ici : pas répété plus bas
     out.tomes = raw.tomes ? fresh(raw.tomes, seen) : null;
     out.ventes = raw.ventes ? raw.ventes.filter((b) => { const ks = releaseKeys(b); if (ks.some((x) => seen.has(x)) || mine.has(b.id) || ks.some((x) => mine.has(x))) return false; ks.forEach((x) => seen.add(x)); return true; }) : null;
     out.sorties = raw.sorties ? fresh(raw.sorties, seen) : null;
     return out;
   };
-  const html = { pile: (l) => homeRow("Ta pile à lire", l, "alire", "Tout voir"), lus: (l) => homeRow("Tes dernières lectures", l, "lu", "Tout voir"),
+  const html = { auj: (l) => homeRow(l.some((b) => b.date === isoDay(new Date())) ? "Ça sort aujourd'hui" : "Bientôt en librairie", l, "sorties", "Tout voir"), pile: (l) => homeRow("Ta pile à lire", l, "alire", "Tout voir"), lus: (l) => homeRow("Tes dernières lectures", l, "lu", "Tout voir"),
     tomes: (l) => homeRow("Nouveaux tomes de tes séries", l, "sorties", "Tout voir"), ventes: (l) => homeRow("Les plus vendus cette semaine", l, "ventes", "Tout voir"),
     sorties: (l) => homeRow("Nouveautés de la semaine", l, "sorties", "Tout voir") };
   const paint = () => {
@@ -2596,6 +2621,13 @@ async function renderHome() {
   reg(pile); reg(lus); paint();
   const done = (k) => { if (raw[k] === undefined) raw[k] = []; paint(); };
   await Promise.all([
+    (async () => { try { // les livres de sa pile à lire (ajoutés depuis les sorties) qui sortent aujourd'hui ou dans la semaine
+      const wish = new Set(books.filter((b) => b.status === "alire").flatMap(releaseKeys));
+      const t0 = isoDay(new Date()), t7 = isoDay(new Date(Date.now() + 7 * 864e5));
+      raw.auj = wish.size ? (await loadReleases().catch(() => [])).filter((b) => b.date >= t0 && b.date <= t7 && releaseKeys(b).some((x) => wish.has(x)))
+        .sort((a, b) => a.date.localeCompare(b.date)).slice(0, 12).map((b) => ({ ...b, note: b.date === t0 ? "Aujourd'hui" : shortDay(b.date) })) : [];
+      paint();
+    } catch { done("auj"); } })(),
     (async () => { try { // rappel : un nouveau tome d'une de ses séries vient de sortir (ou va sortir)
       raw.tomes = newTomes(await loadReleases().catch(() => [])).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 12)
         .map((b) => ({ ...b, note: shortDay(b.date) })); paint();
@@ -2614,7 +2646,7 @@ async function renderHome() {
     } catch { done("ventes"); } })(),
   ]);
   // ce qui n'est pas arrivé (pas de réseau) : on enlève les squelettes
-  ["tomes", "sorties", "ventes"].forEach((k) => { if (raw[k] === undefined) raw[k] = []; });
+  ["auj", "tomes", "sorties", "ventes"].forEach((k) => { if (raw[k] === undefined) raw[k] = []; });
   paint();
   if ($("#hmNote") && !(raw.sorties.length || raw.ventes.length || raw.tomes.length)) $("#hmNote").hidden = false;
 }
@@ -2630,7 +2662,10 @@ function renderExplore(mine) {
     $("#emptyAdd").onclick = openSearch; bindTop(el); return;
   }
   el.innerHTML = `<div class="explore">
-    ${mine ? `<p class="rel-note" style="margin:4px 16px 0">Choisis d'après les genres, les auteurs et les séries de ta bibliothèque (sans reprendre les nouveautés d'Explorer).</p>` : `<button class="ex-search" id="exSearch">🔎 Chercher un titre, un auteur, un ISBN…</button><p class="rel-note" style="margin:4px 16px 0">Nouveautés de ces 7 derniers jours, genre par genre. Le calendrier complet est dans l'onglet Sorties.</p>`}
+    ${mine ? `<p class="rel-note" style="margin:4px 16px 0">Choisis d'après les genres, les auteurs et les séries de ta bibliothèque (sans reprendre les nouveautés d'Explorer).</p>
+      <section class="ex-row mood"><div class="ex-head"><h3>Selon ton humeur</h3></div>
+        <div class="rel-kinds" id="moodChips">${MOODS.map(([k, l]) => `<button data-mood="${k}">${l}</button>`).join("")}</div>
+        <div class="ex-list" id="moodList"><div class="ex-loading">Choisis une envie : je te montre les sorties du moment qui y correspondent.</div></div></section>` : `<button class="ex-search" id="exSearch">🔎 Chercher un titre, un auteur, un ISBN…</button><p class="rel-note" style="margin:4px 16px 0">Nouveautés de ces 7 derniers jours, genre par genre. Le calendrier complet est dans l'onglet Sorties.</p>`}
     ${exploreRows.map((r, i) => `<section class="ex-row ${r.sig || r.mine ? "mine" : ""}" data-row="${i}">
       <div class="ex-head"><h3>${esc(r.title)}</h3>${r.p ? `<button data-more="${i}">Tout voir</button>` : ""}</div>
       <div class="ex-list" id="exList${i}"><div class="ex-loading">Chargement…</div></div>
@@ -2638,6 +2673,15 @@ function renderExplore(mine) {
     ${topButton()}
   </div>`;
   bindTop(el);
+  el.querySelectorAll("[data-mood]").forEach((btn) => (btn.onclick = async () => {
+    el.querySelectorAll("[data-mood]").forEach((x) => x.classList.toggle("on", x === btn));
+    const box = $("#moodList"); box.innerHTML = `<div class="ex-loading">Je cherche…</div>`;
+    const list = await moodPicks(btn.dataset.mood);
+    if (!document.body.contains(box)) return;
+    box.innerHTML = list.length ? list.map((b, j) => `<button class="ex-card" data-i="${j}"><div class="ex-cover">${drawnCover(b)}${b.cover || b.isbn ? coverImg(b) : ""}</div><span>${esc(b.title)}</span><small>${esc(b.note)}</small></button>`).join("")
+      : `<div class="ex-loading">Rien de sûr pour cette envie dans les sorties du moment.</div>`;
+    box.querySelectorAll(".ex-card").forEach((c) => (c.onclick = () => openPreview(list[c.dataset.i])));
+  }));
   if ($("#exSearch")) $("#exSearch").onclick = openSearch;
   el.querySelectorAll("[data-more]").forEach((b) => (b.onclick = () => {
     const r = exploreRows[b.dataset.more];
