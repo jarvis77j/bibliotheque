@@ -63,7 +63,7 @@ def norm_format(f):
 
 def serie(b):
     """Titre de la série sans le numéro de tome : « One Piece - Tome 107 » → « one piece »."""
-    t = re.split(r"\s+[-–:]\s*(?:tome|t\.?|vol\.?|volume)\s*\d+|\s+(?:tome|t|vol\.?|volume)\s*\d+|\s+\d+\s*$", editeurs.norm(b["title"]), maxsplit=1)[0]
+    t = re.split(r"\s+[-–:]\s*(?:tome|t\.?|vol\.?|volume)\s*\d+|\s+(?:tome|t|vol\.?|volume)\s*\d+", editeurs.norm(b["title"]), maxsplit=1)[0]
     return t.strip()
 
 
