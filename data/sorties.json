@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-28T23:35Z",
+"updated": "2026-10-29T02:37Z",
 "stats": {
 "precommandes": [
 12,
@@ -48,10 +48,10 @@
 "pages_listes": 72,
 "echecs": 0,
 "secondes_listes": 356,
-"pages": 87,
+"pages": 105,
 "reprises": 0,
 "fiches_lues": 3,
-"secondes": 431,
+"secondes": 521,
 "statut": "ok"
 },
 "suivi": {
@@ -88,10 +88,10 @@
 "dernier_proche": "2026-10-28T23:20Z"
 },
 "src_bd": {
-"dernier_essai": "2026-10-28T23:20Z",
+"dernier_essai": "2026-10-29T02:35Z",
 "secondes_complet": 133,
 "dernier_complet": "2026-10-27T14:37Z",
-"echecs": 9,
+"echecs": 10,
 "secondes_proche": 94,
 "dernier_proche": "2026-10-27T07:51Z"
 },
@@ -105,11 +105,6 @@
 }
 },
 "plan": [
-"hachette:proche",
-"glenat:proche",
-"seuil:proche",
-"src_manga:proche",
-"src_generale:proche",
 "src_bd:complet"
 ],
 "editeurs": {
@@ -184,68 +179,68 @@
 "bdgest": {
 "pages": 10,
 "livres": 0,
-"secondes": 30,
+"secondes": 28,
 "erreurs": 10,
 "rapproches": 0,
 "statut": "erreur",
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "dargaud": {
 "pages": 6,
 "livres": 26,
-"secondes": 18,
+"secondes": 19,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "delcourt": {
 "pages": 9,
 "livres": 97,
-"secondes": 27,
+"secondes": 31,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "soleil": {
 "pages": 6,
 "livres": 40,
-"secondes": 20,
+"secondes": 16,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "lombard": {
 "pages": 2,
 "livres": 37,
-"secondes": 5,
+"secondes": 7,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "kana": {
 "pages": 8,
@@ -256,9 +251,9 @@
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "casterman": {
 "pages": 1,
@@ -269,9 +264,9 @@
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "ruedesevres": {
 "pages": 1,
@@ -282,22 +277,22 @@
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "dupuis": {
 "pages": 1,
 "livres": 0,
-"secondes": 3,
+"secondes": 4,
 "erreurs": 0,
 "statut": "vide",
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "bedetheque": {
 "pages": 0,
@@ -309,9 +304,9 @@
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z"
+"le": "2026-10-29T02:37Z"
 },
 "michellafon": {
 "pages": 39,
@@ -463,30 +458,30 @@
 ],
 "le": "2026-10-28T23:35Z"
 },
-"fiches_lues": 60,
+"fiches_lues": 0,
 "erreurs": 10
 },
-"secondes_editeurs": 892,
+"secondes_editeurs": 133,
 "dates_relues": {
-"fiches": 12,
+"fiches": 30,
 "changees": []
 },
-"editeurs_at": "2026-10-28T23:35Z",
+"editeurs_at": "2026-10-29T02:37Z",
 "listes": 554,
 "lues": 3,
 "en_attente": 0,
 "plus_loin": "2027-04-30",
 "nettoyes": 0,
-"doublons": 78,
+"doublons": 37,
 "sources": {
 "leslibraires": {
 "pages_listes": 72,
 "echecs": 0,
 "secondes_listes": 356,
-"pages": 87,
+"pages": 105,
 "reprises": 0,
 "fiches_lues": 3,
-"secondes": 431,
+"secondes": 521,
 "statut": "ok",
 "livres": 580
 },
@@ -544,7 +539,7 @@
 "2026-12-12"
 ],
 "le": "2026-10-28T23:35Z",
-"en_base": 1305
+"en_base": 1304
 },
 "manganews": {
 "statut": "ok",
@@ -564,70 +559,70 @@
 "statut": "erreur",
 "livres": 0,
 "pages": 10,
-"secondes": 30,
+"secondes": 28,
 "erreurs": 10,
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
+"le": "2026-10-29T02:37Z",
 "en_base": 544
 },
 "dargaud": {
 "statut": "ok",
 "livres": 26,
 "pages": 6,
-"secondes": 18,
+"secondes": 19,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
+"le": "2026-10-29T02:37Z",
 "en_base": 22
 },
 "delcourt": {
 "statut": "ok",
 "livres": 97,
 "pages": 9,
-"secondes": 27,
+"secondes": 31,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
+"le": "2026-10-29T02:37Z",
 "en_base": 85
 },
 "soleil": {
 "statut": "ok",
 "livres": 40,
 "pages": 6,
-"secondes": 20,
+"secondes": 16,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
+"le": "2026-10-29T02:37Z",
 "en_base": 38
 },
 "lombard": {
 "statut": "ok",
 "livres": 37,
 "pages": 2,
-"secondes": 5,
+"secondes": 7,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
+"le": "2026-10-29T02:37Z",
 "en_base": 35
 },
 "kana": {
@@ -639,10 +634,10 @@
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
-"en_base": 76
+"le": "2026-10-29T02:37Z",
+"en_base": 77
 },
 "casterman": {
 "statut": "ok",
@@ -653,9 +648,9 @@
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
+"le": "2026-10-29T02:37Z",
 "en_base": 27
 },
 "ruedesevres": {
@@ -667,23 +662,23 @@
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
+"le": "2026-10-29T02:37Z",
 "en_base": 5
 },
 "dupuis": {
 "statut": "vide",
 "livres": 0,
 "pages": 1,
-"secondes": 3,
+"secondes": 4,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
+"le": "2026-10-29T02:37Z",
 "en_base": 10
 },
 "bedetheque": {
@@ -695,9 +690,9 @@
 "fenetre": [
 "complet",
 "2026-08-01",
-"2027-05-02"
+"2027-05-03"
 ],
-"le": "2026-10-28T23:35Z",
+"le": "2026-10-29T02:37Z",
 "en_base": 0
 },
 "michellafon": {
@@ -813,12 +808,12 @@
 "en_base": 41
 }
 },
-"duree_secondes": 1324,
+"duree_secondes": 655,
 "prix": {
 "lus": 250,
-"trouves": 243,
-"avec_prix": 3107,
-"reste": 1031,
+"trouves": 242,
+"avec_prix": 3278,
+"reste": 861,
 "total": 5050,
 "auteurs_deduits": 0
 }
@@ -31009,7 +31004,8 @@
 ],
 "url": "https://www.hachette.fr/livre/100-quiz-halloween-9782036093577/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.99
 },
 {
 "id": "ed:9782246844761",
@@ -31030,7 +31026,8 @@
 ],
 "url": "https://www.hachette.fr/livre/toi-qui-nas-pas-renonce-penser-9782246844761/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 19.0
 },
 {
 "id": "ed:9791043307683",
@@ -31091,7 +31088,8 @@
 ],
 "url": "https://www.hachette.fr/livre/arretons-vraiment-delire-des-presidents-9782234111288/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 19.5
 },
 {
 "id": "ed:9791036391699",
@@ -31129,7 +31127,8 @@
 ],
 "url": "https://www.hachette.fr/livre/bbq-burger-9782501199155/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.95
 },
 {
 "id": "ed:9791039149143",
@@ -31217,7 +31216,8 @@
 ],
 "url": "https://www.hachette.fr/livre/bitten-9782700286533/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 21.9
 },
 {
 "id": "ed:9782344076378",
@@ -31259,7 +31259,8 @@
 ],
 "url": "https://www.hachette.fr/livre/bluey-leffrayant-livre-de-bluey-et-bingo-9782017376613/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 11.9
 },
 {
 "id": "ed:9782017391548",
@@ -31281,7 +31282,8 @@
 ],
 "url": "https://www.hachette.fr/livre/bouh-la-sorciere-tome-01-le-premier-sort-9782017391548/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.9
 },
 {
 "id": "ll:26464623",
@@ -31303,7 +31305,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26464623-c-etait-notre-maison-marcus-kliewer-le-livre-de-poche",
-"kind": "policier"
+"kind": "policier",
+"prix": 9.4
 },
 {
 "id": "ed:9782253254355",
@@ -31324,7 +31327,8 @@
 ],
 "url": "https://www.hachette.fr/livre/ce-que-grindr-fait-de-nous-9782253254355/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 8.7
 },
 {
 "id": "ed:9782754118163",
@@ -31345,7 +31349,8 @@
 ],
 "url": "https://www.hachette.fr/livre/cezanne-lart-en-lumiere-9782754118163/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 23.95
 },
 {
 "id": "ed:9782501199247",
@@ -31364,7 +31369,8 @@
 ],
 "url": "https://www.hachette.fr/livre/chalinotherapie-chat-tout-doux-caramel-9782501199247/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.95
 },
 {
 "id": "ed:9782344076484",
@@ -31384,7 +31390,8 @@
 ],
 "url": "https://www.glenat.com/glenat-jeunesse/chapeau-pointu-et-fete-denfer-9782344076484/",
 "kind": "jeunesse",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 13.5
 },
 {
 "id": "ed:9782501199162",
@@ -31403,7 +31410,8 @@
 ],
 "url": "https://www.hachette.fr/livre/chaussettes-chorizo-9782501199162/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.95
 },
 {
 "id": "ed:9782501199186",
@@ -31422,7 +31430,8 @@
 ],
 "url": "https://www.hachette.fr/livre/chaussettes-hot-socks-9782501199186/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 19.99
 },
 {
 "id": "ed:9782501199179",
@@ -31441,7 +31450,8 @@
 ],
 "url": "https://www.hachette.fr/livre/chaussettes-mini-chaussissons-9782501199179/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.95
 },
 {
 "id": "ed:9782036094802",
@@ -31462,7 +31472,8 @@
 ],
 "url": "https://www.hachette.fr/livre/cinema-la-grande-histoire-du-7eme-art-9782036094802/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 24.99
 },
 {
 "id": "ed:9782036086036",
@@ -31484,7 +31495,8 @@
 ],
 "url": "https://www.hachette.fr/livre/coloriages-donjons-et-gardiens-9782036086036/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.99
 },
 {
 "id": "ed:9791043308055",
@@ -31505,7 +31517,8 @@
 ],
 "url": "https://www.hachette.fr/livre/dreamland-le-mook-9791043308055/",
 "kind": "bd",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 22.0
 },
 {
 "id": "ll:26417530",
@@ -31529,7 +31542,8 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26417530-du-matin-au-soir-alix-mezamat-didier-jeunesse",
 "lu": "2026-10-24",
-"kind": "jeunesse"
+"kind": "jeunesse",
+"prix": 14.0
 },
 {
 "id": "ed:9791039149167",
@@ -31631,7 +31645,8 @@
 ],
 "url": "https://www.hachette.fr/livre/evermore-tome-1-ocean-eyes-9782017396017/",
 "kind": "bd",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.9
 },
 {
 "id": "ed:9782487412521",
@@ -31652,7 +31667,8 @@
 ],
 "url": "https://www.hachette.fr/livre/fake-skating-9782487412521/",
 "kind": "ya",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 19.99
 },
 {
 "id": "ed:9782501183093",
@@ -31674,7 +31690,8 @@
 ],
 "url": "https://www.hachette.fr/livre/fast-fashion-9782501183093/",
 "kind": "bd",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 19.95
 },
 {
 "id": "ed:9782213733685",
@@ -31695,7 +31712,8 @@
 ],
 "url": "https://www.hachette.fr/livre/femmes-resistantes-guillotinees-9782213733685/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 23.0
 },
 {
 "id": "ed:9782036096950",
@@ -31716,7 +31734,8 @@
 ],
 "url": "https://www.hachette.fr/livre/france-insolite-lalmanach-365-infos-pour-re-decouvrir-la-france-9782036096950/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 15.99
 },
 {
 "id": "ed:9782353484782",
@@ -31758,7 +31777,8 @@
 ],
 "url": "https://www.hachette.fr/livre/gabby-et-la-maison-magique-hourra-cest-halloween-9782017332015/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.5
 },
 {
 "id": "ed:9782253254348",
@@ -31777,7 +31797,8 @@
 ],
 "url": "https://www.hachette.fr/livre/gaza-vie-9782253254348/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 7.9
 },
 {
 "id": "ed:9782700289374",
@@ -31799,7 +31820,8 @@
 ],
 "url": "https://www.hachette.fr/livre/harper-trois-coeurs-en-automne-9782700289374/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 14.9
 },
 {
 "id": "ed:9791039149150",
@@ -31841,7 +31863,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/himalaya-vaudou-ne-9782344077399/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 20.0
 },
 {
 "id": "ed:9782494400931",
@@ -33518,7 +33541,8 @@
 "Cher Voltaire, Correspondance de Madame du Deffand avec Voltaire"
 ],
 "url": "https://www.leslibraires.fr/livre/26405699-cher-voltaire-correspondance-de-madame-du-deffand-avec-voltaire-voltaire-editions-des-femmes-antoinette-fouque",
-"kind": "roman"
+"kind": "roman",
+"prix": 25.0
 },
 {
 "id": "ll:26455780",
@@ -33542,7 +33566,8 @@
 "Humour"
 ],
 "url": "https://www.leslibraires.fr/livre/26455780-chroniques-de-saint-roustan-t02-le-grand-deluge-dore-etienne-le-roux-loic-chevallier-damien-geffroy-delcourt",
-"kind": "bd"
+"kind": "bd",
+"prix": 15.5
 },
 {
 "id": "ed:9791042022709",
@@ -33663,7 +33688,8 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26377995-flex-marion-bataille-les-grandes-personnes",
 "lu": "2026-10-24",
-"kind": "jeunesse"
+"kind": "jeunesse",
+"prix": 16.0
 },
 {
 "id": "ed:9782413092605",
@@ -33820,7 +33846,8 @@
 "L'homme sans masque"
 ],
 "url": "https://www.leslibraires.fr/livre/26533560-l-homme-sans-masque-kristina-ifwarson-ginkgo",
-"kind": "roman"
+"kind": "roman",
+"prix": 18.0
 },
 {
 "id": "ll:26170287",
@@ -33842,7 +33869,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26170287-ladies-impitoyables-fragments-d-une-contre-histoire-de-la-litterature-anglaise-au-feminin-constance-jean-le-cherche-midi",
-"kind": ""
+"kind": "",
+"prix": 26.9
 },
 {
 "id": "ll:26364157",
@@ -33864,7 +33892,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26364157-la-trilogie-de-la-poussiere-3-le-champ-de-roses-philip-pullman-gallimard-jeunesse",
-"kind": "jeunesse"
+"kind": "jeunesse",
+"prix": 22.0
 },
 {
 "id": "ed:9782302108745",
@@ -34000,7 +34029,8 @@
 "Poèmes Textiles"
 ],
 "url": "https://www.leslibraires.fr/livre/26425202-poemes-textiles-laurence-ermacova-editions-du-bunker",
-"kind": ""
+"kind": "",
+"prix": 15.0
 },
 {
 "id": "ll:26455323",
@@ -34023,7 +34053,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26455323-rappelle-toi-harlan-coben-pocket",
-"kind": "policier"
+"kind": "policier",
+"prix": 9.6
 },
 {
 "id": "ed:9782749961613",
@@ -34142,7 +34173,8 @@
 "url": "https://www.editionspoints.com/ouvrage/600-coups-par-minute-frederic-paulin/9791041414383",
 "kind": "policier",
 "source": "editeur:points",
-"refait": 1
+"refait": 1,
+"prix": 9.9
 },
 {
 "id": "ed:9791026855859",
@@ -34199,7 +34231,8 @@
 "rayons": [],
 "url": "https://www.lelombard.com/bd/betty/betty",
 "kind": "bd",
-"source": "editeur:lombard"
+"source": "editeur:lombard",
+"prix": 26.95
 },
 {
 "id": "ed:9782375066416",
@@ -34239,7 +34272,8 @@
 "rayons": [],
 "url": "https://www.seuil.com/ouvrage/ce-qui-reveille-les-morts-prix-locus-du-meilleur-roman-d-horreur-t-kingfisher/9782386435188",
 "kind": "roman",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"prix": 15.9
 },
 {
 "id": "ed:9782931105597",
@@ -34297,7 +34331,8 @@
 "rayons": [],
 "url": "https://www.seuil.com/ouvrage/dessins-encres-gouaches-georges-perec/9782021600254",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"prix": 29.0
 },
 {
 "id": "ed:9782375066294",
@@ -34337,7 +34372,8 @@
 "rayons": [],
 "url": "https://www.seuil.com/ouvrage/dialogue-avec-les-peintres-georges-perec/9782021621099",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"prix": 27.0
 },
 {
 "id": "ed:9782385030223",
@@ -34412,7 +34448,8 @@
 "rayons": [],
 "url": "https://www.lelombard.com/bd/elsbeth/elsbeth-et-la-malediction-du-beau-silence-2",
 "kind": "bd",
-"source": "editeur:lombard"
+"source": "editeur:lombard",
+"prix": 14.95
 },
 {
 "id": "ed:9791026856757",
@@ -34700,7 +34737,8 @@
 "rayons": [],
 "url": "https://www.seuil.com/ouvrage/l-argent-magique-marc-endeweld/9782021534573",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"prix": 23.5
 },
 {
 "id": "ed:9782021624083",
@@ -34718,7 +34756,8 @@
 "rayons": [],
 "url": "https://www.seuil.com/ouvrage/l-impossible-contre-revolution-culturelle-olivier-roy/9782021624083",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"prix": 23.0
 },
 {
 "id": "ed:9782021628067",
@@ -34736,7 +34775,8 @@
 "rayons": [],
 "url": "https://www.seuil.com/ouvrage/la-chute-julian-jackson/9782021628067",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"prix": 24.9
 },
 {
 "id": "ed:9782808703192",
@@ -34779,7 +34819,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26623729-la-liberte-d-expression-contre-la-liberte-de-la-presse--thibaut-bruttin-seuil",
-"kind": ""
+"kind": "",
+"prix": 8.5
 },
 {
 "id": "ed:9791041426713",
@@ -34799,7 +34840,8 @@
 ],
 "url": "https://www.editionspoints.com/ouvrage/le-fantome-d-anil-michael-ondaatje/9791041426713",
 "kind": "roman",
-"source": "editeur:points"
+"source": "editeur:points",
+"prix": 8.95
 },
 {
 "id": "ed:9782808219358",
@@ -34817,7 +34859,8 @@
 "rayons": [],
 "url": "https://www.lelombard.com/bd/le-gang-de-la-cle-a-molette/le-gang-de-la-clef-a-molette-1",
 "kind": "bd",
-"source": "editeur:lombard"
+"source": "editeur:lombard",
+"prix": 31.95
 },
 {
 "id": "ed:9782488807364",
@@ -34853,7 +34896,8 @@
 "rayons": [],
 "url": "https://www.seuil.com/ouvrage/les-revolutionnaires-olivier-betourne/9782021619928",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"prix": 28.5
 },
 {
 "id": "ed:9791041417643",
@@ -34874,7 +34918,8 @@
 "url": "https://www.editionspoints.com/ouvrage/les-immemoriaux-victor-segalen/9791041417643",
 "kind": "",
 "source": "editeur:points",
-"refait": 1
+"refait": 1,
+"prix": 8.7
 },
 {
 "id": "ed:9782808700603",
@@ -34911,7 +34956,8 @@
 "rayons": [],
 "url": "https://www.kana.fr/produit/lupin-iii/",
 "kind": "bd",
-"source": "editeur:kana"
+"source": "editeur:kana",
+"prix": 21.95
 },
 {
 "id": "ed:9782505144076",
@@ -34927,7 +34973,8 @@
 "rayons": [],
 "url": "https://www.kana.fr/produit/manga-issho-7/",
 "kind": "bd",
-"source": "editeur:kana"
+"source": "editeur:kana",
+"prix": 6.9
 },
 {
 "id": "ed:9782021605365",
@@ -34945,7 +34992,8 @@
 "rayons": [],
 "url": "https://www.seuil.com/ouvrage/mars-murder-nicolas-rendu/9782021605365",
 "kind": "",
-"source": "editeur:seuil"
+"source": "editeur:seuil",
+"prix": 19.9
 },
 {
 "id": "ed:9782808212588",
@@ -34964,7 +35012,8 @@
 "rayons": [],
 "url": "https://www.lelombard.com/bd/mitsuo/partie-2",
 "kind": "bd",
-"source": "editeur:lombard"
+"source": "editeur:lombard",
+"prix": 23.45
 },
 {
 "id": "ed:9782379506505",
@@ -35051,7 +35100,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26464448-reglement-de-comptes-davide-longo-points",
-"kind": "policier"
+"kind": "policier",
+"prix": 9.3
 },
 {
 "id": "ed:9782505141358",
@@ -35069,7 +35119,8 @@
 "rayons": [],
 "url": "https://www.kana.fr/produit/saint-seiya-rerise-of-poseidon-t1/",
 "kind": "bd",
-"source": "editeur:kana"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782505142911",
@@ -35085,7 +35136,8 @@
 "rayons": [],
 "url": "https://www.kana.fr/produit/seraph-of-the-end-t34/",
 "kind": "bd",
-"source": "editeur:kana"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782385030773",
@@ -35245,7 +35297,8 @@
 "rayons": [],
 "url": "https://www.kana.fr/produit/the-elusive-samurai-t20/",
 "kind": "bd",
-"source": "editeur:kana"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782385031756",
@@ -35305,7 +35358,8 @@
 "rayons": [],
 "url": "https://www.kana.fr/produit/yu-gi-oh-edition-millenium-t2/",
 "kind": "bd",
-"source": "editeur:kana"
+"source": "editeur:kana",
+"prix": 13.95
 },
 {
 "id": "ed:9791026822950",
@@ -35364,7 +35418,8 @@
 ],
 "url": "https://tout.bayard-jeunesse.com/livres/13368-alec-et-le-strigoi/",
 "kind": "jeunesse",
-"source": "editeur:bayard"
+"source": "editeur:bayard",
+"prix": 8.3
 },
 {
 "id": "ed:9791036396823",
@@ -35385,7 +35440,8 @@
 ],
 "url": "https://tout.bayard-jeunesse.com/livres/105181-alerte-aux-chiens/",
 "kind": "jeunesse",
-"source": "editeur:bayard"
+"source": "editeur:bayard",
+"prix": 6.5
 },
 {
 "id": "ed:9791036393112",
@@ -35406,7 +35462,8 @@
 ],
 "url": "https://tout.bayard-jeunesse.com/livres/102421-brasaskoven-t02-mer-de-glace-et-terre-dombres/",
 "kind": "fantasy",
-"source": "editeur:bayard"
+"source": "editeur:bayard",
+"prix": 19.9
 },
 {
 "id": "ed:9791036396816",
@@ -35427,7 +35484,8 @@
 ],
 "url": "https://tout.bayard-jeunesse.com/livres/15018-comment-tuer-un-monstre/",
 "kind": "jeunesse",
-"source": "editeur:bayard"
+"source": "editeur:bayard",
+"prix": 6.5
 },
 {
 "id": "ed:9782408064570",
@@ -35448,7 +35506,8 @@
 ],
 "url": "https://www.editionsmilan.com/livres/100641-dans-la-foret-des-geants/",
 "kind": "jeunesse",
-"source": "editeur:milan"
+"source": "editeur:milan",
+"prix": 13.9
 },
 {
 "id": "ed:9791036396830",
@@ -35469,7 +35528,8 @@
 ],
 "url": "https://tout.bayard-jeunesse.com/livres/105183-la-rue-maudite/",
 "kind": "jeunesse",
-"source": "editeur:bayard"
+"source": "editeur:bayard",
+"prix": 6.5
 },
 {
 "id": "ed:9791098239717",
@@ -35509,7 +35569,8 @@
 ],
 "url": "https://tout.bayard-jeunesse.com/livres/11499-lou-et-lile-maudite/",
 "kind": "jeunesse",
-"source": "editeur:bayard"
+"source": "editeur:bayard",
+"prix": 8.3
 },
 {
 "id": "ed:9782408068387",
@@ -35530,7 +35591,8 @@
 ],
 "url": "https://www.editionsmilan.com/livres/11171-noel/",
 "kind": "jeunesse",
-"source": "editeur:milan"
+"source": "editeur:milan",
+"prix": 5.5
 },
 {
 "id": "ed:9782036093676",
@@ -36388,7 +36450,8 @@
 ],
 "url": "https://www.hachette.fr/livre/gabby-et-la-maison-magique-ou-est-cache-9782017299950/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.9
 },
 {
 "id": "ed:9782017107408",
@@ -36409,7 +36472,8 @@
 ],
 "url": "https://www.hachette.fr/livre/gaston-fete-noel-9782017107408/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.95
 },
 {
 "id": "ed:manganews:guardian-edition-collector-vol-1",
@@ -36492,7 +36556,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26519648-holiday-ever-after-hannah-grace-hachette-hlab",
-"kind": "romance"
+"kind": "romance",
+"prix": 20.0
 },
 {
 "id": "ed:9791041112777",
@@ -36555,7 +36620,8 @@
 ],
 "url": "https://www.hachette.fr/livre/il-neige-sur-nos-coeurs-9782700288438/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 15.9
 },
 {
 "id": "ed:9782213727370",
@@ -36577,7 +36643,8 @@
 ],
 "url": "https://www.hachette.fr/livre/introduction-la-vie-cachee-9782213727370/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 19.9
 },
 {
 "id": "ed:9782491652104",
@@ -36634,7 +36701,8 @@
 ],
 "url": "https://www.hachette.fr/livre/je-jure-de-dire-toute-la-verite-9782213736440/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 20.9
 },
 {
 "id": "ed:9782253263739",
@@ -36655,7 +36723,8 @@
 ],
 "url": "https://www.hachette.fr/livre/katia-9782253263739/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 7.9
 },
 {
 "id": "ed:9782253255413",
@@ -36676,7 +36745,8 @@
 ],
 "url": "https://www.hachette.fr/livre/laffaire-crystal-singer-9782253255413/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.4
 },
 {
 "id": "ed:9782344065020",
@@ -36697,7 +36767,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/lepopee-de-la-franc-maconnerie-tome-14-9782344065020/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 15.5
 },
 {
 "id": "ed:9782387250636",
@@ -36736,7 +36807,8 @@
 ],
 "url": "https://www.hachette.fr/livre/lile-du-la-haut-9782253251989/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 8.7
 },
 {
 "id": "ed:9782017911500",
@@ -36757,7 +36829,8 @@
 ],
 "url": "https://www.hachette.fr/livre/lecole-des-licornes-la-serie-tv-tome-15-la-societe-secrete-9782017911500/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.9
 },
 {
 "id": "ed:9782344076972",
@@ -36777,7 +36850,8 @@
 ],
 "url": "https://www.glenat.com/glenat-livres/la-grande-epopee-du-train-travers-les-cartes-9782344076972/",
 "kind": "",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 39.95
 },
 {
 "id": "ed:9782017349440",
@@ -36798,7 +36872,8 @@
 ],
 "url": "https://www.hachette.fr/livre/la-pat-patrouille-la-ferme-hantee-9782017349440/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.5
 },
 {
 "id": "ll:26468449",
@@ -36820,7 +36895,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26468449-la-voix-de-l-arbre-bernard-werber-le-livre-de-poche",
-"kind": "fantasy"
+"kind": "fantasy",
+"prix": 9.4
 },
 {
 "id": "ed:9782344077467",
@@ -36841,7 +36917,8 @@
 ],
 "url": "https://www.glenat.com/glenat-livres/la-cuisine-de-montagne-ne-9782344077467/",
 "kind": "",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 30.0
 },
 {
 "id": "ed:9782330225681",
@@ -36880,7 +36957,8 @@
 ],
 "url": "https://www.hachette.fr/livre/le-monde-le-monde-tome-1-9782253254249/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 14.9
 },
 {
 "id": "ed:9782344046197",
@@ -36900,7 +36978,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/le-roman-de-jesus-9782344046197/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 35.0
 },
 {
 "id": "ed:9782290428917",
@@ -36920,7 +36999,8 @@
 ],
 "url": "https://www.jailu.com/le-livre-de-la-sage-femme-sans-nom/9782290428917",
 "kind": "roman",
-"source": "editeur:jailu"
+"source": "editeur:jailu",
+"prix": 9.9
 },
 {
 "id": "ed:9782246846567",
@@ -36941,7 +37021,8 @@
 ],
 "url": "https://www.hachette.fr/livre/le-monde-commence-peine-9782246846567/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 21.5
 },
 {
 "id": "ed:9782501203661",
@@ -36960,7 +37041,8 @@
 ],
 "url": "https://www.hachette.fr/livre/le-petit-village-des-lumieres-9782501203661/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 16.99
 },
 {
 "id": "ed:9791098005824",
@@ -36998,7 +37080,8 @@
 ],
 "url": "https://www.hachette.fr/livre/le-tout-petit-livre-dart-de-mary-cassatt-9782812322457/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.95
 },
 {
 "id": "ed:9782344066195",
@@ -37019,7 +37102,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/lee-horn-9782344066195/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 19.0
 },
 {
 "id": "ll:26468123",
@@ -37041,7 +37125,8 @@
 "5, Les Deux Royaumes (La Traversée des temps, Tome 5)"
 ],
 "url": "https://www.leslibraires.fr/livre/26468123-5-les-deux-royaumes-la-traversee-des-temps-tome-5--eric-emmanuel-schmitt-le-livre-de-poche",
-"kind": "roman"
+"kind": "roman",
+"prix": 9.9
 },
 {
 "id": "ed:9782017397540",
@@ -37062,7 +37147,8 @@
 ],
 "url": "https://www.hachette.fr/livre/les-miserables-edition-avec-laffiche-du-film-en-couverture-9782017397540/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.9
 },
 {
 "id": "ed:9782017288978",
@@ -37083,7 +37169,8 @@
 ],
 "url": "https://www.hachette.fr/livre/les-monsieur-madame-les-12-cadeaux-de-madame-petite-9782017288978/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 2.9
 },
 {
 "id": "ed:9782017308904",
@@ -37104,7 +37191,8 @@
 ],
 "url": "https://www.hachette.fr/livre/les-prouts-de-noel-livre-sonore-9782017308904/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.0
 },
 {
 "id": "ll:26450468",
@@ -37126,7 +37214,8 @@
 "Les mots qui fuient"
 ],
 "url": "https://www.leslibraires.fr/livre/26450468-les-mots-qui-fuient-barbara-cassin-flammarion",
-"kind": ""
+"kind": "",
+"prix": 21.0
 },
 {
 "id": "ed:9791041117901",
@@ -37185,7 +37274,8 @@
 ],
 "url": "https://www.hachette.fr/livre/les-secrets-de-louis-xiv-9782755509496/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.0
 },
 {
 "id": "ed:9782017375722",
@@ -37203,7 +37293,8 @@
 ],
 "url": "https://www.hachette.fr/livre/let-it-snow-9782017375722/",
 "kind": "romance",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 22.0
 },
 {
 "id": "ed:9791026405573",
@@ -37224,7 +37315,8 @@
 ],
 "url": "https://www.glenat.com/glenat-jeunesse/lettres-des-sorcieres-9791026405573/",
 "kind": "jeunesse",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 16.9
 },
 {
 "id": "ed:9782017377009",
@@ -37245,7 +37337,8 @@
 ],
 "url": "https://www.hachette.fr/livre/ma-bibliotheque-monsieur-madame-9782017377009/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 18.9
 },
 {
 "id": "ed:9782017894179",
@@ -37268,7 +37361,8 @@
 ],
 "url": "https://www.hachette.fr/livre/ma-petite-histoire-de-marie-9782017894179/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.0
 },
 {
 "id": "ed:9791041108626",
@@ -37306,7 +37400,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mary-cassatt-catalogue-officiel-de-lexposition-9782754117425/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 45.0
 },
 {
 "id": "ed:9782017308959",
@@ -37327,7 +37422,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mes-berceuses-et-comptines-pour-faire-dodo-livre-avec-boitier-sonore-9782017308959/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.0
 },
 {
 "id": "ed:9782246839002",
@@ -37348,7 +37444,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mes-mains-pleines-de-sang-9782246839002/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 22.0
 },
 {
 "id": "ed:9782017392576",
@@ -37370,7 +37467,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mes-premiers-chants-de-noel-livre-avec-boitier-sonore-9782017392576/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.0
 },
 {
 "id": "ed:9782017107323",
@@ -37391,7 +37489,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mes-premieres-emotions-avec-gaston-ned-9782017107323/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.0
 },
 {
 "id": "ed:9782017358664",
@@ -37412,7 +37511,8 @@
 ],
 "url": "https://www.hachette.fr/livre/milo-et-waso-encore-un-calin-9782017358664/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.95
 },
 {
 "id": "ed:9782017358671",
@@ -37433,7 +37533,8 @@
 ],
 "url": "https://www.hachette.fr/livre/milo-et-waso-les-petits-bobos-9782017358671/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.95
 },
 {
 "id": "ed:9782017347712",
@@ -37454,7 +37555,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mini-loup-drole-de-noel-avec-figurine-9782017347712/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.95
 },
 {
 "id": "ed:9782017347743",
@@ -37475,7 +37577,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mini-loup-et-la-maison-hantee-pop-ned-9782017347743/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.95
 },
 {
 "id": "ed:9782017347736",
@@ -37496,7 +37599,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mini-loup-et-le-pere-noel-pop-ned-9782017347736/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.95
 },
 {
 "id": "ed:9782017912002",
@@ -37518,7 +37622,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mon-noel-en-chansons-livre-avec-boitier-sonore-9782017912002/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.0
 },
 {
 "id": "ed:9782036051867",
@@ -37540,7 +37645,8 @@
 ],
 "url": "https://www.hachette.fr/livre/mon-roman-chasse-au-tresor-halloween-9782036051867/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.99
 },
 {
 "id": "ll:26475973",
@@ -37562,7 +37668,8 @@
 "Méditations par saison"
 ],
 "url": "https://www.leslibraires.fr/livre/26475973-meditations-par-saison-eugenie-lambert-la-plage",
-"kind": ""
+"kind": "",
+"prix": 14.95
 },
 {
 "id": "ed:9782700289572",
@@ -37584,7 +37691,8 @@
 ],
 "url": "https://www.hachette.fr/livre/noel-au-cafe-des-oracles-nouvelle-edition-9782700289572/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 16.5
 },
 {
 "id": "ed:9782017396062",
@@ -37605,7 +37713,8 @@
 ],
 "url": "https://www.hachette.fr/livre/noel-cafe-et-garde-vue-9782017396062/",
 "kind": "bd",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 7.9
 },
 {
 "id": "ed:9782017359302",
@@ -37627,7 +37736,8 @@
 ],
 "url": "https://www.hachette.fr/livre/ou-sont-caches-le-pere-noel-et-ses-amis-9782017359302/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.95
 },
 {
 "id": "ed:9782017395003",
@@ -37648,7 +37758,8 @@
 ],
 "url": "https://www.hachette.fr/livre/ou-sont-caches-les-lutins-du-pere-noel-9782017395003/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.95
 },
 {
 "id": "ll:26554352",
@@ -37670,7 +37781,8 @@
 "Passeur de science, Mon voyage au pays de la recherche médicale"
 ],
 "url": "https://www.leslibraires.fr/livre/26554352-passeur-de-science-mon-voyage-au-pays-de-la-recherche-medicale-thierry-lhermitte-albin-michel",
-"kind": ""
+"kind": "",
+"prix": 20.9
 },
 {
 "id": "ed:9782017390527",
@@ -37691,7 +37803,8 @@
 ],
 "url": "https://www.hachette.fr/livre/pat-patrouille-ma-premiere-bibliotheque-9782017390527/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.9
 },
 {
 "id": "ed:9782017390534",
@@ -37712,7 +37825,8 @@
 ],
 "url": "https://www.hachette.fr/livre/pat-patrouille-mes-plus-belles-histoires-9782017390534/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 14.9
 },
 {
 "id": "ed:9782290430071",
@@ -37732,7 +37846,8 @@
 ],
 "url": "https://www.jailu.com/petit-manuel-pour-un-grand-passage/9782290430071",
 "kind": "",
-"source": "editeur:jailu"
+"source": "editeur:jailu",
+"prix": 8.0
 },
 {
 "id": "ed:9782017371298",
@@ -37753,7 +37868,8 @@
 ],
 "url": "https://www.hachette.fr/livre/petits-pipis-au-pays-des-contes-9782017371298/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 13.9
 },
 {
 "id": "ed:9782253910404",
@@ -37774,7 +37890,8 @@
 ],
 "url": "https://www.hachette.fr/livre/pistes-noires-9782253910404/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.9
 },
 {
 "id": "ed:9782017390282",
@@ -37795,7 +37912,8 @@
 ],
 "url": "https://www.hachette.fr/livre/rainbow-high-carnet-de-mode-9782017390282/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.95
 },
 {
 "id": "ed:9782017384335",
@@ -37816,7 +37934,8 @@
 ],
 "url": "https://www.hachette.fr/livre/rainbow-high-bienvenue-paris-tome-01-une-nouvelle-vie-9782017384335/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.9
 },
 {
 "id": "ed:9782820355652",
@@ -37858,7 +37977,8 @@
 ],
 "url": "https://www.hachette.fr/livre/rires-de-mechants-livre-sonore-avec-boitier-9782017308843/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 12.0
 },
 {
 "id": "ed:9791098005862",
@@ -37898,7 +38018,8 @@
 ],
 "url": "https://www.hachette.fr/livre/sauver-ta-peau-9782213734583/",
 "kind": "policier",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 20.9
 },
 {
 "id": "ed:9782036097520",
@@ -37917,7 +38038,8 @@
 ],
 "url": "https://www.hachette.fr/livre/si-lart-metait-conte-secrets-dhistoire-junior-9782036097520/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 14.99
 },
 {
 "id": "ed:9782382332979",
@@ -37978,7 +38100,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/lapins-cretins-x-rayman-9782344072615/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 11.5
 },
 {
 "id": "ed:9782017396031",
@@ -37999,7 +38122,8 @@
 ],
 "url": "https://www.hachette.fr/livre/spiced-cocoa-cafe-9782017396031/",
 "kind": "bd",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 7.9
 },
 {
 "id": "ll:26554277",
@@ -38021,7 +38145,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26554277-tokyorama-nouveaute-thriller-2026-jean-christophe-grange-jean-christophe-grange-albin-michel",
-"kind": "policier"
+"kind": "policier",
+"prix": 22.9
 },
 {
 "id": "ed:9782253173274",
@@ -38042,7 +38167,8 @@
 ],
 "url": "https://www.hachette.fr/livre/trouver-ma-voie-9782253173274/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.7
 },
 {
 "id": "ll:26468121",
@@ -38064,7 +38190,8 @@
 "Un chat matin, midi et soir"
 ],
 "url": "https://www.leslibraires.fr/livre/26468121-un-chat-matin-midi-et-soir-syou-ishida-le-livre-de-poche",
-"kind": "roman"
+"kind": "roman",
+"prix": 8.7
 },
 {
 "id": "ed:9782234112179",
@@ -38085,7 +38212,8 @@
 ],
 "url": "https://www.hachette.fr/livre/un-regard-9782234112179/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 20.5
 },
 {
 "id": "ed:9782234096394",
@@ -38106,7 +38234,8 @@
 ],
 "url": "https://www.hachette.fr/livre/une-table-soi-9782234096394/",
 "kind": "",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 18.5
 },
 {
 "id": "ll:26520637",
@@ -38128,7 +38257,8 @@
 "Votre assiette optimisée, 130 recettes qui vont changer votre vie"
 ],
 "url": "https://www.leslibraires.fr/livre/26520637-votre-assiette-optimisee-130-recettes-qui-vont-changer-votre-vie-emilie-steinbach-marabout",
-"kind": ""
+"kind": "",
+"prix": 22.9
 },
 {
 "id": "ed:9782017390312",
@@ -38149,7 +38279,8 @@
 ],
 "url": "https://www.hachette.fr/livre/winx-club-carnet-de-mode-9782017390312/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.95
 },
 {
 "id": "ed:9791041120321",
@@ -44939,7 +45070,8 @@
 ],
 "url": "https://www.jailu.com/la-fierte-du-highlander/9782290431733",
 "kind": "romance",
-"source": "editeur:jailu"
+"source": "editeur:jailu",
+"prix": 7.9
 },
 {
 "id": "ed:9782246843832",
@@ -59109,9 +59241,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143444-couv-M300x425.jpg",
 "description": "Iroha Hôshô est une lycéenne qui a du mal à engager une simple conversation avec les personnes de son âge. Les autres élèves pensent qu’elle est toujours de mauvaise humeur et commencent à abandonner l’idée de nouer un contact...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/yume-ka-utsutsu-ka-t1/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -59150,9 +59280,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505124733-couv-M300x425.jpg",
 "description": "Hina et Takaaki ont sauvé Hinako, enlevée par la troupe Amahisa. Touchée par la sincérité de Takaaki, Hina décide de s’ouvrir à lui. De son côté, Taketora est toujours à la recherche du propriétaire du collier, dont il...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/serenade-pour-une-pluie-de-larmes-t7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -69806,7 +69934,7 @@
 },
 {
 "id": "ed:9782492463501",
-"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
+"title": "2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -70625,9 +70753,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144014-couv-M300x425.jpg",
 "description": "À la quatrième porte, se dresse Taihaku, un véritable dieu guerrier doté d’une force écrasante et animé par sa vision de l’avenir des Mibu. Face à lui, Tigre Rouge, déterminé à «?vaincre son propre moi?», relève le défi....",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t10/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -70704,9 +70830,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143314-couv-M300x425.jpg",
 "description": "Le tournoi inter-lycée est enfin terminé ! Il reste 1 mois à Shôhoku pour s'entraîner à fond en prévision du tant attendu tournoi national ! Alors que Sakuragi profite des quelques jours de repos avant le début de son stage...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/slam-dunk-deluxe-t17/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -70725,9 +70849,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144434-couv-M300x425.jpg",
 "description": "La rivalité déplacée avec Kawakami autour de Tayama provoque chez Sasaki des prises de conscience et des remises en question inattendues. Yamada et Tayama. Plus il tente de comprendre les deux jeunes femmes, plus ses interrogations...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/smoking-behind-the-supermarket-with-you-t7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -70746,9 +70868,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505140030-couv-M300x425.jpg",
 "description": "Grâce à Julia, qui a réussi à activer sa capacité Unjustice, Fûko et ses compagnons ont pu repousser les maîtres des règles primordiales. Mais ils ignorent toujours où se trouve le troisième Jingi, le dernier élément dont ils...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/undead-unluck-t27/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -71116,7 +71236,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26644056-ariol-tome-1-petit-prix-un-petit-ane-comme-vous-et-moi-guibert-boutavant-bayard-jeunesse",
 "kind": "bd",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 5.0
 },
 {
@@ -71305,7 +71425,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26633362-black-sessions-le-beau-livre-sur-l-emission-culte-de-france-inter-the-black-sessions-plommee-francois-harpercollins",
 "kind": "",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 29.9
 },
 {
@@ -71848,7 +71968,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26656969-dragon-mom-anonyme-albin-michel",
 "kind": "",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 12.0
 },
 {
@@ -73011,7 +73131,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26672889-le-dictionnaire-de-laurent-baffie-la-totale-laurent-baffie-kero",
 "kind": "roman",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 19.9
 },
 {
@@ -73199,9 +73319,7 @@
 "format": "",
 "cover": "https://medias.edl.li/gecko/couv/prod/9782810210909_C.jpg",
 "description": "Alors que le Cygne Noir, ethernef pirate commandé par le capitaine Lohengrin, sillonne le Ring à la recherche d'un mystérieux artefact extra-terrestre, une violente tempête endommage le vaisseau et le contraint à atterrir sur un...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-ruedesevres.fr/Les-Chants-du-Cygne-Noir-T2",
 "kind": "bd",
 "source": "editeur:ruedesevres",
@@ -73228,7 +73346,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26642309-les-fourmis-tome-1-bd--werber-kimyonghoi-albin-michel",
 "kind": "bd",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 19.9
 },
 {
@@ -73515,7 +73633,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26531234-ma-cherie-a-propos-d-amour-d-aventure-et-de-guerison-wendy-delorme-cambourakis",
 "kind": "",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 16.0
 },
 {
@@ -73921,7 +74039,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26642334-ne-le-laissez-pas-entrer-jewell-lisa-hauteville",
 "kind": "policier",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 8.95
 },
 {
@@ -74140,7 +74258,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26611150-7-palomino-a-la-neige-michael-escoffier-ecole-des-loisirs",
 "kind": "jeunesse",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 14.0
 },
 {
@@ -74197,10 +74315,7 @@
 "format": "",
 "cover": "https://medias.edl.li/gecko/couv/prod/9782810207657_C.jpg",
 "description": "",
-"rayons": [
-"Manga",
-"One-shot"
-],
+"rayons": [],
 "url": "https://www.editions-ruedesevres.fr/Piques-en-plein-coeur",
 "kind": "bd",
 "source": "editeur:ruedesevres",
@@ -74315,7 +74430,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26561409-pere-castor-le-monde-des-histoires-collectif-pere-castor",
 "kind": "jeunesse",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 29.9
 },
 {
@@ -74470,7 +74585,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26611186-si-j-etais-un-chat-soledad-bravi-ecole-des-loisirs",
 "kind": "jeunesse",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 12.5
 },
 {
@@ -74843,7 +74958,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26633562-tout-autre-nom-craig-johnson-editions-gallmeister",
 "kind": "roman",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 13.5
 },
 {
@@ -75044,7 +75159,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26611171-winter-romances-malika-ferdjoukh-medium-edl",
 "kind": "romance",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 17.0
 },
 {
@@ -75134,7 +75249,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26664823-a-nos-coeurs-battants-emma-green-editions-addictives",
 "kind": "romance",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 8.9
 },
 {
@@ -75158,7 +75273,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26642108-ca-aurait-pu-etre-elle-jewell-lisa-hauteville",
 "kind": "policier",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 19.95
 },
 {
@@ -75257,9 +75372,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413080459.jpg?itok=kLPfeN2Y",
 "description": "MATSURI et ses amis décident de partir camper à la montagne pendant les vacances d'été. Ils s'amusent bien au début, mais Yayo tombe sur l'esprit vengeur d'un soldat mort au combat. Ce dernier finit par s'emparer du corps de Lu !...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-ayakashi-triangle/album-ayakashi-triangle-t12",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -75328,7 +75441,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26547414-crimes-et-contretemps-les-tonalites-du-meurtre-tome-1-chapman-julia-robert-laffont",
 "kind": "policier",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 18.9
 },
 {
@@ -75427,9 +75540,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302108172.jpg?itok=ao_YqGas",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-fans-des-sylvanian-families/album-fans-des-sylvanian-families-t03",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -75508,9 +75619,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382883822.jpg?itok=3SN1Cf0w",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-heaven-official-s-blessing/album-heaven-official-s-blessing-t04",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -75585,7 +75694,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26539344-huitieme-section-marc-trevidic-folio",
 "kind": "policier",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 9.5
 },
 {
@@ -75625,13 +75734,10 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/themes/custom/delcourt/assets/images/icons/warning.svg",
 "description": "Qui aurait cru qu'on pouvait assassiner un royaume tout entier par amour ? Au XVIIIe siècle, un homme, terré dans l'ombre, envoya à la guillotine un certain nombre de nobles dont les célèbres Louis XVI et Marie-Antoinette... Il s'agit...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr",
 "kind": "bd",
-"source": "editeur:delcourt",
-"prix": 8.5
+"source": "editeur:delcourt"
 },
 {
 "id": "ll:26627570",
@@ -75654,7 +75760,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26627570-l-echarpe-jaune-r-j-ellory-breves-edit",
 "kind": "policier",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 12.0
 },
 {
@@ -75767,8 +75873,8 @@
 "Le monde de Minecraft"
 ],
 "url": "https://www.leslibraires.fr/livre/26545934-le-monde-de-minecraft-mojang-studios-mana-books",
-"kind": "bd",
-"lu": "2026-10-28",
+"kind": "",
+"lu": "2026-10-29",
 "prix": 39.9
 },
 {
@@ -75792,7 +75898,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26574363-le-mystere-jesus-la-nouvelle-enquete-historique-jean-christian-petitfils-tallandier",
 "kind": "",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 21.5
 },
 {
@@ -75835,7 +75941,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26547120-les-freres-hayes-tome-1-too-much-i-a-dice-michel-lafon",
 "kind": "romance",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 19.95
 },
 {
@@ -75902,7 +76008,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26546342-les-chefs-militaires-de-la-seconde-guerre-mondiale-les-meilleurs-et-les-pires-bihan-benoist-perrin",
 "kind": "",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 23.9
 },
 {
@@ -75969,7 +76075,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26547023-leur-guerre-de-14-jean-michel-steg-perrin",
 "kind": "",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 22.0
 },
 {
@@ -76052,7 +76158,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26529476-mes-80-experiences-inoubliables-autour-du-monde-bruno-maltor-gallimard-loisirs",
 "kind": "",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 29.95
 },
 {
@@ -76076,7 +76182,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26546385-miss-winter-dans-le-hall-avec-une-corde-edwards-martin-sonatine-editions",
 "kind": "policier",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 23.9
 },
 {
@@ -76137,9 +76243,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413093084.jpg?itok=BCtPE84p",
 "description": "Le magicien rouge Yuke a quitté le groupe de rang A qui l'a traité comme un larbin pendant cinq années. Mais il est sauvé d'un chômage désespérant par ses anciennes élèves, toutes trois de jeunes femmes, qui l'accueillent dans...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-no-longer-rank-party/album-no-longer-rank-party-t02",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -76190,7 +76294,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26547925-operation-bounce-house-dinniman-matt-lorestone",
 "kind": "fantasy",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 14.9
 },
 {
@@ -76230,9 +76334,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382885000.jpg?itok=GKPpP5bM",
 "description": "Après avoir appris qu'il avait un enfant, Sung Ho décide d'abandonner sa carrière militaire pour prendre soin du bébé en tant que père célibataire. Il retourne alors en Corée et s'installe dans un petit village de campagne, dans...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-our-sunny-days/album-our-sunny-days-t01",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -76320,7 +76422,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26545947-qui-a-tue-harry-kennedy--johnston-antony-10-18",
 "kind": "policier",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 9.9
 },
 {
@@ -76336,9 +76438,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413079668.jpg?itok=-905v5Gp",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-reincarne-dans-un-autre-monde/album-reincarne-dans-un-autre-monde-t18",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -76357,13 +76457,10 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/themes/custom/delcourt/assets/images/icons/warning.svg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr",
 "kind": "bd",
-"source": "editeur:delcourt",
-"prix": 14.95
+"source": "editeur:delcourt"
 },
 {
 "id": "ll:26545940",
@@ -76402,9 +76499,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302101548.jpg?itok=4KHNbAvP",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-super-mario-manga-adventures/album-super-mario-manga-adventures-t37",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -76461,9 +76556,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382884904.jpg?itok=VWqFtbTa",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-druid-seoul-station/album-druid-seoul-station-t11",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -76503,9 +76596,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302105560.jpg?itok=XTRpC4z6",
 "description": "Ryo déteste les chiens plus que tout, mais il est sur un petit nuage car il enfin emménage enfin avec sa bien-aimée, Harumi ! Mais leur nid d'amour abrite un colocataire inattendu : Kotetsu, le chien d'Harumi. Loin d'être un simple...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-ton-toutou-ou-moi/album-ton-toutou-ou-moi-t01",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -76655,9 +76746,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144786-couv-M300x425.jpg",
 "description": "Sarada éveille le Mangekyô Sharingan, un pouvoir qu’elle avait inconsciemment scellé ! Elle commence sa riposte contre Ryû qui possède une force écrasante et manipule la limaille de fer !! De son côté, Boruto prend enfin part au...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/boruto-two-blue-vortex-t7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -76715,13 +76804,11 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505142034-couv-M300x425.jpg",
 "description": "Découvrez dans ce recueil une compilation de 6 histoires courtes, qui nous replongent dans l’univers de Death Note, plusieurs années après la défaite de Kira face à Near ! Les dieux de la mort continuent de se jouer des humains, et...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/death-note-black-edition-t7/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 13.25
+"prix": 11.5
 },
 {
 "id": "ed:9782021627442",
@@ -76856,9 +76943,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144656-couv-M300x425.jpg",
 "description": "Azami a beau frapper sans se ménager, la puissance écrasante du Shinuchi, manié par Yura, le met à mal. Pendant ce temps, Chihiro et Samura, qui se sont précipités sur les lieux dans l’espoir de renverser la situation, sont...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/kagurabachi-t11/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -76933,7 +77018,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623923-la-dame-aux-plantes-edition-olfactive-en-tirage-limite-le-thriller-feministe-phenomene-en-coree-du-sud-minyoung-kang-verso",
 "kind": "policier",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 19.9
 },
 {
@@ -77018,7 +77103,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623477-le-cafe-secret-des-nuits-de-pleine-lune-bonnes-resolutions-mai-mochizuki-points",
 "kind": "roman",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 9.3
 },
 {
@@ -77163,7 +77248,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623682-michel-foucault-retrouve-16-lecons-de-philosophie-par-didier-fassin-didier-fassin-seuil",
 "kind": "",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 16.9
 },
 {
@@ -77206,7 +77291,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26612739-mondes-sauvages-cecile-benoist-kilowatt",
 "kind": "jeunesse",
-"lu": "2026-10-28",
+"lu": "2026-10-29",
 "prix": 23.0
 },
 {
@@ -77514,9 +77599,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144298-couv-M300x425.jpg",
 "description": "Le Grand Pope, qui complotait l'assassinat d'Athéna et avait trompé le Sanctuaire, n’était autre que le chevalier d'Or des Gémeaux. Bien qu'ayant perdu ses cinq sens, Seiya continue de brûler son Cosmos... Le combat final pour...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/saint-seiya-final-edition-t9/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -78307,28 +78390,6 @@
 "prix": 35.0
 },
 {
-"id": "ed:9782344072455",
-"title": "1629, ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
-"authors": [
-"Xavier Dorison",
-"Thimothée Montaigne"
-],
-"publisher": "Glénat",
-"date": "2026-11-12",
-"isbn": "9782344072455",
-"pages": 0,
-"format": "",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
-"description": "",
-"rayons": [
-"BD Aventure, western et polar"
-],
-"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
-"kind": "bd",
-"source": "editeur:glenat",
-"prix": 89.0
-},
-{
 "id": "ed:9782709677486",
 "title": "23e minuit",
 "authors": [
@@ -78626,9 +78687,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413094470.jpg?itok=K_7AhIGA",
 "description": "Après une cuisante défaite à la soirée des 3G, c'est le coeur brisé que nos amis partent en voyage. Ils sont un peu bêtes, mignons et s'entendent à merveille ; Impossible de leur résister ! Une comédie hilarante sur les efforts...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-ceux-dont-il-ne-faut-pas-tomber-amoureuse/album-ceux-dont-il-ne-faut-pas-tomber-amoureuse-t02",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -79071,10 +79130,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413094630.jpg?itok=2mt3JrRH",
 "description": "Dans les catacombes de Rome, trois chiots ingèrent une mystérieuse drogue liquide. Rapidement, ils se transforment en chiens aux pouvoirs surhumains : ils peuvent courir à une vitesse fulgurante, voler dans les airs et mordre des lions...",
-"rayons": [
-"Manga",
-"One-shot"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-flying-ben/album-flying-ben-edition-prestige",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -80016,9 +80072,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413095682.jpg?itok=iGjnsqFy",
 "description": "Oto Miyakura a 27 ans et travaille dans une maison d'édition. Comblée tant dans sa vie personnelle que professionelle, elle mène des jours heureux et paisibles, jusqu'au moment où elle retombe sur son amour de deuxième année de...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-le-temps-n-efface-jamais-le-premier-amour/album-le-temps-n-efface-jamais-le-premier-amour-t01",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -80483,9 +80537,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413094524.jpg?itok=KHbsnNrK",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-mission-apocalypse/album-mission-apocalypse-t05",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -80699,14 +80751,10 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/themes/custom/delcourt/assets/images/icons/warning.svg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr",
 "kind": "bd",
-"source": "editeur:delcourt",
-"date_autre": "2026-11-05",
-"prix": 16.95
+"source": "editeur:delcourt"
 },
 {
 "id": "ed:9791042021702",
@@ -80847,9 +80895,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302108110.jpg?itok=eUcHo-6K",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/bd/series/serie-samurai-legendes/album-samurai-legendes-t12-le-poids-du-passe",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -80999,9 +81045,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413094210.jpg?itok=oQ1YFEHM",
 "description": "Nika a tout de l'adolescente parfaite : tout le monde l'aime, elle est belle et elle est bien dans sa peau. Mais la jeune fille cache un sombre secret... Car dès que Nika passe la porte de son domicile, la voilà transformée en mode...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-switch-girl/album-switch-girl-edition-double-t01",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -81020,13 +81064,10 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/themes/custom/delcourt/assets/images/icons/warning.svg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr",
 "kind": "bd",
-"source": "editeur:delcourt",
-"prix": 16.95
+"source": "editeur:delcourt"
 },
 {
 "id": "ed:9791042021467",
@@ -81333,6 +81374,28 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9782344072455",
+"title": "ou l'effrayante histoire des naufragés du Jakarta - Coffret Collector Tomes 01 et 02",
+"authors": [
+"Xavier Dorison",
+"Thimothée Montaigne"
+],
+"publisher": "Glénat",
+"date": "2026-11-12",
+"isbn": "9782344072455",
+"pages": 0,
+"format": "",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GLENAT/2026/9782344072455-001-X.jpeg",
+"description": "",
+"rayons": [
+"BD Aventure, western et polar"
+],
+"url": "https://www.glenat.com/glenat-bd/1629-ou-leffrayante-histoire-des-naufrages-du-jakarta-coffret-tomes-01-02-9782344072455/",
+"kind": "bd",
+"source": "editeur:glenat",
+"prix": 89.0
+},
+{
 "id": "ed:9791043311192",
 "title": "xxxHolic T11",
 "authors": [
@@ -81452,9 +81515,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505132516-couv-M300x425.jpg",
 "description": "Une course qui se transforme en chasse à l’homme… Un peuple sacrifié pour un dragon… Le Roi Bleu se délecte de divertissements cruels. La ville de l’enfer, Seiran, finit par tomber entre les mains de la troupe indépendantiste...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/basara-star-edition-t4/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -81565,9 +81626,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505128496-couv-M300x425.jpg",
 "description": "« En tant qu’officier de police, serais-je capable des pires crimes ?! » Kanetaka du clan Tôshô, un yakuza talentueux, gravit les échelons pour atteindre le poste de remplaçant du sous-chef. Missionné à Okinawa par...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/hell-dogs-t1/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -81730,9 +81789,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143543-couv-M300x425.jpg",
 "description": "Ito est censée être « amie » avec Uratsuka, un garçon retors rencontré au cours privé, mais ce dernier lui fait une déclaration d’amour ?! Ito a envie de stopper Uratsuka, qui ne cesse de défier Gen qu’il considère comme son...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/quatre-freres-pour-moi-t14/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -81786,9 +81843,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144311-couv-M300x425.jpg",
 "description": "Soara et ses compagnons partent en quête du « seigneur des cieux », un dragon géant à trois têtes, avec pour double objectif de bâtir une paix durable dans le domaine des monstres et de retrouver Kahyô, la maîtresse de Kilik. La...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/soara-et-les-batisseurs-fantastiques-t6/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -84333,9 +84388,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413094241.jpg?itok=cMDC8Nlp",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-alice-borderland/album-alice-borderland-perfect-edition-t02",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -84371,9 +84424,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413086536.jpg?itok=OACzduJq",
 "description": "Taiki vient d'avoir 16 ans. Alors qu'il espère un cadeau de la part de Chinatsu, un imprévu survient... mais c'est loin d'être le seul. Une surprise de taille l'attend au tournoi des élèves de première année pour lequel il s'est...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-blue-box/album-blue-box-t13",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -84473,9 +84524,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413093510.jpg?itok=V-VKy7bz",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-innocent/album-innocent-bleu",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -84516,9 +84565,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413084051.jpg?itok=EV2d75c-",
 "description": "Alors que l'automne avance, Mikoto révise pour ses concours d'entrée à l'université. Qu'a-t-il bien pu se passer pour qu'elle exprime soudainement ses sentiments à voix haute ainsi ? Dans le même temps, Haijin semble faire...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-le-jeu-de-la-mort/album-le-jeu-de-la-mort-t18",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -85440,9 +85487,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505142973-couv-M300x425.jpg",
 "description": "Vaincu par la puissance écrasante de Tôgo Momoragi, membre de la « génération féroce » de l’Agence Momotarô, Shiki perd connaissance. Et, tandis que Yaoroshi, lui, se retrouve en mauvaise posture face à Natsuki Tôsui, un allié...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/togen-anki-la-legende-du-sang-maudit-t28/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -85521,9 +85566,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143062-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/yu-gi-oh-edition-millenium-t3/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -85569,7 +85612,8 @@
 "url": "https://www.hachette.fr/livre/agatha-christie-lintegrale-tome-11-9782702452646/",
 "kind": "policier",
 "source": "editeur:hachette",
-"fiche": 1
+"fiche": 1,
+"prix": 29.9
 },
 {
 "id": "ed:9782702452653",
@@ -85591,7 +85635,8 @@
 "url": "https://www.hachette.fr/livre/agatha-christie-lintegrale-tome-12-9782702452653/",
 "kind": "policier",
 "source": "editeur:hachette",
-"fiche": 1
+"fiche": 1,
+"prix": 28.0
 },
 {
 "id": "ll:26526091",
@@ -85613,7 +85658,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26526091-la-femme-de-menage-mcfadden-suro-imagine-graphic",
-"kind": "bd"
+"kind": "bd",
+"prix": 23.9
 },
 {
 "id": "ed:9782226501431",
@@ -85625,7 +85671,7 @@
 "date": "2026-11-25",
 "isbn": "9782226501431",
 "pages": 256,
-"format": "",
+"format": "Broché",
 "cover": "https://www.manga-news.com/public/images/vols/.Magic_Soup_-_tome_1_-_Albin_Michel_medium.webp",
 "description": "En suivant les traces d'un conte de fées, Romeade s'égare jusqu'au château de glace de Larmanilla, le célèbre Enchanteur de la Glace. Après avoir réussi à cuisiner une soupe magique, Romeade est engagé en tant que chef cuisinier...",
 "rayons": [
@@ -85633,7 +85679,8 @@
 ],
 "url": "https://www.albin-michel.fr/magic-soup-tome-1-9782226501431",
 "kind": "bd",
-"source": "editeur:albinmichel"
+"source": "editeur:albinmichel",
+"prix": 15.9
 },
 {
 "id": "ll:26547153",
@@ -85655,7 +85702,8 @@
 "Adios Muchachos"
 ],
 "url": "https://www.leslibraires.fr/livre/26547153-adios-muchachos-olivier-de-kersauson-le-cherche-midi",
-"kind": ""
+"kind": "",
+"prix": 19.8
 },
 {
 "id": "ed:9782413089889",
@@ -85673,7 +85721,8 @@
 "rayons": [],
 "url": "https://www.editions-delcourt.fr/comics/series/serie-dune/album-dune-t02",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 17.95
 },
 {
 "id": "ed:9782302110007",
@@ -85691,7 +85740,8 @@
 "rayons": [],
 "url": "https://www.editions-soleil.fr/bd/series/serie-gnomes-de-troy/album-gnomes-de-troy-integrale-t01-t04",
 "kind": "bd",
-"source": "editeur:soleil"
+"source": "editeur:soleil",
+"prix": 39.5
 },
 {
 "id": "ed:9782413096634",
@@ -85706,14 +85756,10 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413096634.jpg?itok=lhNDaMst",
 "description": "Prenez votre envol en compagnie de Porco Rosso, dans cette bande dessinée inédite signée du maître Hayao Miyazaki ! Ce premier ouvrage d'une série de quatre réunit des manga, illustrations et écrits de Hayao Miyazaki publiés...",
-"rayons": [
-"Manga",
-"One-shot"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-hayao-miyazaki/album-hayao-miyazaki-daydream-note",
 "kind": "bd",
 "source": "editeur:delcourt",
-"date_autre": "2026-11-05",
 "prix": 24.95
 },
 {
@@ -85736,7 +85782,8 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26626039-journal-1914-1929-mireille-havet-gallimard",
-"kind": "roman"
+"kind": "roman",
+"prix": 22.0
 },
 {
 "id": "ed:9782413089926",
@@ -85754,7 +85801,8 @@
 "rayons": [],
 "url": "https://www.editions-delcourt.fr/comics/series/serie-les-affames-du-crepuscule/album-les-affames-du-crepuscule-t02",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 23.75
 },
 {
 "id": "ed:manganews:my-ray-of-hope-jai-eleve-un-servant-obsessif-vol-3",
@@ -85789,9 +85837,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382882238.jpg?itok=MPi9-sJu",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-my-ray-hope/album-my-ray-hope-t03",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -85832,7 +85878,8 @@
 "rayons": [],
 "url": "https://www.editions-soleil.fr/jeunesse/series/serie-paris-saint-germain/album-paris-saint-germain-deux-etoiles-pour-paris",
 "kind": "bd",
-"source": "editeur:soleil"
+"source": "editeur:soleil",
+"prix": 16.5
 },
 {
 "id": "ll:26547626",
@@ -85854,7 +85901,8 @@
 "Humour"
 ],
 "url": "https://www.leslibraires.fr/livre/26547626-personne-n-est-tout-blanc-nouvelle-edition--voutch-le-cherche-midi",
-"kind": "bd"
+"kind": "bd",
+"prix": 29.8
 },
 {
 "id": "ed:9782387560339",
@@ -85891,7 +85939,8 @@
 "rayons": [],
 "url": "https://www.editions-soleil.fr/bd/series/serie-sol/album-sol-t01",
 "kind": "bd",
-"source": "editeur:soleil"
+"source": "editeur:soleil",
+"prix": 16.5
 },
 {
 "id": "ed:9782302110595",
@@ -85909,7 +85958,8 @@
 "rayons": [],
 "url": "https://www.editions-soleil.fr/bd/series/serie-sol/album-sol-t01-edition-nb",
 "kind": "bd",
-"source": "editeur:soleil"
+"source": "editeur:soleil",
+"prix": 24.5
 },
 {
 "id": "ed:9782413092360",
@@ -85924,9 +85974,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413092360.jpg?itok=mcS2oYrR",
 "description": "Alors que Jodio et Dragona se font arrêter par des policiers pour mauvaise conduite, l'altercation, aux premiers abords pacifique, commence à dégénèrer. Dragona est victime d'attouchements, les deux compères décident de se venger...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-jojo-s-jojolands/album-jojolands-t08",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -85965,9 +86013,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382884935.jpg?itok=gm1OK10n",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-untouchable-lady/album-untouchable-lady-t06",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -86053,7 +86099,8 @@
 "url": "https://www.seuil.com/ouvrage/ce-qui-rode-dans-les-tenebres-t-kingfisher/9782386435263",
 "kind": "roman",
 "source": "editeur:seuil",
-"fiche": 1
+"fiche": 1,
+"prix": 15.9
 },
 {
 "id": "ed:manganews:de-lart-de-manier-un-couteau-vol-1",
@@ -86088,9 +86135,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505130710-couv-M300x425.jpg",
 "description": "Les fleurs du magnolia de Yulan se cachent derrière ses feuilles. Comme les secrets inavouables des adultes derrière leurs lèvres. Les grandes personnes affirment toujours : « Vous, les enfants, vous ne pouvez pas comprendre. » Je me...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/dong-hua-chun-barbershop-t2/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -86455,7 +86500,8 @@
 "url": "https://www.seuil.com/ouvrage/les-crimes-du-moulin-aux-trois-roues-par-le-maitre-absolu-du-mystere-japonais-yukito-ayatsuji/9782386434686",
 "kind": "roman",
 "source": "editeur:seuil",
-"fiche": 1
+"fiche": 1,
+"prix": 20.9
 },
 {
 "id": "ed:9782205214376",
@@ -87022,7 +87068,8 @@
 "url": "https://www.hachette.fr/livre/adikou-9782253251149/",
 "kind": "roman",
 "source": "editeur:hachette",
-"fiche": 1
+"fiche": 1,
+"prix": 8.4
 },
 {
 "id": "ed:9791043301148",
@@ -87109,7 +87156,8 @@
 ],
 "url": "https://www.hachette.fr/livre/angel-tome-01-la-tournee-dangel-9782017391722/",
 "kind": "jeunesse",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 5.9
 },
 {
 "id": "ed:9791043311376",
@@ -87154,7 +87202,8 @@
 ],
 "url": "https://www.hachette.fr/livre/asterix-le-royaume-de-nubie-album-illustre-9782864977568/",
 "kind": "bd",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 10.99
 },
 {
 "id": "ed:9782384967681",
@@ -87333,7 +87382,8 @@
 "Changer l'eau des fleurs - Édition Film"
 ],
 "url": "https://www.leslibraires.fr/livre/26640182-changer-l-eau-des-fleurs-edition-film-valerie-perrin-le-livre-de-poche",
-"kind": "roman"
+"kind": "roman",
+"prix": 10.9
 },
 {
 "id": "ed:9782382814864",
@@ -87442,7 +87492,8 @@
 "url": "https://www.hachette.fr/livre/divorce-la-francaise-9782253263524/",
 "kind": "roman",
 "source": "editeur:hachette",
-"fiche": 1
+"fiche": 1,
+"prix": 8.7
 },
 {
 "id": "ed:9782385691837",
@@ -87547,7 +87598,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/francois-riviere-mes-chroniques-des-cahiers-9782344078488/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 25.0
 },
 {
 "id": "ed:9791043310751",
@@ -87699,7 +87751,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/jack-palmer-integrale-tome-03-9782344076101/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 35.0
 },
 {
 "id": "ed:manganews:je-suis-un-assassin-et-je-surpasse-le-heros-manga-box-vol-1",
@@ -87823,7 +87876,8 @@
 ],
 "url": "https://www.glenat.com/glenat-livres/lalpe-t115-solidarites-9782344078099/",
 "kind": "",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 19.95
 },
 {
 "id": "ed:9782820355874",
@@ -87866,7 +87920,8 @@
 "url": "https://www.hachette.fr/livre/latelier-9782253106661/",
 "kind": "roman",
 "source": "editeur:hachette",
-"fiche": 1
+"fiche": 1,
+"prix": 8.7
 },
 {
 "id": "ed:9782344080832",
@@ -87887,7 +87942,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/liliade-integrale-9782344080832/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 20.0
 },
 {
 "id": "ed:9782253907602",
@@ -87908,7 +87964,8 @@
 ],
 "url": "https://www.hachette.fr/livre/lediteur-9782253907602/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 8.9
 },
 {
 "id": "ed:9791028122454",
@@ -87929,7 +87986,8 @@
 ],
 "url": "https://www.hachette.fr/livre/letoile-de-pandore-t2-pandore-menacee-9791028122454/",
 "kind": "fantasy",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.95
 },
 {
 "id": "ed:9782820355188",
@@ -87993,7 +88051,8 @@
 "url": "https://www.hachette.fr/livre/la-mort-et-la-belle-vie-9782253256298/",
 "kind": "roman",
 "source": "editeur:hachette",
-"fiche": 1
+"fiche": 1,
+"prix": 9.2
 },
 {
 "id": "ed:9782253911739",
@@ -88014,7 +88073,8 @@
 ],
 "url": "https://www.hachette.fr/livre/le-roman-de-mecene-9782253911739/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 9.7
 },
 {
 "id": "ed:9791070250303",
@@ -88097,7 +88157,8 @@
 ],
 "url": "https://www.hachette.fr/livre/les-gardiens-de-ji-integrale-tome-1-9782253189909/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 24.9
 },
 {
 "id": "ed:9782017396253",
@@ -88117,7 +88178,8 @@
 "url": "https://www.hachette.fr/livre/lies-truths-duet-tome-2-all-truths-9782017396253/",
 "kind": "bd",
 "source": "editeur:hachette",
-"fiche": 1
+"fiche": 1,
+"prix": 8.9
 },
 {
 "id": "ed:9782344078624",
@@ -88139,7 +88201,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/lone-sloane-lintegrale-stellaire-ne-9782344078624/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 75.0
 },
 {
 "id": "ed:9782344078631",
@@ -88161,7 +88224,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/lone-sloane-lintegrale-stellaire-ne-edition-luxe-9782344078631/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 150.0
 },
 {
 "id": "ed:9782385314576",
@@ -88417,7 +88481,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/numa-sadoul-mes-interviews-des-cahiers-9782344073636/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 39.0
 },
 {
 "id": "ed:9791043308819",
@@ -88566,7 +88631,8 @@
 "url": "https://www.hachette.fr/livre/plumes-de-lumiere-zel-tome-4-9782017396215/",
 "kind": "bd",
 "source": "editeur:hachette",
-"fiche": 1
+"fiche": 1,
+"prix": 8.9
 },
 {
 "id": "ed:9782385694289",
@@ -88607,7 +88673,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/reiser-lhomme-qui-parlait-au-soleil-9782344074626/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 23.0
 },
 {
 "id": "ed:9782811682019",
@@ -88822,7 +88889,8 @@
 ],
 "url": "https://www.hachette.fr/livre/tendres-tenebres-9782253249191/",
 "kind": "roman",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 7.9
 },
 {
 "id": "ed:9782382817803",
@@ -88885,7 +88953,8 @@
 ],
 "url": "https://www.hugopublishing.fr/produits/the-killing-rules-tome-01/",
 "kind": "ya",
-"source": "editeur:hugo"
+"source": "editeur:hugo",
+"prix": 19.95
 },
 {
 "id": "ed:9782384968220",
@@ -88951,7 +89020,8 @@
 "url": "https://www.hachette.fr/livre/un-coup-au-coeur-9782253909750/",
 "kind": "roman",
 "source": "editeur:hachette",
-"fiche": 1
+"fiche": 1,
+"prix": 7.9
 },
 {
 "id": "ed:9782384960767",
@@ -88994,7 +89064,8 @@
 ],
 "url": "https://www.glenat.com/glenat-bd/utopies-9782344072592/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 35.0
 },
 {
 "id": "ed:9791043312267",
@@ -89079,7 +89150,8 @@
 ],
 "url": "https://www.glenat.com/glenat-disney/what-if-9782344078440/",
 "kind": "bd",
-"source": "editeur:glenat"
+"source": "editeur:glenat",
+"prix": 19.0
 },
 {
 "id": "ed:9791043311802",
@@ -89183,7 +89255,8 @@
 "rayons": [],
 "url": "https://www.editions-delcourt.fr/comics/series/serie-abe-sapien/album-abe-sapien-integrale-t01",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 39.95
 },
 {
 "id": "ed:9782413094128",
@@ -89201,7 +89274,8 @@
 "rayons": [],
 "url": "https://www.editions-delcourt.fr/bd/series/serie-alim-le-tanneur/album-alim-le-tanneur-integrale",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 39.5
 },
 {
 "id": "ed:9782413093756",
@@ -89219,7 +89293,8 @@
 "rayons": [],
 "url": "https://www.editions-delcourt.fr/bd/series/serie-aslak/album-aslak-integrale-t01-t03-0",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 32.5
 },
 {
 "id": "ed:manganews:assassins-creed-shadows-les-legendes-diga-vol-3",
@@ -89254,12 +89329,11 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382881002.jpg?itok=ASon-oJa",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-chunchu/album-chunchu-t04",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 14.95
 },
 {
 "id": "ed:9791032722244",
@@ -89340,7 +89414,8 @@
 "rayons": [],
 "url": "https://www.editions-delcourt.fr/bd/series/serie-de-cape-et-de-crocs/album-de-cape-et-de-crocs-integrale-t11-t12-0",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 25.5
 },
 {
 "id": "ed:9782413094227",
@@ -89355,9 +89430,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413094227.jpg?itok=1YUb20FA",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-die-and-retry/album-die-and-retry-t11",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89376,9 +89449,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382882474.jpg?itok=LDr6w5Vw",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-dimensional-mercenary/album-dimensional-mercenary-t06",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89421,7 +89492,8 @@
 "rayons": [],
 "url": "https://www.editions-soleil.fr/bd/series/serie-durango/album-durango-t20-alaska",
 "kind": "bd",
-"source": "editeur:soleil"
+"source": "editeur:soleil",
+"prix": 11.5
 },
 {
 "id": "ed:9791032723210",
@@ -89460,7 +89532,8 @@
 "rayons": [],
 "url": "https://www.editions-delcourt.fr/bd/series/serie-golden-city/album-golden-city-integrale-t07-t09-0",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 32.5
 },
 {
 "id": "ed:9791032722060",
@@ -89517,9 +89590,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382884553.jpg?itok=XLkP3Kml",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-l-armure-et-la-couronne/album-l-armure-et-la-couronne-t04",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89622,9 +89693,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302108851.jpg?itok=at3hDIbo",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-love-coach-koigakubo-kun/album-love-coach-koigakubo-kun-t09",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -89643,9 +89712,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413092544.jpg?itok=NLQYOXBc",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-legende-vivante/album-legende-vivante-t18",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89685,9 +89752,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413079422.jpg?itok=K3g3rZhQ",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-mon-coloc-est-une-gameuse/album-mon-coloc-est-une-gameuse-t09",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89706,9 +89771,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382884676.jpg?itok=NhmX7hp5",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-noblesse/album-noblesse-t08",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89730,7 +89793,8 @@
 "rayons": [],
 "url": "https://www.editions-soleil.fr/bd/series/serie-les-terres-d-arran-orcs-et-gobelins/album-orcs-et-gobelins-t34-guerres-d-arran-killrok",
 "kind": "bd",
-"source": "editeur:soleil"
+"source": "editeur:soleil",
+"prix": 16.5
 },
 {
 "id": "ed:9782302108530",
@@ -89745,9 +89809,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302108530.jpg?itok=nPK6Z9nz",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-plum-un-amour-de-chat/album-plum-un-amour-de-chat-t23",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -89812,7 +89874,8 @@
 "rayons": [],
 "url": "https://www.editions-delcourt.fr/comics/series/serie-revival/album-revival-integrale-t04",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 34.95
 },
 {
 "id": "ed:9782413095309",
@@ -89828,9 +89891,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413095309.jpg?itok=1yQjRCQe",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-rhapsody-red/album-rhapsody-red-t05",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89870,9 +89931,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413086499.jpg?itok=s7FYp7cA",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-sans-experience/album-sans-experience-t08",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89912,9 +89971,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302108936.jpg?itok=6YVEKFDL",
 "description": "Alors qu'il pensait fêter tranquillement l'anniversaire d'Aoi, Yodaka doit plutôt essuyer un revers majeur : il échoue à une mission ! Mimizuku pourra-t-il encore faire confiance à cette unité 9 pour la suite de la mission d'escorte...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-shinobi-undercover/album-shinobi-undercover-t04",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -89936,7 +89993,8 @@
 "rayons": [],
 "url": "https://www.editions-delcourt.fr/bd/series/serie-sillage/album-sillage-integrale-t16-t18-0",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 32.5
 },
 {
 "id": "ed:9782413086291",
@@ -89951,9 +90009,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413086291.jpg?itok=9NTvE5fj",
 "description": "Haru n'arrive pas répondre convenablement aux sentiments d'Amamiya qui l'aime. Son cœur vacille à cause de ses sentiments pour Rikuo. De son côté, Rui apprend que Shinako sort avec Rikuo. Confrontée à la colère de Rui, Shinako...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-sing-yesterday-me/album-sing-yesterday-me-t09-0",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89972,9 +90028,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382884751.jpg?itok=VhHkZorF",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-solo-leveling/album-solo-leveling-ragnarok-t23",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89993,9 +90047,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382885314.jpg?itok=asrus2Iw",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-solo-leveling/album-solo-leveling-ragnarok-t23-edition-monarque",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -90014,12 +90066,11 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382880845.jpg?itok=VxukPcNx",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-solo-leveling/album-solo-leveling-roman-t05",
 "kind": "bd",
-"source": "editeur:delcourt"
+"source": "editeur:delcourt",
+"prix": 14.95
 },
 {
 "id": "ed:manganews:solo-leveling-edition-monarque-vol-23",
@@ -90054,9 +90105,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382884768.jpg?itok=o0SjDwaH",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-villainess-turns-hourglass/album-villainess-turns-hourglass-t04",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -90116,9 +90165,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302106437.jpg?itok=83Te0AiD",
 "description": "Grâce au pouvoir de sa nouvelle technique, le ''moulin à vent'', Yaiba parvient à battre le kappa géant et à s'enfuir de l'orbe des ténèbres. À peine sorti, il doit affronter l'homme-bœuf qui possède le sixième orbe. Courage...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-yaiba/album-yaiba-complete-edition-t06",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -90473,13 +90520,10 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505133940-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/march-comes-in-like-a-lion-t18/",
 "kind": "bd",
-"source": "editeur:kana",
-"prix": 8.1
+"source": "editeur:kana"
 },
 {
 "id": "ed:9782377175123",
@@ -90579,13 +90623,10 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505133926-couv-M300x425.jpg",
 "description": "Scarlett et ses amis sont impliqués dans la guerre de succession du trône de Vanquish. Ils aident Al Flame à se débarrasser de son ennemi juré, le maléfique Vulganus, mais découvrent vite que le vrai danger est ailleurs… « Te...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/princesse-puncheuse-t10/",
 "kind": "bd",
-"source": "editeur:kana",
-"prix": 8.1
+"source": "editeur:kana"
 },
 {
 "id": "ed:9782377178100",
@@ -90603,27 +90644,6 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/reincarnated+as+a+sword/volume-18,1024870.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
-"id": "ed:9782505185208",
-"title": "SILENCE (Yoann Vornière) - Tome 8",
-"authors": [
-"Yoann Vorniere"
-],
-"publisher": "Kana",
-"date": "2026-12-04",
-"isbn": "9782505185208",
-"pages": 0,
-"format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/18/silence_yoann_vorniere_81038081.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/silence+(yoann+vornière)/volume-8,1038081.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -90661,13 +90681,26 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144175-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/show-ha-shoten-t10/",
 "kind": "bd",
-"source": "editeur:kana",
-"prix": 7.3
+"source": "editeur:kana"
+},
+{
+"id": "ed:9782505185208",
+"title": "Silence - Tome 8",
+"authors": [],
+"publisher": "Kana",
+"date": "2026-12-04",
+"isbn": "9782505185208",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782505185208-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/silence-tome-8/",
+"kind": "bd",
+"source": "editeur:kana"
 },
 {
 "id": "ed:9782205217421",
@@ -90749,25 +90782,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782205207989",
-"title": "Une aventure du Lieutenant Blueberry - Tome 2",
-"authors": [
-"Christophe Blain",
-"Joann Sfar"
-],
-"publisher": "Dargaud",
-"date": "2026-12-04",
-"isbn": "9782205207989",
-"pages": 0,
-"format": "",
-"cover": "https://bdi.dlpdomain.com/album/9782205207989/couv/M325x432/une-aventure-du-lieutenant-blueberry-tome-2-les-hommes-de-non-justice.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes-0",
-"kind": "bd",
-"source": "editeur:dargaud"
-},
-{
 "id": "ed:9782205084733",
 "title": "Une aventure du Lieutenant Blueberry - Tome 2",
 "authors": [
@@ -90783,6 +90797,25 @@
 "description": "",
 "rayons": [],
 "url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes",
+"kind": "bd",
+"source": "editeur:dargaud"
+},
+{
+"id": "ed:9782205207989",
+"title": "Une aventure du Lieutenant Blueberry - Tome 2",
+"authors": [
+"Christophe Blain",
+"Joann Sfar"
+],
+"publisher": "Dargaud",
+"date": "2026-12-04",
+"isbn": "9782205207989",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782205207989/couv/M325x432/une-aventure-du-lieutenant-blueberry-tome-2-les-hommes-de-non-justice.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes-0",
 "kind": "bd",
 "source": "editeur:dargaud"
 },
@@ -91023,13 +91056,10 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302105317.jpg?itok=aJ3-4Vac",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-all-guy-s-mixer/album-all-guy-s-mixer-t07",
 "kind": "bd",
-"source": "editeur:soleil",
-"prix": 8.5
+"source": "editeur:soleil"
 },
 {
 "id": "ed:9782302108783",
@@ -91044,13 +91074,10 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302108783.jpg?itok=a324Gxi7",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-animal-crossing-new-horizons-le-journal-de-l-ile/album-animal-crossing-new-horizons-le-journal-de-l-ile-t13",
 "kind": "bd",
-"source": "editeur:soleil",
-"prix": 8.5
+"source": "editeur:soleil"
 },
 {
 "id": "ed:manganews:blue-summer-vol-4",
@@ -91126,13 +91153,10 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302106260.jpg?itok=lmO7ha5a",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-dans-l-ombre-de-la-reine/album-dans-l-ombre-de-la-reine-t04",
 "kind": "bd",
-"source": "editeur:soleil",
-"prix": 8.5
+"source": "editeur:soleil"
 },
 {
 "id": "ed:9791042021320",
@@ -91476,13 +91500,10 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302105096.jpg?itok=6_5TS1e3",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-pandora-seven/album-pandora-seven-t05",
 "kind": "bd",
-"source": "editeur:soleil",
-"prix": 8.5
+"source": "editeur:soleil"
 },
 {
 "id": "ed:9782302108257",
@@ -91754,13 +91775,10 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143529-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/apprenti-criminel-t10/",
 "kind": "bd",
-"source": "editeur:kana",
-"prix": 7.3
+"source": "editeur:kana"
 },
 {
 "id": "ed:9782505140573",
@@ -91775,13 +91793,10 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505140573-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/blades-of-the-guardians-t4/",
 "kind": "bd",
-"source": "editeur:kana",
-"prix": 8.5
+"source": "editeur:kana"
 },
 {
 "id": "ed:9782808701082",
@@ -91858,13 +91873,10 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505126232-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/kohva-t3/",
 "kind": "bd",
-"source": "editeur:kana",
-"prix": 8.5
+"source": "editeur:kana"
 },
 {
 "id": "ed:9782505127888",
@@ -91879,13 +91891,10 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505127888-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/le-secret-de-scarecrow-t6/",
 "kind": "bd",
-"source": "editeur:kana",
-"prix": 8.1
+"source": "editeur:kana"
 },
 {
 "id": "ed:manganews:my-happy-marriage-light-novel-vol-7",
@@ -91920,13 +91929,10 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144021-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t11/",
 "kind": "bd",
-"source": "editeur:kana",
-"prix": 10.25
+"source": "editeur:kana"
 },
 {
 "id": "ed:9782808706483",
@@ -91962,13 +91968,10 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143482-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/the-kingdoms-of-ruin-t13/",
 "kind": "bd",
-"source": "editeur:kana",
-"prix": 8.1
+"source": "editeur:kana"
 },
 {
 "id": "ed:manganews:your-forma-light-novel-vol-7",
