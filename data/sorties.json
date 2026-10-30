@@ -1,22 +1,10 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-30T09:09Z",
+"updated": "2026-10-30T16:16Z",
 "stats": {
 "precommandes": [
 12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-5,
-12
+-1
 ],
 "nouveautes": [
 12,
@@ -42,148 +30,148 @@
 "roman": "/dossiers/nouveautes-25-113534/",
 "jeunesse": "/dossiers/nouveautes-25-113821/"
 },
-"uniques": 149,
+"uniques": 12,
 "libraire": {
-"pages_listes": 71,
-"echecs": 0,
-"secondes_listes": 435,
-"pages": 104,
-"reprises": 11,
+"pages_listes": 58,
+"echecs": 1,
+"secondes_listes": 317,
+"pages": 89,
+"reprises": 7,
 "fiches_lues": 3,
-"secondes": 631,
+"secondes": 514,
 "statut": "ok"
 },
 "suivi": {
 "hachette": {
-"dernier_essai": "2026-10-30T08:47Z",
+"dernier_essai": "2026-10-30T16:03Z",
 "secondes_complet": 385,
 "dernier_complet": "2026-10-30T08:47Z",
 "echecs": 0,
-"secondes_proche": 96,
-"dernier_proche": "2026-10-30T02:06Z"
+"secondes_proche": 97,
+"dernier_proche": "2026-10-30T16:03Z"
 },
 "glenat": {
-"dernier_essai": "2026-10-30T08:47Z",
+"dernier_essai": "2026-10-30T16:03Z",
 "secondes_complet": 66,
 "dernier_complet": "2026-10-30T08:47Z",
 "echecs": 0,
-"secondes_proche": 33,
-"dernier_proche": "2026-10-30T02:06Z"
+"secondes_proche": 32,
+"dernier_proche": "2026-10-30T16:03Z"
 },
 "seuil": {
-"dernier_essai": "2026-10-30T08:47Z",
+"dernier_essai": "2026-10-30T16:03Z",
 "secondes_complet": 30,
 "dernier_complet": "2026-10-30T08:47Z",
 "echecs": 0,
-"secondes_proche": 19,
-"dernier_proche": "2026-10-30T02:06Z"
+"secondes_proche": 23,
+"dernier_proche": "2026-10-30T16:03Z"
 },
 "src_manga": {
-"dernier_essai": "2026-10-30T08:47Z",
+"dernier_essai": "2026-10-30T16:03Z",
 "secondes_complet": 330,
 "dernier_complet": "2026-10-30T08:47Z",
 "echecs": 0,
-"secondes_proche": 134,
-"dernier_proche": "2026-10-30T02:06Z"
+"secondes_proche": 131,
+"dernier_proche": "2026-10-30T16:03Z"
 },
 "src_bd": {
-"dernier_essai": "2026-10-30T08:47Z",
-"secondes_complet": 92,
+"dernier_essai": "2026-10-30T16:03Z",
+"secondes_complet": 132,
 "dernier_complet": "2026-10-27T14:37Z",
-"echecs": 15,
+"echecs": 16,
 "secondes_proche": 94,
 "dernier_proche": "2026-10-27T07:51Z"
 },
 "src_generale": {
-"dernier_essai": "2026-10-30T08:47Z",
+"dernier_essai": "2026-10-30T16:03Z",
 "secondes_complet": 229,
 "echecs": 0,
 "dernier_complet": "2026-10-30T08:47Z",
-"secondes_proche": 250,
-"dernier_proche": "2026-10-30T02:06Z"
+"secondes_proche": 232,
+"dernier_proche": "2026-10-30T16:03Z"
 }
 },
 "plan": [
-"src_bd:complet",
-"hachette:complet",
-"glenat:complet",
-"seuil:complet",
-"src_manga:complet",
-"src_generale:complet"
+"hachette:proche",
+"glenat:proche",
+"seuil:proche",
+"src_manga:proche",
+"src_generale:proche",
+"src_bd:complet"
 ],
 "editeurs": {
 "hachette": {
-"pages": 129,
-"livres": 1487,
-"secondes": 385,
+"pages": 33,
+"livres": 426,
+"secondes": 97,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "glenat": {
-"pages": 22,
-"livres": 297,
-"secondes": 66,
+"pages": 11,
+"livres": 104,
+"secondes": 32,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "seuil": {
-"pages": 10,
-"livres": 110,
-"secondes": 30,
+"pages": 6,
+"livres": 50,
+"secondes": 23,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "nautiljon": {
-"pages": 10,
-"livres": 1800,
-"secondes": 30,
+"pages": 3,
+"livres": 573,
+"secondes": 7,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "manganews": {
-"pages": 97,
-"livres": 271,
-"completes": 1449,
-"ecartes": 18,
-"lus": 1738,
-"secondes": 300,
+"pages": 41,
+"livres": 90,
+"completes": 491,
+"ecartes": 3,
+"lus": 584,
+"secondes": 123,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "bdgest": {
 "pages": 10,
 "livres": 0,
-"secondes": 27,
+"secondes": 30,
 "erreurs": 10,
 "rapproches": 0,
 "statut": "erreur",
@@ -192,7 +180,7 @@
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "dargaud": {
 "pages": 6,
@@ -205,7 +193,7 @@
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "delcourt": {
 "pages": 9,
@@ -218,12 +206,12 @@
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "soleil": {
 "pages": 6,
 "livres": 38,
-"secondes": 20,
+"secondes": 18,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -231,77 +219,72 @@
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "lombard": {
-"pages": 0,
-"livres": 0,
-"secondes": 0,
+"pages": 2,
+"livres": 37,
+"secondes": 7,
 "erreurs": 0,
-"incomplet": true,
-"statut": "incomplet",
+"statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "kana": {
-"pages": 0,
-"livres": 0,
-"secondes": 0,
+"pages": 8,
+"livres": 110,
+"secondes": 24,
 "erreurs": 0,
-"incomplet": true,
-"statut": "incomplet",
+"statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "casterman": {
-"pages": 0,
-"livres": 0,
-"secondes": 0,
+"pages": 1,
+"livres": 29,
+"secondes": 3,
 "erreurs": 0,
-"incomplet": true,
-"statut": "incomplet",
+"statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "ruedesevres": {
-"pages": 0,
-"livres": 0,
-"secondes": 0,
+"pages": 1,
+"livres": 7,
+"secondes": 3,
 "erreurs": 0,
-"incomplet": true,
-"statut": "incomplet",
+"statut": "ok",
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "dupuis": {
-"pages": 0,
+"pages": 1,
 "livres": 0,
-"secondes": 0,
+"secondes": 4,
 "erreurs": 0,
-"incomplet": true,
-"statut": "incomplet",
+"statut": "vide",
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "bedetheque": {
 "pages": 0,
@@ -315,33 +298,33 @@
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "michellafon": {
 "pages": 39,
-"livres": 47,
-"secondes": 114,
+"livres": 13,
+"secondes": 117,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "jailu": {
 "pages": 1,
-"livres": 78,
-"secondes": 4,
+"livres": 24,
+"secondes": 3,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -350,160 +333,80 @@
 "erreurs": 0,
 "statut": "vide",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "albinmichel": {
 "pages": 2,
-"livres": 49,
+"livres": 30,
 "secondes": 6,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "hugo": {
 "pages": 24,
-"livres": 15,
-"secondes": 74,
+"livres": 7,
+"secondes": 73,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "points": {
 "pages": 1,
-"livres": 52,
+"livres": 23,
 "secondes": 2,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "bayard": {
 "pages": 4,
-"livres": 53,
-"secondes": 11,
+"livres": 12,
+"secondes": 13,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "milan": {
 "pages": 5,
-"livres": 41,
+"livres": 15,
 "secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
 "conflits_dates": {
-"nombre": 12,
+"nombre": 2,
 "exemples": [
-{
-"isbn": "9782811690571",
-"titre": "Heaven's Design Team T09",
-"dates": {
-"editeur:hachette": "2026-08-26",
-"editeur:nautiljon": "2026-08-19"
-}
-},
-{
-"isbn": "9791043306693",
-"titre": "Humanimals T12",
-"dates": {
-"editeur:hachette": "2026-08-26",
-"editeur:nautiljon": "2026-08-19"
-}
-},
-{
-"isbn": "9791043311031",
-"titre": "No Longer Rangers T16",
-"dates": {
-"editeur:hachette": "2026-08-26",
-"editeur:nautiljon": "2026-08-19"
-}
-},
-{
-"isbn": "9782344070482",
-"titre": "L'Héritière du dragon - Tome 02",
-"dates": {
-"editeur:glenat": "2026-09-10",
-"editeur:nautiljon": "2026-08-26"
-}
-},
-{
-"isbn": "9782384967216",
-"titre": "Beryl : de paysan à maître d'armes T06",
-"dates": {
-"editeur:hachette": "2026-09-23",
-"editeur:nautiljon": "2026-09-16"
-}
-},
-{
-"isbn": "9782384968350",
-"titre": "Les Misérables",
-"dates": {
-"editeur:hachette": "2026-09-23",
-"editeur:nautiljon": "2026-09-16"
-}
-},
-{
-"isbn": "9782384960170",
-"titre": "Il Divino T01",
-"dates": {
-"editeur:hachette": "2026-09-30",
-"editeur:nautiljon": "2026-09-23"
-}
-},
-{
-"isbn": "9782384960187",
-"titre": "Il Divino T02",
-"dates": {
-"editeur:hachette": "2026-11-12",
-"editeur:nautiljon": "2026-11-04"
-}
-},
-{
-"isbn": "9782384961054",
-"titre": "Sword Art Online - Re:Aincrad T02",
-"dates": {
-"editeur:hachette": "2026-11-18",
-"editeur:nautiljon": "2026-11-04"
-}
-},
-{
-"isbn": "9782382883112",
-"titre": "Punch Drunk Love T03",
-"dates": {
-"editeur:delcourt": "2026-11-12",
-"editeur:nautiljon": "2026-11-05"
-}
-},
 {
 "isbn": "9782344075258",
 "titre": "Baptism - Édition originale - Tome 02",
@@ -513,126 +416,126 @@
 }
 },
 {
-"isbn": "9791043312243",
-"titre": "Blue Period T19",
+"isbn": "9782382883112",
+"titre": "Punch Drunk Love - Tome 3",
 "dates": {
-"editeur:hachette": "2027-01-27",
-"editeur:nautiljon": "2026-12-02"
+"editeur:nautiljon": "2026-11-05",
+"editeur:delcourt": "2026-11-12"
 }
 }
 ],
-"le": "2026-10-30T09:09Z"
+"le": "2026-10-30T16:16Z"
 },
-"fiches_lues": 60,
+"fiches_lues": 32,
 "erreurs": 10
 },
-"secondes_editeurs": 1313,
+"secondes_editeurs": 744,
 "dates_relues": {
-"fiches": 30,
+"fiches": 28,
 "changees": []
 },
-"editeurs_at": "2026-10-30T09:09Z",
-"listes": 540,
+"editeurs_at": "2026-10-30T16:16Z",
+"listes": 402,
 "lues": 3,
 "en_attente": 0,
 "plus_loin": "2027-04-30",
 "nettoyes": 0,
-"doublons": 77,
+"doublons": 73,
 "sources": {
 "leslibraires": {
-"pages_listes": 71,
-"echecs": 0,
-"secondes_listes": 435,
-"pages": 104,
-"reprises": 11,
+"pages_listes": 58,
+"echecs": 1,
+"secondes_listes": 317,
+"pages": 89,
+"reprises": 7,
 "fiches_lues": 3,
-"secondes": 631,
+"secondes": 514,
 "statut": "ok",
-"livres": 580
+"livres": 582
 },
 "hachette": {
 "statut": "ok",
-"livres": 1487,
-"pages": 129,
-"secondes": 385,
+"livres": 426,
+"pages": 33,
+"secondes": 97,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
-"en_base": 1400
+"le": "2026-10-30T16:16Z",
+"en_base": 1399
 },
 "glenat": {
 "statut": "ok",
-"livres": 297,
-"pages": 22,
-"secondes": 66,
+"livres": 104,
+"pages": 11,
+"secondes": 32,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 266
 },
 "seuil": {
 "statut": "ok",
-"livres": 110,
-"pages": 10,
-"secondes": 30,
+"livres": 50,
+"pages": 6,
+"secondes": 23,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 94
 },
 "nautiljon": {
 "statut": "ok",
-"livres": 1800,
-"pages": 10,
-"secondes": 30,
+"livres": 573,
+"pages": 3,
+"secondes": 7,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
-"en_base": 1398
+"le": "2026-10-30T16:16Z",
+"en_base": 1323
 },
 "manganews": {
 "statut": "ok",
-"livres": 271,
-"pages": 97,
-"secondes": 300,
+"livres": 90,
+"pages": 41,
+"secondes": 123,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 225
 },
 "bdgest": {
 "statut": "erreur",
 "livres": 0,
 "pages": 10,
-"secondes": 27,
+"secondes": 30,
 "erreurs": 10,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
-"en_base": 544
+"le": "2026-10-30T16:16Z",
+"en_base": 543
 },
 "dargaud": {
 "statut": "ok",
@@ -645,7 +548,7 @@
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 21
 },
 "delcourt": {
@@ -659,96 +562,91 @@
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 85
 },
 "soleil": {
 "statut": "ok",
 "livres": 38,
 "pages": 6,
-"secondes": 20,
+"secondes": 18,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 35
 },
 "lombard": {
-"statut": "incomplet",
-"livres": 0,
-"pages": 0,
-"secondes": 0,
+"statut": "ok",
+"livres": 37,
+"pages": 2,
+"secondes": 7,
 "erreurs": 0,
-"incomplet": true,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 35
 },
 "kana": {
-"statut": "incomplet",
-"livres": 0,
-"pages": 0,
-"secondes": 0,
+"statut": "ok",
+"livres": 110,
+"pages": 8,
+"secondes": 24,
 "erreurs": 0,
-"incomplet": true,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
-"en_base": 6
+"le": "2026-10-30T16:16Z",
+"en_base": 77
 },
 "casterman": {
-"statut": "incomplet",
-"livres": 0,
-"pages": 0,
-"secondes": 0,
+"statut": "ok",
+"livres": 29,
+"pages": 1,
+"secondes": 3,
 "erreurs": 0,
-"incomplet": true,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
-"en_base": 26
+"le": "2026-10-30T16:16Z",
+"en_base": 27
 },
 "ruedesevres": {
-"statut": "incomplet",
-"livres": 0,
-"pages": 0,
-"secondes": 0,
+"statut": "ok",
+"livres": 7,
+"pages": 1,
+"secondes": 3,
 "erreurs": 0,
-"incomplet": true,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
-"en_base": 3
+"le": "2026-10-30T16:16Z",
+"en_base": 5
 },
 "dupuis": {
-"statut": "incomplet",
+"statut": "vide",
 "livres": 0,
-"pages": 0,
-"secondes": 0,
+"pages": 1,
+"secondes": 4,
 "erreurs": 0,
-"incomplet": true,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 10
 },
 "bedetheque": {
@@ -762,35 +660,35 @@
 "2026-08-01",
 "2027-05-04"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 0
 },
 "michellafon": {
 "statut": "ok",
-"livres": 47,
+"livres": 13,
 "pages": 39,
-"secondes": 114,
+"secondes": 117,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 44
 },
 "jailu": {
 "statut": "ok",
-"livres": 78,
+"livres": 24,
 "pages": 1,
-"secondes": 4,
+"secondes": 3,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 69
 },
 "bragelonne": {
@@ -800,92 +698,92 @@
 "secondes": 3,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 0
 },
 "albinmichel": {
 "statut": "ok",
-"livres": 49,
+"livres": 30,
 "pages": 2,
 "secondes": 6,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 49
 },
 "hugo": {
 "statut": "ok",
-"livres": 15,
+"livres": 7,
 "pages": 24,
-"secondes": 74,
+"secondes": 73,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 15
 },
 "points": {
 "statut": "ok",
-"livres": 52,
+"livres": 23,
 "pages": 1,
 "secondes": 2,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 52
 },
 "bayard": {
 "statut": "ok",
-"livres": 53,
+"livres": 12,
 "pages": 4,
-"secondes": 11,
+"secondes": 13,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 53
 },
 "milan": {
 "statut": "ok",
-"livres": 41,
+"livres": 15,
 "pages": 5,
 "secondes": 15,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-08-01",
-"2027-05-04"
+"proche",
+"2026-10-16",
+"2026-12-14"
 ],
-"le": "2026-10-30T09:09Z",
+"le": "2026-10-30T16:16Z",
 "en_base": 41
 }
 },
-"duree_secondes": 1945,
+"duree_secondes": 1260,
 "prix": {
-"lus": 21,
-"trouves": 21,
-"avec_prix": 4145,
+"lus": 0,
+"trouves": 0,
+"avec_prix": 4144,
 "reste": 0,
-"total": 5051,
-"auteurs_deduits": 0
+"total": 5050,
+"auteurs_deduits": 29
 }
 },
 "books": [
@@ -7864,15 +7762,14 @@
 "isbn": "9782505141167",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/58/beet_the_vandel_buster_17988885.webp",
-"description": "Beet s’introduit dans le vaisseau fantôme d’Hystario afin de sauver Laio. Rejoints par Slade, qui avait été capturé, par Poala, qui a enfin éveillé son Saïga, et par les autres de la bande, les Beet Warriors vont pouvoir...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/beet+the+vandel+buster/volume-17,988885.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505141167-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/beet-the-vandel-buster-t17/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782487850323",
@@ -7925,15 +7822,14 @@
 "isbn": "9782505140566",
 "pages": 0,
 "format": "",
-"prix": 8.5,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/02/blades_of_the_guardians_3_edition_reliee_francaise1032820.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505140566-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/blades+of+the+guardians/volume-3,1032820.html",
+"rayons": [],
+"url": "https://www.kana.fr/produit/blades-of-the-guardians-t3/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.5,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782808701068",
@@ -8388,15 +8284,14 @@
 "isbn": "9782505127826",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/73/magilumiere_co_ltd_10994137.webp",
-"description": "Une année s’est écoulée depuis que Magilumière a perdu sa licence et n’a plus le droit d’exercer dans le domaine de la magie, conséquence de la machination de Kamakura et du nouveau ministère de l’Énergie. Kana fournit les...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/magilumière+co.+ltd./volume-10,994137.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505127826-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/magilumiere-co-ltd-t10/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:manganews:my-happy-marriage-light-novel-vol-6",
@@ -8505,15 +8400,14 @@
 "isbn": "9782505133919",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/77/princesse_puncheuse_91005777.webp",
-"description": "Au cours du bal organisé par le second prince, Kyle, celui-ci annonce à Scarlett qu’il a décidé de rompre leurs fiançailles après plusieurs longues années de supplices pour la jeune femme. De plus, il lui fait endosser des crimes...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/princesse+puncheuse/volume-9,1005777.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505133919-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/princesse-puncheuse-t9/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:manganews:re-zero-re-vivre-dans-un-autre-monde-a-partir-de-zero-vol-17",
@@ -8557,27 +8451,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782505143000",
-"title": "SHY - Tome 29",
-"authors": [
-"Bukimi Miki"
-],
-"publisher": "Kana",
-"date": "2026-08-21",
-"isbn": "9782505143000",
-"pages": 0,
-"format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/93/shy_291018239.webp",
-"description": "Le combat entre les héros et Amalarilk entre dans son apogée, et prend une nouvelle tournure ! Iko et Ai arrivent à Never Land pour sauver Shy ! Mais elles tombent très vite sur Mademoiselle Foufou, qui les entraîne dans un étrange...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/shy/volume-29,1018239.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:manganews:shonen-wo-jeleve-un-ado-vol-5",
 "title": "Shounen Wo Ko - Jours Heureux Avec Un Garçon - Tome 5",
 "authors": [
@@ -8615,6 +8488,23 @@
 "url": "https://www.nautiljon.com/mangas/shounen+wo+kau/volume-5,985223.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782505143000",
+"title": "Shy - Tome 29",
+"authors": [],
+"publisher": "Kana",
+"date": "2026-08-21",
+"isbn": "9782505143000",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782505143000-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/shy-t29/",
+"kind": "bd",
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782386433870",
@@ -8659,23 +8549,19 @@
 {
 "id": "ed:9782505144496",
 "title": "Tank Chair - Tome 9",
-"authors": [
-"Manabu Yashiro"
-],
+"authors": [],
 "publisher": "Kana",
 "date": "2026-08-21",
 "isbn": "9782505144496",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/78/tank_chair_91024087.webp",
-"description": "Les élèves de rang A, dirigés par Waniguchi, ont tenté de capturer Nagi, la seule personne capable de leur apprendre la bonne méthode pour faire revenir le professeur qui n’est plus le même. Mais cette tentative a blessé...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/tank+chair/volume-9,1024087.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144496-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/tank-chair-t9/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782379508660",
@@ -8728,15 +8614,14 @@
 "isbn": "9782505144304",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/76/to_end_this_love_game_71019867.webp",
-"description": "La “déclaration” de Yukiya !! Miku s’emballe à l’idée qu’il pourrait la lui faire. Est-ce que ça va dépendre du résultat de la course de relais de la fête du sport ? Alors que les entraînements, les répétitions et les...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/to+end+this+love+game.../volume-7,1019867.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144304-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/to-end-this-love-game-t7/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:bdgest:543375",
@@ -8758,7 +8643,7 @@
 },
 {
 "id": "ed:9782505142966",
-"title": "Tôgen Anki - La Légende du sang maudit - Tome 27",
+"title": "Tôgen Anki - La légende du sang maudit - Tome 27",
 "authors": [
 "Yura Urushibara"
 ],
@@ -8767,15 +8652,14 @@
 "isbn": "9782505142966",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/60/togen_anki_-_la_legende_du_sang_maudit_271028506.webp",
-"description": "L’existence des Oni est révélée au grand jour, et la ville sombre dans un chaos sans précédent ! Shiki, quant à lui, se fait enlever et se retrouve prêt à être vendu aux enchères ! Différents desseins s’entremêlent dans ce...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/tôgen+anki+-+la+légende+du+sang+maudit/volume-27,1028506.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505142966-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/togen-anki-la-legende-du-sang-maudit-t27/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782021607864",
@@ -8961,7 +8845,7 @@
 },
 {
 "id": "ed:9782387032560",
-"title": "14-14",
+"title": "14",
 "authors": [
 "Paul Beorn",
 "Silène Edgar"
@@ -14368,15 +14252,14 @@
 "isbn": "9782505130703",
 "pages": 0,
 "format": "",
-"prix": 8.5,
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/22/dong-hua-chun_barbershop_11040522.webp",
-"description": "Dans une petite ville, l’enseigne d’un vieux salon de coiffure est composée des prénoms des membres d’une famille : le père (Dong), le fils (Hua) et la mère (Chun). Pour fêter l’anniversaire de leur fils, le couple a pris le...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/dong-hua-chun+barbershop/volume-1,1040522.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505130703-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/dong-hua-chun-barbershop-t1/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.5,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782808703932",
@@ -14693,7 +14576,7 @@
 },
 {
 "id": "ed:9782505134497",
-"title": "Mission: Yozakura Family - Tome 28",
+"title": "Mission: Yozakura family - Tome 28",
 "authors": [
 "Hitsuji Gondaira"
 ],
@@ -14702,15 +14585,14 @@
 "isbn": "9782505134497",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/33/mission_yozakura_family_281013333.webp",
-"description": "Nanao vs Mozu ! Quelle est donc la Floraison suprême à laquelle va recourir Nanao face à Mozu, qui s’est emparée du cœur d’Asa ? Ce combat va lui permettre de comprendre le véritable objectif du fondateur des Yozakura ! Au même...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/mission-+yozakura+family/volume-28,1013333.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505134497-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/mission-yozakura-family-t28/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782505144250",
@@ -14723,15 +14605,14 @@
 "isbn": "9782505144250",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/59/moriarty_211027095.webp",
-"description": "Des agissements inquiétants autour d'un “sucre d’orge” qui ronge secrètement l'Empire britannique, une mort mystérieuse dans la très ancienne famille à présent ruinée des Roylott… Afin de découvrir ce qui relie ces deux...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/moriarty/volume-21,1027095.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144250-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/moriarty-t21/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782377176083",
@@ -14844,15 +14725,14 @@
 "isbn": "9782505119685",
 "pages": 0,
 "format": "",
-"prix": 12.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/49/pippira_note_11031694.webp",
-"description": "Quand elle recueille un oiseau perdu, qu’elle appelle Pippira, Kimiko voit son quotidien se transformer en une succession de surprises et de découvertes. Grâce à ses gestes et à ses mimiques, ce minuscule colocataire remplit petit à...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/pippira+note/volume-1,1031694.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505119685-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/pippira-note-tome-1/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 12.95,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782021618075",
@@ -14894,7 +14774,7 @@
 },
 {
 "id": "ed:9782505144281",
-"title": "Saint Seiya - Les Chevaliers du Zodiaque - Tome 8 (Final Edition)",
+"title": "Saint Seiya Final Edition - Tome 8",
 "authors": [
 "Masami Kurumada"
 ],
@@ -14903,19 +14783,18 @@
 "isbn": "9782505144281",
 "pages": 0,
 "format": "",
-"prix": 10.25,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/84/saint_seiya_-_les_chevaliers_du_zodiaque_8_final_edition988048.webp",
-"description": "Alors que la vie de la Déesse Athéna n'est plus qu'une faible lueur vacillante, les chevaliers de Bronze se dressent de toutes leurs forces contre les chevaliers d'Or, et éveillent leur Septième Sens : le cosmos ultime !! Qu'est-ce qui...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/saint+seiya+-+les+chevaliers+du+zodiaque/volume-8,988048.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144281-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/saint-seiya-final-edition-t8/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 10.25,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782505142928",
-"title": "Samurai Deeper Kyo - Tome 9 (Star Édition)",
+"title": "Samurai Deeper Kyo Star Edition - Tome 9",
 "authors": [
 "Akimine Kamijô"
 ],
@@ -14924,36 +14803,31 @@
 "isbn": "9782505142928",
 "pages": 0,
 "format": "",
-"prix": 10.25,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/39/samurai_deeper_kyo_9_star_edition1017693.webp",
-"description": "Après avoir franchi la 2e porte, c’est Chinmei, le mystérieux membre des Cinq Planètes, qui attend Kyo et sa bande. C’est là qu’est dévoilée la vérité sur la tragédie qui s’est déroulée quatre ans auparavant dans la...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/samurai+deeper+kyo/volume-9,1017693.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505142928-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t9/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 10.25,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782505143536",
 "title": "Sergent Keroro - Tome 35",
-"authors": [
-"Mine Yoshizaki"
-],
+"authors": [],
 "publisher": "Kana",
 "date": "2026-08-28",
 "isbn": "9782505143536",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/38/sergent_keroro_351028683.webp",
-"description": "Le sergent Keroro, une grenouille verte extraterrestre coiffée d'une casquette à rabats, constitue l'avant-garde de l'invasion de la Terre par son peuple. Pauvres de nous…?! Pas vraiment car il devra d'abord convaincre la famille...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/sergent+keroro/volume-35,1028683.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505143536-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/sergent-keroro-t35/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ll:26460606",
@@ -15039,24 +14913,20 @@
 },
 {
 "id": "ed:9782505144366",
-"title": "The Dangers in My Heart - Tome 13",
-"authors": [
-"Norio Sakurai"
-],
+"title": "The Dangers in my heart - Tome 13",
+"authors": [],
 "publisher": "Kana",
 "date": "2026-08-28",
 "isbn": "9782505144366",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/57/the_dangers_in_my_heart_131026375.webp",
-"description": "Kyôtarô et Yamada cohabitent ?! Les examens d’entrée pour le lycée sont proches, et Kyôtarô est recueilli par la famille Yamada. Sous le même toit que sa copine, le jeune homme passe ses journées à étudier malgré la tension...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/the+dangers+in+my+heart/volume-13,1026375.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144366-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/the-dangers-in-my-heart-t13/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782375066201",
@@ -15366,7 +15236,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "1,2,3, te voilà !",
+"title": "2,3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -18684,25 +18554,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782382883488",
-"title": "100 - Tome 3",
-"authors": [],
-"publisher": "Kbooks",
-"date": "2026-09-03",
-"isbn": "9782382883488",
-"pages": 0,
-"format": "",
-"prix": 14.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:bdgest:544056",
 "title": "Cassidy - Tome 7 - Un pacte Criminel",
 "authors": [
@@ -19540,6 +19391,25 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9782382883488",
+"title": "Tome 3",
+"authors": [],
+"publisher": "Kbooks",
+"date": "2026-09-03",
+"isbn": "9782382883488",
+"pages": 0,
+"format": "",
+"prix": 14.95,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ed:bdgest:543938",
 "title": "Uri Tupka et les dieux",
 "authors": [
@@ -19665,15 +19535,14 @@
 "isbn": "9782505142133",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/66/boruto_-_two_blue_vortex_61025066.webp",
-"description": "Boruto et Kawaki voient leur situation inversée. Boruto est considéré comme un traître qui a assassiné Naruto et il est recherché depuis trois ans. Code et les sbires de crasses attaquent le village caché de Konoha et, pendant que...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/boruto+-+two+blue+vortex/volume-6,1025066.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505142133-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/boruto-two-blue-vortex-t6/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ll:26460449",
@@ -19709,15 +19578,14 @@
 "isbn": "9782505143512",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/73/c_est_de_l_amour_crois-moi_71020537.webp",
-"description": "« Dépêche-toi de t’y habituer. Nous deux, on va faire des choses encore plus dingues… » Discuter avec une amie à cœur ouvert, échanger un « baiser d’adulte » avec Zen… Risa expérimente de nombreuses premières fois....",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/c-est+de+l-amour,+crois-moi+!/volume-7,1020537.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505143512-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/cest-de-lamour-crois-moi-t7/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782808703116",
@@ -19914,23 +19782,19 @@
 {
 "id": "ed:9782505143352",
 "title": "Détective Conan - Tome 107",
-"authors": [
-"Gosho Aoyama"
-],
+"authors": [],
 "publisher": "Kana",
 "date": "2026-09-04",
 "isbn": "9782505143352",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/53/detective_conan_1071017735.webp",
-"description": "Dans ce tome, Shinichi et Ran sont très jeunes. Ils essaient de réparer un robinet qui fuit dans un parc et ce sont cinq élèves de l’académie de police qui vont les aider ! Les jeunes détectives visitent le siège de la police de...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/détective+conan/volume-107,1017735.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505143352-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/detective-conan-t107/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ll:26464122",
@@ -20485,15 +20349,14 @@
 "isbn": "9782505143475",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/28/the_kingdoms_of_ruin_121011882.webp",
-"description": "“Tu te souviens de moi ?” Attirés par un murmure étrange, Adonis et Doroka atteignent le cœur d’une profonde forêt scellée. C’est alors qu’une sorcière qui vivait jadis avec Doroka fait son apparition… “La chasse...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/the+kingdoms+of+ruin/volume-12,1011882.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505143475-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/the-kingdoms-of-ruin-t12/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782808702317",
@@ -24597,7 +24460,7 @@
 },
 {
 "id": "ed:9782505132509",
-"title": "Basara - Tome 3 (Star Édition)",
+"title": "Basara (Star Edition) - Tome 3",
 "authors": [
 "Yumi Tamura"
 ],
@@ -24606,15 +24469,14 @@
 "isbn": "9782505132509",
 "pages": 0,
 "format": "",
-"prix": 9.25,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/65/basara_3_star_edition1033556.webp",
-"description": "La montagne de feu Sakurajima surgit des flots. Piégée par le redoutable général Shidô, Sarasa lutte sur une terre tremblante, jusqu’à ce qu’Hayato intervienne en décochant une flèche. Alors qu’un émissaire du mystérieux...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/basara/volume-3,1033556.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505132509-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/basara-star-edition-t3/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 9.25,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782385033828",
@@ -24960,15 +24822,14 @@
 "isbn": "9782505142829",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/04/kagurabachi_101029340.webp",
-"description": "Chihiro fait tout pour prouver à Samura sa détermination et le rôle qu’il a à jouer. Pendant ce temps, Hishaku, malgré le nombre restreint de ses membres, attaque le siège du Kamunabi à Tokyo ! Alors que Hakuri et Uruha se...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/kagurabachi/volume-10,1029340.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505142829-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/kagurabachi-t10/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782382765999",
@@ -25550,24 +25411,20 @@
 },
 {
 "id": "ed:9782505143031",
-"title": "The Yakuza's Guide to Babysitting - Tome 15",
-"authors": [
-"Tsukiya"
-],
+"title": "The Yakuza's guide to babysitting - Tome 15",
+"authors": [],
 "publisher": "Kana",
 "date": "2026-09-11",
 "isbn": "9782505143031",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/55/the_yakuza_s_guide_to_babysitting_151028455.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505143031-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/the+yakuza-s+guide+to+babysitting/volume-15,1028455.html",
+"rayons": [],
+"url": "https://www.kana.fr/produit/the-yakuzas-guide-to-babysitting-t15/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782017397991",
@@ -25620,15 +25477,14 @@
 "isbn": "9782505144342",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/63/tokyo_cannabis_81017736.webp",
-"description": "L’Ultra Red débarque sur le marché pour prendre le contrôle du business des e-liquides ! Mais, Kagayama craignant que ce nouveau produit, jouant avec les limites, ne trouve pas son public, se sent mis à l’écart du business de...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/tokyo+cannabis/volume-8,1017736.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144342-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/tokyo-cannabis-t8/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782385041359",
@@ -30265,15 +30121,14 @@
 "isbn": "9782505126225",
 "pages": 0,
 "format": "",
-"prix": 8.5,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/kohva_21037619.webp",
-"description": "« Il y a longtemps, nos ancêtres ont conclu un pacte avec les divinités en échange de dons. Ils nous ont facilité la vie dans les terres gelées, mais, lorsque les bêtes marines sont arrivées, les eaux se sont imprégnées de leur...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/kohva/volume-2,1037619.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505126225-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/kohva-t2/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.5,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782808703659",
@@ -30548,23 +30403,19 @@
 {
 "id": "ed:9782505141198",
 "title": "No Devil - Tome 2",
-"authors": [
-"Senchiro"
-],
+"authors": [],
 "publisher": "Kana",
 "date": "2026-09-18",
 "isbn": "9782505141198",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/30/no_devil_21034203.webp",
-"description": "C’est le grand jour pour Lucie ! Guitare sur le dos et espoirs en poche, elle fonce pour être à l’heure à son audition. Léo, chasseur de démons pour l’agence No Devil, est sur le point d’attraper sa proie. Et c’est là que...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/no+devil/volume-2,1034203.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505141198-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/no-devil-t2/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ll:26464112",
@@ -30795,24 +30646,20 @@
 },
 {
 "id": "ed:9782505141969",
-"title": "Supernova (Nicolas Jaffré) - Tome 1",
-"authors": [
-"Nicolas Jaffré"
-],
+"title": "Supernova - Tome 1",
+"authors": [],
 "publisher": "Kana",
 "date": "2026-09-18",
 "isbn": "9782505141969",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/51/supernova_nicolas_jaffre_11038815.webp",
-"description": "Le monde porte encore les cicatrices d’une guerre provoquée par la découverte de mystérieuses pépites d’or capables de repousser les limites du corps humain. L’État en réserve désormais l’usage à une milice d’élite...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/supernova+(nicolas+jaffré)/volume-1,1038815.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505141969-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/supernova-t1/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782379502750",
@@ -30907,36 +30754,31 @@
 "isbn": "9782505144625",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/79/the_strange_house_51015997.webp",
-"description": "“Un an avant que commence le rituel, j’ai mis mon plan à exécution.” Yoshie, la mère de Yuzuki, nous a raconté le passé de la famille Katabuchi. Il semblerait que les descendants de la famille soient prisonniers d’une...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/the+strange+house/volume-5,1015997.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144625-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/the-strange-house-t5/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782505144526",
 "title": "The Strange Pictures - Tome 3",
-"authors": [
-"Uketsu"
-],
+"authors": [],
 "publisher": "Kana",
 "date": "2026-09-18",
 "isbn": "9782505144526",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/35/the_strange_pictures_31022353.webp",
-"description": "Professeur d’art dans un lycée, Yoshiharu Miura a été retrouvé mort en pleine montagne, sur le mont K. Sur les lieux se trouvait son dernier dessin, un croquis de la vue depuis le 8e palier du mont K, esquissé au dos d’un ticket...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/the+strange+pictures/volume-3,1022353.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144526-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/the-strange-pictures-t3/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782385030889",
@@ -35793,24 +35635,19 @@
 {
 "id": "ed:9782505144205",
 "title": "Lupin III : La Merveille",
-"authors": [
-"Kid Toussaint"
-],
+"authors": [],
 "publisher": "Kana",
 "date": "2026-09-25",
 "isbn": "9782505144205",
 "pages": 0,
 "format": "",
-"prix": 21.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/44/lupin_iii_la_merveille_11041844.webp",
-"description": "Le petit-fils d’Arsène Lupin se lance en quête de la Merveille, un trésor que son aïeul a toujours souhaité dérober sans jamais le trouver… Pour relever ce défi impossible, Lupin, accompagné de ses inséparables complices, le...",
-"rayons": [
-"Manga",
-"One-shot"
-],
-"url": "https://www.nautiljon.com/mangas/lupin+iii+-+la+merveille/volume-1,1041844.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144205-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/lupin-iii/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 21.95
 },
 {
 "id": "ed:9782505144076",
@@ -35823,9 +35660,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144076-couv-M300x425.jpg",
 "description": "Au programme, un magazine de pré-publication avec : des récits inédits, des one-shots et des récits à suivre, mettant en avant des styles graphiques variés et des genres multiples. Fruit d’une collaboration inédite entre quatre...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/manga-issho-7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -35960,7 +35795,7 @@
 },
 {
 "id": "ed:9782505141358",
-"title": "Saint Seiya - Rerise of Poseidon - Tome 1",
+"title": "Saint Seiya Rerise of Poseidon - Tome 1",
 "authors": [
 "Masami Kurumada"
 ],
@@ -35969,36 +35804,31 @@
 "isbn": "9782505141358",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/28/saint_seiya_-_rerise_of_poseidon_1992682.webp",
-"description": "Les Chevaliers d’Athéna ont disparu ! Mais, alors qu’une nouvelle menace plane sur la Terre, Hadès n’a pas d’autre choix que de ressusciter Poséidon et ses Marinas pour arrêter Némésis, l’incarnation de la colère divine....",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/saint+seiya+-+rerise+of+poseidon/volume-1,992682.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505141358-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/saint-seiya-rerise-of-poseidon-t1/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782505142911",
-"title": "Seraph of the End - Tome 34",
-"authors": [
-"Takaya Kagami"
-],
+"title": "Seraph of the end - Tome 34",
+"authors": [],
 "publisher": "Kana",
 "date": "2026-09-25",
 "isbn": "9782505142911",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/86/seraph_of_the_end_341017468.webp",
-"description": "À l’époque où il était encore humain, Ky Luck a été élevé par sa mère qui souhaitait qu’il devienne quelqu’un de fort. Quel lien avait-il autrefois avec Urd?? Le voici à présent en train de livrer un violent combat contre...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/seraph+of+the+end/volume-34,1017468.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505142911-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/seraph-of-the-end-t34/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782385030773",
@@ -36153,15 +35983,14 @@
 "isbn": "9782505134435",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/43/the_elusive_samurai_201018634.webp",
-"description": "Après avoir perdu une bataille décisive face à Moronao, Tokiyuki s'enfuit vers Yoshino, où siège la cour du Sud. Il présente à l'empereur Go-Daigo un mémoire laissé par Akiie… mais s'attire ainsi sa colère et risque d'être...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/the+elusive+samurai/volume-20,1018634.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505134435-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/the-elusive-samurai-t20/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782385031756",
@@ -36207,7 +36036,7 @@
 },
 {
 "id": "ed:9782505143055",
-"title": "Yu-Gi-Oh! - Tome 2 (Édition Millénium)",
+"title": "Yu-Gi-Oh! – Édition Millénium - Tome 2",
 "authors": [
 "Kazuki Takahashi"
 ],
@@ -36216,15 +36045,14 @@
 "isbn": "9782505143055",
 "pages": 0,
 "format": "",
-"prix": 13.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/00/36/yu-gi-oh_2_edition_millenium5463.webp",
-"description": "Shadi, un mystérieux homme venu d’Égypte, a pris Anzu en otage et a lancé une série de jeux des ténèbres pour apprendre le secret du “pouvoir” du “Puzzle du Millénium” ! Yûgi parviendra-t-il à remporter ces épreuves et...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/yu-gi-oh!/volume-2,5463.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505143055-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/yu-gi-oh-edition-millenium-t2/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 13.95,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9791026822950",
@@ -41003,27 +40831,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782505142126",
-"title": "ATOM - The Beginning - Tome 22",
-"authors": [
-"Masami Yûki"
-],
-"publisher": "Kana",
-"date": "2026-10-02",
-"isbn": "9782505142126",
-"pages": 0,
-"format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/37/atom_-_the_beginning_221011373.webp",
-"description": "Tandis qu'ils continuent leurs activités de jeunes héros, Tobio et Ponta se font enlever par une secte. Six s'empresse de voler à leur secours… En parallèle, la campagne électorale qui déterminera l'avenir du Japon et des robots...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/atom+-+the+beginning/volume-22,1011373.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:9782205215427",
 "title": "Ana Ana - Tome 28 - Chantons et dansons !",
 "authors": [
@@ -41041,6 +40848,26 @@
 "url": "https://www.bedetheque.com/BD-Ana-Ana-Tome-28-Chantons-et-dansons-543501.html",
 "kind": "bd",
 "source": "editeur:bdgest"
+},
+{
+"id": "ed:9782505142126",
+"title": "Atom the beginning - Tome 22",
+"authors": [
+"Masami Yûki"
+],
+"publisher": "Kana",
+"date": "2026-10-02",
+"isbn": "9782505142126",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782505142126-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/atom-the-beginning-t22/",
+"kind": "bd",
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782808515245",
@@ -41294,7 +41121,7 @@
 },
 {
 "id": "ed:9782505140535",
-"title": "Gamaran - Le Tournoi ultime - Tome 30",
+"title": "Gamaran - Le Tournoi Ultime - Tome 30",
 "authors": [
 "Yôsuke Nakamaru"
 ],
@@ -41303,15 +41130,14 @@
 "isbn": "9782505140535",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/33/gamaran_-_le_tournoi_ultime_30998233.webp",
-"description": "Renji Jibo est le Genkai Tempei qui défend la porte menant à la citadelle interne ! Face à ses qualités physiques extraordinaires, Gama réplique avec sa maîtrise technique. Iori et ses camarades, qui arrivent les premiers dans la...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/gamaran+-+le+tournoi+ultime/volume-30,998233.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505140535-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/gamaran-le-tournoi-ultime-t30/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782390041641",
@@ -41879,23 +41705,19 @@
 {
 "id": "ed:9782505142874",
 "title": "No Longer Allowed in Another World - Tome 12",
-"authors": [
-"Hiroshi Noda"
-],
+"authors": [],
 "publisher": "Kana",
 "date": "2026-10-02",
 "isbn": "9782505142874",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/80/no_longer_allowed_in_another_world_121005108.webp",
-"description": "De retour dans le désert, Sensei et ses compagnons tombent sur un homme qui erre à la recherche d’un moyen de lever la malédiction que lui a jetée la déesse de la mort. Les anges déchus de la mélancolie et de la paresse, les...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/no+longer+allowed+in+another+world/volume-12,1005108.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505142874-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/no-longer-allowed-in-another-world-t12/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ll:26596734",
@@ -42109,27 +41931,6 @@
 "prix": 15.0
 },
 {
-"id": "ed:9782505143017",
-"title": "SHY - Tome 30",
-"authors": [
-"Bukimi Miki"
-],
-"publisher": "Kana",
-"date": "2026-10-02",
-"isbn": "9782505143017",
-"pages": 0,
-"format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/24/shy_301022542.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/shy/volume-30,1022542.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:9782808703178",
 "title": "Servant Beasts - Tome 4",
 "authors": [
@@ -42149,6 +41950,23 @@
 "url": "https://www.nautiljon.com/mangas/servant+beasts/volume-4,1031567.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782505143017",
+"title": "Shy - Tome 30",
+"authors": [],
+"publisher": "Kana",
+"date": "2026-10-02",
+"isbn": "9782505143017",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782505143017-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/shy-t30/",
+"kind": "bd",
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782844149671",
@@ -42343,15 +42161,14 @@
 "isbn": "9782505141389",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/75/whisper_it_in_the_night_2993057.webp",
-"description": "Incapable de renoncer à Harutaka, Miya lui fait sa déclaration, alors même qu’il sort avec son amie. Elle est persuadée qu’il ne veut pas d’elle, mais elle ignore que l’attachement excessif d’Itone envers Harutaka envenime...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/whisper+it+in+the+night/volume-2,993057.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505141389-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/yoru-ni-kikasete-t2/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782021631593",
@@ -51382,24 +51199,20 @@
 },
 {
 "id": "ed:9782505185192",
-"title": "Capitaine Albator - Mémoires de l'Arcadia - Tome 1",
-"authors": [
-"Jérôme Alquié"
-],
+"title": "Capitaine Albator – Mémoire de l’Arcadia – Intégrale",
+"authors": [],
 "publisher": "Kana",
 "date": "2026-10-09",
 "isbn": "9782505185192",
 "pages": 0,
 "format": "",
-"prix": 37.0,
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/55/capitaine_albator_-_memoires_de_l_arcadia_1_reedition_integrale1042755.webp",
-"description": "Dans cette aventure inédite du Capitaine Albator, une équipe de scientifique a découvert un mausolée de Sylvidres et des informations où il est fait mention de manipulations génétiques et d’un pouvoir destructeur terrifiant....",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/capitaine+albator+-+mémoires+de+l-arcadia/volume-1,1042755.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505185192-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/capitaine-albator-memoire-de-larcadia-integrale/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 37.0
 },
 {
 "id": "ed:manganews:cold-blooded-beast-vol-3",
@@ -51452,15 +51265,14 @@
 "isbn": "9782505127611",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/74/crows_81013147.webp",
-"description": "Actuellement, une bonne partie des élèves sont soumis au puissant Bandô, un élève de terminale. Seul le trio d’Ebizuka lui tient encore tête de façon ostensible. Aux yeux de Bandô aussi, ces gars-là sont les derniers remparts à...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/crows/volume-8,1013147.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505127611-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/crows-t8/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9782386435003",
@@ -51585,7 +51397,7 @@
 },
 {
 "id": "ed:9782505141310",
-"title": "Esquisses de nos cœurs en devenir - Tome 3",
+"title": "Esquisses de nos coeurs en devenir - Tome 3",
 "authors": [
 "Daichi Kawada"
 ],
@@ -51594,15 +51406,14 @@
 "isbn": "9782505141310",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/13/esquisses_de_nos_coeurs_en_devenir_31001631.webp",
-"description": "Shintarô a été accepté à l’académie des beaux-arts et Kyôko, elle, est devenue une artisane confirmée. Tous deux poursuivent leur propre voie, tout en faisant grandir leur amour. Enfin, après neuf mois interminables, doit avoir...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/esquisses+de+nos+cœurs+en+devenir/volume-3,1001631.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505141310-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/esquisses-de-nos-coeurs-en-devenir-t3/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9791041426690",
@@ -51732,15 +51543,14 @@
 "isbn": "9782505144243",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/17/kujo_l_implacable_141016771.webp",
-"description": "Izumi, l'ex-lieutenant de Kyôgoku est sorti de prison. Alors que les projets de Mibu continuent d'avancer dans l'ombre. La menace du clan Fushimi semble se rapprocher de plus en plus de Kujô et de Mibu. En parallèle, Sogabe semble de...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/kujô+l-implacable/volume-14,1016771.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144243-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/kujo-limplacable-t14/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1,
+"auteur_deduit": 1
 },
 {
 "id": "ed:9791041428557",
@@ -52559,23 +52369,19 @@
 {
 "id": "ed:9782505144649",
 "title": "Ragna Crimson - Tome 17",
-"authors": [
-"Daiki Kobayashi"
-],
+"authors": [],
 "publisher": "Kana",
 "date": "2026-10-09",
 "isbn": "9782505144649",
 "pages": 0,
 "format": "",
-"prix": 7.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/55/ragna_crimson_171036955.webp",
-"description": "Les paroles du roi des Dentés plongent le champ de bataille dans un chaos total, faisant du Saint du Soleil la première cible de tous. Alors que la Secte du Soleil semble acculée, un homme aux pouvoirs inconnus, le Bretteur éternel,...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/ragna+crimson/volume-17,1036955.html",
+"cover": "https://bdi.dlpdomain.com/album/9782505144649-couv-M300x425.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.kana.fr/produit/ragna-crimson-t17/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.95
 },
 {
 "id": "ed:9791041430024",
@@ -59876,15 +59682,15 @@
 "isbn": "9782505143444",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/77/yume_ka_utsutsu_ka_11012777.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505143444-couv-M300x425.jpg",
 "description": "Iroha Hôshô est une lycéenne qui a du mal à engager une simple conversation avec les personnes de son âge. Les autres élèves pensent qu’elle est toujours de mauvaise humeur et commencent à abandonner l’idée de nouer un contact...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/rêve+ou+réalité+-/volume-1,1012777.html",
+"url": "https://www.kana.fr/produit/yume-ka-utsutsu-ka-t1/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:manganews:sommet-des-dieux-le-integrale",
@@ -59917,15 +59723,15 @@
 "isbn": "9782505124733",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/11/24/serenade_pour_une_pluie_de_larmes_7945442.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505124733-couv-M300x425.jpg",
 "description": "Hina et Takaaki ont sauvé Hinako, enlevée par la troupe Amahisa. Touchée par la sincérité de Takaaki, Hina décide de s’ouvrir à lui. De son côté, Taketora est toujours à la recherche du propriétaire du collier, dont il...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/sérénade+pour+une+pluie+de+larmes/volume-7,945442.html",
+"url": "https://www.kana.fr/produit/serenade-pour-une-pluie-de-larmes-t7/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782386434112",
@@ -66721,7 +66527,7 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26537239-6-acotar-tome-6-un-palais-d-harmonie-brisee-un-palais-d-harmonie-brisee-sarah-j-maas-martiniere-f",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "kind": "fantasy",
 "prix": 20.0
 },
@@ -66940,7 +66746,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26468443-bunny-le-livre-phenomene-tiktok-au-succes-planetaire-traduit-en-francais-et-disponible-en-poche-collector-mona-awad-harpercollins",
 "kind": "fantasy",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 10.9
 },
 {
@@ -67039,7 +66845,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26657228-ce-beau-pays-maudit-491-jours-dans-les-geoles-de-poutine-evan-gershkovich-grasset",
 "kind": "roman",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 26.0
 },
 {
@@ -67172,7 +66978,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26611250-deux-aventures-de-chevalier-chouette-edition-collector-christopher-denise-kaleidoscope",
 "kind": "jeunesse",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 22.0
 },
 {
@@ -67196,7 +67002,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26552565-dino-oiseau-quand-les-poules-avaient-des-dents-fleur-daugey-actes-sud",
 "kind": "jeunesse",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 19.5
 },
 {
@@ -67878,6 +67684,30 @@
 "prix": 7.9
 },
 {
+"id": "ll:26640046",
+"title": "L'été de Bérénice",
+"authors": [
+"Emilie Tronche"
+],
+"publisher": "Casterman",
+"date": "2026-10-28",
+"isbn": "9782203296602",
+"pages": 204,
+"format": "Broché",
+"prix": 20.0,
+"cover": "https://leslibraires.b-cdn.net/w-ZyVIU7whVdfB9vhvwJBdjl81VDtsgmRwTH5oTQb84/s:800:800/MTcxMzYxNDk.webp",
+"description": "À la fin du Journal de Samuel, Bérénice et Samuel s'avouaient enfin leurs sentiments. Quatre mois ont passé, l'année scolaire est finie, les grandes vacances arrivent et, avec elles, l'inévitable séparation jusqu'à la rentrée. Bérénice raconte sur son blog son départ avec sa mère et son frère pour la Corse. Toujours aussi acerbe, elle pose un regard aimant mais cassant sur sa mère fraîchement séparée et son frère qui, à l'approche du lycée, semble quitter définitivement l'enfance...",
+"rayons": [
+"BD, Comics & Manga",
+"Comics",
+"Graphic Novel",
+"L'été de Bérénice"
+],
+"url": "https://www.leslibraires.fr/livre/26640046-l-ete-de-berenice-emilie-tronche-casterman",
+"lu": "2026-10-30",
+"kind": "bd"
+},
+{
 "id": "ed:9782253249856",
 "title": "La Cour des secrets",
 "authors": [
@@ -67921,7 +67751,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26640026-la-douceur-du-cafe-toshikazu-kawaguchi-le-livre-de-poche",
 "kind": "roman",
-"lu": "2026-10-28",
+"lu": "2026-10-30",
 "prix": 8.4
 },
 {
@@ -68120,23 +67950,28 @@
 "prix": 8.9
 },
 {
-"id": "ed:9791041119844",
-"title": "La vérité de Pinocchio",
+"id": "ll:26603245",
+"title": "La vérité de Pinocchio - histoire complète",
 "authors": [
-"Loïc Malnati",
-"Jean-Luc Masbou"
+"Malnati/Tillier"
 ],
-"publisher": "Bamboo Édition",
+"publisher": "Bamboo",
 "date": "2026-10-28",
 "isbn": "9791041119844",
-"pages": 0,
-"format": "",
-"cover": "https://www.bedetheque.com/media/Couvertures/Couv_544967.jpg",
-"description": "Et si, comme pour Pinocchio, le plus dur était d'accepter ce que nous sommes ? Après avoir été engloutis par un gigantesque requin, Pinocchio sauve Gepetto en le ramenant jusqu'à la surface. Pour la première fois, il a agi avec responsabilité et pense être devenu « quelqu'un ». Mais son créateur meurt peu après, emportant avec lui le seul regard capable de transformer le pantin en petit garçon. Jeté comme un objet inutile, Pinocchio va se retrouver au pied d'un arbre qui va l'interroger sur son histoire. À travers ce dialogue, celui-ci prend peu à peu conscience de sa véritable nature, jusqu'à accepter enfin qui il est vraiment. Une fable merveilleuse sur ce que nous sommes et sur ce que nous croyons être...",
-"rayons": [],
-"url": "https://www.bedetheque.com/BD-Verite-de-Pinocchio-544967.html",
-"kind": "bd",
-"source": "editeur:bdgest"
+"pages": 88,
+"format": "Relié",
+"prix": 18.9,
+"cover": "https://leslibraires.b-cdn.net/7zbW8gDyB6Wtf95sxhkhbIBuhRX4bvGYexDP__r4Zgc/s:800:800/MTY2OTQ0MjM.webp",
+"description": "Et si le plus difficile était d'accepter ce que nous sommes ?\n\nAprès avoir sauvé Geppetto des entrailles d'un gigantesque requin, Pinocchio croit enfin être devenu un véritable petit garçon. Mais lorsque son père meurt, l'illusion se brise : il n'est toujours qu'un pantin de bois, bientôt abandonné comme un objet inutile.\n\nAu pied d'un arbre mystérieux, Pinocchio est alors contraint de revenir sur son histoire. Sa naissance, ses mensonges, ses rencontres avec le Chat,le Renard et la Fée aux cheveux bleus...\n\nAutant d'épreuves qui semblaient le rapprocher de l'humanité, mais qui l'ont peu à peu éloigné de sa véritable nature.\n\nPour devenir enfin quelqu'un, Pinocchio devra d'abord accepter ce qu'il a toujours été.",
+"rayons": [
+"BD, Comics & Manga",
+"Bandes dessinées",
+"Bandes dessinées de genre",
+"vérité de Pinocchio (La), 1, La vérité de Pinocchio - histoire complète"
+],
+"url": "https://www.leslibraires.fr/livre/26603245-verite-de-pinocchio-la-1-la-verite-de-pinocchio-histoire-complete-malnati-tillier-bamboo",
+"lu": "2026-10-30",
+"kind": "bd"
 },
 {
 "id": "ed:9782709677677",
@@ -68289,7 +68124,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26526287-1-leonid-petrov-t1-edition-halloween-nanou-ad-eden-city-ed",
 "kind": "romance",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 26.9
 },
 {
@@ -68395,7 +68230,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26468152-les-irresponsables-qui-a-porte-hitler-au-pouvoir--johann-chapoutot-philippe-girard-casterman",
 "kind": "bd",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 23.0
 },
 {
@@ -68486,7 +68321,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/10185100-les-sept-soeurs-bd--riley-carbone-albin-michel",
 "kind": "bd",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 22.9
 },
 {
@@ -68510,7 +68345,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26602407-sisters-les-21-les-sisters-tome-21-a-la-sauce-marinade--cazenove-william-bamboo",
 "kind": "bd",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 11.9
 },
 {
@@ -68535,7 +68370,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26640064-les-techno-prophetes-l-intelligence-artificielle-face-aux-limites-planetaires-vincent-perriot-casterman",
 "kind": "bd",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 29.0
 },
 {
@@ -68841,7 +68676,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26635532-love-and-bad-predictions-emilie-parizot-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 19.0
 },
 {
@@ -69214,7 +69049,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26633515-the-royal-thorns-2-nostalgia-the-royal-thorns-tome-02-lea-nemezia-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 8.9
 },
 {
@@ -69484,7 +69319,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26633549-9-sorceline-tome-09-professeur-balzar-et-mister-vorn-douye-antista-vents-d-ouest",
 "kind": "bd",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 12.5
 },
 {
@@ -69816,7 +69651,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26657221-un-petit-quartier-demilly-de-nussy-grasset-jeunesse",
 "kind": "jeunesse",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 13.5
 },
 {
@@ -70081,7 +69916,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26548010-facteur-x-comment-l-industrie-chimique-nous-cache-la-verite-camille-etienne-les-arenes",
 "kind": "",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 20.0
 },
 {
@@ -70147,7 +69982,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26520149-la-vie-au-bout-des-doigts-penelope-les-grandes-personnes",
 "kind": "jeunesse",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 22.5
 },
 {
@@ -70380,7 +70215,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26520082-sous-le-grand-chene-le-voyage-d-une-vie-le-voyage-d-une-vie-elena-selena-les-grandes-personnes",
 "kind": "jeunesse",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 24.5
 },
 {
@@ -70490,7 +70325,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26546195-warszawa-sophie-marceau-seghers",
 "kind": "roman",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 20.0
 },
 {
@@ -70637,7 +70472,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26460898-4-bellatrix-tome-4-leo-dargaud",
 "kind": "bd",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 15.0
 },
 {
@@ -70661,7 +70496,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623329-15-blake-mortimer-hors-serie-tome-15-affaires-classees-sente-pelaez-felix-blake-et-mortimer",
 "kind": "bd",
-"lu": "2026-10-28",
+"lu": "2026-10-30",
 "prix": 20.0
 },
 {
@@ -70685,7 +70520,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622953-1-blake-mortimer-tome-1-le-secret-de-l-espadon-tome-1-edgar-p-jacobs-blake-et-mortimer",
 "kind": "bd",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 30.0
 },
 {
@@ -70795,7 +70630,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622748-cybele-katia-lanero-zamora-aux-forges-de-vulcain",
 "kind": "roman",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 21.0
 },
 {
@@ -70838,7 +70673,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622909-demeure-diglee-maureen-wingrove-la-ville-brule",
 "kind": "",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 20.0
 },
 {
@@ -71029,7 +70864,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622996-22-kid-paddle-tome-22-ice-scream-midam-dupuis",
 "kind": "bd",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 12.95
 },
 {
@@ -71092,7 +70927,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623551-l-espion-utile-william-boyd-seuil",
 "kind": "roman",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 23.0
 },
 {
@@ -71197,7 +71032,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623799-10-le-loup-en-slip-tome-10-echec-et-mites-lupano-itoiz-dargaud",
 "kind": "bd",
-"lu": "2026-10-28",
+"lu": "2026-10-30",
 "prix": 12.95
 },
 {
@@ -71305,7 +71140,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623471-2-love-bullet-tome-2-inee-vega-dupuis",
 "kind": "bd",
-"lu": "2026-10-29",
+"lu": "2026-10-30",
 "prix": 8.35
 },
 {
@@ -71458,7 +71293,7 @@
 },
 {
 "id": "ed:9782505144014",
-"title": "Samurai Deeper Kyo - Tome 10 (Star Édition)",
+"title": "Samurai Deeper Kyo Star Edition - Tome 10",
 "authors": [
 "Akimine Kamijô"
 ],
@@ -71467,15 +71302,15 @@
 "isbn": "9782505144014",
 "pages": 0,
 "format": "",
-"prix": 10.25,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/49/samurai_deeper_kyo_10_star_edition1017694.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505144014-couv-M300x425.jpg",
 "description": "À la quatrième porte, se dresse Taihaku, un véritable dieu guerrier doté d’une force écrasante et animé par sa vision de l’avenir des Mibu. Face à lui, Tigre Rouge, déterminé à «?vaincre son propre moi?», relève le défi....",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/samurai+deeper+kyo/volume-10,1017694.html",
+"url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t10/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 10.25
 },
 {
 "id": "ed:manganews:secret-honey",
@@ -71537,7 +71372,7 @@
 },
 {
 "id": "ed:9782505143314",
-"title": "Slam Dunk - Tome 17 (Édition Deluxe)",
+"title": "Slam Dunk deluxe - Tome 17",
 "authors": [
 "Takehiko Inoue"
 ],
@@ -71546,19 +71381,19 @@
 "isbn": "9782505143314",
 "pages": 0,
 "format": "",
-"prix": 14.25,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/74/slam_dunk_17_edition_deluxe974347.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505143314-couv-M300x425.jpg",
 "description": "Le tournoi inter-lycée est enfin terminé ! Il reste 1 mois à Shôhoku pour s'entraîner à fond en prévision du tant attendu tournoi national ! Alors que Sakuragi profite des quelques jours de repos avant le début de son stage...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/slam+dunk/volume-17,974347.html",
+"url": "https://www.kana.fr/produit/slam-dunk-deluxe-t17/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 14.25
 },
 {
 "id": "ed:9782505144434",
-"title": "Smoking Behind The Supermarket With You - Tome 7",
+"title": "Smoking behind the supermarket with you - Tome 7",
 "authors": [
 "Jinushi"
 ],
@@ -71567,19 +71402,19 @@
 "isbn": "9782505144434",
 "pages": 0,
 "format": "",
-"prix": 7.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/80/smoking_behind_the_supermarket_with_you_71021408.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505144434-couv-M300x425.jpg",
 "description": "La rivalité déplacée avec Kawakami autour de Tayama provoque chez Sasaki des prises de conscience et des remises en question inattendues. Yamada et Tayama. Plus il tente de comprendre les deux jeunes femmes, plus ses interrogations...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/smoking+behind+the+supermarket+with+you/volume-7,1021408.html",
+"url": "https://www.kana.fr/produit/smoking-behind-the-supermarket-with-you-t7/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.95
 },
 {
 "id": "ed:9782505140030",
-"title": "Undead Unluck - Tome 27",
+"title": "Undead unluck - Tome 27",
 "authors": [
 "Yoshifumi Tozuka"
 ],
@@ -71588,15 +71423,15 @@
 "isbn": "9782505140030",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/02/1016920.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505140030-couv-M300x425.jpg",
 "description": "Grâce à Julia, qui a réussi à activer sa capacité Unjustice, Fûko et ses compagnons ont pu repousser les maîtres des règles primordiales. Mais ils ignorent toujours où se trouve le troisième Jingi, le dernier élément dont ils...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/undead+unluck/volume-27,1016920.html",
+"url": "https://www.kana.fr/produit/undead-unluck-t27/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782375066256",
@@ -73051,27 +72886,6 @@
 "prix": 12.5
 },
 {
-"id": "ed:9791070250204",
-"title": "Hima-Ten! - Tome 3",
-"authors": [
-"Genki Ono"
-],
-"publisher": "Panini",
-"date": "2026-11-04",
-"isbn": "9791070250204",
-"pages": 0,
-"format": "",
-"prix": 7.29,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/95/1017759.webp",
-"description": "Tenichi s'est engagé à faire le ménage chez Kanna, juste une journée. Alors qu'il l'aide à déballer ses affaires, il découvre l'inattendu secret de la jeune fille ! Et lors d'un camp scolaire plein d'émotions, Tenichi et Honoka se...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/hima-ten!/volume-3,1017759.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:9782246843351",
 "title": "Hitler et les journalistes",
 "authors": [
@@ -74037,15 +73851,15 @@
 "isbn": "9782810210909",
 "pages": 0,
 "format": "",
-"prix": 13.9,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/36/les_chants_du_cygne_noir_21039863.webp",
+"cover": "https://medias.edl.li/gecko/couv/prod/9782810210909_C.jpg",
 "description": "Alors que le Cygne Noir, ethernef pirate commandé par le capitaine Lohengrin, sillonne le Ring à la recherche d'un mystérieux artefact extra-terrestre, une violente tempête endommage le vaisseau et le contraint à atterrir sur un...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/les+chants+du+cygne+noir/volume-2,1039863.html",
+"url": "https://www.editions-ruedesevres.fr/Les-Chants-du-Cygne-Noir-T2",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:ruedesevres",
+"prix": 13.9
 },
 {
 "id": "ll:26642309",
@@ -75030,21 +74844,21 @@
 "id": "ed:9782810207657",
 "title": "Piqués en plein cœur",
 "authors": [],
-"publisher": "Le Renard doré",
+"publisher": "Rue de Sèvres",
 "date": "2026-11-04",
 "isbn": "9782810207657",
 "pages": 0,
 "format": "",
-"prix": 9.9,
-"cover": "https://www.nautiljon.com/images/manga_volumes/00/19/piques_en_plein_coeur_152491.webp",
+"cover": "https://medias.edl.li/gecko/couv/prod/9782810207657_C.jpg",
 "description": "",
 "rayons": [
 "Manga",
 "One-shot"
 ],
-"url": "https://www.nautiljon.com/mangas/piqués+en+plein+cœur/volume-1,52491.html",
+"url": "https://www.editions-ruedesevres.fr/Piques-en-plein-coeur",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:ruedesevres",
+"prix": 9.9
 },
 {
 "id": "ll:26596235",
@@ -75377,28 +75191,6 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/soïchi/volume-2,1039576.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
-"id": "ed:9782353484577",
-"title": "Tamami la fillette démoniaque - Tome 1",
-"authors": [
-"Kazuo Umezu",
-"Kazuo Umezz"
-],
-"publisher": "Le Lézard Noir",
-"date": "2026-11-04",
-"isbn": "9782353484577",
-"pages": 0,
-"format": "",
-"prix": 15.0,
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/02/tamami_la_fillette_demoniaque_11040220.webp",
-"description": "Yoko, une petite fille séparée de ses parents depuis sa naissance, est enfin autorisée à les rejoindre. Après une vie solitaire passée dans un foyer, elle est ravie de pouvoir vivre avec ses parents dans une élégante maison...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/tamami+la+fillette+démoniaque/volume-1,1040220.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -77454,15 +77246,15 @@
 "isbn": "9782505144786",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/46/boruto_-_two_blue_vortex_71030964.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505144786-couv-M300x425.jpg",
 "description": "Sarada éveille le Mangekyô Sharingan, un pouvoir qu’elle avait inconsciemment scellé ! Elle commence sa riposte contre Ryû qui possède une force écrasante et manipule la limaille de fer !! De son côté, Boruto prend enfin part au...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/boruto+-+two+blue+vortex/volume-7,1030964.html",
+"url": "https://www.kana.fr/produit/boruto-two-blue-vortex-t7/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782808514330",
@@ -77505,7 +77297,7 @@
 },
 {
 "id": "ed:9782505142034",
-"title": "Death Note - Tome 7 (Black Edition)",
+"title": "DEATH NOTE - BLACK EDITION - Tome 7",
 "authors": [
 "Ohba Tsugumi"
 ],
@@ -77514,15 +77306,15 @@
 "isbn": "9782505142034",
 "pages": 0,
 "format": "",
-"prix": 13.25,
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/19/death_note_7_black_edition1041791.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505142034-couv-M300x425.jpg",
 "description": "Découvrez dans ce recueil une compilation de 6 histoires courtes, qui nous replongent dans l’univers de Death Note, plusieurs années après la défaite de Kira face à Near ! Les dieux de la mort continuent de se jouer des humains, et...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/death+note/volume-7,1041791.html",
+"url": "https://www.kana.fr/produit/death-note-black-edition-t7/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 13.25
 },
 {
 "id": "ed:9782021627442",
@@ -77655,15 +77447,15 @@
 "isbn": "9782505144656",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/72/kagurabachi_111035827.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505144656-couv-M300x425.jpg",
 "description": "Azami a beau frapper sans se ménager, la puissance écrasante du Shinuchi, manié par Yura, le met à mal. Pendant ce temps, Chihiro et Samura, qui se sont précipités sur les lieux dans l’espoir de renverser la situation, sont...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/kagurabachi/volume-11,1035827.html",
+"url": "https://www.kana.fr/produit/kagurabachi-t11/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ll:26642285",
@@ -77968,25 +77760,6 @@
 "prix": 16.9
 },
 {
-"id": "ed:9782808703772",
-"title": "Mon apocalypse chérie - Tome 1",
-"authors": [],
-"publisher": "",
-"date": "2026-11-06",
-"isbn": "9782808703772",
-"pages": 0,
-"format": "",
-"prix": 8.35,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/82/kimi_wa_shuumatsu_11031828.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/mon+apocalypse+chérie/volume-1,1031828.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ll:26612739",
 "title": "Mondes sauvages",
 "authors": [
@@ -78113,48 +77886,6 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/on+n-est+pas+ensemble/volume-12,976674.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
-"id": "ed:9782487892453",
-"title": "On n'est pas ensemble - Tome 7",
-"authors": [
-"Maya Miyazaki"
-],
-"publisher": "Clair de Lune",
-"date": "2026-11-06",
-"isbn": "9782487892453",
-"pages": 0,
-"format": "",
-"prix": 7.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/96/on_n_est_pas_ensemble_7976669.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/on+n-est+pas+ensemble/volume-7,976669.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
-"id": "ed:9782487892460",
-"title": "On n'est pas ensemble - Tome 8",
-"authors": [
-"Maya Miyazaki"
-],
-"publisher": "Clair de Lune",
-"date": "2026-11-06",
-"isbn": "9782487892460",
-"pages": 0,
-"format": "",
-"prix": 7.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/07/on_n_est_pas_ensemble_8976670.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/on+n-est+pas+ensemble/volume-8,976670.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -78304,7 +78035,7 @@
 },
 {
 "id": "ed:9782505144298",
-"title": "Saint Seiya - Les Chevaliers du Zodiaque - Tome 9 (Final Edition)",
+"title": "Saint Seiya Final Edition - Tome 9",
 "authors": [
 "Masami Kurumada"
 ],
@@ -78313,15 +78044,15 @@
 "isbn": "9782505144298",
 "pages": 0,
 "format": "",
-"prix": 10.25,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/94/saint_seiya_-_les_chevaliers_du_zodiaque_9_final_edition988049.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505144298-couv-M300x425.jpg",
 "description": "Le Grand Pope, qui complotait l'assassinat d'Athéna et avait trompé le Sanctuaire, n’était autre que le chevalier d'Or des Gémeaux. Bien qu'ayant perdu ses cinq sens, Seiya continue de brûler son Cosmos... Le combat final pour...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/saint+seiya+-+les+chevaliers+du+zodiaque/volume-9,988049.html",
+"url": "https://www.kana.fr/produit/saint-seiya-final-edition-t9/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 10.25
 },
 {
 "id": "ed:9782808218092",
@@ -80083,7 +79814,6 @@
 "url": "https://www.hachette.fr/livre/il-divino-t02-9782384960187/",
 "kind": "bd",
 "source": "editeur:hachette",
-"date_autre": "2026-11-04",
 "prix": 7.2,
 "fiche": 1
 },
@@ -82197,7 +81927,7 @@
 },
 {
 "id": "ed:9782505132516",
-"title": "Basara - Tome 4 (Star Édition)",
+"title": "Basara (Star Edition) - Tome 4",
 "authors": [
 "Yumi Tamura"
 ],
@@ -82206,15 +81936,15 @@
 "isbn": "9782505132516",
 "pages": 0,
 "format": "",
-"prix": 9.25,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/59/basara_4_star_edition1037195.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505132516-couv-M300x425.jpg",
 "description": "Une course qui se transforme en chasse à l’homme… Un peuple sacrifié pour un dragon… Le Roi Bleu se délecte de divertissements cruels. La ville de l’enfer, Seiran, finit par tomber entre les mains de la troupe indépendantiste...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/basara/volume-4,1037195.html",
+"url": "https://www.kana.fr/produit/basara-star-edition-t4/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 9.25
 },
 {
 "id": "ed:9782870973431",
@@ -82319,15 +82049,15 @@
 "isbn": "9782505128496",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/39/hell_dogs_11041993.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505128496-couv-M300x425.jpg",
 "description": "« En tant qu’officier de police, serais-je capable des pires crimes ?! » Kanetaka du clan Tôshô, un yakuza talentueux, gravit les échelons pour atteindre le poste de remplaçant du sous-chef. Missionné à Okinawa par...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/hell+dogs/volume-1,1041993.html",
+"url": "https://www.kana.fr/produit/hell-dogs-t1/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782808703536",
@@ -82484,15 +82214,15 @@
 "isbn": "9782505143543",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/10/quatre_freres_pour_moi_141022401.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505143543-couv-M300x425.jpg",
 "description": "Ito est censée être « amie » avec Uratsuka, un garçon retors rencontré au cours privé, mais ce dernier lui fait une déclaration d’amour ?! Ito a envie de stopper Uratsuka, qui ne cesse de défier Gen qu’il considère comme son...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/quatre+frères+pour+moi+!/volume-14,1022401.html",
+"url": "https://www.kana.fr/produit/quatre-freres-pour-moi-t14/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782808201292",
@@ -82540,15 +82270,15 @@
 "isbn": "9782505144311",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/57/soara_et_les_batisseurs_fantastiques_61025175.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505144311-couv-M300x425.jpg",
 "description": "Soara et ses compagnons partent en quête du « seigneur des cieux », un dragon géant à trois têtes, avec pour double objectif de bâtir une paix durable dans le domaine des monstres et de retrouver Kahyô, la maîtresse de Kilik. La...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/soara+et+les+bâtisseurs+fantastiques/volume-6,1025175.html",
+"url": "https://www.kana.fr/produit/soara-et-les-batisseurs-fantastiques-t6/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782379507410",
@@ -83509,6 +83239,27 @@
 "source": "editeur:hachette",
 "fiche": 1,
 "prix": 7.9
+},
+{
+"id": "ed:9791070250204",
+"title": "Hima-Ten! - Tome 3",
+"authors": [
+"Genki Ono"
+],
+"publisher": "Panini",
+"date": "2026-11-18",
+"isbn": "9791070250204",
+"pages": 0,
+"format": "",
+"prix": 7.29,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/95/1017759.webp",
+"description": "Tenichi s'est engagé à faire le ménage chez Kanna, juste une journée. Alors qu'il l'aide à déballer ses affaires, il découvre l'inattendu secret de la jeune fille ! Et lors d'un camp scolaire plein d'émotions, Tenichi et Honoka se...",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/hima-ten!/volume-3,1017759.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9782017396208",
@@ -84966,8 +84717,29 @@
 "url": "https://www.hachette.fr/livre/sword-art-online-reaincrad-t02-9782384961054/",
 "kind": "bd",
 "source": "editeur:hachette",
-"date_autre": "2026-11-04",
 "prix": 7.5
+},
+{
+"id": "ed:9782353484577",
+"title": "Tamami la fillette démoniaque - Tome 1",
+"authors": [
+"Kazuo Umezu",
+"Kazuo Umezz"
+],
+"publisher": "Le Lézard Noir",
+"date": "2026-11-18",
+"isbn": "9782353484577",
+"pages": 0,
+"format": "",
+"prix": 15.0,
+"cover": "https://www.nautiljon.com/images/manga_volumes/13/02/tamami_la_fillette_demoniaque_11040220.webp",
+"description": "Yoko, une petite fille séparée de ses parents depuis sa naissance, est enfin autorisée à les rejoindre. Après une vie solitaire passée dans un foyer, elle est ravie de pouvoir vivre avec ses parents dans une élégante maison...",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/tamami+la+fillette+démoniaque/volume-1,1040220.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9791070250242",
@@ -86201,6 +85973,48 @@
 "prix": 21.0
 },
 {
+"id": "ed:9782487892453",
+"title": "On n'est pas ensemble - Tome 7",
+"authors": [
+"Maya Miyazaki"
+],
+"publisher": "Clair de Lune",
+"date": "2026-11-20",
+"isbn": "9782487892453",
+"pages": 0,
+"format": "",
+"prix": 7.95,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/96/on_n_est_pas_ensemble_7976669.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/on+n-est+pas+ensemble/volume-7,976669.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782487892460",
+"title": "On n'est pas ensemble - Tome 8",
+"authors": [
+"Maya Miyazaki"
+],
+"publisher": "Clair de Lune",
+"date": "2026-11-20",
+"isbn": "9782487892460",
+"pages": 0,
+"format": "",
+"prix": 7.95,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/07/on_n_est_pas_ensemble_8976670.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/on+n-est+pas+ensemble/volume-8,976670.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ed:9782377178056",
 "title": "Paper-bag is in love - Tome 2",
 "authors": [],
@@ -86300,7 +86114,7 @@
 },
 {
 "id": "ed:9782505142973",
-"title": "Tôgen Anki - La Légende du sang maudit - Tome 28",
+"title": "Tôgen Anki - La légende du sang maudit - Tome 28",
 "authors": [
 "Yura Urushibara"
 ],
@@ -86309,15 +86123,15 @@
 "isbn": "9782505142973",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/48/1030784.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505142973-couv-M300x425.jpg",
 "description": "Vaincu par la puissance écrasante de Tôgo Momoragi, membre de la « génération féroce » de l’Agence Momotarô, Shiki perd connaissance. Et, tandis que Yaoroshi, lui, se retrouve en mauvaise posture face à Natsuki Tôsui, un allié...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/tôgen+anki+-+la+légende+du+sang+maudit/volume-28,1030784.html",
+"url": "https://www.kana.fr/produit/togen-anki-la-legende-du-sang-maudit-t28/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782205215359",
@@ -86381,7 +86195,7 @@
 },
 {
 "id": "ed:9782505143062",
-"title": "Yu-Gi-Oh! - Tome 3 (Édition Millénium)",
+"title": "Yu-Gi-Oh! – Édition Millénium - Tome 3",
 "authors": [
 "Kazuki Takahashi"
 ],
@@ -86390,15 +86204,15 @@
 "isbn": "9782505143062",
 "pages": 0,
 "format": "",
-"prix": 13.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/00/77/yu-gi-oh_3_edition_millenium5477.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505143062-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/yu-gi-oh!/volume-3,5477.html",
+"url": "https://www.kana.fr/produit/yu-gi-oh-edition-millenium-t3/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 13.95
 },
 {
 "id": "ed:manganews:re-zero-re-vivre-dans-un-autre-monde-a-partir-de-zero-vol-18",
@@ -86987,15 +86801,15 @@
 "isbn": "9782505130710",
 "pages": 0,
 "format": "",
-"prix": 8.5,
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/69/1040796.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505130710-couv-M300x425.jpg",
 "description": "Les fleurs du magnolia de Yulan se cachent derrière ses feuilles. Comme les secrets inavouables des adultes derrière leurs lèvres. Les grandes personnes affirment toujours : « Vous, les enfants, vous ne pouvez pas comprendre. » Je me...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/dong-hua-chun+barbershop/volume-2,1040796.html",
+"url": "https://www.kana.fr/produit/dong-hua-chun-barbershop-t2/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.5
 },
 {
 "id": "ed:9791026857679",
@@ -87515,7 +87329,7 @@
 },
 {
 "id": "ed:9782505141020",
-"title": "Queen Millenia - Tome 1",
+"title": "Queen Millenia",
 "authors": [
 "Leiji Matsumoto"
 ],
@@ -87528,7 +87342,8 @@
 "cover": "https://www.nautiljon.com/images/manga_volumes/13/72/1043627.webp",
 "description": "Hajime vient de perdre ses parents dans un terrible accident. Alors qu’il entame son deuil, sa vie se retrouve encore plus chamboulée par l’arrivée de Yayoi. Cette magnifique jeune femme est en réalité la reine millénaire qui...",
 "rayons": [
-"Manga"
+"Manga",
+"One-shot"
 ],
 "url": "https://www.nautiljon.com/mangas/queen+millenia/volume-1,1043627.html",
 "kind": "bd",
@@ -88198,6 +88013,27 @@
 "prix": 7.2
 },
 {
+"id": "ed:9791043312243",
+"title": "Blue Period - Tome 19",
+"authors": [
+"Tsubasa Yamaguchi"
+],
+"publisher": "Pika",
+"date": "2026-12-02",
+"isbn": "9791043312243",
+"pages": 0,
+"format": "",
+"prix": 7.7,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/93/blue_period_191036839.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/blue+period/volume-19,1036839.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ll:26640182",
 "title": "Changer l'eau des fleurs - Édition Film",
 "authors": [
@@ -88793,7 +88629,7 @@
 "pages": 0,
 "format": "Poche",
 "cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253907602-001-X.jpeg",
-"description": "",
+"description": "«Dès les premières pages, il sait. Il est comme un chasseur qui suit une trace. Concentré, recueilli, il passe deux doigts de la main gauche sur sa lè",
 "rayons": [
 "Romans francophones",
 "Littérature Générale"
@@ -88801,6 +88637,7 @@
 "url": "https://www.hachette.fr/livre/lediteur-9782253907602/",
 "kind": "roman",
 "source": "editeur:hachette",
+"fiche": 1,
 "prix": 8.9
 },
 {
@@ -91132,7 +90969,7 @@
 },
 {
 "id": "ed:9782505140023",
-"title": "HUNTER × HUNTER - Tome 39",
+"title": "Hunter X Hunter - Tome 39",
 "authors": [
 "Yoshihiro Togashi"
 ],
@@ -91141,28 +90978,11 @@
 "isbn": "9782505140023",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/53/hunter_hunter_391039035.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505140023-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/hunter+×+hunter/volume-39,1039035.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
-"id": "ed:kana:hunter-x-hunter-t39",
-"title": "Hunter X Hunter - Tome 39",
-"authors": [],
-"publisher": "Kana",
-"date": "2026-12-04",
-"isbn": "",
-"pages": 0,
-"format": "",
-"cover": "",
-"description": "",
-"rayons": [],
 "url": "https://www.kana.fr/produit/hunter-x-hunter-t39/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -91402,15 +91222,15 @@
 "isbn": "9782505133940",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/51/march_comes_in_like_a_lion_181024515.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505133940-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/march+comes+in+like+a+lion/volume-18,1024515.html",
+"url": "https://www.kana.fr/produit/march-comes-in-like-a-lion-t18/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782377175123",
@@ -91508,15 +91328,15 @@
 "isbn": "9782505133926",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/81/1025218.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505133926-couv-M300x425.jpg",
 "description": "Scarlett et ses amis sont impliqués dans la guerre de succession du trône de Vanquish. Ils aident Al Flame à se débarrasser de son ennemi juré, le maléfique Vulganus, mais découvrent vite que le vrai danger est ailleurs… « Te...",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/princesse+puncheuse/volume-10,1025218.html",
+"url": "https://www.kana.fr/produit/princesse-puncheuse-t10/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782377178100",
@@ -91534,27 +91354,6 @@
 "Manga"
 ],
 "url": "https://www.nautiljon.com/mangas/reincarnated+as+a+sword/volume-18,1024870.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
-"id": "ed:9782505185208",
-"title": "SILENCE (Yoann Vornière) - Tome 8",
-"authors": [
-"Yoann Vorniere"
-],
-"publisher": "Kana",
-"date": "2026-12-04",
-"isbn": "9782505185208",
-"pages": 0,
-"format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/18/silence_yoann_vorniere_81038081.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/silence+(yoann+vornière)/volume-8,1038081.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
 },
@@ -91581,7 +91380,7 @@
 },
 {
 "id": "ed:9782505144175",
-"title": "Show-Ha Shoten! - Tome 10",
+"title": "Show-ha Shoten - Tome 10",
 "authors": [
 "Akinari Asakura"
 ],
@@ -91590,15 +91389,36 @@
 "isbn": "9782505144175",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/60/show-ha_shoten_101018306.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505144175-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/show-ha+shoten!/volume-10,1018306.html",
+"url": "https://www.kana.fr/produit/show-ha-shoten-t10/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
+},
+{
+"id": "ed:9782505185208",
+"title": "Silence - Tome 8",
+"authors": [
+"Yoann Vorniere"
+],
+"publisher": "Kana",
+"date": "2026-12-04",
+"isbn": "9782505185208",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782505185208-couv-M300x425.jpg",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.kana.fr/produit/silence-tome-8/",
+"kind": "bd",
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:9782205217421",
@@ -92419,7 +92239,7 @@
 },
 {
 "id": "ed:9782302108257",
-"title": "Paris Saint-Germain : Génération rouge et bleue T05 - Le Prix du rêve",
+"title": "Paris Saint-Germain : Génération rouge et bleu T05 - Le Prix du rêve",
 "authors": [
 "Mathieu Mariolle"
 ],
@@ -92689,15 +92509,15 @@
 "isbn": "9782505143529",
 "pages": 0,
 "format": "",
-"prix": 7.3,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/36/1033963.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505143529-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/apprenti+criminel/volume-10,1033963.html",
+"url": "https://www.kana.fr/produit/apprenti-criminel-t10/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 7.3
 },
 {
 "id": "ed:9782505140573",
@@ -92710,15 +92530,15 @@
 "isbn": "9782505140573",
 "pages": 0,
 "format": "",
-"prix": 8.5,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/14/1038441.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505140573-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/blades+of+the+guardians/volume-4,1038441.html",
+"url": "https://www.kana.fr/produit/blades-of-the-guardians-t4/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.5
 },
 {
 "id": "ed:9782808701082",
@@ -92793,15 +92613,15 @@
 "isbn": "9782505126232",
 "pages": 0,
 "format": "",
-"prix": 8.5,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/34/1038443.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505126232-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/kohva/volume-3,1038443.html",
+"url": "https://www.kana.fr/produit/kohva-t3/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.5
 },
 {
 "id": "ed:9782505127888",
@@ -92814,15 +92634,15 @@
 "isbn": "9782505127888",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/24/1038442.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505127888-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/le+secret+de+scarecrow/volume-6,1038442.html",
+"url": "https://www.kana.fr/produit/le-secret-de-scarecrow-t6/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:manganews:my-happy-marriage-light-novel-vol-7",
@@ -92846,7 +92666,7 @@
 },
 {
 "id": "ed:9782505144021",
-"title": "Samurai Deeper Kyo - Tome 11 (Star Édition)",
+"title": "Samurai Deeper Kyo Star Edition - Tome 11",
 "authors": [
 "Akimine Kamijô"
 ],
@@ -92855,15 +92675,15 @@
 "isbn": "9782505144021",
 "pages": 0,
 "format": "",
-"prix": 10.25,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/59/1017695.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505144021-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/samurai+deeper+kyo/volume-11,1017695.html",
+"url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t11/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 10.25
 },
 {
 "id": "ed:9782808706483",
@@ -92897,15 +92717,15 @@
 "isbn": "9782505143482",
 "pages": 0,
 "format": "",
-"prix": 8.1,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/67/1016976.webp",
+"cover": "https://bdi.dlpdomain.com/album/9782505143482-couv-M300x425.jpg",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.nautiljon.com/mangas/the+kingdoms+of+ruin/volume-13,1016976.html",
+"url": "https://www.kana.fr/produit/the-kingdoms-of-ruin-t13/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:kana",
+"prix": 8.1
 },
 {
 "id": "ed:manganews:your-forma-light-novel-vol-7",
@@ -94102,7 +93922,7 @@
 },
 {
 "id": "ed:9782203273429",
-"title": "L'Habitant de l'infini - Tome 15 (Édition Immortelle)",
+"title": "L'Habitant de l'infini - Tome 15 - Nouvelle édition",
 "authors": [
 "Hiroaki Samura"
 ],
@@ -94111,15 +93931,12 @@
 "isbn": "9782203273429",
 "pages": 0,
 "format": "",
-"prix": 13.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/62/l_habitant_de_l_infini_15_edition_immortelle1037626.webp",
+"cover": "",
 "description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/l-habitant+de+l-infini/volume-15,1037626.html",
+"rayons": [],
+"url": "https://www.casterman.com/Bande-dessinee/Catalogue/lhabitant-de-linfini-15-nouvelle-edition/9782203273429",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:casterman"
 },
 {
 "id": "ed:9782226518132",
@@ -95244,9 +95061,7 @@
 "format": "",
 "cover": "",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.casterman.com/Bande-dessinee/Catalogue/sukima-4/9782203303911",
 "kind": "bd",
 "source": "editeur:casterman"
@@ -99838,30 +99653,6 @@
 "url": "https://www.nautiljon.com/mangas/angel+heart+-+1st+season/volume-1,1043131.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
-},
-{
-"id": "ed:9791043312243",
-"title": "Blue Period T19",
-"authors": [
-"Tsubasa Yamaguchi"
-],
-"publisher": "Pika",
-"date": "2027-01-27",
-"isbn": "9791043312243",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/PIKA/2026/9791043312243-001-X.jpeg",
-"description": "Dans le cadre du programme universitaire, les élèves du département de peinture à l’huile se rendent à Kyôto pour le VOA, le traditionnel “voyage d’ob",
-"rayons": [
-"Mangas",
-"BD Mangas"
-],
-"url": "https://www.hachette.fr/livre/blue-period-t19-9791043312243/",
-"kind": "bd",
-"source": "editeur:hachette",
-"date_autre": "2026-12-02",
-"prix": 7.7,
-"fiche": 1
 },
 {
 "id": "ed:9782820355911",
