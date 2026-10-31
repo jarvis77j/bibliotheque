@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-10-31T14:03Z",
+"updated": "2026-10-31T18:55Z",
 "stats": {
 "precommandes": [
 12,
@@ -44,63 +44,63 @@
 },
 "uniques": 149,
 "libraire": {
-"pages_listes": 63,
-"echecs": 4,
-"secondes_listes": 478,
-"pages": 95,
-"reprises": 29,
+"pages_listes": 70,
+"echecs": 0,
+"secondes_listes": 453,
+"pages": 102,
+"reprises": 16,
 "fiches_lues": 2,
-"secondes": 774,
+"secondes": 676,
 "statut": "ok"
 },
 "suivi": {
 "hachette": {
-"dernier_essai": "2026-10-31T13:51Z",
+"dernier_essai": "2026-10-31T18:43Z",
 "secondes_complet": 385,
 "dernier_complet": "2026-10-31T07:09Z",
 "echecs": 0,
-"secondes_proche": 96,
-"dernier_proche": "2026-10-31T13:51Z"
+"secondes_proche": 97,
+"dernier_proche": "2026-10-31T18:43Z"
 },
 "glenat": {
-"dernier_essai": "2026-10-31T13:51Z",
+"dernier_essai": "2026-10-31T18:43Z",
 "secondes_complet": 66,
 "dernier_complet": "2026-10-31T07:09Z",
 "echecs": 0,
-"secondes_proche": 33,
-"dernier_proche": "2026-10-31T13:51Z"
+"secondes_proche": 34,
+"dernier_proche": "2026-10-31T18:43Z"
 },
 "seuil": {
-"dernier_essai": "2026-10-31T13:51Z",
+"dernier_essai": "2026-10-31T18:43Z",
 "secondes_complet": 31,
 "dernier_complet": "2026-10-31T07:09Z",
 "echecs": 0,
-"secondes_proche": 23,
-"dernier_proche": "2026-10-31T13:51Z"
+"secondes_proche": 15,
+"dernier_proche": "2026-10-31T18:43Z"
 },
 "src_manga": {
-"dernier_essai": "2026-10-31T13:51Z",
+"dernier_essai": "2026-10-31T18:43Z",
 "secondes_complet": 323,
 "dernier_complet": "2026-10-31T07:09Z",
 "echecs": 0,
-"secondes_proche": 131,
-"dernier_proche": "2026-10-31T13:51Z"
+"secondes_proche": 132,
+"dernier_proche": "2026-10-31T18:43Z"
 },
 "src_bd": {
-"dernier_essai": "2026-10-31T13:51Z",
+"dernier_essai": "2026-10-31T18:43Z",
 "secondes_complet": 124,
 "dernier_complet": "2026-10-27T14:37Z",
-"echecs": 20,
+"echecs": 21,
 "secondes_proche": 94,
 "dernier_proche": "2026-10-27T07:51Z"
 },
 "src_generale": {
-"dernier_essai": "2026-10-31T13:51Z",
+"dernier_essai": "2026-10-31T18:43Z",
 "secondes_complet": 229,
 "echecs": 0,
 "dernier_complet": "2026-10-31T07:09Z",
-"secondes_proche": 231,
-"dernier_proche": "2026-10-31T13:51Z"
+"secondes_proche": 240,
+"dernier_proche": "2026-10-31T18:43Z"
 }
 },
 "plan": [
@@ -115,7 +115,7 @@
 "hachette": {
 "pages": 33,
 "livres": 426,
-"secondes": 96,
+"secondes": 97,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -123,12 +123,12 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "glenat": {
 "pages": 11,
 "livres": 104,
-"secondes": 33,
+"secondes": 34,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -136,12 +136,12 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "seuil": {
 "pages": 5,
 "livres": 39,
-"secondes": 23,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -149,12 +149,12 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "nautiljon": {
 "pages": 3,
-"livres": 559,
-"secondes": 8,
+"livres": 561,
+"secondes": 9,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -162,12 +162,12 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "manganews": {
 "pages": 41,
-"livres": 95,
-"completes": 476,
+"livres": 94,
+"completes": 477,
 "ecartes": 3,
 "lus": 574,
 "secondes": 123,
@@ -178,7 +178,7 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "bdgest": {
 "pages": 10,
@@ -192,12 +192,12 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "dargaud": {
 "pages": 4,
 "livres": 0,
-"secondes": 12,
+"secondes": 13,
 "erreurs": 2,
 "statut": "erreur",
 "fenetre": [
@@ -205,12 +205,12 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "delcourt": {
 "pages": 8,
 "livres": 87,
-"secondes": 26,
+"secondes": 23,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -218,12 +218,12 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "soleil": {
 "pages": 6,
-"livres": 38,
-"secondes": 16,
+"livres": 37,
+"secondes": 18,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -231,7 +231,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "lombard": {
 "pages": 2,
@@ -244,7 +244,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "kana": {
 "pages": 8,
@@ -257,7 +257,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "casterman": {
 "pages": 1,
@@ -270,7 +270,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "ruedesevres": {
 "pages": 1,
@@ -283,12 +283,12 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "dupuis": {
 "pages": 1,
 "livres": 0,
-"secondes": 3,
+"secondes": 4,
 "erreurs": 0,
 "statut": "vide",
 "fenetre": [
@@ -296,7 +296,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "bedetheque": {
 "pages": 0,
@@ -310,7 +310,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "michellafon": {
 "pages": 39,
@@ -323,12 +323,12 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "jailu": {
 "pages": 1,
 "livres": 24,
-"secondes": 5,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -336,7 +336,7 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -349,7 +349,7 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "albinmichel": {
 "pages": 2,
@@ -362,7 +362,7 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "hugo": {
 "pages": 24,
@@ -375,12 +375,12 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "points": {
 "pages": 1,
 "livres": 17,
-"secondes": 4,
+"secondes": 2,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -388,12 +388,12 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "bayard": {
 "pages": 4,
 "livres": 12,
-"secondes": 10,
+"secondes": 12,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -401,7 +401,7 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "milan": {
 "pages": 5,
@@ -414,7 +414,7 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "conflits_dates": {
 "nombre": 2,
@@ -436,18 +436,18 @@
 }
 }
 ],
-"le": "2026-10-31T14:03Z"
+"le": "2026-10-31T18:55Z"
 },
 "fiches_lues": 30,
 "erreurs": 12
 },
-"secondes_editeurs": 735,
+"secondes_editeurs": 731,
 "dates_relues": {
 "fiches": 30,
 "changees": []
 },
-"editeurs_at": "2026-10-31T14:03Z",
-"listes": 475,
+"editeurs_at": "2026-10-31T18:55Z",
+"listes": 539,
 "lues": 2,
 "en_attente": 0,
 "plus_loin": "2027-05-05",
@@ -455,13 +455,13 @@
 "doublons": 71,
 "sources": {
 "leslibraires": {
-"pages_listes": 63,
-"echecs": 4,
-"secondes_listes": 478,
-"pages": 95,
-"reprises": 29,
+"pages_listes": 70,
+"echecs": 0,
+"secondes_listes": 453,
+"pages": 102,
+"reprises": 16,
 "fiches_lues": 2,
-"secondes": 774,
+"secondes": 676,
 "statut": "ok",
 "livres": 582
 },
@@ -469,61 +469,61 @@
 "statut": "ok",
 "livres": 426,
 "pages": 33,
-"secondes": 96,
+"secondes": 97,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 1399
 },
 "glenat": {
 "statut": "ok",
 "livres": 104,
 "pages": 11,
-"secondes": 33,
+"secondes": 34,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 266
 },
 "seuil": {
 "statut": "ok",
 "livres": 39,
 "pages": 5,
-"secondes": 23,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 94
 },
 "nautiljon": {
 "statut": "ok",
-"livres": 559,
+"livres": 561,
 "pages": 3,
-"secondes": 8,
+"secondes": 9,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
-"en_base": 1326
+"le": "2026-10-31T18:55Z",
+"en_base": 1328
 },
 "manganews": {
 "statut": "ok",
-"livres": 95,
+"livres": 94,
 "pages": 41,
 "secondes": 123,
 "erreurs": 0,
@@ -532,8 +532,8 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
-"en_base": 229
+"le": "2026-10-31T18:55Z",
+"en_base": 228
 },
 "bdgest": {
 "statut": "erreur",
@@ -546,50 +546,50 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 543
 },
 "dargaud": {
 "statut": "erreur",
 "livres": 0,
 "pages": 4,
-"secondes": 12,
+"secondes": 13,
 "erreurs": 2,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 21
 },
 "delcourt": {
 "statut": "ok",
 "livres": 87,
 "pages": 8,
-"secondes": 26,
+"secondes": 23,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 76
 },
 "soleil": {
 "statut": "ok",
-"livres": 38,
+"livres": 37,
 "pages": 6,
-"secondes": 16,
+"secondes": 18,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
-"en_base": 35
+"le": "2026-10-31T18:55Z",
+"en_base": 34
 },
 "lombard": {
 "statut": "ok",
@@ -602,7 +602,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 35
 },
 "kana": {
@@ -616,7 +616,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 83
 },
 "casterman": {
@@ -630,7 +630,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 27
 },
 "ruedesevres": {
@@ -644,21 +644,21 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 5
 },
 "dupuis": {
 "statut": "vide",
 "livres": 0,
 "pages": 1,
-"secondes": 3,
+"secondes": 4,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 10
 },
 "bedetheque": {
@@ -672,7 +672,7 @@
 "2026-08-01",
 "2027-05-05"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 0
 },
 "michellafon": {
@@ -686,21 +686,21 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 44
 },
 "jailu": {
 "statut": "ok",
 "livres": 24,
 "pages": 1,
-"secondes": 5,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 69
 },
 "bragelonne": {
@@ -714,7 +714,7 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 0
 },
 "albinmichel": {
@@ -728,7 +728,7 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 49
 },
 "hugo": {
@@ -742,35 +742,35 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 15
 },
 "points": {
 "statut": "ok",
 "livres": 17,
 "pages": 1,
-"secondes": 4,
+"secondes": 2,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 52
 },
 "bayard": {
 "statut": "ok",
 "livres": 12,
 "pages": 4,
-"secondes": 10,
+"secondes": 12,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 53
 },
 "milan": {
@@ -784,18 +784,18 @@
 "2026-10-17",
 "2026-12-15"
 ],
-"le": "2026-10-31T14:03Z",
+"le": "2026-10-31T18:55Z",
 "en_base": 41
 }
 },
-"duree_secondes": 1510,
+"duree_secondes": 1409,
 "prix": {
 "lus": 0,
 "trouves": 0,
-"avec_prix": 4145,
+"avec_prix": 4146,
 "reste": 0,
 "total": 5054,
-"auteurs_deduits": 31
+"auteurs_deduits": 0
 }
 },
 "books": [
@@ -7781,8 +7781,7 @@
 "url": "https://www.kana.fr/produit/beet-the-vandel-buster-t17/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:9782487850323",
@@ -7841,8 +7840,7 @@
 "url": "https://www.kana.fr/produit/blades-of-the-guardians-t3/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.5,
-"auteur_deduit": 1
+"prix": 8.5
 },
 {
 "id": "ed:9782808701068",
@@ -8303,8 +8301,7 @@
 "url": "https://www.kana.fr/produit/magilumiere-co-ltd-t10/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:manganews:my-happy-marriage-light-novel-vol-6",
@@ -8419,8 +8416,7 @@
 "url": "https://www.kana.fr/produit/princesse-puncheuse-t9/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:manganews:re-zero-re-vivre-dans-un-autre-monde-a-partir-de-zero-vol-17",
@@ -8633,8 +8629,7 @@
 "url": "https://www.kana.fr/produit/to-end-this-love-game-t7/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:bdgest:543375",
@@ -8671,8 +8666,7 @@
 "url": "https://www.kana.fr/produit/togen-anki-la-legende-du-sang-maudit-t27/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:9782021607864",
@@ -14271,8 +14265,7 @@
 "url": "https://www.kana.fr/produit/dong-hua-chun-barbershop-t1/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.5,
-"auteur_deduit": 1
+"prix": 8.5
 },
 {
 "id": "ed:9782808703932",
@@ -14604,8 +14597,7 @@
 "url": "https://www.kana.fr/produit/mission-yozakura-family-t28/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:9782505144250",
@@ -14624,8 +14616,7 @@
 "url": "https://www.kana.fr/produit/moriarty-t21/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:9782377176083",
@@ -14744,8 +14735,7 @@
 "url": "https://www.kana.fr/produit/pippira-note-tome-1/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 12.95,
-"auteur_deduit": 1
+"prix": 12.95
 },
 {
 "id": "ed:9782021618075",
@@ -14802,8 +14792,7 @@
 "url": "https://www.kana.fr/produit/saint-seiya-final-edition-t8/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 10.25,
-"auteur_deduit": 1
+"prix": 10.25
 },
 {
 "id": "ed:9782505142928",
@@ -14822,8 +14811,7 @@
 "url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t9/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 10.25,
-"auteur_deduit": 1
+"prix": 10.25
 },
 {
 "id": "ed:9782505143536",
@@ -15249,7 +15237,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "2,3, te voilà !",
+"title": "3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -19555,8 +19543,7 @@
 "url": "https://www.kana.fr/produit/boruto-two-blue-vortex-t6/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ll:26460449",
@@ -19598,8 +19585,7 @@
 "url": "https://www.kana.fr/produit/cest-de-lamour-crois-moi-t7/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:9782808703116",
@@ -20369,8 +20355,7 @@
 "url": "https://www.kana.fr/produit/the-kingdoms-of-ruin-t12/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:9782808702317",
@@ -24489,8 +24474,7 @@
 "url": "https://www.kana.fr/produit/basara-star-edition-t3/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 9.25,
-"auteur_deduit": 1
+"prix": 9.25
 },
 {
 "id": "ed:9782385033828",
@@ -24842,8 +24826,7 @@
 "url": "https://www.kana.fr/produit/kagurabachi-t10/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:9782382765999",
@@ -25497,8 +25480,7 @@
 "url": "https://www.kana.fr/produit/tokyo-cannabis-t8/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:9782385041359",
@@ -30141,8 +30123,7 @@
 "url": "https://www.kana.fr/produit/kohva-t2/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.5,
-"auteur_deduit": 1
+"prix": 8.5
 },
 {
 "id": "ed:9782808703659",
@@ -30774,8 +30755,7 @@
 "url": "https://www.kana.fr/produit/the-strange-house-t5/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:9782505144526",
@@ -35824,8 +35804,7 @@
 "url": "https://www.kana.fr/produit/saint-seiya-rerise-of-poseidon-t1/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:9782505142911",
@@ -36003,8 +35982,7 @@
 "url": "https://www.kana.fr/produit/the-elusive-samurai-t20/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:9782385031756",
@@ -36065,8 +36043,7 @@
 "url": "https://www.kana.fr/produit/yu-gi-oh-edition-millenium-t2/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 13.95,
-"auteur_deduit": 1
+"prix": 13.95
 },
 {
 "id": "ed:9791026822950",
@@ -39178,25 +39155,6 @@
 "source": "editeur:michellafon"
 },
 {
-"id": "ed:9782302105645",
-"title": "Conquêtes T11 - Silice",
-"authors": [
-"Nicolas Jarry"
-],
-"publisher": "Soleil",
-"date": "2026-10-01",
-"isbn": "9782302105645",
-"pages": 0,
-"format": "",
-"cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302105645.jpg?itok=VORUh7Fo",
-"description": "",
-"rayons": [],
-"url": "https://www.editions-soleil.fr/bd/series/serie-conquetes/album-conquetes-t11",
-"kind": "bd",
-"source": "editeur:soleil",
-"prix": 16.5
-},
-{
 "id": "ll:26621318",
 "title": "Consonno",
 "authors": [
@@ -40711,8 +40669,7 @@
 "url": "https://www.kana.fr/produit/atom-the-beginning-t22/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:9782808515245",
@@ -40981,8 +40938,7 @@
 "url": "https://www.kana.fr/produit/gamaran-le-tournoi-ultime-t30/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:9782390041641",
@@ -42012,8 +41968,7 @@
 "url": "https://www.kana.fr/produit/yoru-ni-kikasete-t2/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:9782021631593",
@@ -51127,8 +51082,7 @@
 "url": "https://www.kana.fr/produit/crows-t8/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:9782386435003",
@@ -51268,8 +51222,7 @@
 "url": "https://www.kana.fr/produit/esquisses-de-nos-coeurs-en-devenir-t3/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:9791041426690",
@@ -51405,8 +51358,7 @@
 "url": "https://www.kana.fr/produit/kujo-limplacable-t14/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:9791041428557",
@@ -59553,8 +59505,7 @@
 "url": "https://www.kana.fr/produit/yume-ka-utsutsu-ka-t1/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 7.3,
-"auteur_deduit": 1
+"prix": 7.3
 },
 {
 "id": "ed:manganews:sommet-des-dieux-le-integrale",
@@ -59593,8 +59544,7 @@
 "url": "https://www.kana.fr/produit/serenade-pour-une-pluie-de-larmes-t7/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 8.1,
-"auteur_deduit": 1
+"prix": 8.1
 },
 {
 "id": "ed:9782386434112",
@@ -66434,7 +66384,7 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26537239-6-acotar-tome-6-un-palais-d-harmonie-brisee-un-palais-d-harmonie-brisee-sarah-j-maas-martiniere-f",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "kind": "fantasy",
 "prix": 20.0
 },
@@ -66653,7 +66603,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26468443-bunny-le-livre-phenomene-tiktok-au-succes-planetaire-traduit-en-francais-et-disponible-en-poche-collector-mona-awad-harpercollins",
 "kind": "fantasy",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 10.9
 },
 {
@@ -66752,7 +66702,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26657228-ce-beau-pays-maudit-491-jours-dans-les-geoles-de-poutine-evan-gershkovich-grasset",
 "kind": "roman",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 26.0
 },
 {
@@ -66909,7 +66859,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26552565-dino-oiseau-quand-les-poules-avaient-des-dents-fleur-daugey-actes-sud",
 "kind": "jeunesse",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 19.5
 },
 {
@@ -67611,7 +67561,7 @@
 "L'été de Bérénice"
 ],
 "url": "https://www.leslibraires.fr/livre/26640046-l-ete-de-berenice-emilie-tronche-casterman",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "kind": "bd"
 },
 {
@@ -67658,7 +67608,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26640026-la-douceur-du-cafe-toshikazu-kawaguchi-le-livre-de-poche",
 "kind": "roman",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 8.4
 },
 {
@@ -67877,7 +67827,7 @@
 "vérité de Pinocchio (La), 1, La vérité de Pinocchio - histoire complète"
 ],
 "url": "https://www.leslibraires.fr/livre/26603245-verite-de-pinocchio-la-1-la-verite-de-pinocchio-histoire-complete-malnati-tillier-bamboo",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "kind": "bd"
 },
 {
@@ -68031,7 +67981,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26526287-1-leonid-petrov-t1-edition-halloween-nanou-ad-eden-city-ed",
 "kind": "romance",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 26.9
 },
 {
@@ -68137,7 +68087,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26468152-les-irresponsables-qui-a-porte-hitler-au-pouvoir--johann-chapoutot-philippe-girard-casterman",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 23.0
 },
 {
@@ -68228,7 +68178,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/10185100-les-sept-soeurs-bd--riley-carbone-albin-michel",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 22.9
 },
 {
@@ -68252,7 +68202,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26602407-sisters-les-21-les-sisters-tome-21-a-la-sauce-marinade--cazenove-william-bamboo",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 11.9
 },
 {
@@ -68277,7 +68227,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26640064-les-techno-prophetes-l-intelligence-artificielle-face-aux-limites-planetaires-vincent-perriot-casterman",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 29.0
 },
 {
@@ -68583,7 +68533,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26635532-love-and-bad-predictions-emilie-parizot-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 19.0
 },
 {
@@ -68956,7 +68906,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26633515-the-royal-thorns-2-nostalgia-the-royal-thorns-tome-02-lea-nemezia-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 8.9
 },
 {
@@ -69226,7 +69176,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26633549-9-sorceline-tome-09-professeur-balzar-et-mister-vorn-douye-antista-vents-d-ouest",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 12.5
 },
 {
@@ -69823,7 +69773,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26548010-facteur-x-comment-l-industrie-chimique-nous-cache-la-verite-camille-etienne-les-arenes",
 "kind": "",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 20.0
 },
 {
@@ -69889,7 +69839,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26520149-la-vie-au-bout-des-doigts-penelope-les-grandes-personnes",
 "kind": "jeunesse",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 22.5
 },
 {
@@ -70122,7 +70072,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26520082-sous-le-grand-chene-le-voyage-d-une-vie-le-voyage-d-une-vie-elena-selena-les-grandes-personnes",
 "kind": "jeunesse",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 24.5
 },
 {
@@ -70232,7 +70182,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26546195-warszawa-sophie-marceau-seghers",
 "kind": "roman",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 20.0
 },
 {
@@ -70379,7 +70329,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26460898-4-bellatrix-tome-4-leo-dargaud",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 15.0
 },
 {
@@ -70403,7 +70353,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623329-15-blake-mortimer-hors-serie-tome-15-affaires-classees-sente-pelaez-felix-blake-et-mortimer",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 20.0
 },
 {
@@ -70427,7 +70377,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622953-1-blake-mortimer-tome-1-le-secret-de-l-espadon-tome-1-edgar-p-jacobs-blake-et-mortimer",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 30.0
 },
 {
@@ -70537,7 +70487,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622748-cybele-katia-lanero-zamora-aux-forges-de-vulcain",
 "kind": "roman",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 21.0
 },
 {
@@ -70580,7 +70530,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622909-demeure-diglee-maureen-wingrove-la-ville-brule",
 "kind": "",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 20.0
 },
 {
@@ -70771,27 +70721,8 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26622996-22-kid-paddle-tome-22-ice-scream-midam-dupuis",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 12.95
-},
-{
-"id": "ed:9782375064474",
-"title": "Killing Stalking - Tome 10",
-"authors": [],
-"publisher": "Taifu Comics",
-"date": "2026-10-30",
-"isbn": "9782375064474",
-"pages": 0,
-"format": "",
-"prix": 11.9,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/76/killing_stalking_10_edition_reliee_francaise1004867.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/killing+stalking/volume-10,1004867.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9782021620474",
@@ -70834,7 +70765,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623551-l-espion-utile-william-boyd-seuil",
 "kind": "roman",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 23.0
 },
 {
@@ -70939,7 +70870,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623799-10-le-loup-en-slip-tome-10-echec-et-mites-lupano-itoiz-dargaud",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 12.95
 },
 {
@@ -71047,7 +70978,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623471-2-love-bullet-tome-2-inee-vega-dupuis",
 "kind": "bd",
-"lu": "2026-10-30",
+"lu": "2026-10-31",
 "prix": 8.35
 },
 {
@@ -74708,7 +74639,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26596235-price-of-legacy-anita-rigins-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-10-29",
+"lu": "2026-10-31",
 "prix": 8.9
 },
 {
@@ -75640,7 +75571,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26547453-13-a-table-2027-13eme-edition-collectif-collectif-pocket",
 "kind": "roman",
-"lu": "2026-10-29",
+"lu": "2026-10-31",
 "prix": 6.0
 },
 {
@@ -82192,6 +82123,25 @@
 "prix": 16.0
 },
 {
+"id": "ed:9782487488236",
+"title": "Voleur de mon cœur - Tome 9",
+"authors": [],
+"publisher": "K! World",
+"date": "2026-11-17",
+"isbn": "9782487488236",
+"pages": 0,
+"format": "",
+"prix": 8.95,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/30/1020803.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/voleur+de+mon+cœur/volume-9,1020803.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ll:26512387",
 "title": "\"C'est dans votre tête\"",
 "authors": [
@@ -85419,6 +85369,25 @@
 "url": "https://www.manga-news.com/index.php/manga/KaguRai-Kagura-et-Raito/vol-1",
 "kind": "bd",
 "source": "editeur:manganews"
+},
+{
+"id": "ed:9782375064474",
+"title": "Killing Stalking - Tome 10",
+"authors": [],
+"publisher": "Taifu Comics",
+"date": "2026-11-20",
+"isbn": "9782375064474",
+"pages": 0,
+"format": "",
+"prix": 11.9,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/76/killing_stalking_10_edition_reliee_francaise1004867.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/killing+stalking/volume-10,1004867.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9782375065099",
@@ -91898,24 +91867,25 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:manganews:guerisseuse-et-le-prince-redoute-la-vol-2",
+"id": "ed:9782385041335",
 "title": "La Guérisseuse et le Prince redouté - Tome 2",
 "authors": [
 "Kito En"
 ],
 "publisher": "Hot Manga",
 "date": "2026-12-10",
-"isbn": "",
+"isbn": "9782385041335",
 "pages": 0,
 "format": "",
-"cover": "",
+"prix": 16.95,
+"cover": "https://www.nautiljon.com/images/manga_volumes/13/03/1044330.webp",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.manga-news.com/index.php/manga/Guerisseuse-et-le-Prince-redoute-La/vol-2",
+"url": "https://www.nautiljon.com/mangas/la+guérisseuse+et+le+prince+redouté/volume-2,1044330.html",
 "kind": "bd",
-"source": "editeur:manganews"
+"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9782413087359",
