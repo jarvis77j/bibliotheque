@@ -1,22 +1,10 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-11-01T16:27Z",
+"updated": "2026-11-01T20:48Z",
 "stats": {
 "precommandes": [
 12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-12,
-5,
-12
+-1
 ],
 "nouveautes": [
 12,
@@ -34,7 +22,7 @@
 12
 ],
 "rayons": {
-"romance": "/dossiers/nouveautes-25-821432/",
+"romance": "introuvable",
 "fantasy": "/dossiers/nouveautes-25-821434/",
 "policier": "/dossiers/nouveautes-25-821433/",
 "ya": "/dossiers/nouveautes-25-746338/",
@@ -42,65 +30,65 @@
 "roman": "/dossiers/nouveautes-25-113534/",
 "jeunesse": "/dossiers/nouveautes-25-113821/"
 },
-"uniques": 149,
+"uniques": 12,
 "libraire": {
-"pages_listes": 69,
+"pages_listes": 54,
 "echecs": 3,
-"secondes_listes": 413,
-"pages": 117,
-"reprises": 16,
+"secondes_listes": 340,
+"pages": 74,
+"reprises": 8,
 "fiches_lues": 18,
-"secondes": 748,
+"secondes": 451,
 "statut": "ok"
 },
 "suivi": {
 "hachette": {
-"dernier_essai": "2026-11-01T16:14Z",
+"dernier_essai": "2026-11-01T20:36Z",
 "secondes_complet": 324,
 "dernier_complet": "2026-11-01T09:22Z",
 "echecs": 0,
-"secondes_proche": 96,
-"dernier_proche": "2026-11-01T16:14Z"
+"secondes_proche": 97,
+"dernier_proche": "2026-11-01T20:36Z"
 },
 "glenat": {
-"dernier_essai": "2026-11-01T16:14Z",
+"dernier_essai": "2026-11-01T20:36Z",
 "secondes_complet": 57,
 "dernier_complet": "2026-11-01T09:22Z",
 "echecs": 0,
-"secondes_proche": 34,
-"dernier_proche": "2026-11-01T16:14Z"
+"secondes_proche": 33,
+"dernier_proche": "2026-11-01T20:36Z"
 },
 "seuil": {
-"dernier_essai": "2026-11-01T16:14Z",
+"dernier_essai": "2026-11-01T20:36Z",
 "secondes_complet": 27,
 "dernier_complet": "2026-11-01T09:22Z",
 "echecs": 0,
-"secondes_proche": 20,
-"dernier_proche": "2026-11-01T16:14Z"
+"secondes_proche": 15,
+"dernier_proche": "2026-11-01T20:36Z"
 },
 "src_manga": {
-"dernier_essai": "2026-11-01T16:14Z",
+"dernier_essai": "2026-11-01T20:36Z",
 "secondes_complet": 271,
 "dernier_complet": "2026-11-01T09:22Z",
 "echecs": 0,
-"secondes_proche": 133,
-"dernier_proche": "2026-11-01T16:14Z"
+"secondes_proche": 132,
+"dernier_proche": "2026-11-01T20:36Z"
 },
 "src_bd": {
-"dernier_essai": "2026-11-01T16:14Z",
+"dernier_essai": "2026-11-01T20:36Z",
 "secondes_complet": 124,
 "dernier_complet": "2026-10-27T14:37Z",
-"echecs": 25,
+"echecs": 26,
 "secondes_proche": 94,
 "dernier_proche": "2026-10-27T07:51Z"
 },
 "src_generale": {
-"dernier_essai": "2026-11-01T16:14Z",
+"dernier_essai": "2026-11-01T20:36Z",
 "secondes_complet": 234,
 "echecs": 0,
 "dernier_complet": "2026-11-01T09:22Z",
-"secondes_proche": 230,
-"dernier_proche": "2026-11-01T16:14Z"
+"secondes_proche": 234,
+"dernier_proche": "2026-11-01T20:36Z"
 }
 },
 "plan": [
@@ -115,7 +103,7 @@
 "hachette": {
 "pages": 33,
 "livres": 426,
-"secondes": 96,
+"secondes": 97,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -123,12 +111,12 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "glenat": {
 "pages": 11,
 "livres": 104,
-"secondes": 34,
+"secondes": 33,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -136,12 +124,12 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "seuil": {
 "pages": 5,
 "livres": 39,
-"secondes": 20,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -149,7 +137,7 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "nautiljon": {
 "pages": 3,
@@ -162,7 +150,7 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "manganews": {
 "pages": 41,
@@ -170,7 +158,7 @@
 "completes": 477,
 "ecartes": 3,
 "lus": 574,
-"secondes": 124,
+"secondes": 123,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -178,12 +166,12 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "bdgest": {
 "pages": 10,
 "livres": 0,
-"secondes": 30,
+"secondes": 29,
 "erreurs": 10,
 "rapproches": 0,
 "statut": "erreur",
@@ -192,12 +180,12 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "dargaud": {
 "pages": 5,
 "livres": 21,
-"secondes": 15,
+"secondes": 16,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -205,12 +193,12 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "delcourt": {
 "pages": 8,
 "livres": 87,
-"secondes": 26,
+"secondes": 25,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -218,12 +206,12 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "soleil": {
 "pages": 6,
 "livres": 37,
-"secondes": 18,
+"secondes": 17,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -231,12 +219,12 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "lombard": {
 "pages": 2,
 "livres": 32,
-"secondes": 5,
+"secondes": 6,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -244,7 +232,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "kana": {
 "pages": 7,
@@ -257,7 +245,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "casterman": {
 "pages": 1,
@@ -270,7 +258,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "ruedesevres": {
 "pages": 1,
@@ -283,7 +271,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "dupuis": {
 "pages": 1,
@@ -296,7 +284,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "bedetheque": {
 "pages": 0,
@@ -310,7 +298,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "michellafon": {
 "pages": 39,
@@ -323,20 +311,20 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "jailu": {
 "pages": 1,
-"livres": 0,
-"secondes": 1,
+"livres": 24,
+"secondes": 4,
 "erreurs": 0,
-"statut": "vide",
+"statut": "ok",
 "fenetre": [
 "proche",
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -349,7 +337,7 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "albinmichel": {
 "pages": 2,
@@ -362,7 +350,7 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "hugo": {
 "pages": 24,
@@ -375,12 +363,12 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "points": {
 "pages": 2,
 "livres": 17,
-"secondes": 5,
+"secondes": 6,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -388,12 +376,12 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "bayard": {
 "pages": 4,
 "livres": 12,
-"secondes": 12,
+"secondes": 11,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -401,7 +389,7 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "milan": {
 "pages": 5,
@@ -414,7 +402,7 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "conflits_dates": {
 "nombre": 2,
@@ -436,18 +424,18 @@
 }
 }
 ],
-"le": "2026-11-01T16:27Z"
+"le": "2026-11-01T20:48Z"
 },
 "fiches_lues": 30,
 "erreurs": 10
 },
-"secondes_editeurs": 725,
+"secondes_editeurs": 723,
 "dates_relues": {
-"fiches": 30,
+"fiches": 2,
 "changees": []
 },
-"editeurs_at": "2026-11-01T16:27Z",
-"listes": 529,
+"editeurs_at": "2026-11-01T20:48Z",
+"listes": 369,
 "lues": 18,
 "en_attente": 0,
 "plus_loin": "2027-05-06",
@@ -455,13 +443,13 @@
 "doublons": 71,
 "sources": {
 "leslibraires": {
-"pages_listes": 69,
+"pages_listes": 54,
 "echecs": 3,
-"secondes_listes": 413,
-"pages": 117,
-"reprises": 16,
+"secondes_listes": 340,
+"pages": 74,
+"reprises": 8,
 "fiches_lues": 18,
-"secondes": 748,
+"secondes": 451,
 "statut": "ok",
 "livres": 562
 },
@@ -469,42 +457,42 @@
 "statut": "ok",
 "livres": 426,
 "pages": 33,
-"secondes": 96,
+"secondes": 97,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 1155
 },
 "glenat": {
 "statut": "ok",
 "livres": 104,
 "pages": 11,
-"secondes": 34,
+"secondes": 33,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 236
 },
 "seuil": {
 "statut": "ok",
 "livres": 39,
 "pages": 5,
-"secondes": 20,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 79
 },
 "nautiljon": {
@@ -518,91 +506,91 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 1145
 },
 "manganews": {
 "statut": "ok",
 "livres": 94,
 "pages": 41,
-"secondes": 124,
+"secondes": 123,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 200
 },
 "bdgest": {
 "statut": "erreur",
 "livres": 0,
 "pages": 10,
-"secondes": 30,
+"secondes": 29,
 "erreurs": 10,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 407
 },
 "dargaud": {
 "statut": "ok",
 "livres": 21,
 "pages": 5,
-"secondes": 15,
+"secondes": 16,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 21
 },
 "delcourt": {
 "statut": "ok",
 "livres": 87,
 "pages": 8,
-"secondes": 26,
+"secondes": 25,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 76
 },
 "soleil": {
 "statut": "ok",
 "livres": 37,
 "pages": 6,
-"secondes": 18,
+"secondes": 17,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 34
 },
 "lombard": {
 "statut": "ok",
 "livres": 32,
 "pages": 2,
-"secondes": 5,
+"secondes": 6,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 30
 },
 "kana": {
@@ -616,7 +604,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 67
 },
 "casterman": {
@@ -630,7 +618,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 27
 },
 "ruedesevres": {
@@ -644,7 +632,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 5
 },
 "dupuis": {
@@ -658,7 +646,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 10
 },
 "bedetheque": {
@@ -672,7 +660,7 @@
 "2026-09-01",
 "2027-05-06"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 0
 },
 "michellafon": {
@@ -686,21 +674,21 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 39
 },
 "jailu": {
-"statut": "vide",
-"livres": 0,
+"statut": "ok",
+"livres": 24,
 "pages": 1,
-"secondes": 1,
+"secondes": 4,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 66
 },
 "bragelonne": {
@@ -714,7 +702,7 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 0
 },
 "albinmichel": {
@@ -728,7 +716,7 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 49
 },
 "hugo": {
@@ -742,35 +730,35 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 15
 },
 "points": {
 "statut": "ok",
 "livres": 17,
 "pages": 2,
-"secondes": 5,
+"secondes": 6,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 51
 },
 "bayard": {
 "statut": "ok",
 "livres": 12,
 "pages": 4,
-"secondes": 12,
+"secondes": 11,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 53
 },
 "milan": {
@@ -784,11 +772,11 @@
 "2026-10-18",
 "2026-12-16"
 ],
-"le": "2026-11-01T16:27Z",
+"le": "2026-11-01T20:48Z",
 "en_base": 41
 }
 },
-"duree_secondes": 1474,
+"duree_secondes": 1176,
 "prix": {
 "lus": 0,
 "trouves": 0,
@@ -894,7 +882,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "2,3, te voilà !",
+"title": "3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -55447,7 +55435,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26548010-facteur-x-comment-l-industrie-chimique-nous-cache-la-verite-camille-etienne-les-arenes",
 "kind": "",
-"lu": "2026-10-31",
+"lu": "2026-11-01",
 "prix": 20.0
 },
 {
@@ -55856,7 +55844,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26546195-warszawa-sophie-marceau-seghers",
 "kind": "roman",
-"lu": "2026-10-31",
+"lu": "2026-11-01",
 "prix": 20.0
 },
 {
