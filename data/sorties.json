@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-11-07T07:32Z",
+"updated": "2026-11-07T14:19Z",
 "stats": {
 "precommandes": [
 12,
@@ -35,68 +35,68 @@
 "policier": "/dossiers/nouveautes-25-821433/",
 "ya": "/dossiers/nouveautes-25-746338/",
 "bd": "/dossiers/nouveautes-25-113870/",
-"roman": "/dossiers/nouveautes-25-113534/",
-"jeunesse": "/dossiers/nouveautes-25-113821/"
+"roman": "introuvable",
+"jeunesse": "introuvable"
 },
 "uniques": 106,
 "libraire": {
-"pages_listes": 69,
-"echecs": 1,
-"secondes_listes": 425,
-"pages": 118,
-"reprises": 14,
-"fiches_lues": 19,
-"secondes": 733,
+"pages_listes": 50,
+"echecs": 3,
+"secondes_listes": 308,
+"pages": 98,
+"reprises": 8,
+"fiches_lues": 18,
+"secondes": 569,
 "statut": "ok"
 },
 "suivi": {
 "hachette": {
-"dernier_essai": "2026-11-07T07:18Z",
+"dernier_essai": "2026-11-07T14:08Z",
 "secondes_complet": 338,
 "dernier_complet": "2026-11-06T21:03Z",
 "echecs": 0,
-"secondes_proche": 76,
-"dernier_proche": "2026-11-07T07:18Z"
+"secondes_proche": 75,
+"dernier_proche": "2026-11-07T14:08Z"
 },
 "glenat": {
-"dernier_essai": "2026-11-07T07:18Z",
+"dernier_essai": "2026-11-07T14:08Z",
 "secondes_complet": 67,
 "dernier_complet": "2026-11-06T21:03Z",
 "echecs": 0,
-"secondes_proche": 35,
-"dernier_proche": "2026-11-07T07:18Z"
+"secondes_proche": 36,
+"dernier_proche": "2026-11-07T14:08Z"
 },
 "seuil": {
-"dernier_essai": "2026-11-07T07:18Z",
+"dernier_essai": "2026-11-07T14:08Z",
 "secondes_complet": 27,
 "dernier_complet": "2026-11-06T21:03Z",
 "echecs": 0,
 "secondes_proche": 16,
-"dernier_proche": "2026-11-07T07:18Z"
+"dernier_proche": "2026-11-07T14:08Z"
 },
 "src_manga": {
-"dernier_essai": "2026-11-07T07:18Z",
+"dernier_essai": "2026-11-07T14:08Z",
 "secondes_complet": 284,
 "dernier_complet": "2026-11-06T21:03Z",
 "echecs": 0,
 "secondes_proche": 132,
-"dernier_proche": "2026-11-07T07:18Z"
+"dernier_proche": "2026-11-07T14:08Z"
 },
 "src_bd": {
-"dernier_essai": "2026-11-07T07:18Z",
-"secondes_complet": 131,
+"dernier_essai": "2026-11-07T14:08Z",
+"secondes_complet": 125,
 "dernier_complet": "2026-10-27T14:37Z",
-"echecs": 45,
+"echecs": 46,
 "secondes_proche": 94,
 "dernier_proche": "2026-10-27T07:51Z"
 },
 "src_generale": {
-"dernier_essai": "2026-11-07T07:18Z",
+"dernier_essai": "2026-11-07T14:08Z",
 "secondes_complet": 348,
 "echecs": 0,
 "dernier_complet": "2026-11-06T21:03Z",
-"secondes_proche": 344,
-"dernier_proche": "2026-11-07T07:18Z"
+"secondes_proche": 233,
+"dernier_proche": "2026-11-07T14:08Z"
 }
 },
 "plan": [
@@ -111,7 +111,7 @@
 "hachette": {
 "pages": 26,
 "livres": 338,
-"secondes": 76,
+"secondes": 75,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -119,12 +119,12 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "glenat": {
 "pages": 12,
 "livres": 82,
-"secondes": 35,
+"secondes": 36,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -132,7 +132,7 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "seuil": {
 "pages": 5,
@@ -145,11 +145,11 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "nautiljon": {
 "pages": 3,
-"livres": 487,
+"livres": 488,
 "secondes": 9,
 "erreurs": 0,
 "statut": "ok",
@@ -158,7 +158,7 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "manganews": {
 "pages": 41,
@@ -174,12 +174,12 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "bdgest": {
 "pages": 10,
 "livres": 0,
-"secondes": 27,
+"secondes": 30,
 "erreurs": 10,
 "rapproches": 0,
 "statut": "erreur",
@@ -188,7 +188,7 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "dargaud": {
 "pages": 5,
@@ -201,11 +201,11 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "delcourt": {
 "pages": 9,
-"livres": 77,
+"livres": 89,
 "secondes": 27,
 "erreurs": 0,
 "statut": "ok",
@@ -214,11 +214,11 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "soleil": {
 "pages": 5,
-"livres": 32,
+"livres": 34,
 "secondes": 15,
 "erreurs": 0,
 "statut": "ok",
@@ -227,7 +227,7 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "lombard": {
 "pages": 2,
@@ -240,7 +240,7 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "kana": {
 "pages": 7,
@@ -253,12 +253,12 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "casterman": {
 "pages": 1,
 "livres": 29,
-"secondes": 13,
+"secondes": 3,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -266,12 +266,12 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "ruedesevres": {
 "pages": 1,
 "livres": 4,
-"secondes": 1,
+"secondes": 3,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -279,7 +279,7 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "dupuis": {
 "pages": 1,
@@ -292,7 +292,7 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "bedetheque": {
 "pages": 0,
@@ -306,12 +306,12 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "michellafon": {
 "pages": 39,
 "livres": 18,
-"secondes": 116,
+"secondes": 117,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -319,12 +319,12 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "jailu": {
 "pages": 1,
 "livres": 23,
-"secondes": 4,
+"secondes": 3,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -332,7 +332,7 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -345,7 +345,7 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "albinmichel": {
 "pages": 2,
@@ -358,12 +358,12 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "hugo": {
 "pages": 23,
 "livres": 6,
-"secondes": 70,
+"secondes": 69,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -371,12 +371,12 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "points": {
 "pages": 1,
 "livres": 13,
-"secondes": 2,
+"secondes": 6,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -384,33 +384,33 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "bayard": {
-"pages": 1,
+"pages": 4,
 "livres": 9,
-"secondes": 73,
-"erreurs": 1,
-"statut": "partiel",
+"secondes": 14,
+"erreurs": 0,
+"statut": "ok",
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "milan": {
-"pages": 1,
+"pages": 5,
 "livres": 6,
-"secondes": 71,
-"erreurs": 1,
-"statut": "partiel",
+"secondes": 15,
+"erreurs": 0,
+"statut": "ok",
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "conflits_dates": {
 "nombre": 2,
@@ -432,12 +432,12 @@
 }
 }
 ],
-"le": "2026-11-07T07:32Z"
+"le": "2026-11-07T14:19Z"
 },
 "fiches_lues": 25,
-"erreurs": 12
+"erreurs": 10
 },
-"secondes_editeurs": 807,
+"secondes_editeurs": 691,
 "dates_relues": {
 "fiches": 30,
 "changees": []
@@ -453,22 +453,22 @@
 }
 ]
 },
-"editeurs_at": "2026-11-07T07:32Z",
-"listes": 515,
-"lues": 19,
+"editeurs_at": "2026-11-07T14:19Z",
+"listes": 377,
+"lues": 18,
 "en_attente": 0,
 "plus_loin": "2027-05-14",
 "nettoyes": 1,
-"doublons": 61,
+"doublons": 65,
 "sources": {
 "leslibraires": {
-"pages_listes": 69,
-"echecs": 1,
-"secondes_listes": 425,
-"pages": 118,
-"reprises": 14,
-"fiches_lues": 19,
-"secondes": 733,
+"pages_listes": 50,
+"echecs": 3,
+"secondes_listes": 308,
+"pages": 98,
+"reprises": 8,
+"fiches_lues": 18,
+"secondes": 569,
 "statut": "ok",
 "livres": 601
 },
@@ -476,28 +476,28 @@
 "statut": "ok",
 "livres": 338,
 "pages": 26,
-"secondes": 76,
+"secondes": 75,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 1235
 },
 "glenat": {
 "statut": "ok",
 "livres": 82,
 "pages": 12,
-"secondes": 35,
+"secondes": 36,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 281
 },
 "seuil": {
@@ -511,12 +511,12 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 79
 },
 "nautiljon": {
 "statut": "ok",
-"livres": 487,
+"livres": 488,
 "pages": 3,
 "secondes": 9,
 "erreurs": 0,
@@ -525,8 +525,8 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
-"en_base": 1141
+"le": "2026-11-07T14:19Z",
+"en_base": 1137
 },
 "manganews": {
 "statut": "ok",
@@ -539,21 +539,21 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
-"en_base": 207
+"le": "2026-11-07T14:19Z",
+"en_base": 204
 },
 "bdgest": {
 "statut": "erreur",
 "livres": 0,
 "pages": 10,
-"secondes": 27,
+"secondes": 30,
 "erreurs": 10,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 407
 },
 "dargaud": {
@@ -567,12 +567,12 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 18
 },
 "delcourt": {
 "statut": "ok",
-"livres": 77,
+"livres": 89,
 "pages": 9,
 "secondes": 27,
 "erreurs": 0,
@@ -581,12 +581,12 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
-"en_base": 67
+"le": "2026-11-07T14:19Z",
+"en_base": 78
 },
 "soleil": {
 "statut": "ok",
-"livres": 32,
+"livres": 34,
 "pages": 5,
 "secondes": 15,
 "erreurs": 0,
@@ -595,8 +595,8 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
-"en_base": 30
+"le": "2026-11-07T14:19Z",
+"en_base": 32
 },
 "lombard": {
 "statut": "ok",
@@ -609,7 +609,7 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 30
 },
 "kana": {
@@ -623,35 +623,35 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 69
 },
 "casterman": {
 "statut": "ok",
 "livres": 29,
 "pages": 1,
-"secondes": 13,
+"secondes": 3,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 27
 },
 "ruedesevres": {
 "statut": "ok",
 "livres": 4,
 "pages": 1,
-"secondes": 1,
+"secondes": 3,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 4
 },
 "dupuis": {
@@ -665,7 +665,7 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 10
 },
 "bedetheque": {
@@ -679,35 +679,35 @@
 "2026-09-01",
 "2027-05-12"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 0
 },
 "michellafon": {
 "statut": "ok",
 "livres": 18,
 "pages": 39,
-"secondes": 116,
+"secondes": 117,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 47
 },
 "jailu": {
 "statut": "ok",
 "livres": 23,
 "pages": 1,
-"secondes": 4,
+"secondes": 3,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 80
 },
 "bragelonne": {
@@ -721,7 +721,7 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 0
 },
 "albinmichel": {
@@ -735,74 +735,74 @@
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 62
 },
 "hugo": {
 "statut": "ok",
 "livres": 6,
 "pages": 23,
-"secondes": 70,
+"secondes": 69,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 15
 },
 "points": {
 "statut": "ok",
 "livres": 13,
 "pages": 1,
-"secondes": 2,
+"secondes": 6,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 58
 },
 "bayard": {
-"statut": "partiel",
+"statut": "ok",
 "livres": 9,
-"pages": 1,
-"secondes": 73,
-"erreurs": 1,
+"pages": 4,
+"secondes": 14,
+"erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 53
 },
 "milan": {
-"statut": "partiel",
+"statut": "ok",
 "livres": 6,
-"pages": 1,
-"secondes": 71,
-"erreurs": 1,
+"pages": 5,
+"secondes": 15,
+"erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-24",
 "2026-12-22"
 ],
-"le": "2026-11-07T07:32Z",
+"le": "2026-11-07T14:19Z",
 "en_base": 41
 }
 },
-"duree_secondes": 1541,
+"duree_secondes": 1261,
 "prix": {
-"lus": 0,
-"trouves": 0,
-"avec_prix": 3788,
+"lus": 13,
+"trouves": 13,
+"avec_prix": 3798,
 "reste": 0,
-"total": 4562,
-"auteurs_deduits": 1
+"total": 4568,
+"auteurs_deduits": 2
 }
 },
 "books": [
@@ -898,29 +898,6 @@
 "url": "https://www.bedetheque.com/BD-AUT-Ott-Thomas-2026-The-Art-of-Thomas-Ott-544731.html",
 "kind": "bd",
 "source": "editeur:bdgest"
-},
-{
-"id": "ed:9782036089839",
-"title": "3, te voilà !",
-"authors": [
-"Marion Donon",
-"Toni Galmés"
-],
-"publisher": "Larousse",
-"date": "2026-09-02",
-"isbn": "9782036089839",
-"pages": 0,
-"format": "Grand format - Cartonné",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LAROUSSE/2026/9782036089839-001-X.jpeg",
-"description": "",
-"rayons": [
-"Eveil (0 -3 ans)",
-"Jeunesse"
-],
-"url": "https://www.hachette.fr/livre/123-te-voila-9782036089839/",
-"kind": "jeunesse",
-"source": "editeur:hachette",
-"prix": 12.99
 },
 {
 "id": "ed:9782755678031",
@@ -4282,6 +4259,29 @@
 "url": "https://www.nautiljon.com/mangas/you+are+so+cute/volume-7,999843.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782036089839",
+"title": "te voilà !",
+"authors": [
+"Marion Donon",
+"Toni Galmés"
+],
+"publisher": "Larousse",
+"date": "2026-09-02",
+"isbn": "9782036089839",
+"pages": 0,
+"format": "Grand format - Cartonné",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LAROUSSE/2026/9782036089839-001-X.jpeg",
+"description": "",
+"rayons": [
+"Eveil (0 -3 ans)",
+"Jeunesse"
+],
+"url": "https://www.hachette.fr/livre/123-te-voila-9782036089839/",
+"kind": "jeunesse",
+"source": "editeur:hachette",
+"prix": 12.99
 },
 {
 "id": "ed:9782385693084",
@@ -57996,7 +57996,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26664822-2-captive-tome-2-sarah-rivens-hachette-hlab",
 "kind": "romance",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 8.9
 },
 {
@@ -59526,7 +59526,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26556255-1-lakestone-tome-1-edition-speciale-sarah-rivens-hachette-hlab",
 "kind": "romance",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 29.9
 },
 {
@@ -60277,7 +60277,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26640242-1-mad-majesty-collector-delinda-dane-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 24.95
 },
 {
@@ -60301,7 +60301,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26633275-3-majesty-tome-03-dark-majesty-delinda-dane-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 8.9
 },
 {
@@ -60863,7 +60863,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26596235-price-of-legacy-anita-rigins-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 8.9
 },
 {
@@ -61387,7 +61387,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26635667-the-mistake-off-campus-t02-the-mistake-off-campus-t02-elle-kennedy-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 19.95
 },
 {
@@ -61496,7 +61496,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26645547-1-till-death-do-us-apart-tome-01-alice-desmerveilles-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 19.95
 },
 {
@@ -61544,7 +61544,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26642221-1-toxic-tome-01-collector-joyce-kitten-hugo-et-cie",
 "kind": "romance",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 27.0
 },
 {
@@ -63358,6 +63358,25 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9782302109926",
+"title": "Teacher Killer (Vol. 7 & 8)",
+"authors": [],
+"publisher": "Soleil",
+"date": "2026-11-05",
+"isbn": "9782302109926",
+"pages": 0,
+"format": "",
+"prix": 15.99,
+"cover": "https://www.nautiljon.com/images/manga_volumes/13/00/1044200.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/teacher+killer/volume-vol.+7+-+8,1044200.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ed:9782382884843",
 "title": "The Dangerous Convenience Store - Tome 7",
 "authors": [],
@@ -63887,7 +63906,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623513-justice-mondiale-un-plan-pour-l-egalite-et-la-prosperite-dans-le-respect-des-limites-planetaires-thomas-piketty-seuil",
 "kind": "",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 23.9
 },
 {
@@ -63932,7 +63951,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26642285-l-avenir-en-commun-jean-luc-melenchon-la-dispute",
 "kind": "",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 4.9
 },
 {
@@ -63978,7 +63997,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623767-l-incivilite-des-fantomes-rivers-solomon-aux-forges-de-vulcain",
 "kind": "fantasy",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 27.0
 },
 {
@@ -64315,7 +64334,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26562399-les-chamalloux-et-le-monstre-rose-gee-eun-lee-editions-les-fourmis-rouges",
 "kind": "jeunesse",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 18.8
 },
 {
@@ -64538,7 +64557,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26621561-noces-de-papier-melikah-abdelmoumen-philippe-manevy-memoire-d-encrier",
 "kind": "",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 20.0
 },
 {
@@ -64947,7 +64966,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623209-strange-houses-uketsu-points",
 "kind": "policier",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 7.9
 },
 {
@@ -64971,7 +64990,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26623334-strange-maps-uketsu-seuil",
 "kind": "policier",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 21.9
 },
 {
@@ -65197,7 +65216,7 @@
 "url": "https://www.leslibraires.fr/livre/26611118-chien-bleu-et-l-esprit-des-bois-nadja-ecole-des-loisirs",
 "kind": "jeunesse",
 "prix": 16.0,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9791036396564",
@@ -65414,7 +65433,7 @@
 "url": "https://www.leslibraires.fr/livre/26428371-les-ombres-du-titanic-benjamin-lacombe-cecile-roumiguiere-gallimard",
 "kind": "bd",
 "prix": 30.0,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9782203303560",
@@ -65458,7 +65477,7 @@
 "url": "https://www.leslibraires.fr/livre/26428271-les-sorcieres-de-venise-l-ordre-sebastien-perez-gallimard",
 "kind": "bd",
 "prix": 27.0,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9782382768686",
@@ -65548,7 +65567,7 @@
 "url": "https://www.leslibraires.fr/livre/26611135-3-oscar-et-albert-le-mystere-des-biscuits-disparus-chris-naylor-ballesteros-ecole-des-loisirs",
 "kind": "jeunesse",
 "prix": 6.5,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9782382768341",
@@ -66149,7 +66168,7 @@
 "url": "https://www.leslibraires.fr/livre/26455308-chanter-c-est-lancer-des-balles-60-chansons-racontees-par-lui-meme-alain-souchon-seghers",
 "kind": "",
 "prix": 25.0,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ll:26546763",
@@ -66287,7 +66306,7 @@
 "url": "https://www.leslibraires.fr/livre/26520091-danse-avec-paco--magali-le-huche-gallimard-jeunesse",
 "kind": "jeunesse",
 "prix": 14.9,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9791042021368",
@@ -66644,7 +66663,7 @@
 "url": "https://www.leslibraires.fr/livre/26545887-game-changers-tome-4-common-goal-rachel-reid-chatterley",
 "kind": "romance",
 "prix": 19.95,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9782017396192",
@@ -66736,7 +66755,7 @@
 "url": "https://www.leslibraires.fr/livre/26633281-2-islander-tome-02-l-alliance-ferey-rouge-labriet-glenat",
 "kind": "bd",
 "prix": 26.0,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9782278133383",
@@ -66966,7 +66985,7 @@
 "url": "https://www.leslibraires.fr/livre/26604920-l-almanach-des-cathedrales-henri-d-anselme-fayard",
 "kind": "",
 "prix": 19.9,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9782702183380",
@@ -67413,7 +67432,7 @@
 "url": "https://www.leslibraires.fr/livre/26548027-le-messager-stanislas-mousse-le-tripode",
 "kind": "bd",
 "prix": 24.0,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9791028125387",
@@ -67504,7 +67523,7 @@
 "url": "https://www.leslibraires.fr/livre/26546005-le-meilleur-du-gorafi-2026-le-gorafi-le-cherche-midi",
 "kind": "",
 "prix": 19.9,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9782253247074",
@@ -67614,7 +67633,7 @@
 "url": "https://www.leslibraires.fr/livre/26547754-les-legendaires-les-chroniques-de-darkhell-t07-le-magicien-blanc-lowenael-delcourt",
 "kind": "bd",
 "prix": 11.5,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9782246844587",
@@ -67772,7 +67791,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26642193-luciole-robert-macfarlane-la-plage",
 "kind": "jeunesse",
-"lu": "2026-11-06",
+"lu": "2026-11-07",
 "prix": 17.5
 },
 {
@@ -68014,7 +68033,7 @@
 "url": "https://www.leslibraires.fr/livre/26546744-memoires-de-nacre-francois-bourgeon-delcourt",
 "kind": "bd",
 "prix": 17.5,
-"lu": "2026-11-06"
+"lu": "2026-11-07"
 },
 {
 "id": "ed:9782501205900",
@@ -69340,7 +69359,8 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26515882-minuit-sonne-et-farandole-goulet-alizee-monsieur-ed",
 "kind": "jeunesse",
-"prix": 16.0
+"prix": 16.0,
+"lu": "2026-11-07"
 },
 {
 "id": "ll:26525989",
@@ -79018,25 +79038,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782205207989",
-"title": "Une aventure du Lieutenant Blueberry - Tome 2",
-"authors": [
-"Christophe Blain",
-"Joann Sfar"
-],
-"publisher": "Dargaud",
-"date": "2026-12-04",
-"isbn": "9782205207989",
-"pages": 0,
-"format": "",
-"cover": "https://bdi.dlpdomain.com/album/9782205207989/couv/M325x432/une-aventure-du-lieutenant-blueberry-tome-2-les-hommes-de-non-justice.jpg",
-"description": "",
-"rayons": [],
-"url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes-0",
-"kind": "bd",
-"source": "editeur:dargaud"
-},
-{
 "id": "ed:9782205084733",
 "title": "Une aventure du Lieutenant Blueberry - Tome 2",
 "authors": [
@@ -79052,6 +79053,25 @@
 "description": "",
 "rayons": [],
 "url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes",
+"kind": "bd",
+"source": "editeur:dargaud"
+},
+{
+"id": "ed:9782205207989",
+"title": "Une aventure du Lieutenant Blueberry - Tome 2",
+"authors": [
+"Christophe Blain",
+"Joann Sfar"
+],
+"publisher": "Dargaud",
+"date": "2026-12-04",
+"isbn": "9782205207989",
+"pages": 0,
+"format": "",
+"cover": "https://bdi.dlpdomain.com/album/9782205207989/couv/M325x432/une-aventure-du-lieutenant-blueberry-tome-2-les-hommes-de-non-justice.jpg",
+"description": "",
+"rayons": [],
+"url": "https://www.dargaud.com/bd/blueberry/une-aventure-du-lieutenant-blueberry/une-aventure-du-lieutenant-blueberry-les-hommes-0",
 "kind": "bd",
 "source": "editeur:dargaud"
 },
@@ -83018,7 +83038,7 @@
 },
 {
 "id": "ed:9782302107786",
-"title": "2.5 Dimensional Seduction - Tome 12",
+"title": "2.5 Dimensional Seduction T12",
 "authors": [
 "Yû Hashimoto"
 ],
@@ -83027,15 +83047,14 @@
 "isbn": "9782302107786",
 "pages": 0,
 "format": "",
-"prix": 8.5,
-"cover": "https://www.nautiljon.com/images/manga_volumes/11/10/959401.webp",
+"cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302107786.jpg?itok=ogiJBsIZ",
 "description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/2.5+dimensional+seduction/volume-12,959401.html",
+"rayons": [],
+"url": "https://www.editions-soleil.fr/mangas/series/serie-25-dimensional-seduction/album-25-dimensional-seduction-t12",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:soleil",
+"auteur_deduit": 1,
+"prix": 8.5
 },
 {
 "id": "ed:9791032725016",
@@ -83080,45 +83099,80 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782413083580",
-"title": "Cross of the Cross - Tome 10",
+"id": "ed:9782413092599",
+"title": "Café frappé",
 "authors": [
-"Shiryû Nakatake"
+"Ami Inintéressant"
 ],
-"publisher": "Delcourt/Tonkam",
+"publisher": "Delcourt",
+"date": "2027-01-07",
+"isbn": "9782413092599",
+"pages": 0,
+"format": "",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413092599.jpg?itok=yEY2kKli",
+"description": "",
+"rayons": [],
+"url": "https://www.editions-delcourt.fr/bd/series/serie-cafe-frappe/album-cafe-frappe",
+"kind": "bd",
+"source": "editeur:delcourt",
+"prix": 17.95
+},
+{
+"id": "ed:9782413083580",
+"title": "Cross of the Cross T10",
+"authors": [],
+"publisher": "Delcourt",
 "date": "2027-01-07",
 "isbn": "9782413083580",
 "pages": 0,
 "format": "",
-"prix": 8.5,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/48/982084.webp",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413083580.jpg?itok=HUnHmHom",
 "description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/cross+of+the+cross/volume-10,982084.html",
+"rayons": [],
+"url": "https://www.editions-delcourt.fr/mangas/series/serie-cross-cross/album-cross-cross-t10",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:delcourt",
+"prix": 8.5
 },
 {
-"id": "ed:manganews:deadtube-vol-27",
-"title": "Deadtube - Tome 27",
+"id": "ed:9782413092445",
+"title": "Dead Tube T27",
 "authors": [
 "Mikoto Yamaguchi"
 ],
-"publisher": "Delcourt / Tonkam",
+"publisher": "Delcourt",
 "date": "2027-01-07",
-"isbn": "",
+"isbn": "9782413092445",
 "pages": 0,
 "format": "",
-"cover": "https://www.manga-news.com/public/images/vols/.Dead_Tube_T27_-_Delcourt_Tonkam_medium.webp",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413092445.jpg?itok=bjylJLP-",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.manga-news.com/index.php/manga/Deadtube/vol-27",
+"url": "https://www.editions-delcourt.fr/mangas/series/serie-dead-tube/album-dead-tube-t27",
 "kind": "bd",
-"source": "editeur:manganews"
+"source": "editeur:delcourt",
+"prix": 8.5
+},
+{
+"id": "ed:9782413095002",
+"title": "Donjon Zénith T12 - La Perle rare",
+"authors": [
+"Joann Sfar"
+],
+"publisher": "Delcourt",
+"date": "2027-01-07",
+"isbn": "9782413095002",
+"pages": 0,
+"format": "",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413095002.jpg?itok=ayNSJsXo",
+"description": "",
+"rayons": [],
+"url": "https://www.editions-delcourt.fr/bd/series/serie-donjon-zenith/album-donjon-zenith-t12-la-perle-rare",
+"kind": "bd",
+"source": "editeur:delcourt",
+"prix": 11.95
 },
 {
 "id": "ed:9791035510121",
@@ -83143,24 +83197,20 @@
 },
 {
 "id": "ed:9782413088943",
-"title": "Elles + moi sous le même toit - Tome 2",
-"authors": [
-"Kei Sasuga"
-],
-"publisher": "Delcourt/Tonkam",
+"title": "Elles + Moi sous le même toit T02",
+"authors": [],
+"publisher": "Delcourt",
 "date": "2027-01-07",
 "isbn": "9782413088943",
 "pages": 0,
 "format": "",
-"prix": 0,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/69/997296.webp",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413088943.jpg?itok=thbZZ06y",
 "description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/elles+-+moi+sous+le+même+toit/volume-2,997296.html",
+"rayons": [],
+"url": "https://www.editions-delcourt.fr/mangas/series/serie-elles-moi-sous-le-meme-toit/album-elles-moi-sous-le-meme-toit-t02",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:delcourt",
+"prix": 8.5
 },
 {
 "id": "ed:9782372879828",
@@ -83185,22 +83235,22 @@
 },
 {
 "id": "ed:9782382884959",
-"title": "Hellbound 2 - The Resurrected - Tome 1",
-"authors": [],
-"publisher": "Kbooks",
+"title": "Hellbound Saison 2 - The Resurrected T01",
+"authors": [
+"Sangho Yeon"
+],
+"publisher": "Delcourt",
 "date": "2027-01-07",
 "isbn": "9782382884959",
 "pages": 0,
 "format": "",
-"prix": 14.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/13/24/1043242.webp",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382884959.jpg?itok=whs2Z9Sl",
 "description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/hellbound+2+-+the+resurrected/volume-1,1043242.html",
+"rayons": [],
+"url": "https://www.editions-delcourt.fr/kbooks/series/serie-hellbound/album-hellbound-saison-2-resurrected-t01",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:delcourt",
+"prix": 14.95
 },
 {
 "id": "ed:9791032721544",
@@ -83222,6 +83272,25 @@
 "url": "https://www.nautiljon.com/mangas/ichi+the+witch/volume-6,1028005.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782413093572",
+"title": "Invincible Univers - Battlebeast - Le Fauve de combat T02",
+"authors": [
+"Robert Kirkman"
+],
+"publisher": "Delcourt",
+"date": "2027-01-07",
+"isbn": "9782413093572",
+"pages": 0,
+"format": "",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413093572.jpg?itok=AUisateD",
+"description": "",
+"rayons": [],
+"url": "https://www.editions-delcourt.fr/comics/series/serie-invincible-univers-battlebeast/album-invincible-univers-battlebeast-le-fauve-de-combat-t02",
+"kind": "bd",
+"source": "editeur:delcourt",
+"prix": 17.95
 },
 {
 "id": "ed:9791032725009",
@@ -83307,24 +83376,25 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:manganews:level-up-with-the-gods-vol-6",
-"title": "Level Up with the Gods - Tome 6",
+"id": "ed:9782382884836",
+"title": "Level Up with the Gods T06",
 "authors": [
 "Heugain"
 ],
-"publisher": "Kbooks",
+"publisher": "Delcourt",
 "date": "2027-01-07",
-"isbn": "",
+"isbn": "9782382884836",
 "pages": 0,
 "format": "",
-"cover": "https://www.manga-news.com/public/images/vols/.Level_Up_with_the_Gods_Tome6_-_Kbooks_medium.webp",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382884836.jpg?itok=ODZn7xNS",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.manga-news.com/index.php/manga/Level-Up-with-the-Gods/vol-6",
+"url": "https://www.editions-delcourt.fr/kbooks/series/serie-level-gods/album-level-gods-t06",
 "kind": "bd",
-"source": "editeur:manganews"
+"source": "editeur:delcourt",
+"prix": 14.95
 },
 {
 "id": "ed:9782387560254",
@@ -83388,6 +83458,23 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:delcourt:album-punk-gun-t01",
+"title": "Punk Gun T01",
+"authors": [],
+"publisher": "Delcourt",
+"date": "2027-01-07",
+"isbn": "",
+"pages": 0,
+"format": "",
+"cover": "",
+"description": "",
+"rayons": [],
+"url": "https://www.editions-delcourt.fr/mangas/series/serie-punk-gun/album-punk-gun-t01",
+"kind": "bd",
+"source": "editeur:delcourt",
+"prix": 8.5
+},
+{
 "id": "ed:9782302108578",
 "title": "Sois ma muse ! - Tome 11",
 "authors": [
@@ -83409,45 +83496,61 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:manganews:the-brave-wish-revenging-vol-16",
-"title": "The Brave wish revenging - Tome 16",
+"id": "ed:9782413098546",
+"title": "The Beauty T01",
+"authors": [
+"Jeremy Haun"
+],
+"publisher": "Delcourt",
+"date": "2027-01-07",
+"isbn": "9782413098546",
+"pages": 0,
+"format": "",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413098546.jpg?itok=YZvwUk2h",
+"description": "",
+"rayons": [],
+"url": "https://www.editions-delcourt.fr/comics/album-beauty-t01",
+"kind": "bd",
+"source": "editeur:delcourt",
+"prix": 17.95
+},
+{
+"id": "ed:9782413097617",
+"title": "The Brave Wish Revenging T16",
 "authors": [
 "Manimani Ononata"
 ],
-"publisher": "Delcourt / Tonkam",
+"publisher": "Delcourt",
 "date": "2027-01-07",
-"isbn": "",
+"isbn": "9782413097617",
 "pages": 0,
 "format": "",
-"cover": "https://www.manga-news.com/public/images/vols/.The_Brave_Wish_Revenging_T16_-_Delcourt_Tonkam_medium.webp",
+"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413097617.jpg?itok=Qxj5xTUU",
 "description": "",
 "rayons": [
 "Manga"
 ],
-"url": "https://www.manga-news.com/index.php/manga/The-Brave-wish-revenging/vol-16",
+"url": "https://www.editions-delcourt.fr/mangas/series/serie-brave-wish-revenging/album-brave-wish-revenging-t16",
 "kind": "bd",
-"source": "editeur:manganews"
+"source": "editeur:delcourt",
+"prix": 8.5
 },
 {
 "id": "ed:9782302108653",
-"title": "Witch Watch - Tome 15",
-"authors": [
-"Kenta Shinohara"
-],
+"title": "Witch Watch T15",
+"authors": [],
 "publisher": "Soleil",
 "date": "2027-01-07",
 "isbn": "9782302108653",
 "pages": 0,
 "format": "",
-"prix": 7.29,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/96/998069.webp",
+"cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302108653.jpg?itok=-DOxSiig",
 "description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/witch+watch/volume-15,998069.html",
+"rayons": [],
+"url": "https://www.editions-soleil.fr/mangas/series/serie-witch-watch/album-witch-watch-t15",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:soleil",
+"prix": 7.29
 },
 {
 "id": "ed:9782372879798",
