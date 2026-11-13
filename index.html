@@ -311,6 +311,11 @@
   .rel-info h4 { margin: 0 0 2px; font-size: 15px; line-height: 1.25; cursor: pointer; }
   .rel-meta { color: var(--muted); font-size: 13px; line-height: 1.4; }
   .rel-meta .distrib { border: 0; background: none; padding: 8px 0; margin: -8px 0; color: var(--accent-text, var(--accent)); font: inherit; cursor: pointer; }
+  .fav-box .fav-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .fav-chip { border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 4px 4px 4px 10px; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; }
+  .fav-chip button { border: 0; background: none; color: var(--muted); font: inherit; padding: 6px 8px; cursor: pointer; }
+  .fav-box .fav-add { display: flex; gap: 8px; } .fav-box .fav-add input { flex: 1; min-width: 0; }
+  .fav-box .rel-kinds button.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
   .tag.warn-date { background: #fff1d6; color: #7a4a00; }
   .rel-px { margin-top: 3px; } .rel-px b { color: var(--ink); font-weight: 600; }
   .rel-desc { font-size: 13px; line-height: 1.45; margin: 6px 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; cursor: pointer; }
@@ -532,6 +537,8 @@
   .res-open { border: 0; background: none; padding: 0; cursor: pointer; flex: none; }
   .result-title { cursor: pointer; }
   .author-link.author-more { display: block; text-decoration: none; margin: -10px auto 18px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 18px; padding: 11px 14px; font-size: 14px; cursor: pointer; }
+  .author-fav { display: block; margin: -10px auto 18px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 18px; padding: 9px 14px; font: inherit; font-size: 14px; cursor: pointer; }
+  .author-fav.on { border-color: var(--accent); color: var(--accent-text, var(--accent)); }
   .author-link { border: 0; background: none; padding: 0; color: var(--accent-text, var(--accent)); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
   .sheet-head {
     display: flex; align-items: center; gap: 8px; padding: 12px 16px;
@@ -924,6 +931,8 @@
     <label class="key-row">Ton prénom (facultatif)<input id="firstNameIn" type="text" placeholder="Pour te dire bonjour" autocomplete="given-name" maxlength="30" style="font-size:16px"></label>
     <button id="statsBtn">Mes statistiques et mon objectif</button>
     <label class="key-row" style="display:none !important">Clé Google Livres<input id="googleKeyIn" type="text" placeholder="Colle ta clé ici" autocomplete="off" spellcheck="false"></label>
+    <p class="sw-title">Alertes de sorties</p>
+    <div id="favBox" class="fav-box"></div>
     <p class="sw-title">Couleur préférée</p>
     <div class="swatches" id="accentSw"></div>
     <p class="sw-title">Ambiance de la pièce</p>
@@ -939,7 +948,7 @@
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 28 octobre, 12 h</p>
+    <p class="version">Version du 13 novembre, 12 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -2136,7 +2145,7 @@ function personalRows(full) {
   const rows = [];
   const series = topCounts(books.filter((b) => b.series), (b) => [b.series]).slice(0, 4).map(([x]) => x);
   if (series.length) rows.push({ key: "suite", title: "La suite de tes séries", fn: () => nextInSeries(series), sig: series });
-  const authors = topCounts(base, (b) => b.authors.slice(0, 1)).slice(0, 4).map(([x]) => x);
+  const authors = [...new Set([...favAuthors(), ...topCounts(base, (b) => b.authors.slice(0, 1)).map(([x]) => x)])].slice(0, 6);
   if (authors.length) rows.push({ key: "auteurs", title: "Nouveautés de tes auteurs", fn: () => authorsNews(authors), sig: [...authors, "v2"], year: true });
   const gs = topCounts(base, (b) => [b.genre]).map(([k]) => GENRES.find((x) => x.key === k)).filter(Boolean).slice(0, full ? 4 : 1);
   if (full && (gs.length || authors.length)) rows.unshift({ key: "sortiesmoi", title: "Sorties qui devraient te plaire", mine: true, fn: () => releasesForMe(gs.map((g) => g.key), authors) });
@@ -2248,8 +2257,46 @@ function newTomes(all) {
   });
 }
 const tomeKey = (r) => plain(seriesName({ title: r.title })) + "#" + guessSeries(r.title).tome;
+/* ---------- Favoris : auteurs et genres suivis, alertes de nouvelles sorties ---------- */
+const favAuthors = () => settings.favAuthors || [];
+const favKinds = () => settings.favKinds || [];
+const isFavAuthor = (n) => favAuthors().some((x) => plain(x) === plain(n));
+function toggleFavAuthor(n) {
+  n = String(n || "").trim(); if (!n) return false;
+  const on = !isFavAuthor(n);
+  settings.favAuthors = on ? [...favAuthors(), n] : favAuthors().filter((x) => plain(x) !== plain(n));
+  saveSettings(); return on;
+}
+function toggleFavKind(k) { settings.favKinds = favKinds().includes(k) ? favKinds().filter((x) => x !== k) : [...favKinds(), k]; saveSettings(); }
+// un livre de ses auteurs favoris (nom complet, ou même nom de famille et même initiale)
+const sameAuthor = (a, f) => { const x = plain(a).split(" "), y = plain(f).split(" "); return plain(a) === plain(f) || (x.length > 1 && y.length > 1 && x[x.length - 1] === y[y.length - 1] && x[0][0] === y[0][0]); };
+const byFavAuthor = (b) => (b.authors || []).some((a) => favAuthors().some((f) => sameAuthor(a, f)));
+/* Alertes : sorties (de 7 jours en arrière à 30 jours devant) de ses auteurs favoris, et des genres suivis (plus resserré) */
+function favAlerts(all) {
+  if (!favAuthors().length && !favKinds().length) return { authors: [], genres: [] };
+  const keys = ownedKeys(), now = Date.now();
+  const lo = isoDay(new Date(now - 7 * 864e5)), hi = isoDay(new Date(now + 30 * 864e5)), glo = isoDay(new Date(now - 3 * 864e5)), ghi = isoDay(new Date(now + 14 * 864e5));
+  const seen = new Set(), pick = (b) => { const ks = releaseKeys(b); if (ks.some((x) => seen.has(x))) return false; ks.forEach((x) => seen.add(x)); return true; };
+  const authors = (all || []).filter((b) => b.date >= lo && b.date <= hi && !isOwned(b, keys) && byFavAuthor(b) && !DERIVED_RE.test(plain(b.title))).sort((a, b) => a.date.localeCompare(b.date)).filter(pick);
+  const genres = (all || []).filter((b) => b.date >= glo && b.date <= ghi && b.cover && !isOwned(b, keys) && favKinds().includes(newKindOf(b)) && !DERIVED_RE.test(plain(b.title)))
+    .sort((a, b) => newScore(b) - newScore(a) || a.date.localeCompare(b.date)).filter(pick).slice(0, 24);
+  return { authors, genres };
+}
+const alertId = (b) => b.id || b.isbn || plain(b.title);
+// pastille sur « Accueil » : sorties de ses auteurs favoris pas encore vues
+function updateFavBadge(all) {
+  const btn = document.querySelector('#quick [data-key="accueil"]'); if (!btn) return;
+  const vus = new Set(settings.alertesVues || []);
+  const n = favAlerts(all).authors.filter((b) => !vus.has(alertId(b))).length;
+  btn.innerHTML = "<i>🏠</i>Accueil" + (n ? `<b class="badge-new">${n}</b>` : "");
+}
+function markAlertsSeen(list) {
+  settings.alertesVues = [...new Set([...(settings.alertesVues || []), ...list.map(alertId)])].slice(-600); saveSettings();
+  const btn = document.querySelector('#quick [data-key="accueil"]'); if (btn) btn.innerHTML = "<i>🏠</i>Accueil";
+}
 // pastille sur le bouton Sorties : nouveaux tomes pas encore vus
 function updateTomeBadge(all, fresh) {
+  try { updateFavBadge(all || relSite || []); } catch {}
   const btn = document.querySelector('#quick [data-key="sorties"]'); if (!btn) return;
   const seen = new Set(settings.tomesVus || []);
   const n = new Set((fresh || newTomes(all)).map(tomeKey).filter((k) => !seen.has(k))).size;
@@ -2555,7 +2602,7 @@ async function renderHome() {
   const pile = shelfList("alire"), lus = shelfList("lu");
   const hasSeries = books.some((b) => b.series || guessSeries(b.title).tome);
   // ordre des rangées : rien en cours, la pile à lire d'abord ; sinon les nouveaux tomes de ses séries d'abord
-  const order = !books.length ? ["sorties", "ventes"] : cur ? ["auj", "tomes", "pile", "ventes", "sorties", "lus"] : ["auj", "pile", "tomes", "ventes", "sorties", "lus"];
+  const order = !books.length ? ["sorties", "ventes"] : cur ? ["auj", "fav", "tomes", "pile", "ventes", "sorties", "lus"] : ["auj", "fav", "pile", "tomes", "ventes", "sorties", "lus"];
   el.innerHTML = `<div class="home">
     <div class="hm-hello"><small>${esc(dateTxt)}</small><h2>${esc(hello)} 👋</h2></div>
     ${hero ? `<div class="hm-card" data-open="${esc(hero.id)}" role="button" tabindex="0"><div class="hm-cover">${drawnCover(hero)}${hero.cover || hero.isbn ? coverImg(hero) : ""}</div>
@@ -2570,7 +2617,7 @@ async function renderHome() {
     </div>
     ${thisYear >= 3 ? `<button class="hm-bilan" id="hmBilan" style="background:${bilanGrad()}"><i>✨</i><span><b>Mon bilan ${year}</b><small>${thisYear} livres lus. Découvre ton année en lecture</small></span></button>` : ""}
     ${q ? `<div class="hm-quote">« ${esc(q.text)} »<small>${esc(q.book.title)}${q.page ? " · page " + esc(q.page) : ""}</small></div>` : ""}
-    <div id="hmRows">${order.map((k) => `<div class="hm-part" data-part="${k}">${k === "tomes" ? (hasSeries ? homeSkeleton() : "") : k === "pile" || k === "lus" || k === "auj" ? "" : homeSkeleton()}</div>`).join("")}</div>
+    <div id="hmRows">${order.map((k) => `<div class="hm-part" data-part="${k}">${k === "tomes" ? (hasSeries ? homeSkeleton() : "") : k === "pile" || k === "lus" || k === "auj" || k === "fav" ? "" : homeSkeleton()}</div>`).join("")}</div>
     <p class="hm-note" id="hmNote" hidden>Les nouveautés et les ventes n'ont pas pu se charger. Elles reviendront avec internet.</p>
     <div class="hm-tiles">
       <button class="hm-tile" data-go="sorties"><i>📅</i><b>Sorties<small>Les parutions du calendrier</small></b></button>
@@ -2597,13 +2644,14 @@ async function renderHome() {
   const fresh = (list, seen) => list.filter((b) => { const ks = releaseKeys(b); if (ks.some((x) => seen.has(x) || mine.has(x)) || mine.has(b.id)) return false; ks.forEach((x) => seen.add(x)); return true; });
   const compute = () => {
     const seen = new Set(), out = { pile, lus };
+    out.fav = raw.fav || null; (raw.fav || []).forEach((b) => releaseKeys(b).forEach((x) => seen.add(x)));
     out.auj = raw.auj || null; (raw.auj || []).forEach((b) => releaseKeys(b).forEach((x) => seen.add(x))); // déjà ici : pas répété plus bas
     out.tomes = raw.tomes ? fresh(raw.tomes, seen) : null;
     out.ventes = raw.ventes ? raw.ventes.filter((b) => { const ks = releaseKeys(b); if (ks.some((x) => seen.has(x)) || mine.has(b.id) || ks.some((x) => mine.has(x))) return false; ks.forEach((x) => seen.add(x)); return true; }) : null;
     out.sorties = raw.sorties ? fresh(raw.sorties, seen) : null;
     return out;
   };
-  const html = { auj: (l) => homeRow(l.some((b) => b.date === isoDay(new Date())) ? "Ça sort aujourd'hui" : "Bientôt en librairie", l, "sorties", "Tout voir"), pile: (l) => homeRow("Ta pile à lire", l, "alire", "Tout voir"), lus: (l) => homeRow("Tes dernières lectures", l, "lu", "Tout voir"),
+  const html = { fav: (l) => homeRow("🔔 Tes favoris : nouveautés", l, "sorties", "Tout voir"), auj: (l) => homeRow(l.some((b) => b.date === isoDay(new Date())) ? "Ça sort aujourd'hui" : "Bientôt en librairie", l, "sorties", "Tout voir"), pile: (l) => homeRow("Ta pile à lire", l, "alire", "Tout voir"), lus: (l) => homeRow("Tes dernières lectures", l, "lu", "Tout voir"),
     tomes: (l) => homeRow("Nouveaux tomes de tes séries", l, "sorties", "Tout voir"), ventes: (l) => homeRow("Les plus vendus cette semaine", l, "ventes", "Tout voir"),
     sorties: (l) => homeRow("Nouveautés de la semaine", l, "sorties", "Tout voir") };
   const paint = () => {
@@ -2621,6 +2669,13 @@ async function renderHome() {
   reg(pile); reg(lus); paint();
   const done = (k) => { if (raw[k] === undefined) raw[k] = []; paint(); };
   await Promise.all([
+    (async () => { try { // sorties de ses auteurs et genres favoris
+      const fa = favAlerts(await loadReleases().catch(() => []));
+      const vus = new Set(settings.alertesVues || []), t0 = isoDay(new Date());
+      raw.fav = [...fa.authors.map((b) => ({ ...b, note: (b.date <= t0 ? "★ " : "★ " ) + shortDay(b.date) + " · " + (b.authors[0] || "") + (vus.has(alertId(b)) ? "" : " · nouveau") })),
+        ...fa.genres.map((b) => ({ ...b, note: shortDay(b.date) + " · " + (b.authors[0] || "") }))].slice(0, 30);
+      paint(); if (fa.authors.length) markAlertsSeen(fa.authors);
+    } catch { done("fav"); } })(),
     (async () => { try { // les livres de sa pile à lire (ajoutés depuis les sorties) qui sortent aujourd'hui ou dans la semaine
       const wish = new Set(books.filter((b) => b.status === "alire").flatMap(releaseKeys));
       const t0 = isoDay(new Date()), t7 = isoDay(new Date(Date.now() + 7 * 864e5));
@@ -2646,7 +2701,7 @@ async function renderHome() {
     } catch { done("ventes"); } })(),
   ]);
   // ce qui n'est pas arrivé (pas de réseau) : on enlève les squelettes
-  ["auj", "tomes", "sorties", "ventes"].forEach((k) => { if (raw[k] === undefined) raw[k] = []; });
+  ["auj", "fav", "tomes", "sorties", "ventes"].forEach((k) => { if (raw[k] === undefined) raw[k] = []; });
   paint();
   if ($("#hmNote") && !(raw.sorties.length || raw.ventes.length || raw.tomes.length)) $("#hmNote").hidden = false;
 }
@@ -2900,6 +2955,8 @@ const authorLinks = (b) => shareView ? esc(b.authors.join(", ")) : b.authors.map
 document.addEventListener("click", (e) => {
   const a = e.target.closest(".author-link");
   if (a) openAuthor(a.dataset.author);
+  const fb = e.target.closest("[data-fav-author]");
+  if (fb) { const on = toggleFavAuthor(fb.dataset.favAuthor); document.querySelectorAll("[data-fav-author]").forEach((x) => { if (plain(x.dataset.favAuthor) === plain(fb.dataset.favAuthor)) { x.textContent = on ? "★ Auteur favori" : (x.dataset.long ? "☆ Suivre " + x.dataset.favAuthor : "☆ Suivre cet auteur"); x.classList.toggle("on", on); } }); if (currentShelf === "accueil") renderHome(); }
   const s = e.target.closest(".series-all");
   if (s) openSeries(s.dataset.series, s.dataset.sauthor);
 });
@@ -2912,7 +2969,12 @@ function openAuthor(name) {
   $("#filters").hidden = true; // filtres repliés pour voir tout de suite ses livres
   updateFiltersLabel();
   runSearch();
+  let bar = $("#followBar");
+  if (!bar) { bar = document.createElement("div"); bar.id = "followBar"; $("#results").before(bar); }
+  bar.innerHTML = `<button class="author-fav on-bar ${isFavAuthor(name) ? "on" : ""}" data-fav-author="${esc(name)}" data-long="1">${isFavAuthor(name) ? "★ Auteur favori" : "☆ Suivre " + esc(name)}</button>`;
+  bar.hidden = false;
 }
+$("#fAuthor").addEventListener("input", () => { const b = $("#followBar"); if (b) b.hidden = true; });
 /* ---------- Toute la série : tous les tomes, dans l'ordre (Google Livres, complété par la BnF) ---------- */
 // « One Piece - Édition originale » → « One Piece »
 const seriesName = (b) => String(b.series || guessSeries(b.title).series || "").replace(/[\s,.:\-–—]*[ée]dition(\s+(originale|collector|deluxe|perfect|ultimate|fran[cç]aise))?\s*$/i, "").trim();
@@ -3393,6 +3455,7 @@ async function openPreview(b) {
     <div class="author">${authorLinks(b)}</div>
     ${tagsHtml(b)}
     ${!shareView && b.authors[0] ? `<button class="author-link author-more" data-author="${esc(b.authors[0])}">📚 Tous les livres de ${esc(b.authors[0])}</button>` : ""}
+    ${!shareView && b.authors[0] ? `<button class="author-fav" data-fav-author="${esc(b.authors[0])}">${isFavAuthor(b.authors[0]) ? "★ Auteur favori" : "☆ Suivre cet auteur"}</button>` : ""}
     ${!shareView && seriesName(b) ? `<button class="series-all" data-series="${esc(seriesName(b))}" data-sauthor="${esc(b.authors[0] || "")}">📚 Toute la série « ${esc(seriesName(b))} »</button>` : ""}
     ${shareView ? `<div class="sub">${b.rating ? "★".repeat(b.rating) + "☆".repeat(5 - b.rating) + " · " : ""}${b.fav ? "💖 Coup de cœur · " : ""}${esc((SHELVES.find((x) => x.key === b.status) || {}).label || "")}</div>`
       : `<div class="add-row"><button data-s="lu">Je l'ai lu</button><button data-s="encours">En cours</button><button data-s="alire">À lire</button><button data-s="fav">💖 Coup de cœur</button></div>`}
@@ -3517,6 +3580,7 @@ function openDetail(id) {
     <div class="author">${authorLinks(b)}</div>
     ${tagsHtml(b)}
     ${!shareView && b.authors[0] ? `<button class="author-link author-more" data-author="${esc(b.authors[0])}">📚 Tous les livres de ${esc(b.authors[0])}</button>` : ""}
+    ${!shareView && b.authors[0] ? `<button class="author-fav" data-fav-author="${esc(b.authors[0])}">${isFavAuthor(b.authors[0]) ? "★ Auteur favori" : "☆ Suivre cet auteur"}</button>` : ""}
     ${!shareView && seriesName(b) ? `<button class="series-all" data-series="${esc(seriesName(b))}" data-sauthor="${esc(b.authors[0] || "")}">📚 Toute la série « ${esc(seriesName(b))} »</button>` : ""}
 
     <div class="panel">
@@ -4128,7 +4192,18 @@ $("#importStop").onclick = () => { importStop = true; $("#importText").textConte
 /* ---------- Navigation ---------- */
 $("#searchBtn").onclick = openSearch;
 $("#firstNameIn").oninput = (e) => { const v = e.target.value.trim().slice(0, 30); if (v) settings.prenom = v; else delete settings.prenom; saveSettings(); if (currentShelf === "accueil") { const h2 = document.querySelector(".hm-hello h2"); if (h2) h2.textContent = homeHello() + " 👋"; } };
-$("#menuBtn").onclick = () => { $("#firstNameIn").value = settings.prenom || ""; renderColorPickers(); $("#menuSheet").classList.add("open"); };
+function renderFavBox() {
+  const box = $("#favBox"); if (!box) return;
+  box.innerHTML = `<p class="rel-note" style="margin:0 0 6px">Les nouvelles sorties de tes auteurs et de tes genres favoris apparaissent sur l'accueil, avec une pastille.</p>
+    <div class="rel-kinds">${NEW_KINDS.filter(([k]) => k !== "doc").map(([k, l]) => `<button data-fk="${k}" class="${favKinds().includes(k) ? "on" : ""}">${l}</button>`).join("")}</div>
+    <div class="fav-list">${favAuthors().map((a) => `<span class="fav-chip">★ ${esc(a)} <button data-unfav="${esc(a)}" aria-label="Ne plus suivre ${esc(a)}">✕</button></span>`).join("") || `<span class="rel-note">Aucun auteur suivi pour l'instant.</span>`}</div>
+    <div class="fav-add"><input id="favAdd" type="text" placeholder="Ajouter un auteur (ex. Joël Dicker)" style="font-size:16px"><button id="favAddBtn">Suivre</button></div>`;
+  box.querySelectorAll("[data-fk]").forEach((b) => (b.onclick = () => { toggleFavKind(b.dataset.fk); renderFavBox(); }));
+  box.querySelectorAll("[data-unfav]").forEach((b) => (b.onclick = () => { toggleFavAuthor(b.dataset.unfav); renderFavBox(); }));
+  const add = () => { const v = $("#favAdd").value.trim(); if (v && !isFavAuthor(v)) toggleFavAuthor(v); renderFavBox(); };
+  $("#favAddBtn").onclick = add; $("#favAdd").onkeydown = (e) => { if (e.key === "Enter") add(); };
+}
+$("#menuBtn").onclick = () => { renderFavBox(); $("#firstNameIn").value = settings.prenom || ""; renderColorPickers(); $("#menuSheet").classList.add("open"); };
 document.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => { const sh = b.closest(".sheet"); sh.classList.remove("open"); if (sh.id === "searchSheet") playShelve(); }));
 /* Geste « retour » (iPhone) : ferme la fiche ou la feuille ouverte au lieu de quitter le site.
    Chaque feuille qui s'ouvre ajoute une étape à l'historique ; en revenir en arrière ferme la feuille du dessus. */
