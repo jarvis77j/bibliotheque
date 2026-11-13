@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-11-13T00:42Z",
+"updated": "2026-11-13T08:17Z",
 "stats": {
 "precommandes": [
 12,
@@ -36,63 +36,63 @@
 },
 "uniques": 38,
 "libraire": {
-"pages_listes": 66,
-"echecs": 0,
-"secondes_listes": 452,
-"pages": 113,
-"reprises": 19,
+"pages_listes": 64,
+"echecs": 2,
+"secondes_listes": 379,
+"pages": 104,
+"reprises": 14,
 "fiches_lues": 17,
-"secondes": 761,
+"secondes": 663,
 "statut": "ok"
 },
 "suivi": {
 "hachette": {
-"dernier_essai": "2026-11-13T00:31Z",
+"dernier_essai": "2026-11-13T08:05Z",
 "secondes_complet": 344,
 "dernier_complet": "2026-11-12T18:27Z",
 "echecs": 0,
-"secondes_proche": 63,
-"dernier_proche": "2026-11-13T00:31Z"
+"secondes_proche": 67,
+"dernier_proche": "2026-11-13T08:05Z"
 },
 "glenat": {
-"dernier_essai": "2026-11-13T00:31Z",
+"dernier_essai": "2026-11-13T08:05Z",
 "secondes_complet": 66,
 "dernier_complet": "2026-11-12T18:27Z",
 "echecs": 0,
 "secondes_proche": 33,
-"dernier_proche": "2026-11-13T00:31Z"
+"dernier_proche": "2026-11-13T08:05Z"
 },
 "seuil": {
-"dernier_essai": "2026-11-13T00:31Z",
+"dernier_essai": "2026-11-13T08:05Z",
 "secondes_complet": 59,
 "dernier_complet": "2026-11-12T18:27Z",
 "echecs": 0,
-"secondes_proche": 16,
-"dernier_proche": "2026-11-13T00:31Z"
+"secondes_proche": 15,
+"dernier_proche": "2026-11-13T08:05Z"
 },
 "src_manga": {
-"dernier_essai": "2026-11-13T00:31Z",
+"dernier_essai": "2026-11-13T08:05Z",
 "secondes_complet": 281,
 "dernier_complet": "2026-11-12T18:27Z",
 "echecs": 0,
 "secondes_proche": 135,
-"dernier_proche": "2026-11-13T00:31Z"
+"dernier_proche": "2026-11-13T08:05Z"
 },
 "src_bd": {
-"dernier_essai": "2026-11-13T00:31Z",
-"secondes_complet": 132,
+"dernier_essai": "2026-11-13T08:05Z",
+"secondes_complet": 133,
 "dernier_complet": "2026-10-27T14:37Z",
-"echecs": 66,
+"echecs": 67,
 "secondes_proche": 94,
 "dernier_proche": "2026-10-27T07:51Z"
 },
 "src_generale": {
-"dernier_essai": "2026-11-13T00:31Z",
+"dernier_essai": "2026-11-13T08:05Z",
 "secondes_complet": 227,
 "echecs": 0,
 "dernier_complet": "2026-11-13T00:31Z",
-"secondes_proche": 229,
-"dernier_proche": "2026-11-12T18:27Z"
+"secondes_proche": 243,
+"dernier_proche": "2026-11-13T08:05Z"
 }
 },
 "plan": [
@@ -100,14 +100,14 @@
 "glenat:proche",
 "seuil:proche",
 "src_manga:proche",
-"src_bd:complet",
-"src_generale:complet"
+"src_generale:proche",
+"src_bd:complet"
 ],
 "editeurs": {
 "hachette": {
-"pages": 22,
-"livres": 270,
-"secondes": 63,
+"pages": 23,
+"livres": 268,
+"secondes": 67,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -115,7 +115,7 @@
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "glenat": {
 "pages": 11,
@@ -128,12 +128,12 @@
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "seuil": {
 "pages": 5,
 "livres": 35,
-"secondes": 16,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -141,7 +141,7 @@
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "nautiljon": {
 "pages": 3,
@@ -154,7 +154,7 @@
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "manganews": {
 "pages": 42,
@@ -170,12 +170,12 @@
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "bdgest": {
 "pages": 10,
 "livres": 0,
-"secondes": 29,
+"secondes": 30,
 "erreurs": 10,
 "rapproches": 0,
 "statut": "erreur",
@@ -184,12 +184,12 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "dargaud": {
 "pages": 5,
 "livres": 12,
-"secondes": 16,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -197,12 +197,12 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "delcourt": {
 "pages": 8,
-"livres": 76,
-"secondes": 26,
+"livres": 75,
+"secondes": 24,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -210,12 +210,12 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "soleil": {
 "pages": 5,
 "livres": 31,
-"secondes": 13,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
@@ -223,7 +223,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "lombard": {
 "pages": 2,
@@ -236,7 +236,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "kana": {
 "pages": 9,
@@ -249,7 +249,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "casterman": {
 "pages": 1,
@@ -262,7 +262,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "ruedesevres": {
 "pages": 1,
@@ -275,7 +275,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "dupuis": {
 "pages": 1,
@@ -288,7 +288,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "bedetheque": {
 "pages": 0,
@@ -302,33 +302,33 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "michellafon": {
 "pages": 39,
-"livres": 57,
+"livres": 15,
 "secondes": 116,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "jailu": {
 "pages": 1,
-"livres": 0,
-"secondes": 1,
+"livres": 17,
+"secondes": 4,
 "erreurs": 0,
-"statut": "vide",
+"statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -337,76 +337,76 @@
 "erreurs": 0,
 "statut": "vide",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "albinmichel": {
-"pages": 2,
-"livres": 64,
-"secondes": 5,
+"pages": 3,
+"livres": 6,
+"secondes": 9,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "hugo": {
-"pages": 23,
-"livres": 16,
-"secondes": 69,
+"pages": 22,
+"livres": 6,
+"secondes": 67,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "points": {
-"pages": 1,
-"livres": 58,
-"secondes": 3,
+"pages": 7,
+"livres": 19,
+"secondes": 19,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "bayard": {
 "pages": 4,
-"livres": 53,
-"secondes": 12,
+"livres": 8,
+"secondes": 14,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "milan": {
-"pages": 6,
-"livres": 44,
-"secondes": 18,
+"pages": 4,
+"livres": 6,
+"secondes": 10,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
 "conflits_dates": {
 "nombre": 1,
@@ -420,18 +420,18 @@
 }
 }
 ],
-"le": "2026-11-13T00:42Z"
+"le": "2026-11-13T08:17Z"
 },
-"fiches_lues": 21,
+"fiches_lues": 29,
 "erreurs": 10
 },
-"secondes_editeurs": 669,
+"secondes_editeurs": 712,
 "dates_relues": {
-"fiches": 30,
+"fiches": 23,
 "changees": []
 },
-"editeurs_at": "2026-11-13T00:42Z",
-"listes": 466,
+"editeurs_at": "2026-11-13T08:17Z",
+"listes": 452,
 "lues": 17,
 "en_attente": 0,
 "plus_loin": "2027-05-18",
@@ -439,29 +439,29 @@
 "doublons": 77,
 "sources": {
 "leslibraires": {
-"pages_listes": 66,
-"echecs": 0,
-"secondes_listes": 452,
-"pages": 113,
-"reprises": 19,
+"pages_listes": 64,
+"echecs": 2,
+"secondes_listes": 379,
+"pages": 104,
+"reprises": 14,
 "fiches_lues": 17,
-"secondes": 761,
+"secondes": 663,
 "statut": "ok",
 "livres": 602
 },
 "hachette": {
 "statut": "ok",
-"livres": 270,
-"pages": 22,
-"secondes": 63,
+"livres": 268,
+"pages": 23,
+"secondes": 67,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
-"en_base": 1245
+"le": "2026-11-13T08:17Z",
+"en_base": 1244
 },
 "glenat": {
 "statut": "ok",
@@ -474,21 +474,21 @@
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 284
 },
 "seuil": {
 "statut": "ok",
 "livres": 35,
 "pages": 5,
-"secondes": 16,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "proche",
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 84
 },
 "nautiljon": {
@@ -502,8 +502,8 @@
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
-"en_base": 1179
+"le": "2026-11-13T08:17Z",
+"en_base": 1181
 },
 "manganews": {
 "statut": "ok",
@@ -516,63 +516,63 @@
 "2026-10-30",
 "2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 198
 },
 "bdgest": {
 "statut": "erreur",
 "livres": 0,
 "pages": 10,
-"secondes": 29,
+"secondes": 30,
 "erreurs": 10,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 407
 },
 "dargaud": {
 "statut": "ok",
 "livres": 12,
 "pages": 5,
-"secondes": 16,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 12
 },
 "delcourt": {
 "statut": "ok",
-"livres": 76,
+"livres": 75,
 "pages": 8,
-"secondes": 26,
+"secondes": 24,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
-"en_base": 69
+"le": "2026-11-13T08:17Z",
+"en_base": 68
 },
 "soleil": {
 "statut": "ok",
 "livres": 31,
 "pages": 5,
-"secondes": 13,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 29
 },
 "lombard": {
@@ -586,7 +586,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 30
 },
 "kana": {
@@ -600,7 +600,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 77
 },
 "casterman": {
@@ -614,7 +614,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 28
 },
 "ruedesevres": {
@@ -628,7 +628,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 4
 },
 "dupuis": {
@@ -642,7 +642,7 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 10
 },
 "bedetheque": {
@@ -656,35 +656,35 @@
 "2026-09-01",
 "2027-05-18"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 0
 },
 "michellafon": {
 "statut": "ok",
-"livres": 57,
+"livres": 15,
 "pages": 39,
 "secondes": 116,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 53
 },
 "jailu": {
-"statut": "vide",
-"livres": 0,
+"statut": "ok",
+"livres": 17,
 "pages": 1,
-"secondes": 1,
+"secondes": 4,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 62
 },
 "bragelonne": {
@@ -694,91 +694,91 @@
 "secondes": 3,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 0
 },
 "albinmichel": {
 "statut": "ok",
-"livres": 64,
-"pages": 2,
-"secondes": 5,
+"livres": 6,
+"pages": 3,
+"secondes": 9,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 64
 },
 "hugo": {
 "statut": "ok",
-"livres": 16,
-"pages": 23,
-"secondes": 69,
+"livres": 6,
+"pages": 22,
+"secondes": 67,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 16
 },
 "points": {
 "statut": "ok",
-"livres": 58,
-"pages": 1,
-"secondes": 3,
+"livres": 19,
+"pages": 7,
+"secondes": 19,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
-"en_base": 58
+"le": "2026-11-13T08:17Z",
+"en_base": 64
 },
 "bayard": {
 "statut": "ok",
-"livres": 53,
+"livres": 8,
 "pages": 4,
-"secondes": 12,
+"secondes": 14,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 53
 },
 "milan": {
 "statut": "ok",
-"livres": 44,
-"pages": 6,
-"secondes": 18,
+"livres": 6,
+"pages": 4,
+"secondes": 10,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-30",
+"2026-12-28"
 ],
-"le": "2026-11-13T00:42Z",
+"le": "2026-11-13T08:17Z",
 "en_base": 44
 }
 },
-"duree_secondes": 1431,
+"duree_secondes": 1377,
 "prix": {
-"lus": 1,
-"trouves": 1,
-"avec_prix": 3838,
+"lus": 7,
+"trouves": 7,
+"avec_prix": 3844,
 "reste": 0,
-"total": 4608,
+"total": 4614,
 "auteurs_deduits": 1
 }
 },
@@ -878,7 +878,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "2,3, te voilà !",
+"title": "3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -50256,7 +50256,7 @@
 },
 {
 "id": "ed:9782413089803",
-"title": "Le Greenwich - L'Appel des hauts-fonds",
+"title": "Le Greenwich - L'appel des hauts-fonds",
 "authors": [
 "Rodolphe"
 ],
@@ -50268,7 +50268,7 @@
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413089803.jpg?itok=VXKkJqzB",
 "description": "",
 "rayons": [],
-"url": "https://www.editions-delcourt.fr/bd/series/serie-le-greenwich/album-le-greenwich",
+"url": "https://www.editions-delcourt.fr/bd/series/serie-le-greenwich/album-le-greenwich-l-appel-des-hauts-fonds",
 "kind": "bd",
 "source": "editeur:delcourt",
 "prix": 19.5
@@ -56809,6 +56809,28 @@
 "prix": 7.2
 },
 {
+"id": "ed:9782382818237",
+"title": "AO ASHI T37",
+"authors": [
+"Yûgo Kobayashi"
+],
+"publisher": "Mangetsu",
+"date": "2026-11-04",
+"isbn": "9782382818237",
+"pages": 0,
+"format": "Poche",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/MANGETSU/2026/9782382818237-001-X.jpeg",
+"description": "Mené en début de match, l'Esperion parvient à égaliser avant la fin de la première mi-temps. Dans les vestiaires, l'équipe est en effervescence. En face, le doute s'empare du Barça. Certains joueurs parlent de carreaux blancs qui...",
+"rayons": [
+"Mangas",
+"BD Mangas"
+],
+"url": "https://www.hachette.fr/livre/ao-ashi-t37-9782382818237/",
+"kind": "bd",
+"source": "editeur:hachette",
+"prix": 7.2
+},
+{
 "id": "ed:9782290440308",
 "title": "Alma",
 "authors": [
@@ -56850,27 +56872,6 @@
 "kind": "bd",
 "source": "editeur:hachette",
 "prix": 7.2
-},
-{
-"id": "ed:9782382818237",
-"title": "Ao Ashi - Tome 37",
-"authors": [
-"Naohiko Ueno"
-],
-"publisher": "Mangetsu",
-"date": "2026-11-04",
-"isbn": "9782382818237",
-"pages": 0,
-"format": "",
-"prix": 7.2,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/71/ao_ashi_371005817.webp",
-"description": "Mené en début de match, l'Esperion parvient à égaliser avant la fin de la première mi-temps. Dans les vestiaires, l'équipe est en effervescence. En face, le doute s'empare du Barça. Certains joueurs parlent de carreaux blancs qui...",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/ao+ashi/volume-37,1005817.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
 },
 {
 "id": "ll:26644056",
@@ -57038,29 +57039,6 @@
 "source": "editeur:hachette",
 "fiche": 1,
 "prix": 10.0
-},
-{
-"id": "ed:9782017299158",
-"title": "Bibliothèque Disney - Billie : À la croisée des mondes - Le roman du film",
-"authors": [
-"Disney"
-],
-"publisher": "Hachette Jeunesse",
-"date": "2026-11-04",
-"isbn": "9782017299158",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/HACHETTEJEUNESSE/2026/9782017299158-001-X.jpeg",
-"description": "Impulsive et anticonformiste, Billie passerait presque pour une ado rebelle comme les autres. Mais en réalité, elle est… une sorcière ! Et pas n’impor",
-"rayons": [
-"Premières lectures (6-9 ans)",
-"Jeunesse"
-],
-"url": "https://www.hachette.fr/livre/bibliotheque-disney-billie-la-croisee-des-mondes-le-roman-du-film-9782017299158/",
-"kind": "jeunesse",
-"source": "editeur:hachette",
-"fiche": 1,
-"prix": 5.9
 },
 {
 "id": "ed:9782246847328",
@@ -57289,24 +57267,26 @@
 },
 {
 "id": "ed:9782384964581",
-"title": "Clock Striker - Tome 2",
+"title": "Clock Striker T02",
 "authors": [
-"Frederick L. Jones"
+"Frederick L. Jones",
+"Issaka Galadima"
 ],
-"publisher": "nobi nobi!",
+"publisher": "Nobi Nobi",
 "date": "2026-11-04",
 "isbn": "9782384964581",
 "pages": 0,
-"format": "",
-"prix": 7.5,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/50/1036405.webp",
+"format": "Poche",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/NOBINOBI/2026/9782384964581-001-X.jpeg",
 "description": "Passionnée de sciences, Cast rêve de devenir membre des légendaires Smiths, ces ingénieurs-guerriers qui utilisent la technologie pour créer des armes surpuissantes et terrasser leurs ennemis. Elle et la célèbre Philomena Clock sont...",
 "rayons": [
-"Manga"
+"Mangas",
+"BD Mangas"
 ],
-"url": "https://www.nautiljon.com/mangas/clock+striker/volume-2,1036405.html",
+"url": "https://www.hachette.fr/livre/clock-striker-t02-9782384964581/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:hachette",
+"prix": 7.5
 },
 {
 "id": "ed:9791043307164",
@@ -57421,27 +57401,50 @@
 "prix": 9.5
 },
 {
-"id": "ed:9782253918097",
-"title": "Cyrano de Bergerac - Édition Collector",
+"id": "ed:9782387030252",
+"title": "Curious Tides, T3 : De ténèbres et d'étoiles (édition reliée)",
 "authors": [
-"Edmond Rostand"
+"Pascale Lacelle"
 ],
-"publisher": "Le Livre de Poche",
+"publisher": "Big Bang",
 "date": "2026-11-04",
-"isbn": "9782253918097",
+"isbn": "9782387030252",
 "pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253918097-001-X.jpeg",
-"description": "« Agressif : “Moi, Monsieur, si j’avais un tel nez, Il faudrait sur-le-champ que je me l’amputasse !” Amical : “Mais il doit tremper dans votre tasse ",
+"format": "Grand format - Cartonné",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/BIGBANG/2026/9782387030252-001-X.jpeg",
+"description": "Le destin ne peut être brisé, pas même par les dieux qui le servent. Emory refuse de perdre encore Romie. Le monstrueux Clover projette de la sacrifie",
 "rayons": [
-"Théâtre et poésie",
-"Littérature Générale"
+"Ados",
+"Jeunesse"
 ],
-"url": "https://www.hachette.fr/livre/cyrano-de-bergerac-edition-collector-9782253918097/",
-"kind": "",
+"url": "https://www.hachette.fr/livre/curious-tides-t3-de-tenebres-et-detoiles-edition-reliee-9782387030252/",
+"kind": "ya",
 "source": "editeur:hachette",
 "fiche": 1,
-"prix": 9.5
+"prix": 27.95
+},
+{
+"id": "ed:9782702196229",
+"title": "D'un trait de plume",
+"authors": [
+"Hélène Legrais"
+],
+"publisher": "Calmann-Lévy",
+"date": "2026-11-04",
+"isbn": "9782702196229",
+"pages": 0,
+"format": "Grand format - Broché",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/CALMANNLEVY/2026/9782702196229-001-X.jpeg",
+"description": "8 novembre 1659. Lorsque Julita, jeune servante chez les Jorda i Bosch, une illustre famille de juristes perpignanais, s’éveille, elle ignore que dans",
+"rayons": [
+"Romans francophones",
+"Littérature Générale"
+],
+"url": "https://www.hachette.fr/livre/dun-trait-de-plume-9782702196229/",
+"kind": "roman",
+"source": "editeur:hachette",
+"fiche": 1,
+"prix": 21.9
 },
 {
 "id": "ed:9782017911654",
@@ -57519,24 +57522,26 @@
 },
 {
 "id": "ed:9791043311338",
-"title": "Destiny Unchain Online - Tome 4",
+"title": "Destiny Unchain Online T04",
 "authors": [
+"Yachimoto",
 "resn"
 ],
 "publisher": "Pika",
 "date": "2026-11-04",
 "isbn": "9791043311338",
 "pages": 0,
-"format": "",
-"prix": 7.2,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/83/destiny_unchain_online_4984938.webp",
+"format": "Poche",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/PIKA/2026/9791043311338-001-X.jpeg",
 "description": "Au col de Kimei, le combat contre les player killers bat son plein, et le style de combat de Crim éveille des souvenirs troublants chez Bianca... Alors que le groupe peine à reprendre l’avantage, un mystérieux joueur à l’aura...",
 "rayons": [
-"Manga"
+"Mangas",
+"BD Mangas"
 ],
-"url": "https://www.nautiljon.com/mangas/destiny+unchain+online/volume-4,984938.html",
+"url": "https://www.hachette.fr/livre/destiny-unchain-online-t04-9791043311338/",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:hachette",
+"prix": 7.2
 },
 {
 "id": "ed:9782344076620",
@@ -57781,29 +57786,6 @@
 "prix": 26.0
 },
 {
-"id": "ed:9782253915584",
-"title": "Gatsby le Magnifique - Édition Collector",
-"authors": [
-"Francis Scott Fitzgerald"
-],
-"publisher": "Le Livre de Poche",
-"date": "2026-11-04",
-"isbn": "9782253915584",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253915584-001-X.jpeg",
-"description": "« Il devait y avoir en lui quelque chose de magique,  une prescience suraiguë des promesses de l'existence.» TRADUCTION DE JACQUES TOURNIER.",
-"rayons": [
-"Romans étrangers",
-"Littérature Générale"
-],
-"url": "https://www.hachette.fr/livre/gatsby-le-magnifique-edition-collector-9782253915584/",
-"kind": "roman",
-"source": "editeur:hachette",
-"fiche": 1,
-"prix": 8.5
-},
-{
 "id": "ed:9782385693565",
 "title": "Go for it, Nakamura ! - Tome 1",
 "authors": [
@@ -57985,6 +57967,29 @@
 "prix": 26.0
 },
 {
+"id": "ed:9782246843351",
+"title": "Hitler et les journalistes",
+"authors": [
+"Lutz Hachmeister"
+],
+"publisher": "Grasset",
+"date": "2026-11-04",
+"isbn": "9782246843351",
+"pages": 0,
+"format": "Grand format - Broché",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/GRASSETFASQUELLE/2026/9782246843351-001-X.jpeg",
+"description": "Comment interviewer un dictateur ? Question plus actuelle que jamais à laquelle Lutz Hachmeister répond en racontant pour la première fois l’histoire ",
+"rayons": [
+"Essais",
+"Littérature Générale"
+],
+"url": "https://www.hachette.fr/livre/hitler-et-les-journalistes-9782246843351/",
+"kind": "",
+"source": "editeur:hachette",
+"fiche": 1,
+"prix": 28.0
+},
+{
 "id": "ed:9782036094765",
 "title": "Ils ont révolutionné les sciences",
 "authors": [
@@ -58120,6 +58125,29 @@
 "source": "editeur:hachette",
 "fiche": 1,
 "prix": 11.5
+},
+{
+"id": "ed:9782278133376",
+"title": "Je découvre les musiques classiques de Noël",
+"authors": [
+"Delphine Renon"
+],
+"publisher": "Didier Jeunesse",
+"date": "2026-11-04",
+"isbn": "9782278133376",
+"pages": 0,
+"format": "Grand format - Cartonné",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/DIDIERJEUNESSE/2026/9782278133376-001-X.jpeg",
+"description": "Un nouveau livre sonore classique de 5 puces (90 secondes) pour découvrir des musiques classiques sur le thème de Noël par de grands compositeurs : Tc",
+"rayons": [
+"Eveil (0 -3 ans)",
+"Jeunesse"
+],
+"url": "https://www.hachette.fr/livre/je-decouvre-les-musiques-classiques-de-noel-9782278133376/",
+"kind": "jeunesse",
+"source": "editeur:hachette",
+"fiche": 1,
+"prix": 12.5
 },
 {
 "id": "ed:9782017336327",
@@ -58684,6 +58712,29 @@
 "prix": 29.9
 },
 {
+"id": "ed:9782253073581",
+"title": "Le Capitaine Fracasse - Édition Collector",
+"authors": [
+"Théophile Gautier"
+],
+"publisher": "Le Livre de Poche",
+"date": "2026-11-04",
+"isbn": "9782253073581",
+"pages": 0,
+"format": "Poche",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253073581-001-X.jpeg",
+"description": "« Je plie mon titre de baron et le mets au fond de mon porte-manteau, comme un vêtement qui n’est plus de mise. […] Donc je succède à Matamore et pren",
+"rayons": [
+"Oeuvres classiques",
+"Littérature Générale"
+],
+"url": "https://www.hachette.fr/livre/le-capitaine-fracasse-edition-collector-9782253073581/",
+"kind": "roman",
+"source": "editeur:hachette",
+"fiche": 1,
+"prix": 11.5
+},
+{
 "id": "ed:9782387219985",
 "title": "Le Chat du restaurant des souvenirs",
 "authors": [
@@ -58860,29 +58911,6 @@
 "source": "editeur:hachette",
 "fiche": 1,
 "prix": 9.5
-},
-{
-"id": "ed:9782700285802",
-"title": "Le charme secret des monstres",
-"authors": [
-"Holly Black"
-],
-"publisher": "Rageot Editeur",
-"date": "2026-11-04",
-"isbn": "9782700285802",
-"pages": 0,
-"format": "Grand format - Autre",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/RAGEOT/2026/9782700285802-001-X.jpeg",
-"description": "Un roi malgré lui est plongé dans le tourment lorsque la jeune fille qu’il adore détester est enlevée par le Peuple de la Mer. Un père exilé, coincé d",
-"rayons": [
-"Premières lectures (6-9 ans)",
-"Jeunesse"
-],
-"url": "https://www.hachette.fr/livre/le-charme-secret-des-monstres-9782700285802/",
-"kind": "jeunesse",
-"source": "editeur:hachette",
-"fiche": 1,
-"prix": 23.9
 },
 {
 "id": "ed:9782290435458",
@@ -59146,6 +59174,30 @@
 "prix": 9.5
 },
 {
+"id": "ed:9782378873066",
+"title": "Les Tortues Ninja - TMNT, T2 : NYC Vs. TMNT",
+"authors": [
+"Jason Aaron",
+"Juan Ferreyra"
+],
+"publisher": "HiComics",
+"date": "2026-11-04",
+"isbn": "9782378873066",
+"pages": 0,
+"format": "Grand format - Cartonné",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/HICOMICS/2026/9782378873066-001-X.jpeg",
+"description": "Après sa reprise en main explosive des Tortues Ninja , Jason Aaron livre ici la seconde partie de son interprétation des héros iconiques de Kevin East",
+"rayons": [
+"Bande dessinées",
+"BD Mangas"
+],
+"url": "https://www.hachette.fr/livre/les-tortues-ninja-tmnt-t2-nyc-vs-tmnt-9782378873066/",
+"kind": "bd",
+"source": "editeur:hachette",
+"fiche": 1,
+"prix": 19.95
+},
+{
 "id": "ed:9782253918042",
 "title": "Les Trois Mousquetaires - Édition Collector",
 "authors": [
@@ -59167,6 +59219,29 @@
 "source": "editeur:hachette",
 "fiche": 1,
 "prix": 11.5
+},
+{
+"id": "ed:9782213736235",
+"title": "Les Villages préférés des Français - 15e édition",
+"authors": [
+"Stéphane Bern"
+],
+"publisher": "Fayard",
+"date": "2026-11-04",
+"isbn": "9782213736235",
+"pages": 0,
+"format": "Grand format - Relié",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/FAYARD/2026/9782213736235-001-X.jpeg",
+"description": "« Que notre France est belle ! Des remparts de Cordes-sur-Ciel aux maisons à colombages de Kaysersberg, des roches de granit rose de Ploumanac’h aux f",
+"rayons": [
+"Actualités",
+"Histoire et Actualités"
+],
+"url": "https://www.hachette.fr/livre/les-villages-preferes-des-francais-15e-edition-9782213736235/",
+"kind": "",
+"source": "editeur:hachette",
+"fiche": 1,
+"prix": 29.0
 },
 {
 "id": "ll:26611303",
@@ -59818,29 +59893,6 @@
 "prix": 27.0
 },
 {
-"id": "ed:9782253918141",
-"title": "Odyssée - Édition Collector",
-"authors": [
-"Homère"
-],
-"publisher": "Le Livre de Poche",
-"date": "2026-11-04",
-"isbn": "9782253918141",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/LGFLIVREDEPOCHE/2026/9782253918141-001-X.jpeg",
-"description": "« Ce n’est pas qu’il soit mort, notre divin Ulysse !  Il est encore au monde et vivant mais captif, au bout des mers, qui sait ? dans une île aux deux",
-"rayons": [
-"Théâtre et poésie",
-"Littérature Générale"
-],
-"url": "https://www.hachette.fr/livre/odyssee-edition-collector-9782253918141/",
-"kind": "",
-"source": "editeur:hachette",
-"fiche": 1,
-"prix": 9.5
-},
-{
 "id": "ed:9782253915577",
 "title": "Orgueil et préjugés - Édition Collector",
 "authors": [
@@ -60259,26 +60311,24 @@
 },
 {
 "id": "ed:9782382814345",
-"title": "Sharehouse Nile T04",
+"title": "Sharehouse Nile - Tome 4",
 "authors": [
-"Megumi Dorokawa",
 "Hiroo Nakamichi"
 ],
 "publisher": "Mangetsu",
 "date": "2026-11-04",
 "isbn": "9782382814345",
 "pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/MANGETSU/2026/9782382814345-001-X.jpeg",
+"format": "",
+"prix": 7.95,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/62/sharehouse_nile_4998426.webp",
 "description": "Une maison on ne peut plus banale à Tokyo, dans le Japon d'aujourd'hui... C'est ici, dans la colocation Nile qu'habitent des personnages historiques revenus à la vie. Marie-Antoinette, tombée sour le charme de Che Guevara, croise la...",
 "rayons": [
-"Mangas",
-"BD Mangas"
+"Manga"
 ],
-"url": "https://www.hachette.fr/livre/sharehouse-nile-t04-9782382814345/",
+"url": "https://www.nautiljon.com/mangas/sharehouse+nile/volume-4,998426.html",
 "kind": "bd",
-"source": "editeur:hachette",
-"prix": 7.95
+"source": "editeur:nautiljon"
 },
 {
 "id": "ll:26611186",
@@ -60348,29 +60398,6 @@
 "source": "editeur:hachette",
 "fiche": 1,
 "prix": 18.0
-},
-{
-"id": "ed:9782017252689",
-"title": "Snoopy, Tome 1 : L'éloge de la paresse",
-"authors": [
-"Charles M. Schulz"
-],
-"publisher": "Hachette Comics",
-"date": "2026-11-04",
-"isbn": "9782017252689",
-"pages": 0,
-"format": "Grand format - Broché",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/HACHETTECOMICS/2026/9782017252689-001-X.jpeg",
-"description": "Retrouvez Snoopy, le plus tendre des beagles, dans un album plein d'humour, d'amitié et de petits bonheurs du quotidien ! Dans cet album, Snoopy célèb",
-"rayons": [
-"Bande dessinées",
-"BD Mangas"
-],
-"url": "https://www.hachette.fr/livre/snoopy-tome-1-leloge-de-la-paresse-9782017252689/",
-"kind": "bd",
-"source": "editeur:hachette",
-"fiche": 1,
-"prix": 9.99
 },
 {
 "id": "ed:9782382813324",
@@ -60790,26 +60817,24 @@
 },
 {
 "id": "ed:9782811694050",
-"title": "Veritas Oculis T02",
+"title": "Veritas Oculis - Les investigations sacrées - Tome 2",
 "authors": [
-"Natsu Hyuuga",
-"You Asami"
+"Natsu Hyûga"
 ],
 "publisher": "Pika",
 "date": "2026-11-04",
 "isbn": "9782811694050",
 "pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/PIKA/2026/9782811694050-001-X.jpeg",
+"format": "",
+"prix": 7.5,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/27/veritas_oculis_-_les_investigations_sacrees_2996672.webp",
 "description": "L'enquête sur le meurtre de Cyrielle se poursuit. Invitée à prendre le thé avec les aspirantes au titre de Sainte, Chloé profite de cette rencontre pour en découvrir plus sur leurs mystérieux “dons divins” et observer chacune...",
 "rayons": [
-"Mangas",
-"BD Mangas"
+"Manga"
 ],
-"url": "https://www.hachette.fr/livre/veritas-oculis-t02-9782811694050/",
+"url": "https://www.nautiljon.com/mangas/veritas+oculis+-+les+investigations+sacrées/volume-2,996672.html",
 "kind": "bd",
-"source": "editeur:hachette",
-"prix": 7.5
+"source": "editeur:nautiljon"
 },
 {
 "id": "ed:9782253140368",
@@ -60925,7 +60950,7 @@
 },
 {
 "id": "ed:9791043310997",
-"title": "You Rock Me T06",
+"title": "You Rock Me - Tome 6",
 "authors": [
 "Keiko Iwashita"
 ],
@@ -60933,17 +60958,16 @@
 "date": "2026-11-04",
 "isbn": "9791043310997",
 "pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/PIKA/2026/9791043310997-001-X.jpeg",
+"format": "",
+"prix": 7.2,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/40/you_rock_me_61023704.webp",
 "description": "Pour le concert de Noël, le directeur d’un célèbre studio d’enregistrement a décidé d’assister à la performance des Pantera Negra dans l’optique de les signer. Mais le groupe de Gaku frôle la catastrophe le jour J : au...",
 "rayons": [
-"Mangas",
-"BD Mangas"
+"Manga"
 ],
-"url": "https://www.hachette.fr/livre/you-rock-me-t06-9791043310997/",
+"url": "https://www.nautiljon.com/mangas/you+rock+me/volume-6,1023704.html",
 "kind": "bd",
-"source": "editeur:hachette",
-"prix": 7.2
+"source": "editeur:nautiljon"
 },
 {
 "id": "ll:26664823",
@@ -64243,7 +64267,7 @@
 "url": "https://www.leslibraires.fr/livre/26615036-bienvenue-dans-les-mondes-polaires-un-cherche-et-trouve-dans-les-paysages-glaces-sandra-dieckmann-flammarion-jeunesse",
 "kind": "jeunesse",
 "prix": 17.0,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ll:26611118",
@@ -64267,7 +64291,7 @@
 "url": "https://www.leslibraires.fr/livre/26611118-chien-bleu-et-l-esprit-des-bois-nadja-ecole-des-loisirs",
 "kind": "jeunesse",
 "prix": 16.0,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9791036396564",
@@ -64380,7 +64404,7 @@
 "url": "https://www.leslibraires.fr/livre/26523517-l-inspecteur-kaga-le-fil-de-l-espoir-keigo-higashino-actes-sud",
 "kind": "policier",
 "prix": 9.9,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782382768587",
@@ -64471,7 +64495,7 @@
 "url": "https://www.leslibraires.fr/livre/26428371-les-ombres-du-titanic-benjamin-lacombe-cecile-roumiguiere-gallimard",
 "kind": "bd",
 "prix": 30.0,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ll:26428271",
@@ -64586,7 +64610,7 @@
 "url": "https://www.leslibraires.fr/livre/26611135-3-oscar-et-albert-le-mystere-des-biscuits-disparus-chris-naylor-ballesteros-ecole-des-loisirs",
 "kind": "jeunesse",
 "prix": 6.5,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782382768341",
@@ -64676,7 +64700,7 @@
 "url": "https://www.leslibraires.fr/livre/26611261-trois-chatons-dans-la-nuit-audrey-poussier-ecole-des-loisirs",
 "kind": "jeunesse",
 "prix": 6.5,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782290435557",
@@ -64743,7 +64767,7 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26657076-chroniques-des-arches-stellaires---le-crepuscule-du-temps-romain-benassaya-critic",
-"lu": "2026-11-12",
+"lu": "2026-11-13",
 "kind": "fantasy",
 "prix": 23.0
 },
@@ -64926,7 +64950,7 @@
 "url": "https://www.leslibraires.fr/livre/26646186-avalanche-hotel-daphne-collignon-delcourt",
 "kind": "bd",
 "prix": 19.5,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782820355928",
@@ -65169,7 +65193,7 @@
 "url": "https://www.leslibraires.fr/livre/26455308-chanter-c-est-lancer-des-balles-60-chansons-racontees-par-lui-meme-alain-souchon-seghers",
 "kind": "",
 "prix": 25.0,
-"lu": "2026-11-11"
+"lu": "2026-11-13"
 },
 {
 "id": "ll:26546763",
@@ -65193,7 +65217,7 @@
 "url": "https://www.leslibraires.fr/livre/26546763-christmas-time-to-kill-okeanos-s--pocket",
 "kind": "romance",
 "prix": 10.9,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ll:26538799",
@@ -65241,7 +65265,7 @@
 "url": "https://www.leslibraires.fr/livre/26621603-coup-detat-arno-bertina-alexandre-civico-julia-deck-mathias-enard-jerome-ferrari-helene-gaudy-maylis-kerangal-mathieu-larnaudie-oliver-rohe-joy-sorman-cercle-ouvert",
 "kind": "roman",
 "prix": 46.9,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782253253297",
@@ -65288,7 +65312,7 @@
 "url": "https://www.leslibraires.fr/livre/26520091-danse-avec-paco--magali-le-huche-gallimard-jeunesse",
 "kind": "jeunesse",
 "prix": 14.9,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9791042021368",
@@ -65398,6 +65422,31 @@
 "source": "editeur:hachette",
 "fiche": 1,
 "prix": 9.2
+},
+{
+"id": "ed:9782700285840",
+"title": "Emy, cavalière de Chanteloup - Tome 2 : Le Bois des murmures",
+"authors": [
+"Sanoe",
+"Éléonore Devillepoix",
+"Anita Oum"
+],
+"publisher": "Rageot Editeur",
+"date": "2026-11-12",
+"isbn": "9782700285840",
+"pages": 0,
+"format": "Grand format - Autre",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/RAGEOT/2026/9782700285840-001-X.jpeg",
+"description": "Voilà deux mois qu’Emy est à Chanteloup. Mais son intégration au poney-club est compliquée. Depuis son arrivée, des incidents inexpliqués s’enchaînent",
+"rayons": [
+"Premières lectures (6-9 ans)",
+"Jeunesse"
+],
+"url": "https://www.hachette.fr/livre/emy-cavaliere-de-chanteloup-tome-2-le-bois-des-murmures-9782700285840/",
+"kind": "jeunesse",
+"source": "editeur:hachette",
+"fiche": 1,
+"prix": 13.5
 },
 {
 "id": "ed:9791042021429",
@@ -65759,7 +65808,7 @@
 "url": "https://www.leslibraires.fr/livre/26633281-2-islander-tome-02-l-alliance-ferey-rouge-labriet-glenat",
 "kind": "bd",
 "prix": 26.0,
-"lu": "2026-11-11"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782278133383",
@@ -66012,7 +66061,7 @@
 "url": "https://www.leslibraires.fr/livre/26604920-l-almanach-des-cathedrales-henri-d-anselme-fayard",
 "kind": "",
 "prix": 19.9,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782702183380",
@@ -66503,7 +66552,7 @@
 "url": "https://www.leslibraires.fr/livre/26548027-le-messager-stanislas-mousse-le-tripode",
 "kind": "bd",
 "prix": 24.0,
-"lu": "2026-11-11"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9791028125387",
@@ -66727,7 +66776,7 @@
 "url": "https://www.leslibraires.fr/livre/26547754-les-legendaires-les-chroniques-de-darkhell-t07-le-magicien-blanc-lowenael-delcourt",
 "kind": "bd",
 "prix": 11.5,
-"lu": "2026-11-11"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782749964171",
@@ -66881,7 +66930,7 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26547184-les-enquetes-de-suzy-meurtre-dans-la-maison-d-edition-sophie-noel-scrineo",
-"lu": "2026-11-12",
+"lu": "2026-11-13",
 "kind": "ya"
 },
 {
@@ -66929,7 +66978,7 @@
 "url": "https://www.leslibraires.fr/livre/26539295-les-soeurs-field-dorothy-whipple-folio",
 "kind": "roman",
 "prix": 9.5,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ll:26642193",
@@ -67194,7 +67243,7 @@
 "url": "https://www.leslibraires.fr/livre/26546744-memoires-de-nacre-francois-bourgeon-delcourt",
 "kind": "bd",
 "prix": 17.5,
-"lu": "2026-11-11"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782501205900",
@@ -67431,7 +67480,7 @@
 "url": "https://www.leslibraires.fr/livre/26626328-sa-majeste-des-mouches-nouvelle-traduction-william-golding-gallimard",
 "kind": "roman",
 "prix": 23.0,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782302108110",
@@ -67600,7 +67649,7 @@
 "Sparte - La colère des dieux, La colère des dieux"
 ],
 "url": "https://www.leslibraires.fr/livre/26547071-sparte-la-colere-des-dieux-la-colere-des-dieux-pascale-perrier-scrineo",
-"lu": "2026-11-12",
+"lu": "2026-11-13",
 "kind": "jeunesse"
 },
 {
@@ -67733,7 +67782,7 @@
 "url": "https://www.leslibraires.fr/livre/26657095-tombeau-ouvert-robert-galbraith-grasset",
 "kind": "roman",
 "prix": 29.0,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782344078792",
@@ -67956,7 +68005,7 @@
 "url": "https://www.leslibraires.fr/livre/26642055-2-winx-club-t02-la-bataille-magique-pezzin-g-michele-b-gige-nobi-nobi",
 "kind": "bd",
 "prix": 15.9,
-"lu": "2026-11-12"
+"lu": "2026-11-13"
 },
 {
 "id": "ed:9782302108134",
@@ -68189,6 +68238,28 @@
 "source": "editeur:bdgest"
 },
 {
+"id": "ed:9791041431137",
+"title": "Discours de la servitude volontaire",
+"authors": [
+"Étienne de La Boétie"
+],
+"publisher": "Points",
+"date": "2026-11-13",
+"isbn": "9791041431137",
+"pages": 96,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041431137/petite/163475_couverture_Hres_0.jpg",
+"description": "Discours de la servitude volontaire, Étienne de La Boétie : « C’est le peuple qui s’asservit, qui, ayant le choix ou d’être serf ou d’être libre...",
+"rayons": [
+"Points Essais",
+"Pensées classiques"
+],
+"url": "https://www.editionspoints.com/ouvrage/discours-de-la-servitude-volontaire-etienne-de-la-boetie/9791041431137",
+"kind": "",
+"source": "editeur:points",
+"prix": 7.55
+},
+{
 "id": "ed:9782021619225",
 "title": "Fragments",
 "authors": [
@@ -68230,6 +68301,71 @@
 "prix": 8.1
 },
 {
+"id": "ed:9791041431090",
+"title": "L'Art d'avoir toujours raison",
+"authors": [
+"Arthur Schopenhauer"
+],
+"publisher": "Points",
+"date": "2026-11-13",
+"isbn": "9791041431090",
+"pages": 128,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041431090/petite/163471_couverture_Hres_0.jpg",
+"description": "L'Art d'avoir toujours raison, Arthur Schopenhauer : « Dans un débat, nous sommes ainsi comme presque forcés à être de mauvaise foi, ou du moins forteme...",
+"rayons": [
+"Points Essais",
+"Pensées classiques"
+],
+"url": "https://www.editionspoints.com/ouvrage/l-art-d-avoir-toujours-raison-arthur-schopenhauer/9791041431090",
+"kind": "",
+"source": "editeur:points",
+"prix": 7.9
+},
+{
+"id": "ed:9791041428687",
+"title": "La Breizh Brigade",
+"authors": [
+"Mo Malø"
+],
+"publisher": "Points",
+"date": "2026-11-13",
+"isbn": "9791041428687",
+"pages": 288,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041428687/petite/161527_couverture_Hres_0.jpg",
+"description": "La Breizh Brigade, Mo Malø : Trois générations de femmesau caractère bien trempé et une enquêteau cœur de Saint-Malo…Le Renard, réplique du navire...",
+"rayons": [
+"Policier / Thriller"
+],
+"url": "https://www.editionspoints.com/ouvrage/la-breizh-brigade-mo-malo/9791041428687",
+"kind": "policier",
+"source": "editeur:points",
+"prix": 8.4
+},
+{
+"id": "ed:9791041431083",
+"title": "La Tranquillité de l'âme",
+"authors": [
+"Sénèque"
+],
+"publisher": "Points",
+"date": "2026-11-13",
+"isbn": "9791041431083",
+"pages": 192,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041431083/petite/163470_couverture_Hres_0.jpg",
+"description": "La Tranquillité de l'âme, Sénèque, Juliette Dross : « C’est une chose grande, élevée, presque divine que l’état auquel tu aspires : ne pas être...",
+"rayons": [
+"Points Essais",
+"Pensées classiques"
+],
+"url": "https://www.editionspoints.com/ouvrage/la-tranquillite-de-l-ame-seneque/9791041431083",
+"kind": "",
+"source": "editeur:points",
+"prix": 8.4
+},
+{
 "id": "ed:9782808703536",
 "title": "Le Paradis attendra - Tome 1",
 "authors": [
@@ -68251,6 +68387,28 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9791041431045",
+"title": "Le Prince",
+"authors": [
+"Nicolas Machiavel"
+],
+"publisher": "Points",
+"date": "2026-11-13",
+"isbn": "9791041431045",
+"pages": 208,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041431045/petite/163466_couverture_Hres_0.jpg",
+"description": "Le Prince, Nicolas Machiavel : « On peut combattre de deux manières : ou avec les lois, ou avec la force",
+"rayons": [
+"Points Essais",
+"Pensées classiques"
+],
+"url": "https://www.editionspoints.com/ouvrage/le-prince-nicolas-machiavel/9791041431045",
+"kind": "",
+"source": "editeur:points",
+"prix": 8.95
+},
+{
 "id": "ed:9782808705929",
 "title": "Le Yakuza des bains publics (et moi) - Tome 4",
 "authors": [
@@ -68270,6 +68428,27 @@
 "url": "https://www.nautiljon.com/mangas/le+yakuza+des+bains+publics+(et+moi)/volume-4,1035115.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9791041421640",
+"title": "Le prix des larmes",
+"authors": [
+"Virginie Cresci"
+],
+"publisher": "Points",
+"date": "2026-11-13",
+"isbn": "9791041421640",
+"pages": 208,
+"format": "Poche",
+"cover": "https://ref.lamartinieregroupe.com/media/9791041421640/petite/158125_couverture_Hres_0.jpg",
+"description": "Le prix des larmes, Virginie Cresci : « Un essai coup de poing",
+"rayons": [
+"Documents"
+],
+"url": "https://www.editionspoints.com/ouvrage/le-prix-des-larmes-virginie-cresci/9791041421640",
+"kind": "",
+"source": "editeur:points",
+"prix": 8.4
 },
 {
 "id": "ll:26623039",
@@ -69892,29 +70071,6 @@
 "fiche": 1
 },
 {
-"id": "ed:9782213727035",
-"title": "Les secrets de monsieur bonnes manières",
-"authors": [
-"Jérémy Côme"
-],
-"publisher": "Fayard",
-"date": "2026-11-18",
-"isbn": "9782213727035",
-"pages": 0,
-"format": "Grand format - Broché",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/FAYARD/2026/9782213727035-001-X.jpeg",
-"description": "« Je ne sais pas à quel moment nous avons décidé que les bonnes manières étaient devenues suspectes. Ringardes. Bourgeoises. Un bonjour oublié, un tut",
-"rayons": [
-"Actualités",
-"Histoire et Actualités"
-],
-"url": "https://www.hachette.fr/livre/les-secrets-de-monsieur-bonnes-manieres-9782213727035/",
-"kind": "",
-"source": "editeur:hachette",
-"fiche": 1,
-"prix": 15.0
-},
-{
 "id": "ed:9782203315495",
 "title": "Magasin Général - Tome 1 - Marie",
 "authors": [
@@ -70019,29 +70175,6 @@
 "url": "https://www.nautiljon.com/mangas/magical+girl+dandelion/volume-2,1022260.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
-},
-{
-"id": "ed:9782017392224",
-"title": "Mes premiers romans Star Wars, Tome 03 - La revanche des Sith",
-"authors": [
-"Lucasfilm"
-],
-"publisher": "Hachette Jeunesse",
-"date": "2026-11-18",
-"isbn": "9782017392224",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/HACHETTEJEUNESSE/2026/9782017392224-001-X.jpeg",
-"description": "La guerre a éclaté dans la galaxie. Les Séparatistes ont capturé le Chancelier Palpatine. Anakin et Obi-Wan doivent vite lui porter secours. Mais Anak",
-"rayons": [
-"Premières lectures (6-9 ans)",
-"Jeunesse"
-],
-"url": "https://www.hachette.fr/livre/mes-premiers-romans-star-wars-tome-03-la-revanche-des-sith-9782017392224/",
-"kind": "jeunesse",
-"source": "editeur:hachette",
-"fiche": 1,
-"prix": 5.9
 },
 {
 "id": "ed:9782017391692",
@@ -74316,7 +74449,7 @@
 },
 {
 "id": "ed:9791043311291",
-"title": "Dead Rock T06",
+"title": "DEAD ROCK - Tome 6",
 "authors": [
 "Hiro Mashima"
 ],
@@ -74324,17 +74457,16 @@
 "date": "2026-12-02",
 "isbn": "9791043311291",
 "pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/PIKA/2026/9791043311291-001-X.jpeg",
+"format": "",
+"prix": 7.2,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/16/dead_rock_61028461.webp",
 "description": "Tandis que le tournoi “Dead or Alive” poursuit sa frénésie meurtrière, Ryzen croise la route d’un vieil ennemi, Hannibal, dont la présence présage le pire. Au même moment, Frei se retrouve face à Eiji, un nouvel adversaire de...",
 "rayons": [
-"Mangas",
-"BD Mangas"
+"Manga"
 ],
-"url": "https://www.hachette.fr/livre/dead-rock-t06-9791043311291/",
+"url": "https://www.nautiljon.com/mangas/dead+rock/volume-6,1028461.html",
 "kind": "bd",
-"source": "editeur:hachette",
-"prix": 7.2,
+"source": "editeur:nautiljon",
 "fiche": 1
 },
 {
@@ -74581,25 +74713,24 @@
 },
 {
 "id": "ed:9791043311253",
-"title": "How I Married an Amagami Sister T22",
+"title": "How I Married an Amagami Sister - Tome 22",
 "authors": [
-"Marcey Naito"
+"Marcey Naitô"
 ],
 "publisher": "Pika",
 "date": "2026-12-02",
 "isbn": "9791043311253",
 "pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/PIKA/2026/9791043311253-001-X.jpeg",
+"format": "",
+"prix": 7.2,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/67/how_i_married_an_amagami_sister_221024676.webp",
 "description": "Uryû a fait son choix. Après avoir reçu ses résultats au concours d’entrée de l’université de Kyôto, il annonce sa décision à Yae, Yuna et Asahi. Comment nos quatre protagonistes continueront-ils à tisser les liens de leur...",
 "rayons": [
-"Mangas",
-"BD Mangas"
+"Manga"
 ],
-"url": "https://www.hachette.fr/livre/how-i-married-amagami-sister-t22-9791043311253/",
+"url": "https://www.nautiljon.com/mangas/how+i+married+an+amagami+sister/volume-22,1024676.html",
 "kind": "bd",
-"source": "editeur:hachette",
-"prix": 7.2,
+"source": "editeur:nautiljon",
 "fiche": 1
 },
 {
@@ -75056,6 +75187,29 @@
 "url": "https://www.nautiljon.com/mangas/le+premier+amour+de+nezumi/volume-6,1019618.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
+},
+{
+"id": "ed:9782213736402",
+"title": "Le réveil français",
+"authors": [
+"Alexandre Pesey"
+],
+"publisher": "Fayard",
+"date": "2026-12-02",
+"isbn": "9782213736402",
+"pages": 0,
+"format": "Grand format - Broché",
+"cover": "https://www.images.hachette-livre.fr/media/imgArticle/FAYARD/2026/9782213736402-001-X.jpeg",
+"description": "La France se relève. La France renaît. Depuis des siècles, elle traverse les crises sans se laisser réduire à ses défaites. On l’a dite épuisée, divis",
+"rayons": [
+"Actualités",
+"Histoire et Actualités"
+],
+"url": "https://www.hachette.fr/livre/le-reveil-francais-9782213736402/",
+"kind": "",
+"source": "editeur:hachette",
+"fiche": 1,
+"prix": 22.9
 },
 {
 "id": "ed:9782385314934",
@@ -82387,7 +82541,7 @@
 },
 {
 "id": "ed:9782413083580",
-"title": "Cross of the Cross T10",
+"title": "Cross of the cross T10",
 "authors": [
 "Shiryû Nakatake"
 ],
@@ -82542,25 +82696,6 @@
 "url": "https://www.nautiljon.com/mangas/ichi+the+witch/volume-6,1028005.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
-},
-{
-"id": "ed:9782413093572",
-"title": "Invincible Univers - Battlebeast - Le Fauve de combat T02",
-"authors": [
-"Robert Kirkman"
-],
-"publisher": "Delcourt",
-"date": "2027-01-07",
-"isbn": "9782413093572",
-"pages": 0,
-"format": "",
-"cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413093572.jpg?itok=OOFNk6Td",
-"description": "",
-"rayons": [],
-"url": "https://www.editions-delcourt.fr/comics/series/serie-invincible-univers-battlebeast/album-invincible-univers-battlebeast-le-fauve-de-combat-t02",
-"kind": "bd",
-"source": "editeur:delcourt",
-"prix": 17.95
 },
 {
 "id": "ed:9791032725009",
