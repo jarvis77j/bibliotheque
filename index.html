@@ -342,7 +342,10 @@
   .hm-hello { padding: 10px 16px 14px; }
   .hm-hello small { display: block; color: var(--muted); font-size: 14px; letter-spacing: .2px; }
   .hm-hello small::first-letter { text-transform: uppercase; }
-  .hm-hello .hm-size { margin-top: 3px; font-size: 13px; }
+  .hm-gauge { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 13px; color: var(--muted); }
+  .hm-gbar { flex: 0 0 38%; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .hm-gbar div { height: 100%; border-radius: 4px; background: var(--accent); transition: width .6s ease; }
+  .hm-gauge b { color: var(--ink); font-size: 16px; font-family: Georgia, serif; } .hm-gauge span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
   .hm-hello h2 { margin: 2px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 30px; line-height: 1.1; letter-spacing: -.4px; overflow-wrap: anywhere; }
   .hm-card { margin: 0 16px 18px; border-radius: 22px; padding: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 88%, #000) 0%, color-mix(in srgb, var(--accent) 88%, #f5c98a) 100%); color: var(--on-accent, #fff); box-shadow: 0 10px 24px rgba(80,35,10,.28); display: flex; gap: 14px; align-items: center; position: relative; overflow: hidden; }
   .hm-card::after { content: ""; position: absolute; right: -40px; top: -40px; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,.1); }
@@ -954,7 +957,7 @@
     <button id="missBtn">🧩 Ce qu'il me manque (séries et liste d'achat)</button>
     <button id="wishBtn">🎁 Partager ma liste de souhaits (livres à lire)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 13 novembre, 15 h</p>
+    <p class="version">Version du 13 novembre, 16 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -2610,11 +2613,13 @@ function homeHello() {
   const h = new Date().getHours(), prenom = String(settings.prenom || "").trim();
   return (h < 5 || h >= 18 ? "Bonsoir" : h < 12 ? "Bonjour" : "Bon après-midi") + (prenom ? ", " + prenom : "");
 }
-// l'épaisseur d'un livre vient de son nombre de pages (≈ 0,073 mm par page, 250 pages si inconnu) : de quoi dire combien d'étagère ils occupent
-function shelfSizeText(list) {
-  const cm = list.reduce((s, b) => s + (b.pages || 250) * 0.0073, 0);
+// jauge : une barre de la couleur de l'appli qui se remplit jusqu'au prochain palier (10, 25, 50, 100…), avec le nombre de livres à côté.
+// L'épaisseur d'un livre vient de son nombre de pages (≈ 0,073 mm par page, 250 si inconnu) : de quoi dire combien d'étagère ils occupent
+function shelfGauge(list) {
+  const n = list.length, cm = list.reduce((s, b) => s + (b.pages || 250) * 0.0073, 0);
   const size = cm >= 100 ? (cm / 100).toFixed(1).replace(".", ",") + " m" : Math.max(1, Math.round(cm)) + " cm";
-  return `📚 ${list.length} ${plur(list.length, "livre lu", "livres lus")} · ≈ ${size} d'étagère`;
+  const cap = [10, 25, 50, 100, 150, 200, 300, 500, 750, 1000, 2000].find((c) => c > n) || n + 1000;
+  return `<div class="hm-gauge" title="Prochain cap : ${cap} livres"><div class="hm-gbar"><div style="width:${Math.max(4, Math.round(n / cap * 100))}%"></div></div><b>${n}</b><span>${plur(n, "livre lu", "livres lus")} · ≈ ${size} d'étagère</span></div>`;
 }
 async function renderHome() {
   const el = $("#shelves");
@@ -2636,7 +2641,7 @@ async function renderHome() {
   // ordre des rangées : rien en cours, la pile à lire d'abord ; sinon les nouveaux tomes de ses séries d'abord
   const order = !books.length ? ["sorties", "ventes"] : cur ? ["auj", "poche", "fav", "tomes", "pile", "ventes", "sorties", "lus"] : ["auj", "poche", "fav", "pile", "tomes", "ventes", "sorties", "lus"];
   el.innerHTML = `<div class="home">
-    <div class="hm-hello"><small>${esc(dateTxt)}</small><h2>${esc(hello)} 👋</h2>${read.length ? `<small class="hm-size">${shelfSizeText(read)}</small>` : ""}</div>
+    <div class="hm-hello"><small>${esc(dateTxt)}</small><h2>${esc(hello)} 👋</h2>${read.length ? shelfGauge(read) : ""}</div>
     ${hero ? `<div class="hm-card" data-open="${esc(hero.id)}" role="button" tabindex="0"><div class="hm-cover">${drawnCover(hero)}${hero.cover || hero.isbn ? coverImg(hero) : ""}</div>
       <div class="hm-txt"><small>${cur ? "En ce moment" : "À lire ensuite"}</small><b>${esc(hero.title)}</b><em>${esc(hero.authors[0] || "")}</em>
         ${cur && hero.pages ? `<div class="hm-bar"><div style="width:${pct}%"></div></div><span class="hm-pg">${pct} % · page ${hero.page || 0} sur ${hero.pages}</span>` : ""}
