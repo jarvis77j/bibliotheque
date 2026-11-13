@@ -342,6 +342,7 @@
   .hm-hello { padding: 10px 16px 14px; }
   .hm-hello small { display: block; color: var(--muted); font-size: 14px; letter-spacing: .2px; }
   .hm-hello small::first-letter { text-transform: uppercase; }
+  .hm-hello .hm-size { margin-top: 3px; font-size: 13px; }
   .hm-hello h2 { margin: 2px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 30px; line-height: 1.1; letter-spacing: -.4px; overflow-wrap: anywhere; }
   .hm-card { margin: 0 16px 18px; border-radius: 22px; padding: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 88%, #000) 0%, color-mix(in srgb, var(--accent) 88%, #f5c98a) 100%); color: var(--on-accent, #fff); box-shadow: 0 10px 24px rgba(80,35,10,.28); display: flex; gap: 14px; align-items: center; position: relative; overflow: hidden; }
   .hm-card::after { content: ""; position: absolute; right: -40px; top: -40px; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,.1); }
@@ -953,7 +954,7 @@
     <button id="missBtn">🧩 Ce qu'il me manque (séries et liste d'achat)</button>
     <button id="wishBtn">🎁 Partager ma liste de souhaits (livres à lire)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 13 novembre, 14 h</p>
+    <p class="version">Version du 13 novembre, 15 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -2283,6 +2284,19 @@ function toggleFavKind(k) { settings.favKinds = favKinds().includes(k) ? favKind
 // un livre de ses auteurs favoris (nom complet, ou même nom de famille et même initiale)
 const sameAuthor = (a, f) => { const x = plain(a).split(" "), y = plain(f).split(" "); return plain(a) === plain(f) || (x.length > 1 && y.length > 1 && x[x.length - 1] === y[y.length - 1] && x[0][0] === y[0][0]); };
 const byFavAuthor = (b) => (b.authors || []).some((a) => favAuthors().some((f) => sameAuthor(a, f)));
+// un livre de sa pile à lire sort en poche (souvent bien moins cher) : même titre, format Poche, un autre ISBN
+function pocheAlerts(all) {
+  const wish = books.filter((b) => b.status === "alire"); if (!wish.length) return [];
+  const key = (t) => plain(String(t).split(/\s[:–—]\s|\s-\s(?:poche|edition)/i)[0]);
+  const byTitle = new Map(wish.map((b) => [key(b.title), b]));
+  const lo = isoDay(new Date(Date.now() - 7 * 864e5)), hi = isoDay(new Date(Date.now() + 60 * 864e5));
+  return (all || []).filter((r) => r.date >= lo && r.date <= hi && formatLabel(r.format) === "Poche" && r.isbn).map((r) => {
+    const w = byTitle.get(key(r.title)); if (!w || (w.isbn && w.isbn === r.isbn)) return null;
+    const ln = (a) => plain((a || [])[0] || "").split(" ").pop();
+    if (ln(w.authors) && ln(r.authors) && ln(w.authors) !== ln(r.authors)) return null;
+    return { ...r, note: "Poche · " + shortDay(r.date) + (r.prix ? " · " + euro(r.prix) : "") };
+  }).filter(Boolean).slice(0, 12);
+}
 /* Alertes : sorties (de 7 jours en arrière à 30 jours devant) de ses auteurs favoris, et des genres suivis (plus resserré) */
 function favAlerts(all) {
   if (!favAuthors().length && !favKinds().length) return { authors: [], genres: [] };
@@ -2596,6 +2610,12 @@ function homeHello() {
   const h = new Date().getHours(), prenom = String(settings.prenom || "").trim();
   return (h < 5 || h >= 18 ? "Bonsoir" : h < 12 ? "Bonjour" : "Bon après-midi") + (prenom ? ", " + prenom : "");
 }
+// l'épaisseur d'un livre vient de son nombre de pages (≈ 0,073 mm par page, 250 pages si inconnu) : de quoi dire combien d'étagère ils occupent
+function shelfSizeText(list) {
+  const cm = list.reduce((s, b) => s + (b.pages || 250) * 0.0073, 0);
+  const size = cm >= 100 ? (cm / 100).toFixed(1).replace(".", ",") + " m" : Math.max(1, Math.round(cm)) + " cm";
+  return `📚 ${list.length} ${plur(list.length, "livre lu", "livres lus")} · ≈ ${size} d'étagère`;
+}
 async function renderHome() {
   const el = $("#shelves");
   const year = String(new Date().getFullYear());
@@ -2614,9 +2634,9 @@ async function renderHome() {
   const pile = shelfList("alire"), lus = shelfList("lu");
   const hasSeries = books.some((b) => b.series || guessSeries(b.title).tome);
   // ordre des rangées : rien en cours, la pile à lire d'abord ; sinon les nouveaux tomes de ses séries d'abord
-  const order = !books.length ? ["sorties", "ventes"] : cur ? ["auj", "fav", "tomes", "pile", "ventes", "sorties", "lus"] : ["auj", "fav", "pile", "tomes", "ventes", "sorties", "lus"];
+  const order = !books.length ? ["sorties", "ventes"] : cur ? ["auj", "poche", "fav", "tomes", "pile", "ventes", "sorties", "lus"] : ["auj", "poche", "fav", "pile", "tomes", "ventes", "sorties", "lus"];
   el.innerHTML = `<div class="home">
-    <div class="hm-hello"><small>${esc(dateTxt)}</small><h2>${esc(hello)} 👋</h2></div>
+    <div class="hm-hello"><small>${esc(dateTxt)}</small><h2>${esc(hello)} 👋</h2>${read.length ? `<small class="hm-size">${shelfSizeText(read)}</small>` : ""}</div>
     ${hero ? `<div class="hm-card" data-open="${esc(hero.id)}" role="button" tabindex="0"><div class="hm-cover">${drawnCover(hero)}${hero.cover || hero.isbn ? coverImg(hero) : ""}</div>
       <div class="hm-txt"><small>${cur ? "En ce moment" : "À lire ensuite"}</small><b>${esc(hero.title)}</b><em>${esc(hero.authors[0] || "")}</em>
         ${cur && hero.pages ? `<div class="hm-bar"><div style="width:${pct}%"></div></div><span class="hm-pg">${pct} % · page ${hero.page || 0} sur ${hero.pages}</span>` : ""}
@@ -2629,7 +2649,7 @@ async function renderHome() {
     </div>
     ${thisYear >= 3 ? `<button class="hm-bilan" id="hmBilan" style="background:${bilanGrad()}"><i>✨</i><span><b>Mon bilan ${year}</b><small>${thisYear} livres lus. Découvre ton année en lecture</small></span></button>` : ""}
     ${q ? `<div class="hm-quote">« ${esc(q.text)} »<small>${esc(q.book.title)}${q.page ? " · page " + esc(q.page) : ""}</small></div>` : ""}
-    <div id="hmRows">${order.map((k) => `<div class="hm-part" data-part="${k}">${k === "tomes" ? (hasSeries ? homeSkeleton() : "") : k === "pile" || k === "lus" || k === "auj" || k === "fav" ? "" : homeSkeleton()}</div>`).join("")}</div>
+    <div id="hmRows">${order.map((k) => `<div class="hm-part" data-part="${k}">${k === "tomes" ? (hasSeries ? homeSkeleton() : "") : k === "pile" || k === "lus" || k === "auj" || k === "fav" || k === "poche" ? "" : homeSkeleton()}</div>`).join("")}</div>
     <p class="hm-note" id="hmNote" hidden>Les nouveautés et les ventes n'ont pas pu se charger. Elles reviendront avec internet.</p>
     <div class="hm-tiles">
       <button class="hm-tile" data-go="sorties"><i>📅</i><b>Sorties<small>Les parutions du calendrier</small></b></button>
@@ -2656,6 +2676,7 @@ async function renderHome() {
   const fresh = (list, seen) => list.filter((b) => { const ks = releaseKeys(b); if (ks.some((x) => seen.has(x) || mine.has(x)) || mine.has(b.id)) return false; ks.forEach((x) => seen.add(x)); return true; });
   const compute = () => {
     const seen = new Set(), out = { pile, lus };
+    out.poche = raw.poche || null; (raw.poche || []).forEach((b) => releaseKeys(b).forEach((x) => seen.add(x)));
     out.fav = raw.fav || null; (raw.fav || []).forEach((b) => releaseKeys(b).forEach((x) => seen.add(x)));
     out.auj = raw.auj || null; (raw.auj || []).forEach((b) => releaseKeys(b).forEach((x) => seen.add(x))); // déjà ici : pas répété plus bas
     out.tomes = raw.tomes ? fresh(raw.tomes, seen) : null;
@@ -2663,7 +2684,7 @@ async function renderHome() {
     out.sorties = raw.sorties ? fresh(raw.sorties, seen) : null;
     return out;
   };
-  const html = { fav: (l) => homeRow("🔔 Tes favoris : nouveautés", l, "sorties", "Tout voir"), auj: (l) => homeRow(l.some((b) => b.date === isoDay(new Date())) ? "Ça sort aujourd'hui" : "Bientôt en librairie", l, "sorties", "Tout voir"), pile: (l) => homeRow("Ta pile à lire", l, "alire", "Tout voir"), lus: (l) => homeRow("Tes dernières lectures", l, "lu", "Tout voir"),
+  const html = { poche: (l) => homeRow("💶 Sort en poche : ta pile à lire", l, "sorties", "Tout voir"), fav: (l) => homeRow("🔔 Tes favoris : nouveautés", l, "sorties", "Tout voir"), auj: (l) => homeRow(l.some((b) => b.date === isoDay(new Date())) ? "Ça sort aujourd'hui" : "Bientôt en librairie", l, "sorties", "Tout voir"), pile: (l) => homeRow("Ta pile à lire", l, "alire", "Tout voir"), lus: (l) => homeRow("Tes dernières lectures", l, "lu", "Tout voir"),
     tomes: (l) => homeRow("Nouveaux tomes de tes séries", l, "sorties", "Tout voir"), ventes: (l) => homeRow("Les plus vendus cette semaine", l, "ventes", "Tout voir"),
     sorties: (l) => homeRow("Nouveautés de la semaine", l, "sorties", "Tout voir") };
   const paint = () => {
@@ -2681,6 +2702,7 @@ async function renderHome() {
   reg(pile); reg(lus); paint();
   const done = (k) => { if (raw[k] === undefined) raw[k] = []; paint(); };
   await Promise.all([
+    (async () => { try { raw.poche = pocheAlerts(await loadReleases().catch(() => [])); paint(); } catch { done("poche"); } })(),
     (async () => { try { // sorties de ses auteurs et genres favoris
       const fa = favAlerts(await loadReleases().catch(() => []));
       const vus = new Set(settings.alertesVues || []), t0 = isoDay(new Date());
@@ -2713,7 +2735,7 @@ async function renderHome() {
     } catch { done("ventes"); } })(),
   ]);
   // ce qui n'est pas arrivé (pas de réseau) : on enlève les squelettes
-  ["auj", "fav", "tomes", "sorties", "ventes"].forEach((k) => { if (raw[k] === undefined) raw[k] = []; });
+  ["auj", "poche", "fav", "tomes", "sorties", "ventes"].forEach((k) => { if (raw[k] === undefined) raw[k] = []; });
   paint();
   if ($("#hmNote") && !(raw.sorties.length || raw.ventes.length || raw.tomes.length)) $("#hmNote").hidden = false;
 }
