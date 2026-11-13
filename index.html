@@ -311,6 +311,9 @@
   .rel-info h4 { margin: 0 0 2px; font-size: 15px; line-height: 1.25; cursor: pointer; }
   .rel-meta { color: var(--muted); font-size: 13px; line-height: 1.4; }
   .rel-meta .distrib { border: 0; background: none; padding: 8px 0; margin: -8px 0; color: var(--accent-text, var(--accent)); font: inherit; cursor: pointer; }
+  .heart-btn { display: block; width: 100%; margin: 14px 0 6px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer; }
+  .miss-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 10px; }
+  .miss-card h4 { margin: 0 0 6px; font-size: 16px; } .miss-card p { margin: 3px 0; font-size: 14px; color: var(--muted); } .miss-card b { color: var(--ink); }
   .fav-box .fav-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
   .fav-chip { border: 1px solid var(--line); background: var(--card); border-radius: 16px; padding: 4px 4px 4px 10px; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; }
   .fav-chip button { border: 0; background: none; color: var(--muted); font: inherit; padding: 6px 8px; cursor: pointer; }
@@ -947,8 +950,10 @@
     <div id="snapList" class="snap-list" hidden></div>
     <label>Restaurer une sauvegarde<input type="file" id="importFile" accept="application/json,.json" hidden></label>
     <button id="shareBtn">Partager ma bibliothèque (lien à envoyer)</button>
+    <button id="missBtn">🧩 Ce qu'il me manque (séries et liste d'achat)</button>
+    <button id="wishBtn">🎁 Partager ma liste de souhaits (livres à lire)</button>
     <label>Importer depuis Goodreads ou Babelio (fichier CSV)<input type="file" id="csvFile" accept=".csv,text/csv,text/plain" hidden></label>
-    <p class="version">Version du 13 novembre, 12 h</p>
+    <p class="version">Version du 13 novembre, 14 h</p>
     <p>Les livres sont enregistrés sur cet appareil, dans ce navigateur. Fais une sauvegarde de temps en temps pour ne rien perdre.</p>
   </div>
 </section>
@@ -958,6 +963,13 @@
   <div class="dpanel-body" id="decorBody"></div>
 </div>
 
+<section class="sheet" id="missSheet">
+  <div class="sheet-head">
+    <b style="flex:1">Ce qu'il me manque</b>
+    <button class="link-btn" data-close>Fermer</button>
+  </div>
+  <div class="sheet-body" id="missBody"></div>
+</section>
 <section class="sheet" id="statsSheet">
   <div class="sheet-head">
     <b style="flex:1">Mes statistiques</b>
@@ -3642,8 +3654,10 @@ function openDetail(id) {
 
     <div class="panel facts">${facts.map(([k, v]) => `<div><span>${k}</span><span>${esc(v)}</span></div>`).join("")}</div>
     ${b.description ? `<div class="desc">${esc(b.description)}</div>` : ""}
+    ${b.status === "lu" ? `<button id="heartBtn" class="heart-btn">💌 Partager mon coup de cœur (image)</button>` : ""}
     <button class="danger" id="removeBtn">Retirer de ma bibliothèque</button>
   </div>`;
+  if ($("#heartBtn")) $("#heartBtn").onclick = () => shareHeart(b);
 
   bindFaces(b);
   $("#backFile").onchange = async (e) => {
@@ -3981,6 +3995,92 @@ async function shareBilan() {
 }
 const bilanGrad = () => { const ac = accentNow(), clair = luminance(ac) > .25; return `linear-gradient(135deg,${hexMix(ac, "#000", clair ? .5 : .2)},${hexMix(ac, clair ? "#000" : "#c9a227", clair ? .28 : .35)})`; }; // accent clair (Miel) : fond plus foncé pour que le texte blanc reste lisible
 /* ===== fin du bilan ===== */
+/* ---------- Partager : coup de cœur (image), liste de souhaits (texte), ce qu'il me manque (liste d'achat) ---------- */
+async function shareCanvas(c, name, title) {
+  const blob = await new Promise((ok) => { try { c.toBlob(ok, "image/png"); } catch { ok(null); } });
+  if (!blob) throw new Error("image");
+  const file = new File([blob], name, { type: "image/png" });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try { await navigator.share({ files: [file], title }); }
+    catch (e) { if (e && e.name === "NotAllowedError") bilanShowImage(blob); else if (e && e.name !== "AbortError") throw e; }
+  } else bilanShowImage(blob);
+}
+async function shareText(text, title) {
+  try { if (navigator.share) { await navigator.share({ title, text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+  try { await navigator.clipboard.writeText(text); toast("Liste copiée : colle-la dans un message"); } catch { prompt("Copie ce texte :", text); }
+}
+function wrapLines(x, text, maxW) {
+  const out = []; let ln = "";
+  for (const w of String(text).split(/\s+/)) { if (x.measureText((ln + " " + w).trim()).width > maxW && ln) { out.push(ln); ln = w; } else ln = (ln + " " + w).trim(); }
+  if (ln) out.push(ln); return out;
+}
+async function heartCanvas(b) {
+  const W = 1080, H = 1350, c = document.createElement("canvas"); c.width = W; c.height = H;
+  const x = c.getContext("2d"), ac = accentNow();
+  const g = x.createLinearGradient(0, 0, W * .6, H); g.addColorStop(0, hexMix(ac, "#000", .25)); g.addColorStop(1, hexMix(ac, "#c9a227", .35));
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.fillStyle = "#fff"; x.textAlign = "center";
+  x.font = "italic 46px Georgia, serif"; x.globalAlpha = .9; x.fillText("Mon coup de cœur", W / 2, 100); x.globalAlpha = 1;
+  const im = await bilanImg(b), cw = 330, ch = 495, px = (W - cw) / 2, py = 150;
+  x.save(); x.shadowColor = "rgba(0,0,0,.5)"; x.shadowBlur = 30; x.shadowOffsetY = 14;
+  if (im) x.drawImage(im, px, py, cw, ch);
+  else { const bg = colorOf(b); x.fillStyle = bg; x.fillRect(px, py, cw, ch); x.restore(); x.save(); x.fillStyle = textOn(bg); x.font = "bold 34px Georgia, serif"; wrapLines(x, b.title, cw - 40).slice(0, 5).forEach((l, i) => x.fillText(l, W / 2, py + 150 + i * 42)); }
+  x.restore();
+  let y = py + ch + 90; x.fillStyle = "#fff";
+  x.font = "bold 56px Georgia, serif"; wrapLines(x, b.title.split(" : ")[0], W - 160).slice(0, 2).forEach((l) => { x.fillText(l, W / 2, y); y += 66; });
+  x.font = "38px Georgia, serif"; x.globalAlpha = .85; if (b.authors && b.authors[0]) { x.fillText(b.authors.slice(0, 2).join(", "), W / 2, y); y += 56; } x.globalAlpha = 1;
+  if (b.rating) { x.font = "54px Georgia, serif"; x.fillStyle = "#ffd66b"; x.fillText("★".repeat(b.rating) + "☆".repeat(5 - b.rating), W / 2, y + 10); y += 80; x.fillStyle = "#fff"; }
+  const note = (b.review || ((b.quotes || [])[0] || {}).text || "").trim();
+  if (note) { x.font = "italic 36px Georgia, serif"; const ls = wrapLines(x, "« " + note.slice(0, 260) + (note.length > 260 ? "…" : "") + " »", W - 200).slice(0, 5); ls.forEach((l) => { x.fillText(l, W / 2, y); y += 50; }); }
+  x.font = "32px Georgia, serif"; x.globalAlpha = .8; x.fillText((settings.prenom ? "Conseillé par " + settings.prenom + " · " : "") + "Ma bibliothèque", W / 2, H - 50); x.globalAlpha = 1;
+  return c;
+}
+async function shareHeart(b) {
+  const btn = $("#heartBtn"); if (btn) { btn.disabled = true; btn.textContent = "Je prépare l'image…"; }
+  try { await shareCanvas(await heartCanvas(b), "coup-de-coeur.png", b.title); } catch { toast("Je n'ai pas réussi à créer l'image."); }
+  if (btn) { btn.disabled = false; btn.textContent = "💌 Partager mon coup de cœur (image)"; }
+}
+const euro = (v) => String(Number(v).toFixed(2)).replace(".", ",") + " €";
+async function shareWishlist() {
+  const list = books.filter((b) => b.status === "alire");
+  if (!list.length) { toast("Ta pile à lire est vide pour l'instant."); return; }
+  const rel = await loadReleases().catch(() => []), px = new Map(rel.filter((r) => r.isbn && r.prix).map((r) => [r.isbn, r.prix]));
+  const lines = list.map((b) => "• " + b.title + (b.authors && b.authors[0] ? " — " + b.authors[0] : "") + (px.get(b.isbn) ? " (" + euro(px.get(b.isbn)) + ")" : ""));
+  await shareText("Ma liste de souhaits 🎁📚\n" + lines.join("\n"), "Ma liste de souhaits");
+}
+// séries de la bibliothèque : tomes possédés, tomes qui manquent au milieu, prochains tomes annoncés
+async function missingSeries() {
+  const by = new Map();
+  for (const b of books) {
+    const name = seriesName(b), tome = b.tome || guessSeries(b.title).tome; if (!name || !tome) continue;
+    const k = plain(name); if (!by.has(k)) by.set(k, { name, tomes: new Set(), author: (b.authors || [])[0] || "" }); by.get(k).tomes.add(tome);
+  }
+  const rel = await loadReleases().catch(() => []), today = isoDay(new Date()), out = [];
+  for (const [k, s] of by) {
+    const max = Math.max(...s.tomes), gaps = [];
+    if (max <= 80) for (let i = 1; i < max; i++) if (!s.tomes.has(i)) gaps.push(i);
+    const next = rel.filter((r) => r.date >= today && plain(seriesName({ title: r.title })) === k && guessSeries(r.title).tome && !s.tomes.has(guessSeries(r.title).tome))
+      .sort((a, b) => a.date.localeCompare(b.date)).map((r) => ({ tome: guessSeries(r.title).tome, date: r.date, prix: r.prix }));
+    if (gaps.length || next.length) out.push({ ...s, tomes: [...s.tomes].sort((a, b) => a - b), gaps, next });
+  }
+  return out.sort((a, b) => (b.next.length ? 1 : 0) - (a.next.length ? 1 : 0) || plain(a.name).localeCompare(plain(b.name)));
+}
+async function openMissing() {
+  $("#menuSheet").classList.remove("open");
+  const box = $("#missBody"); box.innerHTML = `<div class="ex-loading">Je regarde tes séries…</div>`;
+  $("#missSheet").classList.add("open");
+  const list = await missingSeries();
+  if (!list.length) { box.innerHTML = `<div class="ex-loading">Il ne te manque aucun tome connu. Quand un nouveau tome sera annoncé, il apparaîtra ici.</div>`; return; }
+  box.innerHTML = list.map((s) => `<div class="miss-card"><h4>${esc(s.name)}</h4>
+    <p>Tu as : <b>${s.tomes.map((n) => "T" + n).join(", ")}</b></p>
+    ${s.gaps.length ? `<p>Il te manque : <b>${s.gaps.map((n) => "T" + n).join(", ")}</b></p>` : ""}
+    ${s.next.length ? `<p>À venir : ${s.next.map((n) => `<b>T${n.tome}</b> le ${esc(shortDay(n.date))}${n.prix ? " (" + euro(n.prix) + ")" : ""}`).join(", ")}</p>` : ""}</div>`).join("")
+    + `<div class="rel-end"><button id="missShare">🛒 Partager ma liste d'achat</button></div>`;
+  $("#missShare").onclick = () => shareText("Ma liste d'achat 🛒📚\n" + list.map((s) => "• " + s.name + " : " + [s.gaps.length ? "tomes " + s.gaps.join(", ") : "", ...s.next.map((n) => "T" + n.tome + " (le " + shortDay(n.date) + ")")].filter(Boolean).join(" ; ")).join("\n"), "Ma liste d'achat");
+}
+$("#missBtn").onclick = openMissing;
+$("#wishBtn").onclick = () => { $("#menuSheet").classList.remove("open"); shareWishlist(); };
+
 /* ---------- Badges : de petits défis gagnés en lisant ---------- */
 function badgeList() {
   const read = books.filter((b) => b.status === "lu");
