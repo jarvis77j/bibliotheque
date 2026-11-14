@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-11-13T22:54Z",
+"updated": "2026-11-14T03:35Z",
 "stats": {
 "precommandes": [
 12,
@@ -37,62 +37,62 @@
 "uniques": 37,
 "libraire": {
 "pages_listes": 66,
-"echecs": 1,
-"secondes_listes": 400,
-"pages": 83,
-"reprises": 9,
+"echecs": 2,
+"secondes_listes": 410,
+"pages": 113,
+"reprises": 20,
 "fiches_lues": 17,
-"secondes": 506,
+"secondes": 770,
 "statut": "ok"
 },
 "suivi": {
 "hachette": {
-"dernier_essai": "2026-11-13T22:43Z",
+"dernier_essai": "2026-11-14T03:24Z",
 "secondes_complet": 350,
 "dernier_complet": "2026-11-13T16:26Z",
 "echecs": 0,
-"secondes_proche": 68,
-"dernier_proche": "2026-11-13T22:43Z"
+"secondes_proche": 67,
+"dernier_proche": "2026-11-14T03:24Z"
 },
 "glenat": {
-"dernier_essai": "2026-11-13T22:43Z",
+"dernier_essai": "2026-11-14T03:24Z",
 "secondes_complet": 67,
 "dernier_complet": "2026-11-13T16:26Z",
 "echecs": 0,
 "secondes_proche": 33,
-"dernier_proche": "2026-11-13T22:43Z"
+"dernier_proche": "2026-11-14T03:24Z"
 },
 "seuil": {
-"dernier_essai": "2026-11-13T22:43Z",
+"dernier_essai": "2026-11-14T03:24Z",
 "secondes_complet": 44,
 "dernier_complet": "2026-11-13T16:26Z",
 "echecs": 0,
 "secondes_proche": 15,
-"dernier_proche": "2026-11-13T22:43Z"
+"dernier_proche": "2026-11-14T03:24Z"
 },
 "src_manga": {
-"dernier_essai": "2026-11-13T22:43Z",
+"dernier_essai": "2026-11-14T03:24Z",
 "secondes_complet": 286,
 "dernier_complet": "2026-11-13T16:26Z",
 "echecs": 0,
 "secondes_proche": 135,
-"dernier_proche": "2026-11-13T22:43Z"
+"dernier_proche": "2026-11-14T03:24Z"
 },
 "src_bd": {
-"dernier_essai": "2026-11-13T22:43Z",
-"secondes_complet": 123,
+"dernier_essai": "2026-11-14T03:24Z",
+"secondes_complet": 124,
 "dernier_complet": "2026-10-27T14:37Z",
-"echecs": 69,
+"echecs": 70,
 "secondes_proche": 94,
 "dernier_proche": "2026-10-27T07:51Z"
 },
 "src_generale": {
-"dernier_essai": "2026-11-13T22:43Z",
+"dernier_essai": "2026-11-14T03:24Z",
 "secondes_complet": 224,
 "echecs": 0,
 "dernier_complet": "2026-11-13T22:43Z",
-"secondes_proche": 223,
-"dernier_proche": "2026-11-13T16:26Z"
+"secondes_proche": 222,
+"dernier_proche": "2026-11-14T03:24Z"
 }
 },
 "plan": [
@@ -100,22 +100,22 @@
 "glenat:proche",
 "seuil:proche",
 "src_manga:proche",
-"src_bd:complet",
-"src_generale:complet"
+"src_generale:proche",
+"src_bd:complet"
 ],
 "editeurs": {
 "hachette": {
 "pages": 23,
 "livres": 268,
-"secondes": 68,
+"secondes": 67,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "glenat": {
 "pages": 11,
@@ -125,105 +125,105 @@
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "seuil": {
 "pages": 5,
-"livres": 36,
+"livres": 26,
 "secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "nautiljon": {
 "pages": 3,
-"livres": 470,
+"livres": 448,
 "secondes": 9,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "manganews": {
 "pages": 42,
 "livres": 71,
-"completes": 407,
-"ecartes": 2,
-"lus": 480,
+"completes": 388,
+"ecartes": 1,
+"lus": 460,
 "secondes": 126,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "bdgest": {
 "pages": 10,
 "livres": 0,
-"secondes": 29,
+"secondes": 30,
 "erreurs": 10,
 "rapproches": 0,
 "statut": "erreur",
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "dargaud": {
 "pages": 5,
 "livres": 12,
-"secondes": 16,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "delcourt": {
 "pages": 8,
 "livres": 75,
-"secondes": 23,
+"secondes": 26,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "soleil": {
 "pages": 5,
 "livres": 31,
-"secondes": 17,
+"secondes": 15,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "lombard": {
 "pages": 2,
@@ -234,9 +234,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "kana": {
 "pages": 9,
@@ -247,9 +247,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "casterman": {
 "pages": 1,
@@ -260,9 +260,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "ruedesevres": {
 "pages": 1,
@@ -273,22 +273,22 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "dupuis": {
 "pages": 1,
 "livres": 0,
-"secondes": 0,
+"secondes": 1,
 "erreurs": 0,
 "statut": "vide",
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "bedetheque": {
 "pages": 0,
@@ -300,35 +300,35 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "michellafon": {
 "pages": 39,
-"livres": 57,
-"secondes": 116,
+"livres": 15,
+"secondes": 117,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "jailu": {
 "pages": 1,
-"livres": 65,
+"livres": 17,
 "secondes": 4,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "bragelonne": {
 "pages": 1,
@@ -337,76 +337,76 @@
 "erreurs": 0,
 "statut": "vide",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "albinmichel": {
-"pages": 3,
-"livres": 65,
-"secondes": 9,
+"pages": 2,
+"livres": 6,
+"secondes": 7,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "hugo": {
 "pages": 22,
-"livres": 16,
-"secondes": 67,
+"livres": 6,
+"secondes": 65,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "points": {
 "pages": 1,
-"livres": 64,
+"livres": 13,
 "secondes": 2,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "bayard": {
 "pages": 4,
-"livres": 53,
+"livres": 8,
 "secondes": 12,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "milan": {
 "pages": 4,
-"livres": 44,
+"livres": 6,
 "secondes": 12,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
 "conflits_dates": {
 "nombre": 1,
@@ -420,32 +420,32 @@
 }
 }
 ],
-"le": "2026-11-13T22:54Z"
+"le": "2026-11-14T03:35Z"
 },
-"fiches_lues": 20,
+"fiches_lues": 18,
 "erreurs": 10
 },
-"secondes_editeurs": 659,
+"secondes_editeurs": 649,
 "dates_relues": {
-"fiches": 0,
+"fiches": 30,
 "changees": []
 },
-"editeurs_at": "2026-11-13T22:54Z",
+"editeurs_at": "2026-11-14T03:35Z",
 "listes": 466,
 "lues": 17,
 "en_attente": 0,
 "plus_loin": "2027-05-18",
 "nettoyes": 0,
-"doublons": 75,
+"doublons": 74,
 "sources": {
 "leslibraires": {
 "pages_listes": 66,
-"echecs": 1,
-"secondes_listes": 400,
-"pages": 83,
-"reprises": 9,
+"echecs": 2,
+"secondes_listes": 410,
+"pages": 113,
+"reprises": 20,
 "fiches_lues": 17,
-"secondes": 506,
+"secondes": 770,
 "statut": "ok",
 "livres": 602
 },
@@ -453,14 +453,14 @@
 "statut": "ok",
 "livres": 268,
 "pages": 23,
-"secondes": 68,
+"secondes": 67,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 1252
 },
 "glenat": {
@@ -471,38 +471,38 @@
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 284
 },
 "seuil": {
 "statut": "ok",
-"livres": 36,
+"livres": 26,
 "pages": 5,
 "secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 85
 },
 "nautiljon": {
 "statut": "ok",
-"livres": 470,
+"livres": 448,
 "pages": 3,
 "secondes": 9,
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 1185
 },
 "manganews": {
@@ -513,66 +513,66 @@
 "erreurs": 0,
 "fenetre": [
 "proche",
-"2026-10-30",
-"2026-12-28"
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 195
 },
 "bdgest": {
 "statut": "erreur",
 "livres": 0,
 "pages": 10,
-"secondes": 29,
+"secondes": 30,
 "erreurs": 10,
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 407
 },
 "dargaud": {
 "statut": "ok",
 "livres": 12,
 "pages": 5,
-"secondes": 16,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 12
 },
 "delcourt": {
 "statut": "ok",
 "livres": 75,
 "pages": 8,
-"secondes": 23,
+"secondes": 26,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 68
 },
 "soleil": {
 "statut": "ok",
 "livres": 31,
 "pages": 5,
-"secondes": 17,
+"secondes": 15,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 29
 },
 "lombard": {
@@ -584,9 +584,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 30
 },
 "kana": {
@@ -598,9 +598,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 79
 },
 "casterman": {
@@ -612,9 +612,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 28
 },
 "ruedesevres": {
@@ -626,23 +626,23 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 4
 },
 "dupuis": {
 "statut": "vide",
 "livres": 0,
 "pages": 1,
-"secondes": 0,
+"secondes": 1,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 10
 },
 "bedetheque": {
@@ -654,37 +654,37 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-18"
+"2027-05-19"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 0
 },
 "michellafon": {
 "statut": "ok",
-"livres": 57,
+"livres": 15,
 "pages": 39,
-"secondes": 116,
+"secondes": 117,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 53
 },
 "jailu": {
 "statut": "ok",
-"livres": 65,
+"livres": 17,
 "pages": 1,
 "secondes": 4,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 62
 },
 "bragelonne": {
@@ -694,89 +694,89 @@
 "secondes": 3,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 0
 },
 "albinmichel": {
 "statut": "ok",
-"livres": 65,
-"pages": 3,
-"secondes": 9,
+"livres": 6,
+"pages": 2,
+"secondes": 7,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 65
 },
 "hugo": {
 "statut": "ok",
-"livres": 16,
+"livres": 6,
 "pages": 22,
-"secondes": 67,
+"secondes": 65,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 16
 },
 "points": {
 "statut": "ok",
-"livres": 64,
+"livres": 13,
 "pages": 1,
 "secondes": 2,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 64
 },
 "bayard": {
 "statut": "ok",
-"livres": 53,
+"livres": 8,
 "pages": 4,
 "secondes": 12,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 53
 },
 "milan": {
 "statut": "ok",
-"livres": 44,
+"livres": 6,
 "pages": 4,
 "secondes": 12,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-18"
+"proche",
+"2026-10-31",
+"2026-12-29"
 ],
-"le": "2026-11-13T22:54Z",
+"le": "2026-11-14T03:35Z",
 "en_base": 44
 }
 },
-"duree_secondes": 1167,
+"duree_secondes": 1421,
 "prix": {
-"lus": 0,
-"trouves": 0,
-"avec_prix": 3858,
+"lus": 2,
+"trouves": 2,
+"avec_prix": 3860,
 "reste": 0,
 "total": 4627,
 "auteurs_deduits": 1
@@ -878,7 +878,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "2,3, te voilà !",
+"title": "3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -55664,7 +55664,7 @@
 },
 {
 "id": "ed:9782492463501",
-"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
+"title": "2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -56537,9 +56537,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144014-couv-M300x425.jpg",
 "description": "À la quatrième porte, se dresse Taihaku, un véritable dieu guerrier doté d’une force écrasante et animé par sa vision de l’avenir des Mibu. Face à lui, Tigre Rouge, déterminé à «?vaincre son propre moi?», relève le défi....",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t10/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -56558,9 +56556,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143314-couv-M300x425.jpg",
 "description": "Le tournoi inter-lycée est enfin terminé ! Il reste 1 mois à Shôhoku pour s'entraîner à fond en prévision du tant attendu tournoi national ! Alors que Sakuragi profite des quelques jours de repos avant le début de son stage...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/slam-dunk-deluxe-t17/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -56579,9 +56575,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144434-couv-M300x425.jpg",
 "description": "La rivalité déplacée avec Kawakami autour de Tayama provoque chez Sasaki des prises de conscience et des remises en question inattendues. Yamada et Tayama. Plus il tente de comprendre les deux jeunes femmes, plus ses interrogations...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/smoking-behind-the-supermarket-with-you-t7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -56600,9 +56594,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505140030-couv-M300x425.jpg",
 "description": "Grâce à Julia, qui a réussi à activer sa capacité Unjustice, Fûko et ses compagnons ont pu repousser les maîtres des règles primordiales. Mais ils ignorent toujours où se trouve le troisième Jingi, le dernier élément dont ils...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/undead-unluck-t27/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -64866,7 +64858,7 @@
 "url": "https://www.leslibraires.fr/livre/26539192-entre-ici-jean-moulin-et-autres-discours-sur-la-resistance-andre-malraux-folio",
 "kind": "roman",
 "prix": 3.0,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ll:26657076",
@@ -65246,7 +65238,7 @@
 "url": "https://www.leslibraires.fr/livre/26547986-ce-pays-dont-le-prince-est-un-enfant-catherine-nay-plon",
 "kind": "",
 "prix": 24.0,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782413094470",
@@ -65386,7 +65378,7 @@
 "url": "https://www.leslibraires.fr/livre/26621603-coup-detat-arno-bertina-alexandre-civico-julia-deck-mathias-enard-jerome-ferrari-helene-gaudy-maylis-kerangal-mathieu-larnaudie-oliver-rohe-joy-sorman-cercle-ouvert",
 "kind": "roman",
 "prix": 46.9,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782253253297",
@@ -65815,7 +65807,7 @@
 "url": "https://www.leslibraires.fr/livre/26545887-game-changers-tome-4-common-goal-rachel-reid-chatterley",
 "kind": "romance",
 "prix": 19.95,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782017396192",
@@ -65976,7 +65968,7 @@
 "url": "https://www.leslibraires.fr/livre/26633299-king-kong-bess-glenat",
 "kind": "bd",
 "prix": 25.0,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782344073032",
@@ -66158,7 +66150,7 @@
 "url": "https://www.leslibraires.fr/livre/26539265-l-accident-jean-paul-kauffmann-folio",
 "kind": "roman",
 "prix": 9.5,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ll:26604920",
@@ -66584,7 +66576,7 @@
 "url": "https://www.leslibraires.fr/livre/26545986-lanfeust-de-troy-t10-le-dragon-d-outretemps-arleston-tarquin-soleil",
 "kind": "bd",
 "prix": 16.5,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782253263685",
@@ -68770,7 +68762,7 @@
 "url": "https://www.leslibraires.fr/livre/26515882-minuit-sonne-et-farandole-goulet-alizee-monsieur-ed",
 "kind": "jeunesse",
 "prix": 16.0,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ll:26525989",
@@ -68793,7 +68785,7 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26525989-nyw-new-york-weddings-dollo-philippe-le-mulet",
-"lu": "2026-11-13",
+"lu": "2026-11-14",
 "kind": ""
 },
 {
@@ -68837,7 +68829,7 @@
 "url": "https://www.leslibraires.fr/livre/26512387-c-est-dans-votre-tete-en-finir-avec-le-mepris-pour-la-douleur-des-femmes-salome-saque-payot",
 "kind": "",
 "prix": 19.9,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782382814642",
@@ -69055,7 +69047,7 @@
 "url": "https://www.leslibraires.fr/livre/26633342-7-berserk-prestige-tome-07-kentaro-miura-glenat",
 "kind": "bd",
 "prix": 27.9,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9791043311468",
@@ -69188,7 +69180,7 @@
 "url": "https://www.leslibraires.fr/livre/26657230-cette-reunion-aurait-pu-etre-un-mail-natalie-sue-plot-twist",
 "kind": "roman",
 "prix": 18.0,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782382815298",
@@ -69303,7 +69295,7 @@
 "url": "https://www.leslibraires.fr/livre/26597582-dandadan-t24-yukinobu-tatsu-crunchyroll",
 "kind": "bd",
 "prix": 7.29,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ll:26596305",
@@ -69327,7 +69319,7 @@
 "url": "https://www.leslibraires.fr/livre/26596305-demon-slayer-t01-edition-25-ans-panini-koyoharu-gotouge-panini",
 "kind": "bd",
 "prix": 8.29,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782253173298",
@@ -69698,7 +69690,7 @@
 "url": "https://www.leslibraires.fr/livre/26633519-4-kings-of-sin-tome-04-version-francaise-la-paresse-ana-huang-hugo-et-cie",
 "kind": "romance",
 "prix": 8.9,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782382126516",
@@ -69743,7 +69735,7 @@
 "url": "https://www.leslibraires.fr/livre/26614836-l-espace-en-100-questions-scientifique-insolite-fascinant--tout-ce-que-vous-avez-toujours-voulu-savoir-sur-la-vie-dans-l-espace-thomas-pesquet-flammarion-jeunesse",
 "kind": "jeunesse",
 "prix": 18.9,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782709677691",
@@ -69966,7 +69958,7 @@
 "url": "https://www.leslibraires.fr/livre/26602352-grimoire-d-elfie-le-7-le-grimoire-d-elfie-vol-07-histoire-complete-la-riviere-aux-etoiles-arleston-alwett-drakoo",
 "kind": "bd",
 "prix": 16.9,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782344075166",
@@ -70032,7 +70024,7 @@
 "url": "https://www.leslibraires.fr/livre/26640155-lefranc-37-le-rayon-de-la-mort-jacques-martin-regric-roger-seiter-casterman",
 "kind": "bd",
 "prix": 13.95,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782709666091",
@@ -70251,7 +70243,7 @@
 "url": "https://www.leslibraires.fr/livre/26640081-magasin-general-1939-speak-white--jean-louis-tripp-casterman",
 "kind": "bd",
 "prix": 18.5,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782017391746",
@@ -70730,7 +70722,7 @@
 "url": "https://www.leslibraires.fr/livre/26627784-22-shangri-la-frontier-tome-22-katarina-fuji-glenat",
 "kind": "bd",
 "prix": 7.2,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782344078044",
@@ -71109,7 +71101,7 @@
 "url": "https://www.leslibraires.fr/livre/26546740-atlas-du-monde-abandonne-collectif-jonglez",
 "kind": "",
 "prix": 25.0,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782413077992",
@@ -71171,7 +71163,7 @@
 "url": "https://www.leslibraires.fr/livre/26547036-boys-of-tommen-tome-6-releasing-10-chloe-walsh-chatterley",
 "kind": "romance",
 "prix": 22.95,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782413094951",
@@ -71317,7 +71309,7 @@
 "url": "https://www.leslibraires.fr/livre/26535400-le-journal-de-frida-kahlo-kahlo-frida-editions-des-femmes-antoinette-fouque",
 "kind": "",
 "prix": 38.0,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ll:26531524",
@@ -71341,7 +71333,7 @@
 "url": "https://www.leslibraires.fr/livre/26531524-les-carnets-de-l-apothicaire-t17-hyuganatsu-nanao-ki-oon",
 "kind": "bd",
 "prix": 7.95,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782413090922",
@@ -71465,7 +71457,7 @@
 "url": "https://www.leslibraires.fr/livre/25189819-trolls-de-troy-27-trolls-de-troy-t27-un-conte-de-nool-un-conte-de-nool-jean-louis-mourier-soleil",
 "kind": "bd",
 "prix": 15.5,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782302104464",
@@ -71717,7 +71709,7 @@
 "Sociologie du genre"
 ],
 "url": "https://www.leslibraires.fr/livre/26622945-la-deferlante-n24---grandir-quand-les-enfants-luttent-collectif-la-deferlante",
-"lu": "2026-11-13",
+"lu": "2026-11-14",
 "kind": ""
 },
 {
@@ -71779,7 +71771,7 @@
 "url": "https://www.leslibraires.fr/livre/26605106-le-livre-de-madame-jean-marie-helene-lafon-metis",
 "kind": "roman",
 "prix": 24.0,
-"lu": "2026-11-13"
+"lu": "2026-11-14"
 },
 {
 "id": "ed:9782205217384",
@@ -71821,7 +71813,7 @@
 "Histoire sociale"
 ],
 "url": "https://www.leslibraires.fr/livre/26643967-les-aventurieres-elles-ont-brave-les-dangers-et-brise-les-martine-fournier-editions-sciences-humaines",
-"lu": "2026-11-13",
+"lu": "2026-11-14",
 "kind": ""
 },
 {
@@ -71942,7 +71934,7 @@
 ],
 "url": "https://www.leslibraires.fr/livre/26640178-occident-grave-pour-une-resistance-ecologique-et-morale-aymeric-caron-memoire-d-encrier",
 "kind": "",
-"lu": "2026-11-13",
+"lu": "2026-11-14",
 "prix": 21.0
 },
 {
@@ -71966,7 +71958,7 @@
 "Pour une société du compromis - précédé de Retrouvons un art"
 ],
 "url": "https://www.leslibraires.fr/livre/26622891-pour-une-societe-du-compromis-precede-de-retrouvons-un-art-laurent-berger-editions-de-l-aube",
-"lu": "2026-11-13",
+"lu": "2026-11-14",
 "kind": ""
 },
 {
@@ -91991,7 +91983,8 @@
 ],
 "url": "https://www.hachette.fr/livre/la-djinn-et-jafar-new-fairy-tale-tome-5-9782017398059/",
 "kind": "romance",
-"source": "editeur:hachette"
+"source": "editeur:hachette",
+"prix": 19.0
 },
 {
 "id": "ed:9782808701044",
@@ -92093,7 +92086,8 @@
 "rayons": [],
 "url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t12/",
 "kind": "bd",
-"source": "editeur:kana"
+"source": "editeur:kana",
+"prix": 10.25
 },
 {
 "id": "ed:9782379503139",
