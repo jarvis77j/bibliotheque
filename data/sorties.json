@@ -1,6 +1,6 @@
 {
 "source": "leslibraires.fr",
-"updated": "2026-11-22T20:03Z",
+"updated": "2026-11-23T01:09Z",
 "stats": {
 "precommandes": [
 12,
@@ -46,166 +46,166 @@
 "libraire": {
 "pages_listes": 75,
 "echecs": 0,
-"secondes_listes": 392,
-"pages": 96,
-"reprises": 2,
+"secondes_listes": 381,
+"pages": 107,
+"reprises": 1,
 "fiches_lues": 21,
-"secondes": 497,
+"secondes": 542,
 "statut": "ok"
 },
 "suivi": {
 "hachette": {
-"dernier_essai": "2026-11-22T19:42Z",
+"dernier_essai": "2026-11-23T00:58Z",
 "secondes_complet": 365,
 "dernier_complet": "2026-11-22T19:42Z",
 "echecs": 0,
 "secondes_proche": 61,
-"dernier_proche": "2026-11-22T11:25Z"
+"dernier_proche": "2026-11-23T00:58Z"
 },
 "glenat": {
-"dernier_essai": "2026-11-22T19:42Z",
+"dernier_essai": "2026-11-23T00:58Z",
 "secondes_complet": 69,
 "dernier_complet": "2026-11-22T19:42Z",
 "echecs": 0,
-"secondes_proche": 32,
-"dernier_proche": "2026-11-22T11:25Z"
+"secondes_proche": 33,
+"dernier_proche": "2026-11-23T00:58Z"
 },
 "seuil": {
-"dernier_essai": "2026-11-22T19:42Z",
+"dernier_essai": "2026-11-23T00:58Z",
 "secondes_complet": 27,
 "dernier_complet": "2026-11-22T19:42Z",
 "echecs": 0,
-"secondes_proche": 12,
-"dernier_proche": "2026-11-22T11:25Z"
+"secondes_proche": 13,
+"dernier_proche": "2026-11-23T00:58Z"
 },
 "src_manga": {
-"dernier_essai": "2026-11-22T19:42Z",
+"dernier_essai": "2026-11-23T00:58Z",
 "secondes_complet": 289,
 "dernier_complet": "2026-11-22T19:42Z",
 "echecs": 0,
 "secondes_proche": 120,
-"dernier_proche": "2026-11-22T11:25Z"
+"dernier_proche": "2026-11-23T00:58Z"
 },
 "src_bd": {
-"dernier_essai": "2026-11-22T19:42Z",
-"secondes_complet": 128,
+"dernier_essai": "2026-11-23T00:58Z",
+"secondes_complet": 130,
 "dernier_complet": "2026-10-27T14:37Z",
-"echecs": 99,
+"echecs": 100,
 "secondes_proche": 94,
 "dernier_proche": "2026-10-27T07:51Z"
 },
 "src_generale": {
-"dernier_essai": "2026-11-22T19:42Z",
+"dernier_essai": "2026-11-23T00:58Z",
 "secondes_complet": 211,
 "echecs": 0,
 "dernier_complet": "2026-11-22T19:42Z",
-"secondes_proche": 213,
-"dernier_proche": "2026-11-22T11:25Z"
+"secondes_proche": 232,
+"dernier_proche": "2026-11-23T00:58Z"
 }
 },
 "plan": [
-"src_bd:complet",
-"hachette:complet",
-"glenat:complet",
-"seuil:complet",
-"src_manga:complet",
-"src_generale:complet"
+"hachette:proche",
+"glenat:proche",
+"seuil:proche",
+"src_manga:proche",
+"src_generale:proche",
+"src_bd:complet"
 ],
 "editeurs": {
 "hachette": {
-"pages": 122,
-"livres": 1416,
-"secondes": 365,
+"pages": 21,
+"livres": 247,
+"secondes": 61,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "glenat": {
-"pages": 23,
-"livres": 310,
-"secondes": 69,
+"pages": 11,
+"livres": 67,
+"secondes": 33,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "seuil": {
-"pages": 9,
-"livres": 106,
-"secondes": 27,
+"pages": 4,
+"livres": 9,
+"secondes": 13,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "nautiljon": {
-"pages": 9,
-"livres": 1647,
-"secondes": 27,
+"pages": 3,
+"livres": 439,
+"secondes": 9,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "manganews": {
-"pages": 87,
-"livres": 242,
-"completes": 1371,
-"ecartes": 6,
-"lus": 1619,
-"secondes": 263,
+"pages": 37,
+"livres": 64,
+"completes": 384,
+"ecartes": 0,
+"lus": 448,
+"secondes": 111,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "bdgest": {
 "pages": 10,
 "livres": 0,
-"secondes": 27,
+"secondes": 30,
 "erreurs": 10,
 "rapproches": 0,
 "statut": "erreur",
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "dargaud": {
 "pages": 6,
 "livres": 14,
-"secondes": 18,
+"secondes": 19,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "delcourt": {
 "pages": 8,
@@ -216,9 +216,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "soleil": {
 "pages": 5,
@@ -229,9 +229,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "lombard": {
 "pages": 2,
@@ -242,9 +242,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "kana": {
 "pages": 9,
@@ -255,9 +255,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "casterman": {
 "pages": 1,
@@ -268,9 +268,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "ruedesevres": {
 "pages": 1,
@@ -281,9 +281,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "dupuis": {
 "pages": 1,
@@ -294,9 +294,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "bedetheque": {
 "pages": 0,
@@ -308,141 +308,117 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "michellafon": {
 "pages": 39,
-"livres": 64,
-"secondes": 115,
+"livres": 13,
+"secondes": 116,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "jailu": {
 "pages": 1,
-"livres": 29,
-"secondes": 4,
+"livres": 6,
+"secondes": 24,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "bragelonne": {
 "pages": 1,
 "livres": 0,
-"secondes": 3,
+"secondes": 2,
 "erreurs": 0,
 "statut": "vide",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "albinmichel": {
 "pages": 6,
-"livres": 71,
+"livres": 21,
 "secondes": 18,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "hugo": {
 "pages": 17,
-"livres": 16,
-"secondes": 53,
+"livres": 3,
+"secondes": 52,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "points": {
 "pages": 1,
-"livres": 71,
+"livres": 13,
 "secondes": 2,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "bayard": {
 "pages": 3,
-"livres": 53,
+"livres": 4,
 "secondes": 9,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "milan": {
 "pages": 3,
-"livres": 49,
+"livres": 5,
 "secondes": 9,
 "erreurs": 0,
 "statut": "ok",
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
 "conflits_dates": {
-"nombre": 8,
+"nombre": 4,
 "exemples": [
-{
-"isbn": "9782384967216",
-"titre": "Beryl : de paysan à maître d'armes T06",
-"dates": {
-"editeur:hachette": "2026-09-23",
-"editeur:nautiljon": "2026-09-16"
-}
-},
-{
-"isbn": "9782384968350",
-"titre": "Les Misérables",
-"dates": {
-"editeur:hachette": "2026-09-23",
-"editeur:nautiljon": "2026-09-16"
-}
-},
-{
-"isbn": "9782384960170",
-"titre": "Il Divino T01",
-"dates": {
-"editeur:hachette": "2026-09-30",
-"editeur:nautiljon": "2026-09-23"
-}
-},
 {
 "isbn": "9782344075258",
 "titre": "Baptism - Édition originale - Tome 02",
@@ -452,50 +428,42 @@
 }
 },
 {
-"isbn": "9791043312243",
-"titre": "Blue Period T19",
+"isbn": "9782382884768",
+"titre": "The Villainess Turns the Hourglass - Tom",
 "dates": {
-"editeur:hachette": "2027-01-27",
-"editeur:nautiljon": "2026-12-02"
+"editeur:nautiljon": "2026-12-03",
+"editeur:delcourt": "2026-12-10"
 }
 },
 {
 "isbn": "9782382884676",
-"titre": "Noblesse T08",
+"titre": "Noblesse - Tome 8",
 "dates": {
-"editeur:delcourt": "2026-12-10",
-"editeur:nautiljon": "2026-12-03"
-}
-},
-{
-"isbn": "9782382884768",
-"titre": "The Villainess Turns the Hourglass T04",
-"dates": {
-"editeur:delcourt": "2026-12-10",
-"editeur:nautiljon": "2026-12-03"
+"editeur:nautiljon": "2026-12-03",
+"editeur:delcourt": "2026-12-10"
 }
 },
 {
 "isbn": "9782302108783",
-"titre": "Animal Crossing : New Horizons - Le Jour",
+"titre": "Animal Crossing - New Horizons - Le Jour",
 "dates": {
-"editeur:soleil": "2027-01-21",
-"editeur:nautiljon": "2026-12-10"
+"editeur:nautiljon": "2026-12-10",
+"editeur:soleil": "2027-01-21"
 }
 }
 ],
-"le": "2026-11-22T20:03Z"
+"le": "2026-11-23T01:09Z"
 },
-"fiches_lues": 60,
+"fiches_lues": 16,
 "erreurs": 10
 },
-"secondes_editeurs": 1270,
+"secondes_editeurs": 635,
 "dates_relues": {
-"fiches": 0,
+"fiches": 11,
 "changees": []
 },
 "ecarts_libraire": {
-"nombre": 4,
+"nombre": 2,
 "exemples": [
 {
 "isbn": "9782226518132",
@@ -508,136 +476,124 @@
 "titre": "Orakle",
 "libraire": "2099-12-31",
 "editeur:albinmichel": "2027-01-06"
-},
-{
-"isbn": "9782226510709",
-"titre": "Mères et fils",
-"libraire": "2099-12-31",
-"editeur:albinmichel": "2027-01-13"
-},
-{
-"isbn": "9782226504654",
-"titre": "Sourire au vent",
-"libraire": "2099-12-31",
-"editeur:albinmichel": "2027-01-13"
 }
 ]
 },
-"editeurs_at": "2026-11-22T20:03Z",
+"editeurs_at": "2026-11-23T01:09Z",
 "listes": 582,
 "lues": 21,
 "en_attente": 0,
 "plus_loin": "2099-12-31",
 "nettoyes": 0,
-"doublons": 123,
+"doublons": 75,
 "sources": {
 "leslibraires": {
 "pages_listes": 75,
 "echecs": 0,
-"secondes_listes": 392,
-"pages": 96,
-"reprises": 2,
+"secondes_listes": 381,
+"pages": 107,
+"reprises": 1,
 "fiches_lues": 21,
-"secondes": 497,
+"secondes": 542,
 "statut": "ok",
 "livres": 726
 },
 "hachette": {
 "statut": "ok",
-"livres": 1416,
-"pages": 122,
-"secondes": 365,
+"livres": 247,
+"pages": 21,
+"secondes": 61,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
-"en_base": 1307
+"le": "2026-11-23T01:09Z",
+"en_base": 1306
 },
 "glenat": {
 "statut": "ok",
-"livres": 310,
-"pages": 23,
-"secondes": 69,
+"livres": 67,
+"pages": 11,
+"secondes": 33,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 284
 },
 "seuil": {
 "statut": "ok",
-"livres": 106,
-"pages": 9,
-"secondes": 27,
+"livres": 9,
+"pages": 4,
+"secondes": 13,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 86
 },
 "nautiljon": {
 "statut": "ok",
-"livres": 1647,
-"pages": 9,
-"secondes": 27,
+"livres": 439,
+"pages": 3,
+"secondes": 9,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
-"en_base": 1189
+"le": "2026-11-23T01:09Z",
+"en_base": 1190
 },
 "manganews": {
 "statut": "ok",
-"livres": 242,
-"pages": 87,
-"secondes": 263,
+"livres": 64,
+"pages": 37,
+"secondes": 111,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
-"en_base": 193
+"le": "2026-11-23T01:09Z",
+"en_base": 194
 },
 "bdgest": {
 "statut": "erreur",
 "livres": 0,
 "pages": 10,
-"secondes": 27,
+"secondes": 30,
 "erreurs": 10,
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 404
 },
 "dargaud": {
 "statut": "ok",
 "livres": 14,
 "pages": 6,
-"secondes": 18,
+"secondes": 19,
 "erreurs": 0,
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 14
 },
 "delcourt": {
@@ -649,9 +605,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 71
 },
 "soleil": {
@@ -663,9 +619,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 31
 },
 "lombard": {
@@ -677,9 +633,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 31
 },
 "kana": {
@@ -691,9 +647,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 78
 },
 "casterman": {
@@ -705,9 +661,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 30
 },
 "ruedesevres": {
@@ -719,9 +675,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 4
 },
 "dupuis": {
@@ -733,9 +689,9 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 10
 },
 "bedetheque": {
@@ -747,131 +703,131 @@
 "fenetre": [
 "complet",
 "2026-09-01",
-"2027-05-27"
+"2027-05-28"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 0
 },
 "michellafon": {
 "statut": "ok",
-"livres": 64,
+"livres": 13,
 "pages": 39,
-"secondes": 115,
+"secondes": 116,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 60
 },
 "jailu": {
 "statut": "ok",
-"livres": 29,
+"livres": 6,
 "pages": 1,
-"secondes": 4,
+"secondes": 24,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 28
 },
 "bragelonne": {
 "statut": "vide",
 "livres": 0,
 "pages": 1,
-"secondes": 3,
+"secondes": 2,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 0
 },
 "albinmichel": {
 "statut": "ok",
-"livres": 71,
+"livres": 21,
 "pages": 6,
 "secondes": 18,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 67
 },
 "hugo": {
 "statut": "ok",
-"livres": 16,
+"livres": 3,
 "pages": 17,
-"secondes": 53,
+"secondes": 52,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 16
 },
 "points": {
 "statut": "ok",
-"livres": 71,
+"livres": 13,
 "pages": 1,
 "secondes": 2,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 71
 },
 "bayard": {
 "statut": "ok",
-"livres": 53,
+"livres": 4,
 "pages": 3,
 "secondes": 9,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 53
 },
 "milan": {
 "statut": "ok",
-"livres": 49,
+"livres": 5,
 "pages": 3,
 "secondes": 9,
 "erreurs": 0,
 "fenetre": [
-"complet",
-"2026-09-01",
-"2027-05-27"
+"proche",
+"2026-11-09",
+"2027-01-07"
 ],
-"le": "2026-11-22T20:03Z",
+"le": "2026-11-23T01:09Z",
 "en_base": 49
 }
 },
-"duree_secondes": 1768,
+"duree_secondes": 1178,
 "prix": {
 "lus": 0,
 "trouves": 0,
 "avec_prix": 4040,
 "reste": 0,
-"total": 4802,
+"total": 4803,
 "auteurs_deduits": 1
 }
 },
@@ -971,7 +927,7 @@
 },
 {
 "id": "ed:9782036089839",
-"title": "1,2,3, te voilà !",
+"title": "2,3, te voilà !",
 "authors": [
 "Marion Donon",
 "Toni Galmés"
@@ -4290,25 +4246,6 @@
 "source": "editeur:nautiljon"
 },
 {
-"id": "ed:9782382883488",
-"title": "100 - Tome 3",
-"authors": [],
-"publisher": "Kbooks",
-"date": "2026-09-03",
-"isbn": "9782382883488",
-"pages": 0,
-"format": "",
-"prix": 14.95,
-"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
-"description": "",
-"rayons": [
-"Manga"
-],
-"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
-"kind": "bd",
-"source": "editeur:nautiljon"
-},
-{
 "id": "ed:bdgest:544056",
 "title": "Cassidy - Tome 7 - Un pacte Criminel",
 "authors": [
@@ -5147,6 +5084,25 @@
 "source": "editeur:nautiljon"
 },
 {
+"id": "ed:9782382883488",
+"title": "Tome 3",
+"authors": [],
+"publisher": "Kbooks",
+"date": "2026-09-03",
+"isbn": "9782382883488",
+"pages": 0,
+"format": "",
+"prix": 14.95,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/91/100_3_edition_reliee_francaise1036019.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/100/volume-3,1036019.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ed:bdgest:543938",
 "title": "Uri Tupka et les dieux",
 "authors": [
@@ -5274,9 +5230,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505142133-couv-M300x425.jpg",
 "description": "Boruto et Kawaki voient leur situation inversée. Boruto est considéré comme un traître qui a assassiné Naruto et il est recherché depuis trois ans. Code et les sbires de crasses attaquent le village caché de Konoha et, pendant que...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/boruto-two-blue-vortex-t6/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -5318,9 +5272,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143512-couv-M300x425.jpg",
 "description": "« Dépêche-toi de t’y habituer. Nous deux, on va faire des choses encore plus dingues… » Discuter avec une amie à cœur ouvert, échanger un « baiser d’adulte » avec Zen… Risa expérimente de nombreuses premières fois....",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/cest-de-lamour-crois-moi-t7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -5531,9 +5483,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143352-couv-M300x425.jpg",
 "description": "Dans ce tome, Shinichi et Ran sont très jeunes. Ils essaient de réparer un robinet qui fuit dans un parc et ce sont cinq élèves de l’académie de police qui vont les aider ! Les jeunes détectives visitent le siège de la police de...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/detective-conan-t107/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -6094,9 +6044,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143475-couv-M300x425.jpg",
 "description": "“Tu te souviens de moi ?” Attirés par un murmure étrange, Adonis et Doroka atteignent le cœur d’une profonde forêt scellée. C’est alors qu’une sorcière qui vivait jadis avec Doroka fait son apparition… “La chasse...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/the-kingdoms-of-ruin-t12/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -10215,9 +10163,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505132509-couv-M300x425.jpg",
 "description": "La montagne de feu Sakurajima surgit des flots. Piégée par le redoutable général Shidô, Sarasa lutte sur une terre tremblante, jusqu’à ce qu’Hayato intervienne en décochant une flèche. Alors qu’un émissaire du mystérieux...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/basara-star-edition-t3/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -10589,9 +10535,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505142829-couv-M300x425.jpg",
 "description": "Chihiro fait tout pour prouver à Samura sa détermination et le rôle qu’il a à jouer. Pendant ce temps, Hishaku, malgré le nombre restreint de ses membres, attaque le siège du Kamunabi à Tokyo ! Alors que Hakuri et Uruha se...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/kagurabachi-t10/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -11188,9 +11132,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143031-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/the-yakuzas-guide-to-babysitting-t15/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -11249,9 +11191,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144342-couv-M300x425.jpg",
 "description": "L’Ultra Red débarque sur le marché pour prendre le contrôle du business des e-liquides ! Mais, Kagayama craignant que ce nouveau produit, jouant avec les limites, ne trouve pas son public, se sent mis à l’écart du business de...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/tokyo-cannabis-t8/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -15917,9 +15857,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505126225-couv-M300x425.jpg",
 "description": "« Il y a longtemps, nos ancêtres ont conclu un pacte avec les divinités en échange de dons. Ils nous ont facilité la vie dans les terres gelées, mais, lorsque les bêtes marines sont arrivées, les eaux se sont imprégnées de leur...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/kohva-t2/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -16208,9 +16146,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505141198-couv-M300x425.jpg",
 "description": "C’est le grand jour pour Lucie ! Guitare sur le dos et espoirs en poche, elle fonce pour être à l’heure à son audition. Léo, chasseur de démons pour l’agence No Devil, est sur le point d’attraper sa proie. Et c’est là que...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/no-devil-t2/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -16456,9 +16392,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505141969-couv-M300x425.jpg",
 "description": "Le monde porte encore les cicatrices d’une guerre provoquée par la découverte de mystérieuses pépites d’or capables de repousser les limites du corps humain. L’État en réserve désormais l’usage à une milice d’élite...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/supernova-t1/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -16559,9 +16493,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144625-couv-M300x425.jpg",
 "description": "“Un an avant que commence le rituel, j’ai mis mon plan à exécution.” Yoshie, la mère de Yuzuki, nous a raconté le passé de la famille Katabuchi. Il semblerait que les descendants de la famille soient prisonniers d’une...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/the-strange-house-t5/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -16580,9 +16512,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144526-couv-M300x425.jpg",
 "description": "Professeur d’art dans un lycée, Yoshiharu Miura a été retrouvé mort en pleine montagne, sur le mont K. Sur les lieux se trouvait son dernier dessin, un croquis de la vue depuis le 8e palier du mont K, esquissé au dos d’un ticket...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/the-strange-pictures-t3/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -21500,10 +21430,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144205-couv-M300x425.jpg",
 "description": "Le petit-fils d’Arsène Lupin se lance en quête de la Merveille, un trésor que son aïeul a toujours souhaité dérober sans jamais le trouver… Pour relever ce défi impossible, Lupin, accompagné de ses inséparables complices, le...",
-"rayons": [
-"Manga",
-"One-shot"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/lupin-iii/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -21520,9 +21447,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144076-couv-M300x425.jpg",
 "description": "Au programme, un magazine de pré-publication avec : des récits inédits, des one-shots et des récits à suivre, mettant en avant des styles graphiques variés et des genres multiples. Fruit d’une collaboration inédite entre quatre...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/manga-issho-7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -21668,9 +21593,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505141358-couv-M300x425.jpg",
 "description": "Les Chevaliers d’Athéna ont disparu ! Mais, alors qu’une nouvelle menace plane sur la Terre, Hadès n’a pas d’autre choix que de ressusciter Poséidon et ses Marinas pour arrêter Némésis, l’incarnation de la colère divine....",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/saint-seiya-rerise-of-poseidon-t1/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -21689,9 +21612,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505142911-couv-M300x425.jpg",
 "description": "À l’époque où il était encore humain, Ky Luck a été élevé par sa mère qui souhaitait qu’il devienne quelqu’un de fort. Quel lien avait-il autrefois avec Urd?? Le voici à présent en train de livrer un violent combat contre...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/seraph-of-the-end-t34/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -21852,9 +21773,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505134435-couv-M300x425.jpg",
 "description": "Après avoir perdu une bataille décisive face à Moronao, Tokiyuki s'enfuit vers Yoshino, où siège la cour du Sud. Il présente à l'empereur Go-Daigo un mémoire laissé par Akiie… mais s'attire ainsi sa colère et risque d'être...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/the-elusive-samurai-t20/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -21915,9 +21834,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143055-couv-M300x425.jpg",
 "description": "Shadi, un mystérieux homme venu d’Égypte, a pris Anzu en otage et a lancé une série de jeux des ténèbres pour apprendre le secret du “pouvoir” du “Puzzle du Millénium” ! Yûgi parviendra-t-il à remporter ces épreuves et...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/yu-gi-oh-edition-millenium-t2/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -26478,9 +26395,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505142126-couv-M300x425.jpg",
 "description": "Tandis qu'ils continuent leurs activités de jeunes héros, Tobio et Ponta se font enlever par une secte. Six s'empresse de voler à leur secours… En parallèle, la campagne électorale qui déterminera l'avenir du Japon et des robots...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/atom-the-beginning-t22/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -26746,9 +26661,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505140535-couv-M300x425.jpg",
 "description": "Renji Jibo est le Genkai Tempei qui défend la porte menant à la citadelle interne ! Face à ses qualités physiques extraordinaires, Gama réplique avec sa maîtrise technique. Iori et ses camarades, qui arrivent les premiers dans la...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/gamaran-le-tournoi-ultime-t30/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -27350,9 +27263,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505142874-couv-M300x425.jpg",
 "description": "De retour dans le désert, Sensei et ses compagnons tombent sur un homme qui erre à la recherche d’un moyen de lever la malédiction que lui a jetée la déesse de la mort. Les anges déchus de la mélancolie et de la paresse, les...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/no-longer-allowed-in-another-world-t12/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -27603,9 +27514,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143017-couv-M300x425.jpg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/shy-t30/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -27803,9 +27712,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505141389-couv-M300x425.jpg",
 "description": "Incapable de renoncer à Harutaka, Miya lui fait sa déclaration, alors même qu’il sort avec son amie. Elle est persuadée qu’il ne veut pas d’elle, mais elle ignore que l’attachement excessif d’Itone envers Harutaka envenime...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/yoru-ni-kikasete-t2/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -36569,9 +36476,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505185192-couv-M300x425.jpg",
 "description": "Dans cette aventure inédite du Capitaine Albator, une équipe de scientifique a découvert un mausolée de Sylvidres et des informations où il est fait mention de manipulations génétiques et d’un pouvoir destructeur terrifiant....",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/capitaine-albator-memoire-de-larcadia-integrale/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -36630,9 +36535,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505127611-couv-M300x425.jpg",
 "description": "Actuellement, une bonne partie des élèves sont soumis au puissant Bandô, un élève de terminale. Seul le trio d’Ebizuka lui tient encore tête de façon ostensible. Aux yeux de Bandô aussi, ces gars-là sont les derniers remparts à...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/crows-t8/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -36772,9 +36675,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505141310-couv-M300x425.jpg",
 "description": "Shintarô a été accepté à l’académie des beaux-arts et Kyôko, elle, est devenue une artisane confirmée. Tous deux poursuivent leur propre voie, tout en faisant grandir leur amour. Enfin, après neuf mois interminables, doit avoir...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/esquisses-de-nos-coeurs-en-devenir-t3/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -36910,9 +36811,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144243-couv-M300x425.jpg",
 "description": "Izumi, l'ex-lieutenant de Kyôgoku est sorti de prison. Alors que les projets de Mibu continuent d'avancer dans l'ombre. La menace du clan Fushimi semble se rapprocher de plus en plus de Kujô et de Mibu. En parallèle, Sogabe semble de...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/kujo-limplacable-t14/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -37743,9 +37642,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144649-couv-M300x425.jpg",
 "description": "Les paroles du roi des Dentés plongent le champ de bataille dans un chaos total, faisant du Saint du Soleil la première cible de tous. Alors que la Secte du Soleil semble acculée, un homme aux pouvoirs inconnus, le Bretteur éternel,...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/ragna-crimson-t17/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -44648,9 +44545,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143444-couv-M300x425.jpg",
 "description": "Iroha Hôshô est une lycéenne qui a du mal à engager une simple conversation avec les personnes de son âge. Les autres élèves pensent qu’elle est toujours de mauvaise humeur et commencent à abandonner l’idée de nouer un contact...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/yume-ka-utsutsu-ka-t1/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -44689,9 +44584,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505124733-couv-M300x425.jpg",
 "description": "Hina et Takaaki ont sauvé Hinako, enlevée par la troupe Amahisa. Touchée par la sincérité de Takaaki, Hina décide de s’ouvrir à lui. De son côté, Taketora est toujours à la recherche du propriétaire du collier, dont il...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/serenade-pour-une-pluie-de-larmes-t7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -54794,7 +54687,7 @@
 },
 {
 "id": "ed:9782492463501",
-"title": "1, 2, 3 et 4, 5, Roku - Tome 1",
+"title": "2, 3 et 4, 5, Roku - Tome 1",
 "authors": [],
 "publisher": "",
 "date": "2026-10-30",
@@ -55667,9 +55560,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144014-couv-M300x425.jpg",
 "description": "À la quatrième porte, se dresse Taihaku, un véritable dieu guerrier doté d’une force écrasante et animé par sa vision de l’avenir des Mibu. Face à lui, Tigre Rouge, déterminé à «?vaincre son propre moi?», relève le défi....",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/samurai-deeper-kyo-star-edition-t10/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -55688,9 +55579,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143314-couv-M300x425.jpg",
 "description": "Le tournoi inter-lycée est enfin terminé ! Il reste 1 mois à Shôhoku pour s'entraîner à fond en prévision du tant attendu tournoi national ! Alors que Sakuragi profite des quelques jours de repos avant le début de son stage...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/slam-dunk-deluxe-t17/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -55709,9 +55598,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144434-couv-M300x425.jpg",
 "description": "La rivalité déplacée avec Kawakami autour de Tayama provoque chez Sasaki des prises de conscience et des remises en question inattendues. Yamada et Tayama. Plus il tente de comprendre les deux jeunes femmes, plus ses interrogations...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/smoking-behind-the-supermarket-with-you-t7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -55730,9 +55617,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505140030-couv-M300x425.jpg",
 "description": "Grâce à Julia, qui a réussi à activer sa capacité Unjustice, Fûko et ses compagnons ont pu repousser les maîtres des règles primordiales. Mais ils ignorent toujours où se trouve le troisième Jingi, le dernier élément dont ils...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/undead-unluck-t27/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -61656,7 +61541,8 @@
 ],
 "url": "https://www.nautiljon.com/mangas/punch+drunk+love/volume-3,1037821.html",
 "kind": "bd",
-"source": "editeur:nautiljon"
+"source": "editeur:nautiljon",
+"date_autre": "2026-11-12"
 },
 {
 "id": "ll:26545947",
@@ -62085,9 +61971,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144786-couv-M300x425.jpg",
 "description": "Sarada éveille le Mangekyô Sharingan, un pouvoir qu’elle avait inconsciemment scellé ! Elle commence sa riposte contre Ryû qui possède une force écrasante et manipule la limaille de fer !! De son côté, Boruto prend enfin part au...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/boruto-two-blue-vortex-t7/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -62214,13 +62098,11 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505142034-couv-M300x425.jpg",
 "description": "Découvrez dans ce recueil une compilation de 6 histoires courtes, qui nous replongent dans l’univers de Death Note, plusieurs années après la défaite de Kira face à Near ! Les dieux de la mort continuent de se jouer des humains, et...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/death-note-black-edition-t7/",
 "kind": "bd",
 "source": "editeur:kana",
-"prix": 13.25
+"prix": 11.5
 },
 {
 "id": "ed:9782021627442",
@@ -62379,9 +62261,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144656-couv-M300x425.jpg",
 "description": "Azami a beau frapper sans se ménager, la puissance écrasante du Shinuchi, manié par Yura, le met à mal. Pendant ce temps, Chihiro et Samura, qui se sont précipités sur les lieux dans l’espoir de renverser la situation, sont...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/kagurabachi-t11/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -63251,9 +63131,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505144298-couv-M300x425.jpg",
 "description": "Le Grand Pope, qui complotait l'assassinat d'Athéna et avait trompé le Sanctuaire, n’était autre que le chevalier d'Or des Gémeaux. Bien qu'ayant perdu ses cinq sens, Seiya continue de brûler son Cosmos... Le combat final pour...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/saint-seiya-final-edition-t9/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -71212,7 +71090,7 @@
 "url": "https://www.leslibraires.fr/livre/26605106-le-livre-de-madame-jean-marie-helene-lafon-metis",
 "kind": "roman",
 "prix": 24.0,
-"lu": "2026-11-22"
+"lu": "2026-11-23"
 },
 {
 "id": "ll:26643967",
@@ -71401,6 +71279,26 @@
 "kind": "",
 "lu": "2026-11-20",
 "prix": 21.0
+},
+{
+"id": "ed:manganews:paraiso-machiko-kyo",
+"title": "Paraiso (Machiko Kyô)",
+"authors": [
+"Machiko Kyô"
+],
+"publisher": "Imho",
+"date": "2026-11-20",
+"isbn": "",
+"pages": 0,
+"format": "",
+"cover": "https://www.manga-news.com/public/images/vols/.Para_so-_IMHO_medium.webp",
+"description": "Dans une église isolée au bord d’un lac, à l’atelier Paraíso, des jeunes filles s’appliquent à apprendre la peinture. Ce serait un parfait havre de paix, si l’omniprésence de la guerre ne hantait pas les corps et les esprits....",
+"rayons": [
+"Manga"
+],
+"url": "https://www.manga-news.com/index.php/manga/Paraiso-Machiko-Kyo",
+"kind": "bd",
+"source": "editeur:manganews"
 },
 {
 "id": "ll:26622891",
@@ -71637,7 +71535,7 @@
 "url": "https://www.leslibraires.fr/livre/26515638-aux-arbres-des-forets-a-defendre-gaspard-d-allens-collectif-revue-dessinee",
 "kind": "",
 "prix": 22.0,
-"lu": "2026-11-22"
+"lu": "2026-11-23"
 },
 {
 "id": "ed:manganews:blooming",
@@ -71744,7 +71642,7 @@
 "url": "https://www.leslibraires.fr/livre/26526091-la-femme-de-menage-mcfadden-suro-imagine-graphic",
 "kind": "bd",
 "prix": 23.9,
-"lu": "2026-11-22"
+"lu": "2026-11-23"
 },
 {
 "id": "ed:9782253915515",
@@ -71837,7 +71735,7 @@
 "url": "https://www.leslibraires.fr/livre/26547153-adios-muchachos-olivier-de-kersauson-le-cherche-midi",
 "kind": "",
 "prix": 19.8,
-"lu": "2026-11-22"
+"lu": "2026-11-23"
 },
 {
 "id": "ed:9782413089889",
@@ -72019,7 +71917,7 @@
 "url": "https://www.leslibraires.fr/livre/26547626-personne-n-est-tout-blanc-nouvelle-edition--voutch-le-cherche-midi",
 "kind": "bd",
 "prix": 29.8,
-"lu": "2026-11-22"
+"lu": "2026-11-23"
 },
 {
 "id": "ed:9782302104907",
@@ -72206,7 +72104,7 @@
 "Occasion"
 ],
 "url": "https://www.leslibraires.fr/livre/26627747-bonne-nuit-marie-mirgaine-editions-les-fourmis-rouges",
-"lu": "2026-11-22",
+"lu": "2026-11-23",
 "kind": "jeunesse"
 },
 {
@@ -72651,7 +72549,7 @@
 "Accueil"
 ],
 "url": "https://www.leslibraires.fr/livre/26621539-ne-sauvez-pas-xavier-simon-bournel-bosson-xavier-rosset-les-baladeurs",
-"lu": "2026-11-22",
+"lu": "2026-11-23",
 "kind": "bd"
 },
 {
@@ -73873,6 +73771,25 @@
 "prix": 7.2
 },
 {
+"id": "ed:9791043312243",
+"title": "Blue Period - Tome 19",
+"authors": [],
+"publisher": "Pika",
+"date": "2026-12-02",
+"isbn": "9791043312243",
+"pages": 0,
+"format": "",
+"prix": 7.7,
+"cover": "https://www.nautiljon.com/images/manga_volumes/12/93/blue_period_191036839.webp",
+"description": "",
+"rayons": [
+"Manga"
+],
+"url": "https://www.nautiljon.com/mangas/blue+period/volume-19,1036839.html",
+"kind": "bd",
+"source": "editeur:nautiljon"
+},
+{
 "id": "ll:26640182",
 "title": "Changer l'eau des fleurs - Édition Film",
 "authors": [
@@ -73894,7 +73811,7 @@
 "url": "https://www.leslibraires.fr/livre/26640182-changer-l-eau-des-fleurs-edition-film-valerie-perrin-le-livre-de-poche",
 "kind": "roman",
 "prix": 10.9,
-"lu": "2026-11-22"
+"lu": "2026-11-23"
 },
 {
 "id": "ed:9782382814864",
@@ -74073,7 +73990,7 @@
 "Fake"
 ],
 "url": "https://www.leslibraires.fr/livre/26865867-fake-serena-giuliano-le-livre-de-poche",
-"lu": "2026-11-22",
+"lu": "2026-11-23",
 "kind": "roman"
 },
 {
@@ -76229,7 +76146,7 @@
 "Chanel - année après année"
 ],
 "url": "https://www.leslibraires.fr/livre/26547794-chanel-annee-apres-annee-caroline-young-place-des-victoires",
-"lu": "2026-11-18",
+"lu": "2026-11-23",
 "kind": ""
 },
 {
@@ -76541,7 +76458,7 @@
 "LGBTQomics - Représentations et cultures LGBTQIA+ dans la bande dessinée, 1900-2026"
 ],
 "url": "https://www.leslibraires.fr/livre/26547312-lgbtqomics-representations-et-cultures-lgbtqia-dans-la-bande-dessinee-1900-2026-jennequin-jean-paul-anamosa",
-"lu": "2026-11-03",
+"lu": "2026-11-23",
 "kind": "bd"
 },
 {
@@ -81011,8 +80928,7 @@
 ],
 "url": "https://www.nautiljon.com/mangas/la+belle+et+le+badass/volume-6,1037559.html",
 "kind": "bd",
-"source": "editeur:nautiljon",
-"date_autre": "2027-04-28"
+"source": "editeur:nautiljon"
 },
 {
 "id": "ll:26771159",
@@ -84001,9 +83917,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505197065-couv-M300x425.jpg",
 "description": "Le vaccin entre dans sa dernière phase de conception avec des tests cliniques à Fukuoka, mais une demande de secours reçue par radio vient rebattre toutes les cartes ! Alors qu’un nombre sans précédent de zombies se rue sur le...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/bucket-list-of-the-dead-t20/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -86157,9 +86071,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413093978.jpg?itok=uvnAprj-",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-ce-vide-au-fond-de-moi/album-ce-vide-au-fond-de-moi-t05",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -86608,9 +86520,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413094791.jpg?itok=yylyTQt9",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-strand/album-strand-t03",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -86629,9 +86539,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382882009.jpg?itok=gNAYgka7",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-legendary-moonlight-sculptor/album-legendary-moonlight-sculptor-t04",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -86650,9 +86558,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382883952.jpg?itok=xKC_A4oO",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-true-beauty/album-true-beauty-t18",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -87230,9 +87136,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505124740-couv-M300x425.jpg",
 "description": "Après plusieurs occasions manquées, Hina et Takaaki finissent enfin par s’avouer leurs sentiments. Takaaki est affecté à l’agence de Yokohama, ville où se rend secrètement Hina en compagnie de Kikunoshin afin d’enquêter sur le...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/serenade-pour-une-pluie-de-larmes-t8/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -89047,9 +88951,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413090205.jpg?itok=jtSbHbkb",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-blue-box/album-blue-box-t14",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89068,9 +88970,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382885628.jpg?itok=1dLzWi_a",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-daisy-comment-devenir-la-fiancee-du-duc/album-daisy-comment-devenir-la-fiancee-du-duc-t06",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89130,9 +89030,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302105423.jpg?itok=RwRrxnPb",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-dorohedoro/album-dorohedoro-t09-chaos-edition",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -89232,9 +89130,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413090274.jpg?itok=9h87CqOg",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-quatre-filles-et-une-coloc/album-quatre-filles-et-une-coloc-t03",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89253,9 +89149,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413096450.jpg?itok=KWa2yBT0",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-jojo-s-rohan-kishibe/album-rohan-kishibe-t03",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89291,9 +89185,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413097679.jpg?itok=_6oAFpP_",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-sorciere-d-un-autre-monde/album-sorciere-d-un-autre-monde-t09",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89312,9 +89204,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782413090021.jpg?itok=9Lvq0UfT",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/mangas/series/serie-spring-storm-and-monster/album-spring-storm-and-monster-t03",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89333,9 +89223,7 @@
 "format": "",
 "cover": "https://www.editions-soleil.fr/sites/default/files/styles/catalogue/public/product/9782302109100.jpg?itok=7GsGaSPT",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-soleil.fr/mangas/series/serie-super-ball-girls/album-super-ball-girls-t06",
 "kind": "bd",
 "source": "editeur:soleil",
@@ -89354,9 +89242,7 @@
 "format": "",
 "cover": "https://www.editions-delcourt.fr/sites/default/files/styles/catalogue/public/product/9782382884713.jpg?itok=g85o2SeP",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.editions-delcourt.fr/kbooks/series/serie-broken-ring/album-broken-ring-t04",
 "kind": "bd",
 "source": "editeur:delcourt",
@@ -89883,29 +89769,6 @@
 "url": "https://www.nautiljon.com/mangas/angel+heart+-+1st+season/volume-1,1043131.html",
 "kind": "bd",
 "source": "editeur:nautiljon"
-},
-{
-"id": "ed:9791043312243",
-"title": "Blue Period T19",
-"authors": [
-"Tsubasa Yamaguchi"
-],
-"publisher": "Pika",
-"date": "2027-01-27",
-"isbn": "9791043312243",
-"pages": 0,
-"format": "Poche",
-"cover": "https://www.images.hachette-livre.fr/media/imgArticle/PIKA/2026/9791043312243-001-X.jpeg",
-"description": "Dans le cadre du programme universitaire, les élèves du département de peinture à l’huile se rendent à Kyôto pour le VOA, le traditionnel “voyage d’observation de l’art ancien”. Découvrant les grands Bouddhas et les...",
-"rayons": [
-"Mangas",
-"BD Mangas"
-],
-"url": "https://www.hachette.fr/livre/blue-period-t19-9791043312243/",
-"kind": "bd",
-"source": "editeur:hachette",
-"date_autre": "2026-12-02",
-"prix": 7.7
 },
 {
 "id": "ll:26870815",
@@ -90875,9 +90738,7 @@
 "format": "",
 "cover": "https://bdi.dlpdomain.com/album/9782505143079-couv-M300x425.jpg",
 "description": "Après avoir essuyé une défaite écrasante face à Yûgi à Magic & Wizards, Kaiba lance le “DEATH-T” pour prendre sa revanche ! Afin de sauver Sugoroku, retenu en otage, Yûgi décide d’y participer. Parviendra-t-il à venir...",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.kana.fr/produit/yu-gi-oh-edition-millenium-t4/",
 "kind": "bd",
 "source": "editeur:kana",
@@ -92985,13 +92846,10 @@
 "format": "",
 "cover": "",
 "description": "",
-"rayons": [
-"Manga"
-],
+"rayons": [],
 "url": "https://www.casterman.com/Bande-dessinee/Catalogue/sukima-4/9782203303911",
 "kind": "bd",
-"source": "editeur:casterman",
-"date_autre": "2027-04-14"
+"source": "editeur:casterman"
 },
 {
 "id": "ed:9782344078662",
